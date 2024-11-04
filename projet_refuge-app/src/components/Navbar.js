@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = () => {
     return (
         <nav>
-        <div class="logo-nav">
+        <div className="logo-nav">
           <a href="home.html">
             <img
               src="../public/img/logo cafet.webp"
