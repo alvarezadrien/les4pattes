@@ -2,12 +2,6 @@ body {
   background-color: blueviolet;
 }
 
-.navbar {
-  background-color: green;
-  height: 4rem;
-  width: 100%;
-}
-
 .input {
   width: 8rem;
   height: 2rem;
