@@ -6,8 +6,8 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo-nav">
         <a href="home.html">
-          <img
-            src="../public/img/logo cafet.webp"
+          <img className="logo"
+            src="/img/logo_refuge.png"
             alt=""
             width="100px"
             height="100px"
