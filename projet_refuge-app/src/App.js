@@ -1,24 +1,22 @@
-import React from "react";
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';  
+import './index.css';
 
-// import Navbar from './components/Navbar/Navbar'
-// import Home from './components/Home'
-// import Footer from './components/Footer'
-// import './index.css';
-
-
-
-function App() {
+const App = () => {
   return (
-    <router>
-        <div>
-          <routes>
-              <route path="/Navabar" element={<Navbar />}/>
-          </routes>
-        </div>
-    </router>
+    <Router>
+      <Navbar />
+      <div>
+        <Routes>
+          <Route path="/refuge" element={<div>Refuge Page</div>} />
+          <Route path="/animaux" element={<div>Animaux Page</div>} />
+          <Route path="/adoption" element={<div>Adoption Page</div>} />
+          <Route path="/membres" element={<div>Membres Page</div>} />
+          <Route path="/contact" element={<div>Contact Page</div>} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
