@@ -1,0 +1,21 @@
+.nav_ul li {
+  list-style-type: none;
+}
+
+.nav_ul {
+  display: flex;
+  gap: 6rem;
+  justify-content: center;
+}
+
+.nav_ul a {
+  text-decoration: none;
+  /* color: white; */
+  color: black;
+}
+
+.navbar {
+  background-color: #778d45;
+  height: 4rem;
+  width: 100%;
+}
