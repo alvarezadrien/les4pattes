@@ -14,19 +14,20 @@
 .h1_titre {
   color: white;
   margin-top: -20rem;
-  font-size: 2.5rem;
+  font-size: 4rem;
   margin-left: 20rem;
   padding-top: 4rem;
 }
 
 .paragraphe_container {
   color: white;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  margin-left: 15rem;
 }
 
 .circle_img0 {
-  margin-top: -5rem;
-  margin-right: 6rem;
+  margin-top: -12rem;
+  margin-right: 5rem;
 }
 
 .circle_img1 img {
@@ -53,7 +54,11 @@
 .button_propos {
   background-color: #778d45;
   border-radius: 50px;
-  width: 8rem;
-  height: 2rem; 
+  width: 12rem;
+  height: 3rem;
   border: #778d45;
+  margin-left: 40rem;
+  margin-top: 13rem;
+  font-size: 1.5rem;
+  color: white;
 }
