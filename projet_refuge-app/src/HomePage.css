@@ -62,3 +62,136 @@
   font-size: 1.5rem;
   color: white;
 }
+
+.container_choix {
+  background-color: #f4eaca;
+  height: 30rem;
+  display: flex;
+  gap: 15rem;
+  justify-content: center;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  padding: 0;
+}
+
+.container_choix img {
+  border-radius: 100%;
+  margin-top: 5rem;
+}
+
+.button_choix_chiens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5.5rem;
+  margin-top: 1.5rem;
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 1.8rem;
+  border-radius: 50px;
+  border: 2px solid #778d45;
+  color: #778d45;
+}
+
+.button_choix_chats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-left: 6rem;
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 1.8rem;
+  border-radius: 50px;
+  border: 2px solid #778d45;
+  color: #778d45;
+}
+
+.leur_maison h2 {
+  color: #778d45;
+  margin-left: 5rem;
+  font-size: 3rem;
+  transform: rotate(-20deg);
+}
+
+.leur_maison img {
+  float: right;
+  margin-right: 20rem;
+  margin-top: -11rem;
+}
+
+.nombre {
+  color: #778d45;
+  font-size: 4rem;
+  margin-left: 40rem;
+}
+
+.animaux_adopt h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.item {
+  margin-top: 1rem;
+  border: 1px solid black;
+  width: 20rem;
+  height: 26.5rem;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+  background-color: #f4eaca;
+}
+
+.item img {
+  width: 320px;
+  height: 220px;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.item_info h3 {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+.age {
+  font-size: 1.3rem;
+  margin-left: 10rem;
+  margin-top: -3.8rem;
+}
+
+.item_info button {
+  background-color: #778d45;
+  border: #778d45;
+  float: right;
+  margin-right: 3rem;
+  width: 6rem;
+  height: 2rem;
+  font-size: 1.5rem;
+  margin-top: 1.8rem;
+  cursor: pointer;
+}
+
+.item_info span {
+  margin-left: 1rem;
+}
+
+.container_appercu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 8rem;
+}
+
+.button_plus {
+  margin-top: 1rem;
+  margin-left: 39.5rem;
+  background-color: #778d45;
+  border: #778d45;
+  border-radius: 50px;
+  width: 15rem;
+  height: 2.3rem;
+  color: white;
+  font-size: 1.5rem;
+}
