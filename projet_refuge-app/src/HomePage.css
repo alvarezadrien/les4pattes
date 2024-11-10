@@ -1,3 +1,30 @@
-body {
-  color: red;
+.container_img {
+  background-image: url(../public/img/container_imgfond.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 25rem;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-top: -30rem;
+}
+
+h1 {
+  margin-top: 35rem;
+  color: white;
+  font-size: 2.5rem;
+}
+
+.paragraphe_container {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.circle_img img {
+  border-radius: 100%;
+  float: right;
+  margin-right: 5rem;
+  margin-top: -10rem;
 }
