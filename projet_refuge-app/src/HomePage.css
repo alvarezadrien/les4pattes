@@ -3,18 +3,20 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  height: 25rem;
+  height: 30rem;
   width: 100vw;
   top: 0;
   left: 0;
   padding: 0;
-  margin-top: -30rem;
+  margin-top: 25rem;
 }
 
-h1 {
-  margin-top: 35rem;
+.h1_titre {
   color: white;
+  margin-top: -20rem;
   font-size: 2.5rem;
+  margin-left: 20rem;
+  padding-top: 4rem;
 }
 
 .paragraphe_container {
@@ -22,9 +24,36 @@ h1 {
   font-size: 1.5rem;
 }
 
-.circle_img img {
+.circle_img0 {
+  margin-top: -5rem;
+  margin-right: 6rem;
+}
+
+.circle_img1 img {
   border-radius: 100%;
   float: right;
   margin-right: 5rem;
   margin-top: -10rem;
+}
+
+.circle_img2 img {
+  border-radius: 100%;
+  float: right;
+  margin-right: -3rem;
+  margin-top: -10rem;
+}
+
+.circle_img3 img {
+  border-radius: 100%;
+  float: right;
+  margin-right: -18rem;
+  margin-top: 4rem;
+}
+
+.button_propos {
+  background-color: #778d45;
+  border-radius: 50px;
+  width: 8rem;
+  height: 2rem; 
+  border: #778d45;
 }
