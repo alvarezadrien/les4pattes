@@ -234,3 +234,15 @@ h4 {
   margin-left: 40rem;
   cursor: pointer;
 }
+
+.container_aides_soins {
+  background-color: #f4eaca;
+  height: 30rem;
+  width: 100vw;
+}
+
+.container_aides_soins h2 {
+  margin-top: 9rem;
+  text-align: center;
+  padding: 2.5rem;
+}

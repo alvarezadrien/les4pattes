@@ -33,27 +33,27 @@ const HomePage = () => {
             {/* Div container choix */}
             <div className='container_choix'>
                 <div className='container_choix1'>
-                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={280}/>
+                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={280} />
                     <button className='button_choix_chiens'>Chiens</button>
                 </div>
                 <div className='container_choix2'>
-                    <img src="/img/images.jpeg" alt="" width={300} height={280}/>
+                    <img src="/img/images.jpeg" alt="" width={300} height={280} />
                     <button className='button_choix_chats'>Chats</button>
-                </div>          
+                </div>
             </div>
             {/* Div leur maison */}
             <div className='leur_maison'>
                 <h4>Ils ont trouvé une maison</h4>
                 <span className='nombre'>18567</span>
-                <img src="/img/hero-dog.png" alt="" width={280} height={280}/>
+                <img src="/img/hero-dog.png" alt="" width={280} height={280} />
             </div>
             <br /><br /> <br />
             {/* Div animaux à adopter */}
             <div className='animaux_adopt'>
-                <h2> <img src="/img/pattes.png" alt="" width={40} height={40}/>Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40}/></h2>
+                <h2> <img src="/img/pattes.png" alt="" width={40} height={40} />Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
                 <section className='container_appercu'>
                     <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt=""/>
+                        <img src="/img/chien_fiche1.jpg" alt="" />
                         <div className='item_info'>
                             <h3>Diablo</h3>
                             <p className='age'>âge: 2 ans 1/2</p> <br />
@@ -63,7 +63,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt=""/>
+                        <img src="/img/chien_fiche1.jpg" alt="" />
                         <div className='item_info'>
                             <h3>Diablo</h3>
                             <p className='age'>âge: 2 ans 1/2</p> <br />
@@ -73,7 +73,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt=""/>
+                        <img src="/img/chien_fiche1.jpg" alt="" />
                         <div className='item_info'>
                             <h3>Diablo</h3>
                             <p className='age'>âge: 2 ans 1/2</p> <br />
@@ -83,7 +83,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt=""/>
+                        <img src="/img/chien_fiche1.jpg" alt="" />
                         <div className='item_info'>
                             <h3>Diablo</h3>
                             <p className='age'>âge: 2 ans 1/2</p> <br />
@@ -93,7 +93,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt=""/>
+                        <img src="/img/chien_fiche1.jpg" alt="" />
                         <div className='item_info'>
                             <h3>Diablo</h3>
                             <p className='age'>âge: 2 ans 1/2</p> <br />
@@ -103,7 +103,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt=""/>
+                        <img src="/img/chien_fiche1.jpg" alt="" />
                         <div className='item_info'>
                             <h3>Diablo</h3>
                             <p className='age'>âge: 2 ans 1/2</p> <br />
@@ -118,22 +118,33 @@ const HomePage = () => {
             </div>
             {/* Div home propos */}
             <div className='home_propos'>
-                <h2> <img src="/img/pattes.png" alt="" width={40} height={40}/>À propos de nous <img src="/img/pattes.png" alt="" width={40} height={40}/></h2>
+                <h2> <img src="/img/pattes.png" alt="" width={40} height={40} />À propos de nous <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
                 <br />
                 <p className='paragraphe_home_propos'>L’association Protectrice des Animaux Les 4 pattes est l’une des plus <br />
-                anciennes sociétés de protection animale de Belgique. Nous hébergeons <br />
-                des chiens et chats dans notre centre  <br />
-                d’accueils à Bruxelles (Anderlecht) <br />
+                    anciennes sociétés de protection animale de Belgique. Nous hébergeons <br />
+                    des chiens et chats dans notre centre  <br />
+                    d’accueils à Bruxelles (Anderlecht) <br />
                     <br />
-                Nous accueillons en moyenne près de 100 chiens <br />
-                et chats par mois, victimes d’abandons. Nous <br />
-                prenons soin d’eux et nous efforçons de leur <br />
-                trouver des familles pour les adopter.</p>
+                    Nous accueillons en moyenne près de 100 chiens <br />
+                    et chats par mois, victimes d’abandons. Nous <br />
+                    prenons soin d’eux et nous efforçons de leur <br />
+                    trouver des familles pour les adopter.</p>
 
                 <div className='home_propos_img'>
                     <img src="/img/img_home_propos.jpg" alt="" />
                 </div>
                 <button type='button'>Notre histoire</button>
+            </div>
+
+            {/* Div aides soins */}
+            <div className='container_aides_soins'>
+                <h2><img src="/img/pattes.png" alt="" width={40} height={40}/>Nos aides et soins <img src="/img/pattes.png" alt="" width={40} height={40}/></h2>
+                <ul>
+                    <li><img src="" alt="" /></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
             </div>
 
         </div>
