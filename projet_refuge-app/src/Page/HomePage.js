@@ -8,7 +8,7 @@ const HomePage = () => {
             <Navbar />
             {/* Div container intro */}
             <div className='container_img'>
-                <h1 className='h1_titre'>Les 4 pattes <img src="/img/carte_pointer.png" alt="" width={40} height={40} /></h1>
+                <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes.png" alt="" width={40} height={40} /></h1>
 
                 <p className='paragraphe_container'>Notre association pour les animaux <br />
                     perdus et abandonnés, depuis <br />
@@ -43,14 +43,14 @@ const HomePage = () => {
             </div>
             {/* Div leur maison */}
             <div className='leur_maison'>
-                <h2>Ils ont trouvé une maison</h2>
+                <h4>Ils ont trouvé une maison</h4>
                 <span className='nombre'>18567</span>
                 <img src="/img/hero-dog.png" alt="" width={280} height={280}/>
             </div>
             <br /><br /> <br />
             {/* Div animaux à adopter */}
             <div className='animaux_adopt'>
-                <h2>Animaux à adopter</h2>
+                <h2> <img src="/img/pattes.png" alt="" width={40} height={40}/>Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40}/></h2>
                 <section className='container_appercu'>
                     <div className='item'>
                         <img src="/img/chien_fiche1.jpg" alt=""/>
@@ -114,6 +114,26 @@ const HomePage = () => {
                     </div>
                 </section>
                 <button className='button_plus'>Plus d'animaux</button>
+                <br /><br />
+            </div>
+            {/* Div home propos */}
+            <div className='home_propos'>
+                <h2> <img src="/img/pattes.png" alt="" width={40} height={40}/>À propos de nous <img src="/img/pattes.png" alt="" width={40} height={40}/></h2>
+                <br />
+                <p className='paragraphe_home_propos'>L’association Protectrice des Animaux Les 4 pattes est l’une des plus <br />
+                anciennes sociétés de protection animale de Belgique. Nous hébergeons <br />
+                des chiens et chats dans notre centre  <br />
+                d’accueils à Bruxelles (Anderlecht) <br />
+                    <br />
+                Nous accueillons en moyenne près de 100 chiens <br />
+                et chats par mois, victimes d’abandons. Nous <br />
+                prenons soin d’eux et nous efforçons de leur <br />
+                trouver des familles pour les adopter.</p>
+
+                <div className='home_propos_img'>
+                    <img src="/img/img_home_propos.jpg" alt="" />
+                </div>
+                <button type='button'>Notre histoire</button>
             </div>
 
         </div>
