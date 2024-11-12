@@ -1,0 +1,17 @@
+.container_img_propos {
+  background-color: #f4eaca;
+  margin-top: 5rem;
+  height: 30rem;
+  width: 100vw;
+}
+
+.img0 img {
+  border-radius: 50px;
+  margin-top: 2rem;
+}
+
+.img0 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar/Navbar'
 const HomePage = () => {
     return (
         <div>
-            <Navbar />
             {/* Div container intro */}
             <div className='container_img'>
                 <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes.png" alt="" width={40} height={40} /></h1>
@@ -138,7 +137,7 @@ const HomePage = () => {
 
             {/* Div aides soins */}
             <div className='container_aides_soins'>
-                <h2><img src="/img/pattes.png" alt="" width={40} height={40}/>Nos aides et soins <img src="/img/pattes.png" alt="" width={40} height={40}/></h2>
+                <h2><img src="/img/pattes.png" alt="" width={40} height={40} />Nos aides et soins <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
                 <ul>
                     <li><img src="" alt="" /></li>
                     <li></li>
