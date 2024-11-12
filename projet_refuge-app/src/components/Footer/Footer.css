@@ -17,21 +17,22 @@
 }
 
 .icon_email img {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   padding-right: 1rem;
   float: inline-start;
 }
 
 .icon_email_h2 {
-  margin-left: 15rem;
+  margin-left: 20rem;
   margin-top: -11rem;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 .liste_contact_footer {
-  margin-left: 15rem;
+  margin-left: 20rem;
+  font-size: 1.3rem;
 }
 
 .liste_contact_footer li {
@@ -39,6 +40,31 @@
 }
 
 .liste_contact_footer a {
+  text-decoration: none;
+  color: white;
+}
+
+.icon_horaire_h2 img {
+  width: 45px;
+  height: 45px;
+  float: inline-start;
+  padding-right: 1rem;
+}
+
+.icon_horaire_h2 {
+  font-size: 1.8rem;
+  color: white;
+  margin-left: 60rem;
+  margin-top: -13.5rem;
+}
+
+.liste_horaire_footer {
+  color: white;
+  margin-left: 60rem;
+  font-size: 1.3rem;
+}
+
+.liste_horaire_footer a {
   text-decoration: none;
   color: white;
 }

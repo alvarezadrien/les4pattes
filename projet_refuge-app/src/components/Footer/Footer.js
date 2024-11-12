@@ -19,6 +19,16 @@ const Footer = () => {
                     <li><address>Rue des papillons 245, 1070 Bruxelles</address></li>
                     <li>Numéro d'agrément: Db 452 21 302</li>
                 </ul>
+
+                <div className="icon_horaire_h2">
+                    <h2><img src="/img/horloge.png" alt="" />Horaires</h2>
+                </div>
+
+                <ul className="liste_horaire_footer">
+                    <li>Lundi-Samedi: 10h à 16h sur</li>
+                    <li>rendez-vous au <a href="tel:0492764208">04/527.10.50</a></li>
+                    <li>Fermé les dimanches et les jours fériés.</li>
+                </ul>
             </nav>
             <p className="copy">&copy; 2024 Mon Site</p>
         </footer>
