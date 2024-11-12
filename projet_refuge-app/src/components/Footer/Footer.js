@@ -29,8 +29,19 @@ const Footer = () => {
                     <li>rendez-vous au <a href="tel:0492764208">04/527.10.50</a></li>
                     <li>Fermé les dimanches et les jours fériés.</li>
                 </ul>
+
+                <div className="reseaux_sociaux">
+                    <h3>Nos réseaux sociaux: </h3>
+
+                    <ul className="liste_sociaux">
+                        <li><img src="/img/facebook.png" alt="" /></li>
+                        <li><img src="/img/instagram.png" alt="" /></li>
+                        <li><img src="/img/youtube.png" alt="" /></li>
+                    </ul>
+                </div>
+                <h5 className="h5_bancaire">BE 79 1140 2004 0000 3102 8079 8178</h5>
             </nav>
-            <p className="copy">&copy; 2024 Mon Site</p>
+            <p className="copy">&copy; 2025 Refuge les 4 pattes (TFE)</p>
         </footer>
     );
 };

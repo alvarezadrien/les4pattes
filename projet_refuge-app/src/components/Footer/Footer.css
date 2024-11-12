@@ -69,6 +69,36 @@
   color: white;
 }
 
+.reseaux_sociaux {
+  color: white;
+  font-size: 1.6rem;
+  display: flex;
+  margin-left: 5rem;
+  margin-top: 1.6rem;
+}
+
+.liste_sociaux li {
+  list-style-type: none;
+  display: inline;
+  color: white;
+  margin-left: 3rem;
+}
+
+.liste_sociaux img {
+  width: 40px;
+  margin-left: -2rem;
+}
+
+.h5_bancaire {
+  color: white;
+  margin-top: -3.3rem;
+  font-size: 1.3rem;
+  float: right;
+  margin-right: 5rem;
+}
+
 .copy {
   margin-top: -1.5rem;
+  margin-left: 50rem;
+  color: white;
 }
