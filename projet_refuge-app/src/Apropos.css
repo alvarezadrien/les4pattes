@@ -20,8 +20,6 @@
 
 .img_1 img {
   border-radius: 100%;
-  width: 230px;
-  height: 230px;
 }
 
 .img_1 {
@@ -32,8 +30,6 @@
 
 .img_2 img {
   border-radius: 100%;
-  width: 230px;
-  height: 230px;
 }
 
 .img_2 {
@@ -43,8 +39,6 @@
 
 .img_3 img {
   border-radius: 100%;
-  width: 230px;
-  height: 230px;
   float: right;
 }
 
@@ -56,8 +50,6 @@
 
 .img_4 img {
   border-radius: 100%;
-  width: 230px;
-  height: 230px;
 }
 
 .img_4 {
@@ -67,14 +59,78 @@
 }
 
 .pattes_propos h2 {
-  font-size: 2rem;
+  font-size: 3rem;
   text-align: center;
 }
 
 .pattes_propos img {
   border-radius: 100%;
+  padding: 3rem;
 }
 
-.img_aide1 img {
-  margin-left: 2rem;
+.paragraphe_pattes {
+  text-align: justify;
+  font-size: 2rem;
+  float: right;
+  padding: 3rem;
+  margin-right: 3.5rem;
+  margin-top: -0.8rem;
+}
+
+.img_homme_chien img {
+  border-radius: 15%;
+  margin-top: -3rem;
+  margin-left: 50rem;
+}
+
+.paragraphe_pattes2 {
+  font-size: 2rem;
+  padding: 3rem;
+  margin-top: -30rem;
+  padding-bottom: 13rem;
+  text-align: justify;
+}
+
+hr {
+  font-size: 2rem;
+}
+
+.histoire h2 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.img_histoire1 img {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  height: 420px;
+  margin-top: -1rem;
+}
+
+.paragraphe_histoire1 {
+  font-size: 1.3rem;
+  text-align: justify;
+  width: 75%;
+  display: block;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.img_histoire2 img {
+  width: 280px;
+  height: 380px;
+  border-radius: 50%;
+  margin-top: -1rem;
+  padding: 2rem;
+  margin-left: 8rem;
+}
+
+.paragraphe_histoire2 {
+  width: 40%;
+  text-align: justify;
+  float: right;
+  margin-top: -25.5rem;
+  margin-right: 22rem;
+  font-size: 1.5rem;
 }
