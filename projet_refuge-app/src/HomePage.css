@@ -80,6 +80,11 @@
   margin-top: 5rem;
 }
 
+/* .container_choix :hover img {
+  transition: all 4s;
+  transform: rotate(360deg);
+} */
+
 .button_choix_chiens {
   display: flex;
   flex-direction: column;
