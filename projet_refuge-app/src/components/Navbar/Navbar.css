@@ -9,7 +9,7 @@
 }
 
 .logo-nav {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
@@ -25,10 +25,8 @@
 
 .nav_ul {
   display: flex;
-  gap: 15rem;
-  justify-content: center;
-  margin: 10rem;
-  padding: 0;
+  gap: 14rem;
+  padding: 10rem;
 }
 
 .nav_ul li {
@@ -41,3 +39,16 @@
   font-size: 1.5rem;
 }
 
+.coeur_don img {
+  margin-top: 0.5rem;
+  margin-left: 4rem;
+}
+
+.icon_connect img {
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+}
+
+/* .h_don {
+  color: red;
+} */
