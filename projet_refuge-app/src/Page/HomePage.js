@@ -51,11 +51,11 @@ const HomePage = () => {
             {/* Div container choix */}
             <div className='container_choix'>
                 <div className='container_choix1'>
-                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={280} onClick={redirectChien} />
+                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={300} onClick={redirectChien} />
                     <button className='button_choix_chiens' onClick={redirectChien}>Chiens</button>
                 </div>
                 <div className='container_choix2'>
-                    <img src="/img/images.jpeg" alt="" width={300} height={280} onClick={redirectChat} />
+                    <img src="/img/images.jpeg" alt="" width={300} height={300} onClick={redirectChat} />
                     <button className='button_choix_chats' onClick={redirectChat}>Chats</button>
                 </div>
             </div>
