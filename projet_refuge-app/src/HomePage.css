@@ -237,7 +237,7 @@ h4 {
 
 .container_aides_soins {
   background-color: #f4eaca;
-  height: 30rem;
+  height: 35rem;
   width: 100vw;
 }
 
@@ -245,4 +245,42 @@ h4 {
   margin-top: 9rem;
   text-align: center;
   padding: 2.5rem;
+  font-size: 2rem;
+}
+
+.icon_ensemble {
+  display: flex;
+  gap: 20rem;
+  justify-content: center;
+}
+
+.icon_soins1 img {
+  display: block;
+  margin: 0 auto;
+}
+
+.icon_soins1 h2 {
+  margin-top: 1rem;
+}
+
+.icon_soins2 img {
+  display: block;
+  margin: 0 auto;
+}
+
+.icon_soins2 h2 {
+  margin-top: 1rem;
+}
+
+.icon_soins1 button,
+.icon_soins2 button {
+  display: block;
+  margin: 0 auto;
+  margin-top: -2rem;
+  background-color: #778d45;
+  border: #778d45;
+  border-radius: 50px;
+  width: 7rem;
+  height: 2rem;
+  font-size: 1.3rem;
 }

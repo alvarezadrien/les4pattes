@@ -138,17 +138,27 @@ const HomePage = () => {
             {/* Div aides soins */}
             <div className='container_aides_soins'>
                 <h2><img src="/img/pattes.png" alt="" width={40} height={40} />Nos aides et soins <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
-                <ul>
-                    <li><img src="" alt="" /></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
+                    <div className='icon_ensemble'> 
+                        <div className='icon_soins1'>
+                            <img src="/img/maison-pour-animaux-de-compagnie.png" alt="" width={200} height={200}/>
+                                <h2>L'accueil des animaux</h2>
+                                <button>Voir plus</button>
+                        </div>
+                        <div className='icon_soins2'>
+                            <img src="/img/sensibilisation.png" alt="" width={200} height={200}/>
+                            <h2>Sensibilisation</h2>
+                            <button>Voir plus</button>
+                        </div>
+                    </div>
             </div>
 
         </div>
 
-    );
+);
 };
 
 export default HomePage
+{/* <ul className='icon_soins'>
+    <li><img src="/img/maison-pour-animaux-de-compagnie.png" alt="" width={200} height={200}/></li>
+    <li><img src="/img/sensibilisation.png" alt="" width={200} height={200}/></li>
+</ul> */}
