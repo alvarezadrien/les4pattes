@@ -13,7 +13,11 @@ const HomePage = () => {
 
     function redirectChien() {
         console.log('Inside redirect Chien')
-        //TODO mettre l'url du chien quand la page sera créée
+        navigate('/Apropos')
+    }
+
+    function redirectChat() {
+        console.log('Inside redirect Chat')
         navigate('/Apropos')
     }
 
@@ -35,7 +39,7 @@ const HomePage = () => {
 
                     </div>
                     <div className='circle_img2'>
-                        <img src="/img/chien.jpg" alt="" width={235} height={210} />
+                        <img src="/img/image chien.png" alt="" width={235} height={210} />
                     </div>
                     <div className='circle_img3'>
                         <img src="/img/images.jpeg" alt="" width={200} height={200} />
@@ -46,12 +50,12 @@ const HomePage = () => {
             {/* Div container choix */}
             <div className='container_choix'>
                 <div className='container_choix1'>
-                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={280} />
+                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={280} onClick={redirectChien} />
                     <button className='button_choix_chiens' onClick={redirectChien}>Chiens</button>
                 </div>
                 <div className='container_choix2'>
-                    <img src="/img/images.jpeg" alt="" width={300} height={280} />
-                    <button className='button_choix_chats'>Chats</button>
+                    <img src="/img/images.jpeg" alt="" width={300} height={280} onClick={redirectChat} />
+                    <button className='button_choix_chats' onClick={redirectChat}>Chats</button>
                 </div>
             </div>
             {/* Div leur maison */}
