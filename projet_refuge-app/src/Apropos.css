@@ -1,17 +1,80 @@
 .container_img_propos {
   background-color: #f4eaca;
-  margin-top: 5rem;
-  height: 30rem;
+  margin-top: 3.5rem;
+  height: 28rem;
   width: 100vw;
 }
 
 .img0 img {
   border-radius: 50px;
-  margin-top: 2rem;
+  margin-top: 3rem;
+  width: 550px;
+  height: 250px;
 }
 
 .img0 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.img_1 img {
+  border-radius: 100%;
+  width: 230px;
+  height: 230px;
+}
+
+.img_1 {
+  margin-left: 17.5rem;
+  margin-top: -16rem;
+  position: relative;
+}
+
+.img_2 img {
+  border-radius: 100%;
+  width: 230px;
+  height: 230px;
+}
+
+.img_2 {
+  margin-left: 8rem;
+  margin-top: -6rem;
+}
+
+.img_3 img {
+  border-radius: 100%;
+  width: 230px;
+  height: 230px;
+  float: right;
+}
+
+.img_3 {
+  margin-right: 18rem;
+  margin-top: -22rem;
+  position: relative;
+}
+
+.img_4 img {
+  border-radius: 100%;
+  width: 230px;
+  height: 230px;
+}
+
+.img_4 {
+  float: right;
+  margin-right: -24rem;
+  margin-top: 9rem;
+}
+
+.pattes_propos h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.pattes_propos img {
+  border-radius: 100%;
+}
+
+.img_aide1 img {
+  margin-left: 2rem;
 }
