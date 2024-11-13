@@ -25,8 +25,8 @@
 
 .nav_ul {
   display: flex;
-  gap: 14rem;
-  padding: 10rem;
+  gap: 10rem;
+  padding: 8.5rem;
 }
 
 .nav_ul li {
@@ -41,12 +41,11 @@
 
 .coeur_don img {
   margin-top: 0.5rem;
-  margin-left: 4rem;
 }
 
 .icon_connect img {
   margin-top: 0.5rem;
-  margin-left: 3rem;
+  margin-left: 4rem;
 }
 
 /* .h_don {
