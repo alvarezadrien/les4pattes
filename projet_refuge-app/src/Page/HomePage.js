@@ -1,8 +1,22 @@
 import React from 'react'
 import '../HomePage.css';
 import Navbar from '../components/Navbar/Navbar'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
+    const navigate = useNavigate()
+
+    function redirectApropos() {
+        console.log('Inside redirect A propos')
+        navigate('/Apropos')
+    }
+
+    function redirectChien() {
+        console.log('Inside redirect Chien')
+        //TODO mettre l'url du chien quand la page sera créée
+        navigate('/Apropos')
+    }
+
     return (
         <div>
             {/* Div container intro */}
@@ -27,13 +41,13 @@ const HomePage = () => {
                         <img src="/img/images.jpeg" alt="" width={200} height={200} />
                     </div>
                 </div>
-                <button type='button' className='button_propos'>À propos</button>
+                <button type='button' className='button_propos' onClick={redirectApropos}>À propos</button>
             </div>
             {/* Div container choix */}
             <div className='container_choix'>
                 <div className='container_choix1'>
                     <img src="/img/chien img choix.jpeg" alt="" width={300} height={280} />
-                    <button className='button_choix_chiens'>Chiens</button>
+                    <button className='button_choix_chiens' onClick={redirectChien}>Chiens</button>
                 </div>
                 <div className='container_choix2'>
                     <img src="/img/images.jpeg" alt="" width={300} height={280} />
@@ -138,23 +152,23 @@ const HomePage = () => {
             {/* Div aides soins */}
             <div className='container_aides_soins'>
                 <h2><img src="/img/pattes.png" alt="" width={40} height={40} />Nos aides et soins <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
-                    <div className='icon_ensemble'> 
-                        <div className='icon_soins1'>
-                            <img src="/img/maison-pour-animaux-de-compagnie.png" alt="" width={200} height={200}/>
-                                <h2>L'accueil des animaux</h2>
-                                <button>Voir plus</button>
-                        </div>
-                        <div className='icon_soins2'>
-                            <img src="/img/sensibilisation.png" alt="" width={200} height={200}/>
-                            <h2>Sensibilisation</h2>
-                            <button>Voir plus</button>
-                        </div>
+                <div className='icon_ensemble'>
+                    <div className='icon_soins1'>
+                        <img src="/img/maison-pour-animaux-de-compagnie.png" alt="" width={200} height={200} />
+                        <h2>L'accueil des animaux</h2>
+                        <button>Voir plus</button>
                     </div>
+                    <div className='icon_soins2'>
+                        <img src="/img/sensibilisation.png" alt="" width={200} height={200} />
+                        <h2>Sensibilisation</h2>
+                        <button>Voir plus</button>
+                    </div>
+                </div>
             </div>
 
         </div>
 
-);
+    );
 };
 
 export default HomePage
