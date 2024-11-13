@@ -1,7 +1,8 @@
 import React from 'react'
-import '../HomePage.css';
 import Navbar from '../components/Navbar/Navbar'
 import { Navigate, useNavigate } from 'react-router-dom'
+import Animalitem from './Animalitem';
+import '../HomePage.css';
 
 const HomePage = () => {
     const navigate = useNavigate()
@@ -68,68 +69,9 @@ const HomePage = () => {
             {/* Div animaux à adopter */}
             <div className='animaux_adopt'>
                 <h2> <img src="/img/pattes.png" alt="" width={40} height={40} />Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
-                <section className='container_appercu'>
-                    <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt="" />
-                        <div className='item_info'>
-                            <h3>Diablo</h3>
-                            <p className='age'>âge: 2 ans 1/2</p> <br />
-                            <span>Race: Lorem</span> <br />
-                            <span>sexe: mâle stérilisée</span> <br />
-                            <button>Détails</button>
-                        </div>
-                    </div>
-                    <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt="" />
-                        <div className='item_info'>
-                            <h3>Diablo</h3>
-                            <p className='age'>âge: 2 ans 1/2</p> <br />
-                            <span>Race: Lorem</span> <br />
-                            <span>sexe: mâle stérilisée</span> <br />
-                            <button>Détails</button>
-                        </div>
-                    </div>
-                    <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt="" />
-                        <div className='item_info'>
-                            <h3>Diablo</h3>
-                            <p className='age'>âge: 2 ans 1/2</p> <br />
-                            <span>Race: Lorem</span> <br />
-                            <span>sexe: mâle stérilisée</span> <br />
-                            <button>Détails</button>
-                        </div>
-                    </div>
-                    <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt="" />
-                        <div className='item_info'>
-                            <h3>Diablo</h3>
-                            <p className='age'>âge: 2 ans 1/2</p> <br />
-                            <span>Race: Lorem</span> <br />
-                            <span>sexe: mâle stérilisée</span> <br />
-                            <button>Détails</button>
-                        </div>
-                    </div>
-                    <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt="" />
-                        <div className='item_info'>
-                            <h3>Diablo</h3>
-                            <p className='age'>âge: 2 ans 1/2</p> <br />
-                            <span>Race: Lorem</span> <br />
-                            <span>sexe: mâle stérilisée</span> <br />
-                            <button>Détails</button>
-                        </div>
-                    </div>
-                    <div className='item'>
-                        <img src="/img/chien_fiche1.jpg" alt="" />
-                        <div className='item_info'>
-                            <h3>Diablo</h3>
-                            <p className='age'>âge: 2 ans 1/2</p> <br />
-                            <span>Race: Lorem</span> <br />
-                            <span>sexe: mâle stérilisée</span> <br />
-                            <button type='button'>Détails</button>
-                        </div>
-                    </div>
-                </section>
+
+                <Animalitem />
+
                 <button className='button_plus'>Plus d'animaux</button>
                 <br /><br />
             </div>

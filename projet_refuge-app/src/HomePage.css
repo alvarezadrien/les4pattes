@@ -140,9 +140,9 @@ h4 {
 
 .item {
   margin-top: 1rem;
-  border: 1px solid black;
+  border: 1px solid #778d45;
   width: 20rem;
-  height: 26.5rem;
+  height: 25rem;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 10%;
   border-bottom-right-radius: 10%;
@@ -176,7 +176,7 @@ h4 {
   width: 6rem;
   height: 2rem;
   font-size: 1.5rem;
-  margin-top: 1.8rem;
+  margin-top: 2rem;
   cursor: pointer;
 }
 
@@ -184,7 +184,7 @@ h4 {
   margin-left: 1rem;
 }
 
-.container_appercu {
+.animal_group {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-left: 8rem;
