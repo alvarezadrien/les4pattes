@@ -15,13 +15,6 @@ const Navbar = () => {
             height="100px"
           /></a>
 
-        {/* <ul className="nav_ul">
-          <li><a href="#">Animaux</a></li>
-          <li><a href="#">Adoption</a></li>
-          <li><a href="#">Membres</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul> */}
-
         <PopupMenu />
 
         <div className="coeur_don">

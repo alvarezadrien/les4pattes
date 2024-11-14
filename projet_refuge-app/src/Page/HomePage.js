@@ -118,7 +118,3 @@ const HomePage = () => {
 };
 
 export default HomePage
-{/* <ul className='icon_soins'>
-    <li><img src="/img/maison-pour-animaux-de-compagnie.png" alt="" width={200} height={200}/></li>
-    <li><img src="/img/sensibilisation.png" alt="" width={200} height={200}/></li>
-</ul> */}
