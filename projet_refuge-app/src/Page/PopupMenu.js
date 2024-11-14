@@ -17,10 +17,10 @@ const PopupMenu = () => {
     };
 
     const options = [
-        { title: "Animaux", propositions: ["Proposition 1", "Proposition 2", "Proposition 3"] },
-        { title: "Adoption", propositions: ["Proposition A", "Proposition B", "Proposition C"] },
-        { title: "Membres", propositions: ["Proposition X", "Proposition Y", "Proposition Z"] },
-        { title: "Contact" } // Contact sans propositions, avec lien direct
+        { title: "Animaux", propositions: ["Témoin de cruauté animale ?", "Conditions d'adoption", "Nos compagnons adopté"] },
+        { title: "Adoption", propositions: ["Formulaire d'adoption", "Infos sur l'adoptant"] },
+        { title: "Membres", propositions: ["Notre équipe", "Adhésions", "Nos partenaires"] },
+        { title: "Contact" }
     ];
 
     return (
