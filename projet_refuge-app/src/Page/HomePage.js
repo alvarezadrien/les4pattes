@@ -14,7 +14,7 @@ const HomePage = () => {
 
     function redirectChien() {
         console.log('Inside redirect Chien')
-        navigate('/Apropos')
+        navigate('/Galeriechien')
     }
 
     function redirectChat() {

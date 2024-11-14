@@ -1,9 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Form } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import HomePage from './Page/HomePage';
 import Apropos from './Page/Apropos';
+import Galeriechien from './Page/Galeriechien';
+
+// Code réutilisable
 import Animalitem from './Page/Animalitem';
 import PopupMenu from './Page/PopupMenu';
 
@@ -16,6 +19,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/Apropos" element={<Apropos />} />
+          <Route path="/Galeriechien" element={<Galeriechien />} />
           <Route path="/Animalitem" element={<Animalitem />} />
           <Route path="/PopupMenu" element={<PopupMenu />} />
           <Route path="/animaux" element={<div>Animaux Page</div>} />
