@@ -4,12 +4,28 @@
   background-position: center;
   background-size: cover;
   position: relative;
-  height: 30rem;
+  height: 35rem;
   width: 100vw;
   top: 0;
   left: 0;
   padding: 0;
   margin-top: 5rem;
+}
+
+.divimg_principal {
+  margin-top: -1.5rem;
+}
+
+.h1_proteges {
+  display: block;
+  margin: 0 auto;
+  color: white;
+  font-size: 2.5rem;
+  z-index: 10;
+  text-align: center;
+  margin-top: 5rem;
+  padding-top: 1rem;
+  position: relative;
 }
 
 .img_galerie1 img {
@@ -31,7 +47,31 @@
   margin-top: -22rem;
   margin-right: 19.5rem;
   float: right;
+  position: relative;
 }
 
-.img_galerie2 {
+.img_galerie3 img {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  margin-left: 20rem;
+}
+
+.img_galerie3 {
+  margin-top: -21rem;
+}
+
+.img_galerie4 img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  background-position: center;
+  border-radius: 100%;
+  margin-left: 8rem;
+  margin-top: -8rem;
+}
+
+.img_galerie4 {
+  width: 100%;
+  height: 100%;
 }

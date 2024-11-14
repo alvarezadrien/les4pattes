@@ -9,6 +9,7 @@ import Galeriechien from './Page/Galeriechien';
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
 import PopupMenu from './Page/PopupMenu';
+import Filtre from './Page/Filtre';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/Galeriechien" element={<Galeriechien />} />
           <Route path="/Animalitem" element={<Animalitem />} />
           <Route path="/PopupMenu" element={<PopupMenu />} />
+          <Route path="/Filtre" element={<Filtre />} />
           <Route path="/animaux" element={<div>Animaux Page</div>} />
           <Route path="/adoption" element={<div>Adoption Page</div>} />
           <Route path="/membres" element={<div>Membres Page</div>} />
