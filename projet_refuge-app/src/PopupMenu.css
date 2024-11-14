@@ -1,0 +1,48 @@
+.ul_pop {
+  display: flex;
+  list-style: none;
+  padding: 8.5rem;
+  gap: 10rem;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.li_pop {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* transition: background-color 0.3s ease; */
+}
+
+.li_pop a {
+  color: white;
+  text-decoration: none;
+}
+
+.popup {
+  position: absolute;
+  margin: 0 auto;
+  margin-top: 9rem;
+  width: 8rem;
+  background-color: #778d45;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+  padding: 10px;
+  z-index: 1;
+  text-align: center;
+}
+
+li:hover .popup {
+  display: block;
+}
+
+.popup h5 {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 1rem;
+  color: white;
+}
