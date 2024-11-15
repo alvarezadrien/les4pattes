@@ -1,10 +1,10 @@
 import React from 'react';
 import Filtre from './Filtre';
-import '../Galeriechien.css';
-import Fichegalerie from './Fichegalerie';
+import '../Galeriechat.css';
+import Fichegalerie from './Fiche_galeriechat';
 import Pagination from './Pagination';
 
-const Galeriechien = () => {
+const Galeriechat = () => {
     const totalPages = 5; // Définir le nombre total de pages ici
 
     return (
@@ -41,4 +41,4 @@ const Galeriechien = () => {
     );
 };
 
-export default Galeriechien;
+export default Galeriechat;

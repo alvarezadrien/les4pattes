@@ -1,6 +1,6 @@
-.animaux_adopt h2 {
-  text-align: center;
-  font-size: 2rem;
+.container_appercu {
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
 }
 
 .item {
@@ -17,6 +17,7 @@
 .item img {
   width: 320px;
   height: 220px;
+  object-fit: cover;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
 }
@@ -52,7 +53,6 @@
 .animal_group {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-left: 8rem;
 }
 
 .button_plus {

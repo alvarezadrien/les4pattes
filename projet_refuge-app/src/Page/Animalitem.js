@@ -1,4 +1,5 @@
 import React from "react";
+import '../Animalitem.css';
 
 const Animalitem = () => {
     // Appel variable chiens

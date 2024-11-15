@@ -19,7 +19,7 @@ const HomePage = () => {
 
     function redirectChat() {
         console.log('Inside redirect Chat')
-        navigate('/Apropos')
+        navigate('/Galeriechat')
     }
 
     return (
