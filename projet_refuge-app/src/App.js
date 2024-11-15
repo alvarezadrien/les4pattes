@@ -6,6 +6,7 @@ import HomePage from './Page/HomePage';
 import Apropos from './Page/Apropos';
 import Galeriechien from './Page/Galeriechien';
 import Galeriechat from './Page/Galeriechat';
+import Contact from './Page/Contact';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -31,7 +32,7 @@ const App = () => {
           <Route path="/animaux" element={<div>Animaux Page</div>} />
           <Route path="/adoption" element={<div>Adoption Page</div>} />
           <Route path="/membres" element={<div>Membres Page</div>} />
-          <Route path="/contact" element={<div>Contact Page</div>} />
+          <Route path="/Contact" element={<Contact />} />
         </Routes>
       </div>
       <Footer />

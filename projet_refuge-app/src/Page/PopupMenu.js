@@ -32,7 +32,7 @@ const PopupMenu = () => {
                     onMouseLeave={handleMouseLeave}>
                     {option.title === "Contact" ? (
                         // Ajouter un lien pour "Contact"
-                        <a href="/contact" className="contact-link">Contact</a>
+                        <a href="/Contact" className="contact-link">Contact</a>
                     ) : (
                         <>
                             {option.title}
