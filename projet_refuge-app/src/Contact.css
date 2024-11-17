@@ -18,7 +18,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  background-color: rgba(244, 234, 202, 0.9);
+  background-color: #fbf4de;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -95,3 +95,35 @@ textarea:not(:placeholder-shown) + label,
   background-color: white;
   font-size: 1.5rem;
 }
+
+/* @media (max-width: 320px) {
+  .img_contact {
+    left: 70%;
+  }
+
+  .container_form {
+    width: 30rem;
+    position: absolute;
+    left: 20rem;
+  }
+
+  label {
+    margin-left: 5.5rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .img_contact {
+    left: 60%;
+  }
+
+  .container_form {
+    width: 32rem;
+    position: absolute;
+    left: 20rem;
+  }
+
+  label {
+    margin-left: 6.5rem;
+  }
+} */
