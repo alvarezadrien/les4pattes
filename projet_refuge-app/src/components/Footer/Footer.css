@@ -1,10 +1,10 @@
 .footer {
   background-color: #778d45;
   height: 20rem;
-  width: 100vw;
+  width: 100%;
+  position: sticky;
   top: 0;
   left: 0;
-  bottom: 0;
 }
 
 .logo_footer img {

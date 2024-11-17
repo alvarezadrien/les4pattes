@@ -92,7 +92,7 @@ const HomePage = () => {
                 <div className='home_propos_img'>
                     <img src="/img/img_home_propos.jpg" alt="" />
                 </div>
-                <button type='button'>Notre histoire</button>
+                <button type='button' onClick={redirectApropos} >Notre histoire</button>
             </div>
 
             {/* Div aides soins */}
