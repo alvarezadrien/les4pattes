@@ -7,6 +7,7 @@ import Apropos from './Page/Apropos';
 import Galeriechien from './Page/Galeriechien';
 import Galeriechat from './Page/Galeriechat';
 import Contact from './Page/Contact';
+import Equipe from './Page/Equipe';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='/Galeriechat' element={<Galeriechat />} />
           <Route path="/Animalitem" element={<Animalitem />} />
           <Route path="/PopupMenu" element={<PopupMenu />} />
+          <Route path="/Equipe" element={<Equipe />} />
           <Route path="/Filtre" element={<Filtre />} />
           <Route path="/Pagination" element={<Pagination />} />
           <Route path="/animaux" element={<div>Animaux Page</div>} />
