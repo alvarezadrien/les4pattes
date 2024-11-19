@@ -6,28 +6,29 @@ import PopupMenu from "../../Page/PopupMenu";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="logo-nav">
-        <a href="/">
-          <img className="logo"
-            src="/img/logo_refuge.png"
-            alt=""
-            width="100px"
-            height="100px"
-          /></a>
+      <div className="container_navbar">
+          <div className="logo-nav">
+            <a href="/">
+              <img className="logo"
+                src="/img/logo_refuge.png"
+                alt=""
+                width="100px"
+                height="100px"
+              /></a>
 
-        <PopupMenu />
+            <PopupMenu />
+          </div>
+          <div className="icon_navbar">
+            <div className="coeur_don">
+              <img src="/img/coeurs.png" alt="" width={45} height={45} />
+            </div>
 
-        <div className="coeur_don">
-          <img src="/img/coeurs.png" alt="" width={45} height={45} />
-          {/* <h2 className="h_don">Faire un don</h2> */}
+            <div className="icon_connect">
+              <img src="/img/profil.png" alt="" width={40} height={40} />
+            </div>
+          </div>
         </div>
-
-        <div className="icon_connect">
-          <img src="/img/profil.png" alt="" width={40} height={40} />
-        </div>
-
-      </div>
-    </nav>
+    </nav >
   );
 };
 

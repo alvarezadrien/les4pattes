@@ -1,3 +1,9 @@
+.container_navbar {
+  position: relative;
+  top: -10rem;
+  line-height: 5rem;
+}
+
 .navbar {
   background-color: #778d45;
   height: 5rem;
@@ -9,12 +15,13 @@
 }
 
 .logo-nav {
-  display: inline-flex;
+  position: relative;
+  top: 1rem;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
   padding-left: 10px;
-  position: relative;
 }
 
 .logo {
@@ -47,4 +54,21 @@
 .icon_connect img {
   margin-top: 0.5rem;
   margin-left: 4rem;
+}
+
+.icon_navbar {
+  position: relative;
+  float: right;
+  display: flex;
+  right: 8rem;
+  top: -15rem;
+  line-height: 7rem;
+}
+
+@media (max-width: 320px) {
+  .icon_navbar {
+    position: relative;
+    top: -30rem;
+    margin-right: 55rem;
+  }
 }

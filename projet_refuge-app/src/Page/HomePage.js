@@ -23,7 +23,7 @@ const HomePage = () => {
     }
 
     return (
-        <div>
+        <div className='Page_home'>
             {/* Div container intro */}
             <div className='container_img'>
                 <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes.png" alt="" width={40} height={40} /></h1>
@@ -61,20 +61,20 @@ const HomePage = () => {
             </div>
             {/* Div leur maison */}
             <div className='leur_maison'>
-                <h4>Ils ont trouvé une maison</h4>
+                <span className='span_maison'>Ils ont trouvé une maison</span>
+                <br />
                 <span className='nombre'>18567</span>
                 <img src="/img/hero-dog.png" alt="" width={280} height={280} />
             </div>
-            <br /><br /> <br />
             {/* Div animaux à adopter */}
-            <div className='animaux_adopt'>
+            {/* <div className='animaux_adopt'>
                 <h2> <img src="/img/pattes.png" alt="" width={40} height={40} />Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>
 
                 <Animalitem />
 
                 <button className='button_plus'>Plus d'animaux</button>
                 <br /><br />
-            </div>
+            </div> */}
             {/* Div home propos */}
             <div className='home_propos'>
                 <h2> <img src="/img/pattes.png" alt="" width={40} height={40} />À propos de nous <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>

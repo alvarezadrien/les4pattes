@@ -2,9 +2,7 @@
   background-color: #778d45;
   height: 20rem;
   width: 100%;
-  position: sticky;
-  top: 0;
-  left: 0;
+  width: 100vw;
 }
 
 .logo_footer img {

@@ -55,6 +55,13 @@
   margin-left: 8rem;
 }
 
+@media (min-width: 375px) {
+  .animal_group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .button_plus {
   margin-top: 1rem;
   margin-left: 39.5rem;

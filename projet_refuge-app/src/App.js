@@ -20,25 +20,23 @@ const App = () => {
   return (
     <Router>
       <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/HomePage" element={<HomePage />} />
-          <Route path="/Apropos" element={<Apropos />} />
-          <Route path="/Galeriechien" element={<Galeriechien />} />
-          <Route path='/Galeriechat' element={<Galeriechat />} />
-          <Route path='/Ficheperso_animal' element={<Ficheperso_animal />} />
-          <Route path="/Animalitem" element={<Animalitem />} />
-          <Route path="/PopupMenu" element={<PopupMenu />} />
-          <Route path="/Equipe" element={<Equipe />} />
-          <Route path="/Filtre" element={<Filtre />} />
-          <Route path="/Pagination" element={<Pagination />} />
-          <Route path="/animaux" element={<div>Animaux Page</div>} />
-          <Route path="/adoption" element={<div>Adoption Page</div>} />
-          <Route path="/membres" element={<div>Membres Page</div>} />
-          <Route path="/Contact" element={<Contact />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/Apropos" element={<Apropos />} />
+        <Route path="/Galeriechien" element={<Galeriechien />} />
+        <Route path='/Galeriechat' element={<Galeriechat />} />
+        <Route path='/Ficheperso_animal' element={<Ficheperso_animal />} />
+        <Route path="/Animalitem" element={<Animalitem />} />
+        <Route path="/PopupMenu" element={<PopupMenu />} />
+        <Route path="/Equipe" element={<Equipe />} />
+        <Route path="/Filtre" element={<Filtre />} />
+        <Route path="/Pagination" element={<Pagination />} />
+        <Route path="/animaux" element={<div>Animaux Page</div>} />
+        <Route path="/adoption" element={<div>Adoption Page</div>} />
+        <Route path="/membres" element={<div>Membres Page</div>} />
+        <Route path="/Contact" element={<Contact />} />
+      </Routes>
       <Footer />
     </Router>
   );
