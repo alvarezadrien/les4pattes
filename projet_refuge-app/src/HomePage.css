@@ -159,7 +159,8 @@
   height: 400px;
   border-radius: 100%;
   float: right;
-  margin-top: -13rem;
+  position: relative;
+  top: -15rem;
   margin-right: 15rem;
 }
 
@@ -171,8 +172,9 @@
   width: 12rem;
   height: 2.5rem;
   font-size: 1.5rem;
-  margin-top: 4rem;
-  margin-left: 40rem;
+  position: relative;
+  margin-top: 5rem;
+  left: 35rem;
   cursor: pointer;
 }
 
