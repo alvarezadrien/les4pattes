@@ -9,6 +9,7 @@ import Galeriechat from './Page/Galeriechat';
 import Contact from './Page/Contact';
 import Equipe from './Page/Equipe';
 import Ficheperso_animal from './Page/Ficheperso_animal';
+import Partenaires from './Page/Partenaires';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/Apropos" element={<Apropos />} />
         <Route path="/Galeriechien" element={<Galeriechien />} />
         <Route path='/Galeriechat' element={<Galeriechat />} />
+        <Route path='/Nos partenaires' element={<Partenaires />} />
         <Route path='/Ficheperso_animal' element={<Ficheperso_animal />} />
         <Route path="/Animalitem" element={<Animalitem />} />
         <Route path="/PopupMenu" element={<PopupMenu />} />
@@ -37,7 +39,7 @@ const App = () => {
         <Route path="/membres" element={<div>Membres Page</div>} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>
-      <Footer />
+      <Footer />²
     </Router>
   );
 };
