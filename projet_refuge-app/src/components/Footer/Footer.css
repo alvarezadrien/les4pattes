@@ -86,6 +86,8 @@
 .liste_sociaux img {
   width: 40px;
   margin-left: -2rem;
+  position: relative;
+  bottom: -1.8rem;
 }
 
 .h5_bancaire {
@@ -97,7 +99,7 @@
 }
 
 .copy {
-  margin-top: -1.5rem;
+  margin-top: -2.1rem;
   margin-left: 50rem;
   color: white;
 }
