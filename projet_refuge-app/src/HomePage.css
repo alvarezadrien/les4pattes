@@ -27,7 +27,7 @@
 }
 
 .circle_img0 {
-  margin-top: -11.5rem;
+  margin-top: -10.5rem;
   margin-right: 5rem;
 }
 
@@ -230,6 +230,6 @@
   .h1_titre {
     display: flex;
     position: relative;
-      color: red;
+    color: red;
   }
 }
