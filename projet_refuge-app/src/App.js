@@ -10,6 +10,7 @@ import Contact from './Page/Contact';
 import Equipe from './Page/Equipe';
 import Ficheperso_animal from './Page/Ficheperso_animal';
 import Partenaires from './Page/Partenaires';
+import Connexion from './Page/Connexion';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/Animalitem" element={<Animalitem />} />
         <Route path="/Notre equipe" element={<Equipe />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/Connexion" element={<Connexion />} />
       </Routes>
       <Footer />
     </Router>

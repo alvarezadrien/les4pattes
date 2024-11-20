@@ -48,7 +48,7 @@
 //     },
 //     { title: "Contact", link: "/contact" }
 //   ];
-  
+
 //   return (
 //     <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"} `}>
 //       <div className='navbar_logo'>
@@ -227,7 +227,7 @@ function Navbar() {
         </li>
 
         <li className="navbar_item icon_navbar icon_profil">
-          <a className="navbar_link" href="">
+          <a className="navbar_link" href="/Connexion">
             <img
               src="/img/profil.png"
               alt="C'est l'icon de connexion avec un petit profil"
