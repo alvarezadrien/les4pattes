@@ -113,3 +113,8 @@
   margin-left: 50rem;
   color: white;
 }
+
+.footer_bas {
+  display: block;
+  flex-wrap: wrap;
+}

@@ -28,18 +28,20 @@ const Footer = () => {
                 </ul>
             </div>
 
+            <div className="footer_bas">
+                <div className="reseaux_sociaux">
+                    <h3>Nos réseaux sociaux: </h3>
 
-            <div className="reseaux_sociaux">
-                <h3>Nos réseaux sociaux: </h3>
-
-                <ul className="liste_sociaux">
-                    <li><a href="https://www.facebook.com" target="_blank"><img src="/img/facebook.png" alt="" /></a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank"><img src="/img/instagram.png" alt="" /></a></li>
-                    <li><a href="https://www.youtube.com/" target="_blank"><img src="/img/youtube.png" alt="" /></a></li>
-                </ul>
+                    <ul className="liste_sociaux">
+                        <li><a href="https://www.facebook.com" target="_blank"><img src="/img/facebook.png" alt="" /></a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank"><img src="/img/instagram.png" alt="" /></a></li>
+                        <li><a href="https://www.youtube.com/" target="_blank"><img src="/img/youtube.png" alt="" /></a></li>
+                    </ul>
+                </div>
+                <h5 className="h5_bancaire">BE 79 1140 2004 0000 3102 8079 8178</h5>
+                <p className="copy">&copy; 2025 Refuge les 4 pattes (TFE)</p>
             </div>
-            <h5 className="h5_bancaire">BE 79 1140 2004 0000 3102 8079 8178</h5>
-            <p className="copy">&copy; 2025 Refuge les 4 pattes (TFE)</p>
+
         </footer>
     );
 };

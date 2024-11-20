@@ -47,16 +47,6 @@ a {
   background-position: center;
 }
 
-.icon_navbar {
-  position: relative;
-  right: 2rem;
-}
-
-.icon_profil {
-  position: relative;
-  right: 6rem;
-}
-
 @media screen and (max-width: 767px) {
   .navbar_logo img {
     margin-left: 0.5rem;
