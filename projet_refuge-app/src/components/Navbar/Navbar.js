@@ -1,35 +1,247 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+// import React, { useState } from 'react';
+// import './Navbar.css';
+
+// function Navbar() {
+//   const [showLinks, setShowLinks] = useState(false);
+
+//   const handleShowLinks = () => {
+//     setShowLinks(!showLinks);
+//   };
+
+//   const [showPopup, setShowPopup] = useState(null);
+
+//   const handleMouseEnter = (index) => {
+//     setShowPopup(index);
+//   };
+
+//   const handleMouseLeave = () => {
+//     setShowPopup(null);
+//   };
+
+//   const handleClickProposition = (proposition) => {
+//     console.log("Proposition sélectionnée:", proposition);
+//   };
+
+//   const options = [
+//     {
+//       title: "Animaux",
+//       propositions: [
+//         { text: "Témoin de cruauté animale ?", link: "/temoin-cruaute" },
+//         { text: "Conditions d'adoption", link: "/conditions-adoption" },
+//         { text: "Nos compagnons adoptés", link: "/compagnons-adoptes" }
+//       ]
+//     },
+//     {
+//       title: "Adoption",
+//       propositions: [
+//         { text: "Formulaire d'adoption", link: "/formulaire-adoption" },
+//         { text: "Infos sur l'adoptant", link: "/infos-adoptant" }
+//       ]
+//     },
+//     {
+//       title: "Membres",
+//       propositions: [
+//         { text: "Notre équipe", link: "/notre-equipe" },
+//         { text: "Adhésions", link: "/adhesions" },
+//         { text: "Nos partenaires", link: "/nos-partenaires" }
+//       ]
+//     },
+//     { title: "Contact", link: "/contact" }
+//   ];
+  
+//   return (
+//     <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"} `}>
+//       <div className='navbar_logo'>
+//         <a href="/">
+//           <img
+//             src="/img/Logo_refuge.png"
+//             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
+//             width={150}
+//             height={95}
+//           />
+//         </a>
+//       </div>
+
+//       <ul className='navbar_links'>
+//         {options.map((option, index) => (
+//           <li
+//             className='navbar_item'
+//             key={index}
+//             onMouseEnter={() => handleMouseEnter(index)}
+//             onMouseLeave={handleMouseLeave}
+//           >
+//             <a className='navbar_link' href={option.title === "Contact" ? "/Contact" : "#"}>
+//               {option.title}
+//             </a>
+//             {/* Afficher le popup seulement si l'élément a des propositions */}
+//             {showPopup === index && option.propositions && (
+//               <div className="popup">
+//                 {option.propositions.map((prop, i) => (
+//                   <h5
+//                     key={i}
+//                     onClick={() => handleClickProposition(prop)}
+//                     className="popup_item"
+//                   >
+//                     {prop.text}
+//                   </h5>
+//                 ))}
+//               </div>
+//             )}
+//           </li>
+//         ))}
+
+//         <li className='navbar_item icon_navbar'>
+//           <a className='navbar_link' href="">
+//             <img
+//               src="/img/coeurs.png"
+//               alt="C'est l'icon pour faire un don en forme de coeur"
+//               width={40}
+//             />
+//           </a>
+//         </li>
+
+//         <li className='navbar_item icon_navbar'>
+//           <a className='navbar_link' href="">
+//             <img
+//               src="/img/profil.png"
+//               alt="C'est l'icon de connexion avec un petit profil"
+//               width={40}
+//             />
+//           </a>
+//         </li>
+//       </ul>
+
+//       <button className='navbar_burger' onClick={handleShowLinks}>
+//         <span className='burger_bar'></span>
+//       </button>
+//     </nav>
+//   );
+// }
+
+// export default Navbar;
+
+
+import React, { useState } from 'react';
 import './Navbar.css';
-import PopupMenu from "../../Page/PopupMenu";
 
-const Navbar = () => {
+function Navbar() {
+  const [showLinks, setShowLinks] = useState(false);
+  const [showPopup, setShowPopup] = useState(null);
+
+  const handleShowLinks = () => {
+    setShowLinks(!showLinks);
+  };
+
+  const handleMouseEnter = (index) => {
+    setShowPopup(index);
+  };
+
+  const handleMouseLeave = () => {
+    setShowPopup(null);
+  };
+
+  const handleClickProposition = (proposition) => {
+    console.log("Proposition sélectionnée:", proposition);
+  };
+
+  const options = [
+    {
+      title: "Animaux",
+      propositions: [
+        { text: "Témoin de cruauté animale ?", link: "/temoin-cruaute" },
+        { text: "Conditions d'adoption", link: "/conditions-adoption" },
+        { text: "Nos compagnons adoptés", link: "/compagnons-adoptes" }
+      ]
+    },
+    {
+      title: "Adoption",
+      propositions: [
+        { text: "Formulaire d'adoption", link: "/formulaire-adoption" },
+        { text: "Infos sur l'adoptant", link: "/infos-adoptant" }
+      ]
+    },
+    {
+      title: "Membres",
+      propositions: [
+        { text: "Notre équipe", link: "/notre-equipe" },
+        { text: "Adhésions", link: "/adhesions" },
+        { text: "Nos partenaires", link: "/nos-partenaires" }
+      ]
+    },
+    { title: "Contact", link: "/contact" }
+  ];
+
   return (
-    <nav className="navbar">
-      <div className="container_navbar">
-          <div className="logo-nav">
-            <a href="/">
-              <img className="logo"
-                src="/img/logo_refuge.png"
-                alt=""
-                width="100px"
-                height="100px"
-              /></a>
+    <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
+      <div className="navbar_logo">
+        <a href="/">
+          <img
+            src="/img/Logo_refuge.png"
+            alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
+            width={150}
+            height={95}
+          />
+        </a>
+      </div>
 
-            <PopupMenu />
-          </div>
-          <div className="icon_navbar">
-            <div className="coeur_don">
-              <img src="/img/coeurs.png" alt="" width={45} height={45} />
-            </div>
+      <ul className="navbar_links">
+        {options.map((option, index) => (
+          <li
+            className="navbar_item"
+            key={index}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              className="navbar_link"
+              href={option.link || "#"}
+            >
+              {option.title}
+            </a>
+            {/* Popup affiché uniquement pour les propositions */}
+            {showPopup === index && option.propositions && (
+              <div className="popup">
+                {option.propositions.map((prop, i) => (
+                  <a
+                    key={i}
+                    href={prop.link}
+                    className="popup_item"
+                    onClick={() => handleClickProposition(prop.text)}
+                  >
+                    {prop.text}
+                  </a>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
 
-            <div className="icon_connect">
-              <img src="/img/profil.png" alt="" width={40} height={40} />
-            </div>
-          </div>
-        </div>
-    </nav >
+        <li className="navbar_item icon_navbar">
+          <a className="navbar_link" href="">
+            <img
+              src="/img/coeurs.png"
+              alt="C'est l'icon pour faire un don en forme de coeur"
+              width={40}
+            />
+          </a>
+        </li>
+
+        <li className="navbar_item icon_navbar icon_profil">
+          <a className="navbar_link" href="">
+            <img
+              src="/img/profil.png"
+              alt="C'est l'icon de connexion avec un petit profil"
+              width={40}
+            />
+          </a>
+        </li>
+      </ul>
+
+      <button className="navbar_burger" onClick={handleShowLinks}>
+        <span className="burger_bar"></span>
+      </button>
+    </nav>
   );
-};
+}
 
 export default Navbar;

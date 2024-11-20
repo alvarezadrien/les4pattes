@@ -39,7 +39,7 @@ const App = () => {
         <Route path="/membres" element={<div>Membres Page</div>} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>
-      <Footer />²
+      <Footer />
     </Router>
   );
 };
