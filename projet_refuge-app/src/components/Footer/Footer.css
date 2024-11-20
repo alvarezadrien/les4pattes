@@ -5,6 +5,11 @@
   width: 100vw;
 }
 
+.footer_haut {
+  display: block;
+  flex-direction: column;
+}
+
 .logo_footer img {
   display: flex;
   align-items: center;
