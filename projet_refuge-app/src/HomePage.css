@@ -12,9 +12,6 @@
   margin-top: 25rem;
 }
 
-@media (max-width: 320px) {
-}
-
 .h1_titre {
   color: white;
   margin-top: -20rem;
@@ -180,6 +177,11 @@
   width: 100%;
 }
 
+.h2_titre_soins {
+  position: relative;
+  left: 20rem;
+}
+
 .container_aides_soins h2 {
   margin-top: 9rem;
   text-align: center;
@@ -222,4 +224,12 @@
   width: 7rem;
   height: 2rem;
   font-size: 1.3rem;
+}
+
+@media screen and (max-width: 320px) {
+  .h1_titre {
+    display: flex;
+    position: relative;
+      color: red;
+  }
 }

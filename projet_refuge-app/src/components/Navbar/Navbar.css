@@ -1,6 +1,6 @@
 .navbar {
   background-color: #778d45;
-  width: 100%;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,7 +47,7 @@ a {
   background-position: center;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1024px) {
   .navbar_logo img {
     margin-left: 0.5rem;
   }
@@ -84,7 +84,7 @@ a {
     display: block;
     position: fixed;
     top: 1.5rem;
-    right: 2rem;
+    right: 6%;
   }
 
   .navbar_burger:hover {
@@ -142,5 +142,17 @@ a {
 
   .navbar_item:last-child:after {
     display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .navbar_link {
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .navbar_link {
+    padding: 3rem;
   }
 }
