@@ -30,7 +30,12 @@
 }
 
 .liste_contact_footer {
-  margin-left: 20rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+  top: -1rem;
+  padding-left: 1rem;
   font-size: 1.3rem;
 }
 
@@ -58,8 +63,13 @@
 }
 
 .liste_horaire_footer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+  top: -1rem;
+  padding-left: 1rem;
   color: white;
-  margin-left: 60rem;
   font-size: 1.3rem;
 }
 

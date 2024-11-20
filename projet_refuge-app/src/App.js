@@ -30,13 +30,7 @@ const App = () => {
         <Route path='/Nos partenaires' element={<Partenaires />} />
         <Route path='/Ficheperso_animal' element={<Ficheperso_animal />} />
         <Route path="/Animalitem" element={<Animalitem />} />
-        <Route path="/PopupMenu" element={<PopupMenu />} />
-        <Route path="/Equipe" element={<Equipe />} />
-        <Route path="/Filtre" element={<Filtre />} />
-        <Route path="/Pagination" element={<Pagination />} />
-        <Route path="/animaux" element={<div>Animaux Page</div>} />
-        <Route path="/adoption" element={<div>Adoption Page</div>} />
-        <Route path="/membres" element={<div>Membres Page</div>} />
+        <Route path="/Notre equipe" element={<Equipe />} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>
       <Footer />
