@@ -1,0 +1,261 @@
+.img_partenaires {
+  background-image: url(/public/img/img_chiens_chats_partenaires.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30rem;
+  position: relative;
+  top: 3.5rem;
+}
+
+.h1_partenaires {
+  text-align: center;
+  font-size: 2rem;
+  position: relative;
+  top: 12rem;
+}
+
+.container_logo_partenaires {
+  background-color: #fbf4de;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 85%;
+  height: 80rem;
+  position: relative;
+  top: 13rem;
+  border-radius: 20px;
+  padding-top: 1rem;
+}
+
+.img_logo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.img_logo li {
+  list-style-type: none;
+}
+
+.img_logo img {
+  width: 200px;
+  border-radius: 15px;
+}
+
+@media (min-width: 335px) {
+  .container_logo_partenaires {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .img_logo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    width: 75%;
+  }
+
+  .img_logo img {
+    width: 200px;
+  }
+
+  .h1_partenaires {
+    padding-top: 1.5rem;
+  }
+}
+
+@media (min-width: 375px) {
+  .container_logo_partenaires {
+    height: 33rem;
+  }
+
+  .h1_partenaires {
+    padding-top: 3rem;
+  }
+
+  .img_logo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 75%;
+  }
+
+  .img_logo img {
+    width: 150px;
+  }
+}
+
+@media (min-width: 415px) {
+  .h1_partenaires {
+    padding-top: 4rem;
+  }
+
+  .img_logo {
+    width: 77%;
+  }
+}
+
+@media (min-width: 445px) {
+  .h1_partenaires {
+    padding-top: 5rem;
+  }
+
+  .img_logo {
+    width: 80%;
+  }
+}
+
+@media (min-width: 470px) {
+  .h1_partenaires {
+    padding-top: 5.5rem;
+  }
+}
+
+@media (min-width: 500px) {
+  .container_logo_partenaires {
+    height: 18rem;
+  }
+
+  .h1_partenaires {
+    padding-top: 7rem;
+  }
+
+  .img_logo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 81.5%;
+    gap: 1.5rem;
+  }
+
+  .img_logo img {
+    width: 120px;
+  }
+}
+
+@media (min-width: 530px) {
+  .h1_partenaires {
+    padding-top: 8rem;
+  }
+
+  .img_logo {
+    width: 82.5%;
+  }
+}
+
+@media (min-width: 560px) {
+  .h1_partenaires {
+    padding-top: 8.5rem;
+  }
+
+  .img_logo {
+    width: 84%;
+  }
+}
+
+@media (min-width: 575px) {
+  .h1_partenaires {
+    padding-top: 9rem;
+  }
+}
+
+@media (min-width: 595px) {
+  .h1_partenaires {
+    padding-top: 10rem;
+  }
+}
+
+@media (min-width: 615px) {
+  .h1_partenaires {
+    padding-top: 11.3rem;
+  }
+}
+
+@media (min-width: 650px) {
+  .h1_partenaires {
+    padding-top: 12.2rem;
+  }
+
+  .img_logo {
+    width: 89%;
+  }
+}
+
+@media (min-width: 670px) {
+  .h1_partenaires {
+    padding-top: 13rem;
+  }
+
+  .img_logo {
+    width: 90%;
+  }
+}
+
+@media (min-width: 700px) {
+  .h1_partenaires {
+    padding-top: 14.2rem;
+  }
+
+  .img_logo {
+    width: 94%;
+  }
+}
+
+@media (min-width: 740px) {
+  .h1_partenaires {
+    padding-top: 15.5rem;
+  }
+
+  .img_logo {
+    width: 99%;
+  }
+}
+
+@media (min-width: 780px) {
+  .h1_partenaires {
+    padding-top: 18rem;
+  }
+
+  .img_logo {
+    width: 101%;
+  }
+}
+
+@media (min-width: 845px) {
+  .h1_partenaires {
+    padding-top: 19.5rem;
+  }
+
+  .img_logo {
+    width: 105%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 2000px) {
+  .img_partenaires {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .h1_partenaires {
+    font-size: 3rem;
+  }
+
+  .container_logo_partenaires {
+    width: 80%;
+    height: 30rem;
+  }
+
+  .img_logo img {
+    width: 200px;
+  }
+
+  .img_logo {
+    display: grid;
+    justify-content: center;
+  }
+}

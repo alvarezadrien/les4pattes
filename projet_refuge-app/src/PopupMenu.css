@@ -41,18 +41,26 @@ li:hover .popup {
   display: block;
 }
 
-.popup h5 {
+.popup_item:hover {
+  background-color: #5d6e34;
+  border-radius: 30px;
+}
+
+.popup a {
   margin: 0;
   padding: 5px 0;
   font-size: 1.2rem;
   color: white;
+  cursor: pointer;
+  flex-direction: column;
+  display: flex;
 }
 
-@media (max-width: 320px) {
-  .ul_pop {
-    color: red;
-    display: block;
-    position: relative;
-    margin-right: 65rem;
+@media screen and (max-width: 767px) {
+  .popup {
+    display: flex;
+    flex-direction: column;
+    position: static;
+    width: 10rem;
   }
 }

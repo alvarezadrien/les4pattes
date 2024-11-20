@@ -13,10 +13,6 @@
 }
 
 @media (max-width: 320px) {
-  .h1_titre {
-    position: relative;
-    left: -20%;
-  }
 }
 
 .h1_titre {
@@ -34,7 +30,7 @@
 }
 
 .circle_img0 {
-  margin-top: -12rem;
+  margin-top: -11.5rem;
   margin-right: 5rem;
 }
 
