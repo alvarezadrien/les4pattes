@@ -81,6 +81,7 @@ a {
   }
 
   .navbar_burger {
+    position: relative;
     display: block;
     position: fixed;
     top: 1.5rem;

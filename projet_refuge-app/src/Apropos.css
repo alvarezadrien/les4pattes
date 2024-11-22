@@ -134,3 +134,209 @@ hr {
   margin-right: 22rem;
   font-size: 1.5rem;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .container_img_propos {
+    height: 20rem;
+  }
+
+  .img0 img {
+    position: relative;
+    bottom: 0.5rem;
+    margin-top: 4rem;
+    width: 305px;
+  }
+
+  .pattes_propos h2 {
+    margin-top: -1.5rem;
+  }
+
+  .img_1 img,
+  .img_2 img,
+  .img_3 img,
+  .img_4 img {
+    display: none;
+  }
+
+  .pattes_propos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .pattes_propos img {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    top: -1rem;
+    padding: 0;
+  }
+
+  .paragraphe_pattes {
+    position: relative;
+    width: 15rem;
+    text-align: center;
+    display: flex;
+    margin: 0 auto;
+    font-size: 1rem;
+    padding: 0;
+  }
+
+  .img_homme_chien {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .img_homme_chien img {
+    width: 300px;
+    height: 230px;
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    top: 1rem;
+    padding: 0;
+  }
+
+  .paragraphe_pattes2 {
+    position: relative;
+    top: 32rem;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0;
+    margin-bottom: 33rem;
+  }
+
+  .img_histoire1 img {
+    width: 95vw;
+    height: 250px;
+  }
+
+  .paragraphe_histoire1 {
+    font-size: 1rem;
+    text-align: center;
+    position: relative;
+    top: 1.5rem;
+    padding: 0;
+  }
+
+  .img_histoire2 img {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    top: 3rem;
+    width: 270px;
+    padding: 0;
+  }
+
+  .paragraphe_histoire2 {
+    margin: 0 auto;
+    font-size: 1rem;
+    text-align: center;
+    position: relative;
+    top: 4.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 17rem;
+  }
+
+  .div_histoire2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .img0 img {
+    width: 90vw;
+    margin-top: 4rem;
+  }
+
+  .img_1 img,
+  .img_2 img {
+    display: none;
+    /* display: flex;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    padding: 0; */
+  }
+
+  .img_3 img,
+  .img_4 img {
+    display: none;
+  }
+
+  .pattes_propos img {
+    padding: 0;
+    width: 80vw;
+    display: flex;
+    margin: 0 auto;
+  }
+
+  .paragraphe_pattes {
+    display: inline-flex;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .img_homme_chien img {
+    position: relative;
+    top: -2rem;
+    height: 300px;
+  }
+
+  .paragraphe_pattes2 {
+    position: relative;
+    top: -1rem;
+    font-size: 1.5rem;
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    width: 25rem;
+    padding: 0;
+  }
+
+  .img_histoire1 img {
+    width: 95vw;
+  }
+
+  .paragraphe_histoire1 {
+    width: 25rem;
+    padding: 0;
+    margin-top: 1.5rem;
+  }
+
+  .div_histoire2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .img_histoire2 img {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    top: 1rem;
+    width: 270px;
+  }
+
+  .paragraphe_histoire2 {
+    margin: 0 auto;
+    font-size: 1.5rem;
+    text-align: center;
+    position: relative;
+    top: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+  }
+}

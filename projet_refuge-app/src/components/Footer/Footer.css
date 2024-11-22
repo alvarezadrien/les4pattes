@@ -32,8 +32,8 @@
 .icon_email_h2 {
   margin-left: 20rem;
   margin-top: -11rem;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
   font-size: 1.8rem;
 }
 
@@ -48,14 +48,14 @@
 }
 
 .liste_contact_footer li {
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
 }
 
 .liste_contact_footer a {
   text-decoration: none;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
 }
 
 .icon_horaire_h2 img {
@@ -67,8 +67,8 @@
 
 .icon_horaire_h2 {
   font-size: 1.8rem;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
   margin-left: 60rem;
   margin-top: -13.5rem;
 }
@@ -80,24 +80,25 @@
   position: relative;
   top: -1rem;
   padding-left: 1rem;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
   font-size: 1.3rem;
 }
 
 .liste_horaire_footer a {
   text-decoration: none;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
 }
 
 a {
-  color: red;
+  color: white;
+  /* color: red; */
 }
 
 .reseaux_sociaux {
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
   font-size: 1.6rem;
   display: flex;
   margin-left: 5rem;
@@ -107,8 +108,8 @@ a {
 .liste_sociaux li {
   list-style-type: none;
   display: inline;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
   margin-left: 3rem;
 }
 
@@ -120,8 +121,8 @@ a {
 }
 
 .h5_bancaire {
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
   margin-top: -3.3rem;
   font-size: 1.3rem;
   float: right;
@@ -131,8 +132,8 @@ a {
 .copy {
   margin-top: -2.1rem;
   margin-left: 50rem;
-  /* color: white; */
-  color: red;
+  color: white;
+  /* color: red; */
 }
 
 .footer_bas {
