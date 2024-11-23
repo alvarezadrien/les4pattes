@@ -12,6 +12,7 @@ import Ficheperso_animal from './Page/Ficheperso_animal';
 import Partenaires from './Page/Partenaires';
 import Connexion from './Page/Connexion';
 import Motpasse_oublie from './Page/Motpasse_oublie';
+import Inscription from './Page/Inscription';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Connexion" element={<Connexion />} />
         <Route path="/Mot de passe oublié" element={<Motpasse_oublie />} />
+        <Route path="/Inscription" element={<Inscription />} />
       </Routes>
       <Footer />
     </Router>

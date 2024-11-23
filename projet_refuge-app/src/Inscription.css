@@ -1,0 +1,110 @@
+.h1_inscription {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-top: 7rem;
+}
+
+.container_form_inscription {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 50vw;
+  border-radius: 30px;
+  padding: 2rem;
+  height: 100vh;
+}
+
+.input_container_inscri {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.input_container_inscri label {
+  color: #778d45;
+  padding-bottom: 2rem;
+  font-size: 1.5rem;
+  position: absolute;
+  margin-left: 5%;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:not(:placeholder-shown) + label,
+.focused + label {
+  top: 0rem;
+  font-size: 1.5rem;
+}
+
+label {
+  position: absolute;
+  left: 0.5rem;
+  transform: translateY(-50%);
+  margin-left: 5rem;
+}
+
+input {
+  display: block;
+  margin: 0 auto;
+  width: 30vw;
+  padding: 0.8rem 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #778d45;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password_container input {
+  width: 100%;
+  padding-right: 35px;
+  box-sizing: border-box;
+}
+
+.toggle_password {
+  position: absolute;
+  top: 55%;
+  right: 2rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.toggle_password:hover {
+  text-decoration: underline;
+}
+
+.input_conditions {
+  margin-top: 3.5rem;
+}
+
+.input_conditions input {
+  width: 40px;
+}
+
+.input_conditions label {
+  display: flex;
+}
+
+.button_envoyer_inscri {
+  display: block;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  margin-top: 5rem;
+  color: #778d45;
+  border: 2px solid #778d45;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: white;
+  font-size: 1.5rem;
+}
