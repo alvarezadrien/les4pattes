@@ -89,7 +89,7 @@ const Inscription = () => {
                             onFocus={() => handleFocus("name")}
                             onBlur={() => handleBlur("name")}
                             required
-                        />
+                            />
                         <label htmlFor="name" className={focused.name || formData.name ? 'focused' : ''}>
                             Nom
                         </label>
@@ -106,6 +106,7 @@ const Inscription = () => {
                             onFocus={() => handleFocus("prenom")}
                             onBlur={() => handleBlur("prenom")}
                             required
+
                         />
                         <label htmlFor="prenom" className={focused.prenom || formData.prenom ? 'focused' : ''}>
                             Prénom
@@ -133,6 +134,7 @@ const Inscription = () => {
                             onFocus={() => handleFocus("adresse")}
                             onBlur={() => handleBlur("adresse")}
                             required
+
                         />
                         <label htmlFor="adresse" className={focused.adresse || formData.adresse ? 'focused' : ''}>
                             Adresse
@@ -152,6 +154,7 @@ const Inscription = () => {
                             pattern="^[0-9]{10}$"
                             title="Veuillez entrer un numéro de téléphone de 10 chiffres."
                             required
+
                         />
                         <label htmlFor="telephone" className={focused.telephone || formData.telephone ? 'focused' : ''}>
                             Téléphone
@@ -169,6 +172,7 @@ const Inscription = () => {
                             onFocus={() => handleFocus("email")}
                             onBlur={() => handleBlur("email")}
                             required
+
                         />
                         <label htmlFor="email" className={focused.email || formData.email ? 'focused' : ''}>
                             Email
