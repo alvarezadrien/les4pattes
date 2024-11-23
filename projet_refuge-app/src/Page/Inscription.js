@@ -74,9 +74,8 @@ const Inscription = () => {
 
     return (
         <div className='container_page_inscription'>
-                <h1 className='h1_inscription'>Vos données personnelles</h1>
+            <h1 className='h1_inscription'>Vos données personnelles</h1>
             <div className='container_form_inscription'>
-
                 <form onSubmit={handleSubmit}>
                     {/* Champ Nom */}
                     <div className="input_container_inscri">
@@ -89,7 +88,14 @@ const Inscription = () => {
                             onFocus={() => handleFocus("name")}
                             onBlur={() => handleBlur("name")}
                             required
+                        />
+                        <div className='img_cat_form'>
+                            <img
+                                src="/img/contact-cat.png"
+                                alt="Icone nom"
+                                style={{ marginLeft: "8px", verticalAlign: "middle" }}
                             />
+                        </div>
                         <label htmlFor="name" className={focused.name || formData.name ? 'focused' : ''}>
                             Nom
                         </label>
@@ -106,7 +112,6 @@ const Inscription = () => {
                             onFocus={() => handleFocus("prenom")}
                             onBlur={() => handleBlur("prenom")}
                             required
-
                         />
                         <label htmlFor="prenom" className={focused.prenom || formData.prenom ? 'focused' : ''}>
                             Prénom
@@ -134,7 +139,6 @@ const Inscription = () => {
                             onFocus={() => handleFocus("adresse")}
                             onBlur={() => handleBlur("adresse")}
                             required
-
                         />
                         <label htmlFor="adresse" className={focused.adresse || formData.adresse ? 'focused' : ''}>
                             Adresse
@@ -154,7 +158,6 @@ const Inscription = () => {
                             pattern="^[0-9]{10}$"
                             title="Veuillez entrer un numéro de téléphone de 10 chiffres."
                             required
-
                         />
                         <label htmlFor="telephone" className={focused.telephone || formData.telephone ? 'focused' : ''}>
                             Téléphone
@@ -172,7 +175,6 @@ const Inscription = () => {
                             onFocus={() => handleFocus("email")}
                             onBlur={() => handleBlur("email")}
                             required
-
                         />
                         <label htmlFor="email" className={focused.email || formData.email ? 'focused' : ''}>
                             Email
@@ -193,9 +195,9 @@ const Inscription = () => {
                                 onClick={togglePasswordVisibility}
                             >
                                 {showPassword ? (
-                                    <img src="/img/affiche.png" alt="Afficher" width={25} />
+                                    <img src="/img/affiche.png" alt="Afficher" width={25} className='img_affiche' />
                                 ) : (
-                                    <img src="/img/cacher.png" alt="Cacher" width={25} />
+                                    <img src="/img/cacher.png" alt="Cacher" width={25} className='img_cacher' />
                                 )}
                             </button>
                         </div>
@@ -211,7 +213,6 @@ const Inscription = () => {
                                 J'accepte les conditions générales
                             </label>
                         </div>
-
                     </div>
 
                     <button className="button_envoyer_inscri" type="submit">
