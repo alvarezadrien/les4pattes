@@ -1,222 +1,67 @@
-.container_page_contact {
-  position: relative;
-  left: 25%;
-  width: 50%;
-  height: 50rem;
-  padding-bottom: 7.5rem;
+.page_oublie {
+  display: flex;
+  height: 100vh;
 }
 
-.img_contact {
-  position: relative;
-  margin-top: 7rem;
-  left: 25%;
-  padding-bottom: 1rem;
-}
-
-.container_form {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  background-color: #fbf4de;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.h1_contact {
-  text-align: center;
-  font-size: 3rem;
-  margin-bottom: 2rem;
-  margin-top: -1.5rem;
-}
-
-.contact-form {
+.left-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-style: italic;
 }
 
-.input-container {
-  position: relative;
-  margin-bottom: 2rem;
+.container_form_login {
+  margin-top: 20px;
+  background-color: #f4eaca;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
-input,
-textarea {
+.container_form_login .form-group {
+  margin-bottom: 15px;
+}
+
+.container_form_login label {
   display: block;
-  margin: 0 auto;
-  width: 30vw;
-  padding: 0.8rem 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  box-sizing: border-box;
-  transition: 0.3s;
-  resize: none;
-}
-
-textarea {
-  height: 9rem;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #4caf50;
-}
-
-label {
-  position: absolute;
-  left: 0.5rem;
-  transform: translateY(-50%);
-  margin-left: 5rem;
-}
-
-input:focus + label,
-textarea:focus + label,
-input:not(:placeholder-shown) + label,
-textarea:not(:placeholder-shown) + label,
-.focused + label {
-  top: -0.8rem;
-  font-size: 1.2rem;
+  font-weight: bold;
   color: #778d45;
+  margin-left: 22.5%;
+  font-size: 1.5rem;
+  padding-bottom: 3.5rem;
 }
 
-.button_envoyer {
-  display: block;
-  margin: 0 auto;
-  padding: 0.8rem 2rem;
-  color: #778d45;
+.container_form_login input {
+  width: 90%;
+  padding: 10px;
   border: 2px solid #778d45;
   border-radius: 4px;
-  font-size: 1.2rem;
+  font-size: 16px;
+  margin-top: 1.5rem;
+}
+
+.btn-login {
+  width: 70%;
+  padding: 10px;
+  background-color: #778d45;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  background-color: white;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  margin-top: 10px;
+  border-radius: 30px;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .img_contact {
-    margin-left: -7.5rem;
-  }
-
-  .container_form {
-    width: 70vw;
-    display: block;
-  }
-
-  input,
-  textarea {
-    width: 80vw;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    margin-left: 0.5rem;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .img_contact {
-    margin-left: -7rem;
-  }
-
-  .container_form {
-    width: 70vw;
-    display: block;
-  }
-
-  input,
-  textarea {
-    width: 60vw;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    margin-left: 2.3rem;
-  }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .img_contact {
-    margin-left: -5rem;
-  }
-
-  .container_form {
-    width: 70vw;
-    display: block;
-  }
-
-  input,
-  textarea {
-    width: 80%;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    padding-left: 4.5rem;
-  }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .img_contact {
-    margin-left: -3rem;
-  }
-
-  .container_form {
-    width: 55vw;
-    display: block;
-  }
-
-  input,
-  textarea {
-    width: 80%;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    padding-left: 4.5rem;
-  }
-}
-
-@media screen and (min-width: 1281px) and (max-width: 1440px) {
-  .img_contact {
-    margin-left: -1.7rem;
-  }
-
-  .container_form {
-    width: 45vw;
-    display: block;
-  }
-
-  input,
-  textarea {
-    width: 80%;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    padding-left: 4.5rem;
-  }
+.right-image {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
 }

@@ -12,7 +12,7 @@ const Connexion = () => {
     <div className="page_connexion">
       <div className="left-content">
         <h1>Connectez-vous pour voir nos coulisses</h1>
-        <div className="container_form_login">
+        <div className="container_form_login_connexion">
           <form>
             <div className="form-group">
               <label htmlFor="email">Email</label>

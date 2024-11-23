@@ -15,7 +15,7 @@
   font-style: italic;
 }
 
-.container_form_login {
+.container_form_login_connexion {
   margin-top: 20px;
   background-color: #f4eaca;
   padding: 40px;
@@ -26,19 +26,21 @@
   /* height: 40%; */
 }
 
-.container_form_login .form-group {
+.container_form_login_connexion .form-group {
   margin-bottom: 15px;
 }
 
-.container_form_login label {
+.container_form_login_connexion label {
   display: block;
   font-weight: bold;
   color: #778d45;
-  /* margin-left: 22.5%; */
+  margin-left: 22.5%;
   font-size: 1.5rem;
+  padding-bottom: 2.5rem;
 }
 
-.container_form_login input {
+.container_form_login_connexion input {
+  margin-top: 2.5rem;
   width: 90%;
   padding: 10px;
   border: 2px solid #778d45;

@@ -2,49 +2,41 @@ import React, { useState } from 'react';
 import '../Motpasse_oublie.css';
 
 const Motpasse_oublie = () => {
-    const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
+    const validateInput = (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\+?[0-9]{7,15}$/;
+
+        if (emailRegex.test(value) || phoneRegex.test(value)) {
+            setErrorMessage('');
+        } else {
+            setErrorMessage('Veuillez entrer un email ou un numéro de téléphone valide.');
+        }
     };
 
     return (
-        <div className="page_connexion">
+        <div className="page_oublie">
             <div className="left-content">
-                <h1>Connectez-vous pour voir nos coulisses</h1>
+                <h1>Mot de passe oublié ? Récupérez votre compte ici</h1>
                 <div className="container_form_login">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id="email" placeholder="Entrez votre email" />
+                            <label htmlFor="emailOrPhone">Email ou Numéro de téléphone</label>
+                            <input
+                                type="text"
+                                id="emailOrPhone"
+                                placeholder="Entrez votre email ou numéro de téléphone"
+                                onChange={(e) => validateInput(e.target.value)}
+                            />
+                            {errorMessage && <span className="error">{errorMessage}</span>}
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="password">Mot de passe :</label>
-                            <div className="password-container">
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    id="password"
-                                    placeholder="Entrez votre mot de passe"
-                                />
-                                <button
-                                    type="button"
-                                    className="toggle-password"
-                                    onClick={togglePasswordVisibility}
-                                >
-                                    {showPassword ? <img src="/img/affiche.png" alt="" width={25} /> : <img src="/img/cacher.png" alt="" width={25} />}
-                                </button>
-                            </div>
-                        </div>
-
-                        <button type="submit" className="btn-login">Se connecter</button>
+                        <button type="submit" className="btn-login">Confirmer</button>
                     </form>
-                    <div className="form-links">
-                        <a href="/Inscription">Inscription</a>
-                    </div>
                 </div>
             </div>
-            <img src="/img/img_chien_login.jpg" alt="Chien" className="right-image" />
+            <img src="/img/img_chat_oublie.jpg" alt="Chien" className="right-image" />
         </div>
     );
 };
