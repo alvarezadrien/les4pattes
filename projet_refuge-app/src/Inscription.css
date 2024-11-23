@@ -4,6 +4,14 @@
   margin-top: 7rem;
 }
 
+.img_cat_form img {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: -9rem;
+  top: -7.1rem;
+}
+
 .container_form_inscription {
   display: flex;
   justify-content: center;
@@ -14,6 +22,7 @@
   border-radius: 30px;
   padding: 2rem;
   height: 100vh;
+  margin-bottom: 2rem;
 }
 
 .input_container_inscri {
@@ -27,6 +36,7 @@
   font-size: 1.5rem;
   position: absolute;
   margin-left: 5%;
+  top: 0;
 }
 
 input:focus + label,
@@ -83,7 +93,8 @@ input {
 }
 
 .input_conditions {
-  margin-top: 3.5rem;
+  position: relative;
+  top: 3.5rem;
 }
 
 .input_conditions input {

@@ -59,11 +59,7 @@ textarea {
 
 textarea {
   height: 9rem;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #4caf50;
+  border: 2px solid #778d45;
 }
 
 label {
@@ -71,6 +67,7 @@ label {
   left: 0.5rem;
   transform: translateY(-50%);
   margin-left: 5rem;
+  padding-bottom: 2rem;
 }
 
 input:focus + label,
@@ -78,7 +75,6 @@ textarea:focus + label,
 input:not(:placeholder-shown) + label,
 textarea:not(:placeholder-shown) + label,
 .focused + label {
-  top: -0.8rem;
   font-size: 1.2rem;
   color: #778d45;
 }
