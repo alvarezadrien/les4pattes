@@ -26,15 +26,14 @@ function Navbar() {
       title: "Animaux",
       propositions: [
         { text: "Témoin de cruauté animale ?", link: "/temoin de cruaute" },
-        { text: "Conditions d'adoption", link: "/conditions d'adoption" },
         { text: "Nos compagnons adoptés", link: "/compagnons adoptés" }
       ]
     },
     {
       title: "Adoption",
       propositions: [
-        { text: "Formulaire d'adoption", link: "/formulaire d'adoption" },
-        { text: "Infos sur l'adoptant", link: "/infos sur l'adoptant" }
+        { text: "Formulaire d'adoption", link: "/Formulaire d'adoption" },
+        { text: "Conditions d'adoption", link: "/conditions d'adoption" }
       ]
     },
     {
@@ -42,7 +41,7 @@ function Navbar() {
       propositions: [
         { text: "Notre équipe", link: "/notre équipe" },
         { text: "Adhésions", link: "/adhésions" },
-        { text: "Nos partenaires", link: "/nos partenaires" }
+        { text: "Nos partenaires", link: "/Nos partenaires" }
       ]
     },
     { title: "Contact", link: "/contact" }

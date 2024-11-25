@@ -14,18 +14,16 @@ const logos = [
 const Partenaires = () => {
     return (
         <div className='img_partenaires'>
-            {/* Titre principal */}
             <h1 className='h1_partenaires'>Nos partenaires</h1>
 
             {/* Conteneur des logos */}
             <div className='container_logo_partenaires'>
                 <ul className='img_logo'>
-                    {/* Génération dynamique des logos */}
                     {logos.map((logo, index) => (
                         <li key={index}>
-                            <img 
-                                src={logo} 
-                                alt={`Logo partenaire ${index + 1}`} 
+                            <img
+                                src={logo}
+                                alt={`Logo partenaire ${index + 1}`}
                                 className='logo_image'
                             />
                         </li>
