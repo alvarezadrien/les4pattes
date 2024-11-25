@@ -1,0 +1,167 @@
+/* Formulaire 1 */
+
+.h2_1 {
+  font-size: 3rem;
+  margin-top: 7rem;
+  text-align: center;
+}
+
+.formulaire1 {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 50vw;
+  border-radius: 30px;
+  padding: 2rem;
+  height: 52rem;
+  margin-bottom: 2rem;
+  padding-top: 5rem;
+}
+
+.input_container_adoption1 {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+input,
+textarea {
+  display: block;
+  margin: 0 auto;
+  width: 30vw;
+  padding: 0.8rem 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #778d45;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.input_conditions {
+  position: relative;
+  top: 3.5rem;
+}
+
+.input_conditions input {
+  width: 40px;
+}
+
+.input_conditions label {
+  display: flex;
+  color: #778d45;
+}
+
+.button_enregistrer {
+  display: block;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  margin-top: 5rem;
+  color: #778d45;
+  border: 2px solid #778d45;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: white;
+  font-size: 1.5rem;
+}
+
+.input_radio_group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.radio_option {
+  text-align: center;
+}
+
+.radio_option label {
+  display: block;
+  font-size: 1.5rem;
+  color: #778d45;
+  position: relative;
+  left: -2.5rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+.radio_option input {
+  display: block;
+  margin: 0 auto;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.input_textarea {
+  margin-top: 4rem;
+}
+
+textarea {
+  height: 13rem;
+}
+
+.input_textarea label {
+  color: #778d45;
+  font-size: 1.5rem;
+  font-size: 1.5rem;
+  padding-bottom: 2.5rem;
+  position: absolute;
+  left: 35.4%;
+}
+
+/* Formulaire 2 */
+
+.h2_2 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.formulaire2 {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 50vw;
+  border-radius: 30px;
+  padding: 2rem;
+  height: 52rem;
+  margin-bottom: 2rem;
+  padding-top: 5rem;
+}
+
+.input_container_adoption2 {
+  position: relative;
+  margin-bottom: 2rem;
+  color: #778d45;
+  font-size: 1.5rem;
+}
+
+.logement-selector {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.logement-selector label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+  color: #778d45;
+}
+
+#logement {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #778d45;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #778d45;
+}
+
+#logement:hover {
+  border-color: #778d45;
+}

@@ -1,10 +1,12 @@
 .img_partenaires {
   background-image: url(/public/img/img_chiens_chats_partenaires.jpg);
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   height: 30rem;
   position: relative;
-  top: 3.5rem;
+  /* top: 3.5rem; */
+  top: -2rem;
+  width: 100vw;
 }
 
 .h1_partenaires {
@@ -17,7 +19,6 @@
 .container_logo_partenaires {
   background-color: #fbf4de;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
   width: 85%;
@@ -26,12 +27,14 @@
   top: 13rem;
   border-radius: 20px;
   padding-top: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 20rem;
 }
 
 .img_logo {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 3rem;
   align-items: center;
 }
 
@@ -40,11 +43,11 @@
 }
 
 .img_logo img {
-  width: 200px;
+  width: 250px;
   border-radius: 15px;
 }
 
-@media (min-width: 335px) {
+/* @media (min-width: 335px) {
   .container_logo_partenaires {
     display: flex;
     flex-direction: column;
@@ -258,4 +261,4 @@
     display: grid;
     justify-content: center;
   }
-}
+} */
