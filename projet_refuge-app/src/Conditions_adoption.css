@@ -1,0 +1,148 @@
+.img_conditions {
+  margin-top: 6.5rem;
+  margin-bottom: 2rem;
+}
+
+.img_conditions img {
+  display: flex;
+  margin: 0 auto;
+  width: 600px;
+  height: 350px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+}
+
+.h1_adopt {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.paragraphe_adopt1 {
+  font-size: 1.7rem;
+  text-align: justify;
+  display: flex;
+  margin: 0 auto;
+  width: 61rem;
+}
+
+.h4_moyen_adopt {
+  font-size: 1.5rem;
+  font-style: italic;
+  width: 50rem;
+  margin-left: 5rem;
+  margin-top: 4rem;
+}
+
+.ul_moyen_adopt {
+  margin-left: 10rem;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  margin-top: 3rem;
+}
+
+.ul_moyen_adopt a {
+  color: #778d45;
+}
+
+.ul_moyen_adopt:hover a {
+  text-decoration: underline;
+  color: #778d45;
+}
+
+.img_adopt1 {
+  display: flex;
+  float: right;
+  position: relative;
+  right: 9%;
+  top: -12rem;
+}
+
+.img_adopt1 img {
+  width: 500px;
+  height: 330px;
+  border-radius: 40%;
+  border: 2px dashed #778d45;
+}
+
+.div_respecter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  padding: 1rem;
+  background-color: #f4eaca;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+h5 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  margin-top: -0.3rem;
+  text-align: center;
+}
+
+.ul_respecter {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ul_respecter li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.ul_respecter li::before {
+  content: "!";
+  color: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.hr_adopt {
+  width: 100%;
+  font-size: 2rem;
+}
+
+.div_frais {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4eaca;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.div_frais h5 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.div_frais ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.div_frais li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.ul_frais li::before {
+  content: "*";
+  color: green;
+  left: 0;
+  top: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
