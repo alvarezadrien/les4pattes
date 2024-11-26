@@ -54,6 +54,10 @@ const Conditions_adoption = () => {
                         </ul>
                 </div>
 
+                <div className='img_adopt2'>
+                    <img src="/img/images_chien_frais.jpg" alt="" />
+                </div>
+
 
         </div>
     )

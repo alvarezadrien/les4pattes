@@ -114,13 +114,14 @@ h5 {
 
 .div_frais {
   max-width: 600px;
-  margin: 0 auto;
   padding: 20px;
+  margin-left: 11rem;
   background-color: #f4eaca;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .div_frais h5 {
@@ -145,4 +146,25 @@ h5 {
   top: 0;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.img_adopt2 {
+  position: relative;
+  top: -17rem;
+  display: flex;
+  float: right;
+  margin-right: 10rem;
+}
+
+.img_adopt2 img {
+  width: 400px;
+  border-radius: 10px;
+  transform: rotate(15deg);
+  border: 2px solid #778d45;
+  box-shadow: 0 2px 5px black;
+}
+
+.img_adopt2:hover img {
+  transform: perspective(10px);
+  transition: all 1s;
 }
