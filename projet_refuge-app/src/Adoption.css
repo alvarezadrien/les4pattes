@@ -165,3 +165,7 @@ textarea {
 #logement:hover {
   border-color: #778d45;
 }
+
+.buton_form2 {
+  margin-top: -0.5rem;
+}

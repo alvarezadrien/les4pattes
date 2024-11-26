@@ -353,7 +353,7 @@ const Adoption = () => {
                         </label>
                     </div>
 
-                    <button className="button_enregistrer" type="submit">
+                    <button className="button_enregistrer buton_form2" type="submit">
                         Enregistrer
                     </button>
 
