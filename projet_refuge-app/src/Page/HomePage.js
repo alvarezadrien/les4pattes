@@ -26,7 +26,7 @@ const HomePage = () => {
         <div className='Page_home'>
             {/* Div container intro */}
             <div className='container_img'>
-                <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes.png" alt="" width={40} height={40} /></h1>
+                <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes_blanche.png" alt="" width={40} height={40} /></h1>
 
                 <p className='paragraphe_container'>Notre association pour les animaux <br />
                     perdus et abandonnés, depuis <br />
@@ -49,6 +49,9 @@ const HomePage = () => {
             </div>
             {/* Div container choix */}
             <div className='container_choix'>
+
+                {/* <h3 className="h2_choix">Adopter un animal de compagnie</h3> */}
+
                 <div className='container_choix1'>
                     <img src="/img/chien img choix.jpeg" alt="" width={300} height={300} onClick={redirectChien} />
                     <button className='button_choix_chiens' onClick={redirectChien}>Chiens</button>

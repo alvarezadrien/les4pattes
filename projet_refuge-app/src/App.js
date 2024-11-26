@@ -14,6 +14,7 @@ import Connexion from './Page/Connexion';
 import Motpasse_oublie from './Page/Motpasse_oublie';
 import Inscription from './Page/Inscription';
 import Adoption from './Page/Adoption';
+import Conditions_adoption from './Page/Conditions_adoption';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/Mot de passe oublié" element={<Motpasse_oublie />} />
         <Route path="/Inscription" element={<Inscription />} />
         <Route path="/Formulaire d'adoption" element={<Adoption />} />
+        <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
       </Routes>
       <Footer />
     </Router>

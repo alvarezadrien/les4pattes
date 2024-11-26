@@ -33,7 +33,7 @@ function Navbar() {
       title: "Adoption",
       propositions: [
         { text: "Formulaire d'adoption", link: "/Formulaire d'adoption" },
-        { text: "Conditions d'adoption", link: "/conditions d'adoption" }
+        { text: "Conditions d'adoption", link: "/Conditions d'adoption" }
       ]
     },
     {
