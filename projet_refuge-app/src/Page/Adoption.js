@@ -209,7 +209,7 @@ const Adoption = () => {
             <div className='formulaire2'>
                 <form action="#">
                     <div className='input_container_adoption2'>
-                    <input
+                        <input
                             type="text"
                             id="name"
                             name="name"
@@ -225,7 +225,7 @@ const Adoption = () => {
                     </div>
 
                     <div className='input_container_adoption2'>
-                    <input
+                        <input
                             type="text"
                             id="prenom"
                             name="prenom"
@@ -302,44 +302,44 @@ const Adoption = () => {
 
                     <div className="input_container_adoption2">
                         <label htmlFor="logement">Type de logement</label>
-                            <select id="logement" name="logement" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Appartement</option>
-                                <option value="maison">Maison</option>
-                            </select>
+                        <select id="logement" name="logement" required>
+                            <option value="">Sélectionner</option>
+                            <option value="appartement">Appartement</option>
+                            <option value="maison">Maison</option>
+                        </select>
                     </div>
 
                     <div className="input_container_adoption2">
                         <label htmlFor="logement">Accès extérieur</label>
-                            <select id="logement" name="acces" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Jardin</option>
-                                <option value="maison">terrasse</option>
-                                <option value="maison">Balcon</option>
-                                <option value="maison">Aucun</option>
-                            </select>
+                        <select id="logement" name="acces" required>
+                            <option value="">Sélectionner</option>
+                            <option value="appartement">Jardin</option>
+                            <option value="maison">terrasse</option>
+                            <option value="maison">Balcon</option>
+                            <option value="maison">Aucun</option>
+                        </select>
                     </div>
 
                     <div className="input_container_adoption2">
                         <label htmlFor="logement">Avez vous des enfants ?</label>
-                            <select id="logement" name="enfants" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Oui</option>
-                                <option value="maison">Non</option>
-                            </select>
+                        <select id="logement" name="enfants" required>
+                            <option value="">Sélectionner</option>
+                            <option value="appartement">Oui</option>
+                            <option value="maison">Non</option>
+                        </select>
                     </div>
 
                     <div className="input_container_adoption2">
                         <label htmlFor="logement">Avez vous des animaux ?</label>
-                            <select id="logement" name="animaux" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Oui</option>
-                                <option value="maison">Non</option>
-                            </select>
+                        <select id="logement" name="animaux" required>
+                            <option value="">Sélectionner</option>
+                            <option value="appartement">Oui</option>
+                            <option value="maison">Non</option>
+                        </select>
                     </div>
 
                     <div className='input_container_adoption2'>
-                    <input
+                        <input
                             type="text"
                             id="prenom"
                             name="prenom"
@@ -352,6 +352,11 @@ const Adoption = () => {
                             Type animaux ?
                         </label>
                     </div>
+
+                    <button className="button_enregistrer" type="submit">
+                        Enregistrer
+                    </button>
+
                 </form>
             </div>
         </div>
