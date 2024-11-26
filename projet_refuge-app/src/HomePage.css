@@ -138,12 +138,12 @@
 
 .home_propos h2 {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 
 .paragraphe_home_propos {
   margin-left: 10rem;
-  margin-top: -1rem;
+  margin-top: 3rem;
   font-size: 1.5rem;
 }
 
@@ -164,7 +164,7 @@
   border-radius: 50px;
   width: 12rem;
   height: 2.5rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   position: relative;
   margin-top: 5rem;
   left: 35rem;
