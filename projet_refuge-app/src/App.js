@@ -15,6 +15,7 @@ import Motpasse_oublie from './Page/Motpasse_oublie';
 import Inscription from './Page/Inscription';
 import Adoption from './Page/Adoption';
 import Conditions_adoption from './Page/Conditions_adoption';
+import Savoir from './Page/Savoir';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/Inscription" element={<Inscription />} />
         <Route path="/Formulaire d'adoption" element={<Adoption />} />
         <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
+        <Route path="/Se qu'il faut savoir" element={<Savoir />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,6 +1,11 @@
 .img_conditions {
-  margin-top: 6.5rem;
+  margin-top: 6rem;
   margin-bottom: 2rem;
+  background-image: url(../public/img/pexels-anete-lusina-16621442.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 2rem;
 }
 
 .img_conditions img {
@@ -10,7 +15,7 @@
   height: 350px;
   border-radius: 50%;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
 }
 
 .h1_adopt {
@@ -166,5 +171,6 @@ h5 {
 
 .img_adopt2:hover img {
   transform: perspective(10px);
-  transition: all 1s;
+  transition: all 1.5s;
+  border-radius: 100%;
 }
