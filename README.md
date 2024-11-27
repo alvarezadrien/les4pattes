@@ -1,15 +1,53 @@
 -----Charte graphique--------
 
-Couleur:
-Pour la navbar et le footer, j'ai choisi une couleur verte un peu foncée (#778d45). Pour les div de séparation, j'ai choisi une couleur claire avec une nuance de beige (#f4eaca). Le reste de la page est blanc. J'ai choisi ces couleurs parce que je trouve qu'elles sont calmes et agréables. J'ai choisi de mettre les lien de la navbar et footer en blanc pour qu'on puisse bien les voir sur le fond vert. Les boutons sont avec des fond vert avec une écriture blanche et dans les formulaires un fond blanc avec une bordure verte (#778d45) avec une écriture de la même couleur.
+Couleurs:
+---------
+Vert foncé (#778d45)
+....................
+J'ai choisi cette couleur pour la navbar et le foote, car je trouve quelle est calme et agréable, et reflète bien le thème animalier.
+Les liens dans la navbar et footer sotn blanc, car je trouve quelle resortent bien sur ce fond vert.
 
-Navbar:
-Pour la navbar j'ai choisi un logo blanc et noir avec un chat et un chien dedans, pour rester dans le thème de mon projet de refuge de chien et chat.
+Beige clair (#f4eaca)
+.....................
+J'ai choisi cette couleur pour les div de séparation, car c'est une couleur légère et qui ne fais pas tape à l'oeil.
 
-Footer:
-Dans le footer j'ai aussi mis le logo du refuge, deux icône un pour le contact et l'autres pour l'horaires. J'ai aussi pris 3 logos de réseaux sociaux, pour que les gens puissent visiter les pages web du refuge.
+Boutons (fond vert #778d45 + texte blanc)
+.........................................
+J'ai chois cette couleur pour les boutons de mon site, pour que les utilisateurs peuvent facilement voir que c'est un bouton.
+
+Boutons de formulaire (fond blanc, bordure verte + écriture #778d45)
+....................................................................
+J'ai voulu rester dans les même couleur mais en fessant une petite différence. Ce qui reste bien lisibles.
 
 Fonts:
-J'ai choisi la fonts de google: poppins pour la navbar et le footer. 
-Pour les titres H j'ai choisi la police barlow. 
-Pour le reste donc le paragraphe je choisis ubuntu.
+-----
+Poppins (Navbar et Footer)
+..........................
+J'ai choisi cette police pour les lien et écriture de la navbar et footer, car je trouve quelle est claire et simple en même temps.
+
+Barlow (Titre h)
+................
+J'ai choisi cette police pour tout les titre H dans mon site. Pour qu'on les voit bien et les differencie bien des paragraphe.
+
+Ubuntu (Paragraphe)
+...................
+J'ai choisi cette police d'écriture pour les paragraphe du site, car elle est tout aussi lisibles et adaptée au écran.
+
+Logo:
+-----
+Le logo est blanc et noir avec un chat et un chien dedans, J'ai choisi ce logo parce-que je trouve qu'il est en armonie avec le reste du site et il est dans le thème.
+
+Footer:
+-------
+J'ai mis aussi le logo dans le footer, pour renforcer l'identité du site avec sont logo.
+J'ai mis aussi icôns (Pour es infos conatct, et pour les horaires).
+
+Et pour la fin du footer j'ai placé 3 logo de réseaux sociaux, pour que les utilisateurs du site peuevtn aussi aller voir nos réseaux sur internet.
+
+
+
+
+
+
+
+
