@@ -122,3 +122,133 @@
 .para_savoir3 a {
   color: #778d45;
 }
+
+.container01,
+.container02 {
+  display: block;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 40vw;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  border: 2px solid #778d45;
+}
+
+.h3_01 {
+  font-size: 2.3rem;
+  text-align: center;
+}
+
+.para01_savoir {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  width: 40rem;
+  padding: 2rem;
+}
+
+.img_chat_long {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 15rem;
+  margin-bottom: 2rem;
+}
+
+.img_chat_long img {
+  width: 40vw;
+  height: 300px;
+}
+
+.container03 {
+  display: block;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 40vw;
+  border-radius: 50%;
+  margin-top: 2rem;
+  border: 2px solid #778d45;
+}
+
+.container04 {
+  display: block;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 55vw;
+  height: 30vh;
+  border-radius: 50%;
+  margin-top: 1.5rem;
+  border: 2px solid #778d45;
+  margin-bottom: 2rem;
+}
+
+.h3_02 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.ul_savoir01 {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  width: 40rem;
+  padding: 2rem;
+}
+
+.ul_savoir01 li {
+  font-size: 2.2rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.container05 {
+  display: block;
+  margin: 0 auto;
+  background-color: #778d45;
+  width: 50%;
+  color: white;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.container06 {
+  display: block;
+  margin: 0 auto;
+  background-color: #778d45;
+  width: 40vw;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.h3_03 {
+  font-size: 2.3rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.para02_savoir {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  width: 35rem;
+  padding: 2rem;
+}
+
+.container07 {
+  display: flex;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  width: 40vw;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+
+.para03_savoir {
+  font-size: 1.8rem;
+  padding: 1rem;
+  text-align: center;
+}

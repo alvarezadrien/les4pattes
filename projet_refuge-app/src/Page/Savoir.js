@@ -46,6 +46,66 @@ const Savoir = () => {
                 </p>
             </div>
 
+            <div className='containre_savoir'>
+                <div className='container01'>
+                    <h3 className='h3_01'>Un engagement à long terme</h3>
+                </div>
+
+                <div className='container02'>
+                    <p className='para01_savoir'>
+                        Adopter un animal c'est un grand engagement pour plusieurs années. 
+                        Le futur adopter sera un membres de vôtre famille, avec ses besoins 
+                        en affection régulière, des soins quand il le faut.
+                    </p>
+                </div>
+            </div>
+
+            <div className='img_chat_long'>
+                <img src="/img/img_panier_chien.jpeg" alt="" />
+            </div>
+
+            <div className='container_savoir01'>
+                <div className='container03'>
+                    <h3 className='h3_02'>Les frais à prévoir</h3>
+                </div>
+
+                <div className='container04'>
+                    <ul className='ul_savoir01'>
+                        <li>Nourriture adapté</li>
+                        <li>Accesoires(panier, litière, jouets, laisse, ...)</li>
+                        <li>Frais de soins véterinaire</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr />
+
+            <div className='container_savoir02'>
+                <div className='container05'>
+                    <h3 className='h3_03'>Période d'adaptation</h3>
+                </div>
+
+                <div className='container06'>
+                    <p className='para02_savoir'>
+                        Lorsque vous adopter un animal, 
+                        il est tout à fait normal que l'animal 
+                        sera un peu effrayer de ce nouvel environnement, 
+                        pour aider cette étape d'adaptation offrez lui un 
+                        environnement calme et sûr. Donnez lui du temps pour s'habituer 
+                        à se nouvel environnement et à vous.
+                    </p>
+                </div>
+            </div>
+
+            <div className='container07'>
+                <p className='para03_savoir'>
+                    Prenez le temps de bien réfléchir, 
+                    et si vous êtes prêt à adopter votre futur 
+                    ami à quatre pattes offrez lui une nouvelle 
+                    maison. Contactez nous des maintenant pour en savoir plus !
+                </p>
+            </div>
+
         </div>
     )
 }

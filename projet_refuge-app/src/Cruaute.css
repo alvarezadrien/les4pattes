@@ -1,0 +1,194 @@
+.page_cruaute {
+  background-image: url(../public/img/chien_abandon1.jpeg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 35rem;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.h1_titre_cruaute {
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  right: 15rem;
+  top: 10rem;
+}
+
+.container_para_cruaute1 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.para_cruaute1 {
+  font-size: 1.6rem;
+  width: 50rem;
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.container_cruaute_chat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem;
+}
+
+.container_img_cruaute1 img {
+  border: 2px solid black;
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  margin-left: 15rem;
+}
+
+.container_paragraphes {
+  border: 2px solid black;
+  padding: 1rem;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 2rem;
+  padding: 1.5rem;
+  margin-right: 15rem;
+  border-radius: 40px;
+  height: 50vh;
+}
+
+.para01,
+.para02 {
+  font-size: 2rem;
+  text-align: left;
+}
+
+.div_h2_cruaute1 {
+  display: block;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  border: 1.5px solid black;
+  width: 70vw;
+  margin-top: 3rem;
+}
+
+.h2_titre03 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.div_para03 {
+  display: flex;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  border: 1.5px solid black;
+  width: 65vw;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.para03 {
+  display: flex;
+  margin: 0 auto;
+  font-size: 1.6rem;
+  text-align: center;
+  width: 35rem;
+}
+
+.div_para04 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 2px solid black;
+  width: 67vw;
+  height: 5rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  margin-top: -1rem;
+}
+
+.para04 {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.div_container_img0 {
+  display: flex;
+  justify-content: space-evenly;
+  width: 70%;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.container_img_cruaute2 img {
+  border-radius: 80%;
+  width: 450px;
+  height: 330px;
+  transform: rotate(-8deg);
+  margin-bottom: 2rem;
+}
+
+.container_img_cruaute3 img {
+  margin-top: 2.3rem;
+  transform: rotate(8deg);
+  width: 350px;
+  height: 250px;
+}
+
+.h2_titre05 {
+  font-size: 2.3rem;
+  text-align: center;
+}
+
+.para05 {
+  display: flex;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  text-align: center;
+  width: 35rem;
+  margin-bottom: 2rem;
+}
+.div_h2_cruaute06,
+.div_h2_cruaute07 {
+  display: block;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  border: 1.5px solid black;
+  width: 60vw;
+  border-radius: 20px;
+  margin-top: 3rem;
+}
+
+.h2_titre06,
+.h2_titre07 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.div_para06,
+.div_para07 {
+  display: flex;
+  margin: 0 auto;
+  background-color: #f4eaca;
+  border: 1.5px solid black;
+  width: 55vw;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.ol_li li {
+  font-size: 1.8rem;
+}
