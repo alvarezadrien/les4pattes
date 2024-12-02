@@ -71,9 +71,12 @@ const HomePage = () => {
             </div>
 
             {/* Importatiln code carte carrousel */}
-            <h3 className='titre_carte'><img src="/img/pattes.png" alt="" width={40} height={40} /> Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40} /></h3>
+            <div className='container_carte'>
+                <h3 className='titre_carte'><img src="/img/pattes.png" alt="" width={40} height={40} /> Animaux à adopter <img src="/img/pattes.png" alt="" width={40} height={40} /></h3>
 
-            <Carte_carrousel />
+                <Carte_carrousel />
+            </div>
+
 
             {/* Div home propos */}
             <div className='home_propos'>
