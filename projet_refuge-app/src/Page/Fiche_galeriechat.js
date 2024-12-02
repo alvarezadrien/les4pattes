@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import '../Fichegalerie.css'
 
 const Fichegalerie = () => {
-    // Appel variable chiens
     const dogs = [
         { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
         { name: "Bella", age: "1 an", race: "Lorem", Sexe: "Femelle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
@@ -20,7 +20,7 @@ const Fichegalerie = () => {
 
     return (
         <div className="page-container">
-            
+
             <section className='container_appercu'>
                 <div className='animal_group'>
                     {dogs.map((dog, index) => (
@@ -31,7 +31,8 @@ const Fichegalerie = () => {
                                 <p className='age'>Âge: {dog.age}</p>
                                 <span>Race: {dog.race}</span> <br />
                                 <span>Sexe: {dog.sexe}</span> <br />
-                                <button type='button'>Détails</button>
+                                <button type="button"><Link to={`/Ficheperso_animal/${dog.name}`} className="">Détails</Link></button>
+
                             </div>
                         </div>
                     ))}
