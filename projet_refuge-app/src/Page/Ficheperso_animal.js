@@ -7,15 +7,17 @@ const AnimalDetails = () => {
       name: "Diablo",
       race: "Labrador",
       age: "2 ans",
+      size: "Petit",
       arrivalDate: "2022-06-15",
-      description: "Diablo est un chien très énergique, toujours prêt à jouer.",
-      mainImg: "/img/chien1.jpg",
-      smallImgs: ["https://picsum.photos/200", "https://picsum.photos/200"]
+      description: "Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.",
+      mainImg: "/img/img_galeriechat/sydney-chat1.jpg",
+      smallImgs: ["./img/img_galeriechat/sydney-chat1.jpg", "./img/img_galeriechat/sydney-chat2.jpg", "./img/img_galeriechat/sydney-chat3.jpg"]
     },
     {
       name: "Bella",
       race: "Bulldog",
       age: "3 ans",
+      size: "Petit",
       arrivalDate: "2021-08-22",
       description: "Bella est calme et affectueuse. Elle adore les câlins.",
       mainImg: "/img/chien2.jpg",
@@ -25,6 +27,7 @@ const AnimalDetails = () => {
       name: "Max",
       race: "Beagle",
       age: "1 an",
+      size: "Petit",
       arrivalDate: "2023-01-10",
       description: "Max est un chiot très curieux et sociable.",
       mainImg: "/img/chien3.jpg",
@@ -62,10 +65,15 @@ const AnimalDetails = () => {
       </div>
       <div className="info-section">
         <h2>{selectedAnimal.name}</h2>
-        <p><strong>Race :</strong> {selectedAnimal.race}</p>
-        <p><strong>Âge :</strong> {selectedAnimal.age}</p>
-        <p><strong>Date d'arrivée :</strong> {selectedAnimal.arrivalDate}</p>
-        <p>{selectedAnimal.description}</p>
+        <div className='div_p_infos'>
+          <p><strong>Race :</strong> {selectedAnimal.race}</p>
+          <p><strong>Âge :</strong> {selectedAnimal.age}</p>
+          <p><strong>Taille :</strong> {selectedAnimal.size}</p>
+        </div>
+        <br />
+        <p className='arrival_date'><strong>Date d'arrivée :</strong> {selectedAnimal.arrivalDate}</p>
+        <br />
+        <p className='paragraphe_description_infos'>{selectedAnimal.description}</p>
       </div>
     </div>
   );
