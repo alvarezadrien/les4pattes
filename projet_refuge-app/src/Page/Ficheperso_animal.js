@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../Ficheperso_animal.css';
+import Carte_carrousel from './Carte_carrousel';
+
 
 const AnimalDetails = () => {
   const animals = [
@@ -35,46 +37,51 @@ const AnimalDetails = () => {
     }
   ];
 
-  // État pour l'animal sélectionné
   const [selectedAnimal, setSelectedAnimal] = useState(animals[0]);
 
-  // Fonction pour changer l'image principale
   const handleImageClick = (image) => {
     setSelectedAnimal((prev) => ({ ...prev, mainImg: image }));
   };
 
   return (
-    <div className="animal-details-container">
-      <div className="image-section">
-        <img
-          className="main-image"
-          src={selectedAnimal.mainImg}
-          alt={`Photo de ${selectedAnimal.name}`}
-        />
-        <div className="small-images">
-          {selectedAnimal.smallImgs.map((img, index) => (
-            <img
-              key={index}
-              className="small-image"
-              src={img}
-              alt={`Image ${index + 1}`}
-              onClick={() => handleImageClick(img)}
-            />
-          ))}
+    <div>
+      <div className="animal-details-container">
+        <div className="image-section">
+          <img
+            className="main-image"
+            src={selectedAnimal.mainImg}
+            alt={`Photo de ${selectedAnimal.name}`}
+          />
+          <div className="small-images">
+            {selectedAnimal.smallImgs.map((img, index) => (
+              <img
+                key={index}
+                className="small-image"
+                src={img}
+                alt={`Image ${index + 1}`}
+                onClick={() => handleImageClick(img)}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="info-section">
+          <h2>{selectedAnimal.name}</h2>
+          <div className='div_p_infos'>
+            <p><strong>Race :</strong> {selectedAnimal.race}</p>
+            <p><strong>Âge :</strong> {selectedAnimal.age}</p>
+            <p><strong>Taille :</strong> {selectedAnimal.size}</p>
+          </div>
+          <br />
+          <p className='arrival_date'><strong>Date d'arrivée :</strong> {selectedAnimal.arrivalDate}</p>
+          <br />
+          <p className='paragraphe_description_infos'>{selectedAnimal.description}</p>
         </div>
       </div>
-      <div className="info-section">
-        <h2>{selectedAnimal.name}</h2>
-        <div className='div_p_infos'>
-          <p><strong>Race :</strong> {selectedAnimal.race}</p>
-          <p><strong>Âge :</strong> {selectedAnimal.age}</p>
-          <p><strong>Taille :</strong> {selectedAnimal.size}</p>
-        </div>
-        <br />
-        <p className='arrival_date'><strong>Date d'arrivée :</strong> {selectedAnimal.arrivalDate}</p>
-        <br />
-        <p className='paragraphe_description_infos'>{selectedAnimal.description}</p>
+      <div className='carrousel_vue'>
+        <h3 className='h3_plus_animaux'> <img src="/img/pattes.png" alt="" width={40} height={40} /> Plus d'animaux  <img src="/img/pattes.png" alt="" width={40} height={40} /></h3>
+        <Carte_carrousel />
       </div>
+
     </div>
   );
 };
