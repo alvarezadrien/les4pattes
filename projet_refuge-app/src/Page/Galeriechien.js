@@ -1,11 +1,11 @@
 import React from 'react';
 import Filtre from './Filtre';
 import '../Galeriechien.css';
-import Fichegalerie from './Fichegalerie';
+import Fichegalerie from './Fiche_galeriechien';
 import Pagination from './Pagination';
 
 const Galeriechien = () => {
-    const totalPages = 5; // Nombre total de pages
+    const totalPages = 5;
     const images = [
         { src: "/img/chien chat .jpeg", alt: "Chien et chat ensemble" },
         { src: "/img/chat_galerie.jpg", alt: "Chat dans la galerie" },
@@ -27,13 +27,10 @@ const Galeriechien = () => {
                 </div>
             </div>
 
-            {/* Importation filtre */}
             <Filtre />
 
-            {/* Importation Fichegalerie */}
             <Fichegalerie />
 
-            {/* Importation Pagination avec le nombre total de pages */}
             <Pagination totalPages={totalPages} />
         </div>
     );
