@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar'
 import { Navigate, useNavigate } from 'react-router-dom'
 import Animalitem from './Animalitem';
 import '../HomePage.css';
+import Carte_carrousel from './Carte_carrousel';
 
 const HomePage = () => {
     const navigate = useNavigate()
@@ -68,6 +69,12 @@ const HomePage = () => {
                 <span className='nombre'>18567</span>
                 <img src="/img/hero-dog.png" alt="" width={280} height={280} />
             </div>
+
+            {/* Importatiln code carte carrousel */}
+                <h3 className='titre_carte'>Animaux à adopter</h3>
+
+                    <Carte_carrousel />
+
             {/* Div home propos */}
             <div className='home_propos'>
                 <h2> <img src="/img/pattes.png" alt="" width={40} height={40} />À propos de nous <img src="/img/pattes.png" alt="" width={40} height={40} /></h2>

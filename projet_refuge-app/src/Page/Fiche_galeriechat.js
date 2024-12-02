@@ -20,6 +20,7 @@ const Fichegalerie = () => {
 
     return (
         <div className="page-container">
+            
             <section className='container_appercu'>
                 <div className='animal_group'>
                     {dogs.map((dog, index) => (

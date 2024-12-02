@@ -23,6 +23,7 @@ import Animalitem from './Page/Animalitem';
 import PopupMenu from './Page/PopupMenu';
 import Filtre from './Page/Filtre';
 import Pagination from './Page/Pagination';
+import Carte_carrousel from './Page/Carte_carrousel';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/HomePage" element={<HomePage />} />
+        
         <Route path="/Apropos" element={<Apropos />} />
         <Route path="/Galeriechien" element={<Galeriechien />} />
         <Route path='/Galeriechat' element={<Galeriechat />} />
@@ -46,6 +48,7 @@ const App = () => {
         <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
         <Route path="/Se qu'il faut savoir" element={<Savoir />} />
         <Route path="/Témoin de cruauté ?" element={<Cruaute />} />
+        <Route path="/Carte" element={<Carte_carrousel />} />
       </Routes>
       <Footer />
     </Router>
