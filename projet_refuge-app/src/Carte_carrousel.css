@@ -91,7 +91,6 @@
 .carrousel {
   display: flex;
   transition: transform 1.5s ease-in-out;
-  /* transition: transform 1.5s all; */
 }
 
 .carrousel-button {

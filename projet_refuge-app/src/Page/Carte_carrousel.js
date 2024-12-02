@@ -62,7 +62,7 @@ const Carte_carrousel = () => {
                                 <p>Âge : {dog.age}</p>
                                 <p>Race : {dog.race}</p>
                                 <p>Sexe : {dog.Sexe}</p>
-                                <Link to={`/Fiche_perso_animaux/${dog.name}`} className="details-button">Détails</Link>
+                                <Link to={`/Ficheperso_animal/${dog.name}`} className="details-button">Détails</Link>
                             </div>
                         </div>
                     ))}
