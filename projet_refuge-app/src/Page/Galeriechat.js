@@ -27,13 +27,10 @@ const Galeriechat = () => {
                 </div>
             </div>
 
-            {/* Importation filtre */}
             <Filtre />
 
-            {/* Importation Fichegalerie */}
             <Fichegalerie />
 
-            {/* Importation Pagination avec le nombre total de pages */}
             <Pagination totalPages={totalPages} />
         </div>
     );
