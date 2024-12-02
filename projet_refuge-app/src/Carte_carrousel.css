@@ -4,7 +4,7 @@
   margin: auto;
   overflow: hidden;
   background-color: #778d45;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 10px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -55,7 +55,7 @@
   font-size: 1rem;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 2s ease;
   margin-top: 1rem;
 }
 
@@ -90,7 +90,8 @@
 
 .carrousel {
   display: flex;
-  transition: transform 0.7s ease-in-out;
+  transition: transform 1.5s ease-in-out;
+  /* transition: transform 1.5s all; */
 }
 
 .carrousel-button {
