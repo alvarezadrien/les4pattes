@@ -5,6 +5,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 70vw;
+  height: 70vh;
   margin: 8rem auto;
 }
 
@@ -14,6 +15,8 @@
   flex-direction: column;
   align-items: center;
   margin-right: 20px;
+  position: relative;
+  top: 3rem;
 }
 
 .main-image {
@@ -23,26 +26,29 @@
   border-radius: 50%;
   margin-bottom: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 3px solid #778d45;
 }
 
 .small-images {
   display: flex;
   justify-content: center;
-  gap: 5px; /* Espace entre les petites images */
+  gap: 5px;
 }
 
 .small-image {
-  width: 100px; /* Taille légèrement plus grande */
+  width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 3px solid #778d45;
 }
 
 .small-image:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
+  transition: 0.3s ease-in-out;
 }
 
 .info-section {
@@ -53,17 +59,32 @@
 }
 
 .info-section h2 {
-  margin-bottom: 10px;
-  font-size: 1.8rem;
-  color: #2c3e50;
+  font-size: 2.5rem;
+  text-align: center;
+  position: relative;
+  bottom: 2rem;
+  right: 15%;
 }
 
 .info-section p {
   margin: 5px 0;
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.2rem;
 }
 
-.info-section p strong {
-  font-weight: bold;
+.div_p_infos p {
+  position: relative;
+  bottom: 2.5rem;
+  font-size: 1.3rem;
+}
+
+.arrival_date {
+  position: relative;
+  bottom: 1.5rem;
+}
+
+.paragraphe_description_infos {
+  text-align: justify;
+  width: 80%;
+  position: relative;
+  top: 0.7rem;
 }
