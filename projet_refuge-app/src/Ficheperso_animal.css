@@ -1,8 +1,69 @@
-.container_page_ficheperso {
-  width: 70%;
-  height: 40rem;
+.animal-details-container {
+  display: flex;
   background-color: #f4eaca;
-  margin: 0 auto;
-  margin-top: 8rem;
-  margin-bottom: 5rem;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 70vw;
+  margin: 8rem auto;
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.main-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.small-images {
+  display: flex;
+  justify-content: center;
+  gap: 5px; /* Espace entre les petites images */
+}
+
+.small-image {
+  width: 100px; /* Taille légèrement plus grande */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.small-image:hover {
+  transform: scale(1.1);
+}
+
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-section h2 {
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  color: #2c3e50;
+}
+
+.info-section p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.info-section p strong {
+  font-weight: bold;
 }
