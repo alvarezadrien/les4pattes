@@ -4,7 +4,7 @@ import "../Carte_carrousel.css";
 
 const Carte_carrousel = () => {
     const dogs = [
-        { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
+        { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/img_galeriechat/sydney-chat1.jpg" },
         { name: "Bella", age: "1 an", race: "Lorem", Sexe: "Femelle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
         { name: "Max", age: "3 Ans", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
         { name: "Lucky", age: "4 Ans", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
@@ -13,7 +13,7 @@ const Carte_carrousel = () => {
         { name: "Rocky", age: "5 Ans", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
         { name: "Daisy", age: "3 Ans", race: "Lorem", Sexe: "Femelle", imgSrc: "/img/chien_fiche1.jpg" },
         { name: "Buddy", age: "1 An", race: "Lorem", Sexe: "Mâle", imgSrc: "/img/chien_fiche1.jpg" },
-        { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
+        { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/img_galeriechat/sydney-chat1.jpg" },
         { name: "Bella", age: "1 an", race: "Lorem", Sexe: "Femelle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
         { name: "Max", age: "3 Ans", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
         { name: "Lucky", age: "4 Ans", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chien_fiche1.jpg" },
