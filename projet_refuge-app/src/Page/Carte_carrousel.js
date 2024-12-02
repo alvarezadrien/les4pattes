@@ -58,7 +58,7 @@ const Carte_carrousel = () => {
                         <div key={`dog-${index}`} className="carrousel_card">
                             <img className="card-image" src={dog.imgSrc} alt={`Photo de ${dog.name}`} />
                             <div className="card-info">
-                                <h3>{dog.name}</h3>
+                                <h3 className="h3card_info">{dog.name}</h3>
                                 <p>Âge : {dog.age}</p>
                                 <p>Race : {dog.race}</p>
                                 <p>Sexe : {dog.Sexe}</p>
