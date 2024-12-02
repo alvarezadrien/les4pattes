@@ -10,8 +10,8 @@ const Cruaute = () => {
 
             <div className="container_para_cruaute1">
                 <p className="para_cruaute1">
-                    La cruauté animale est inacceptable, chaque année des milliers d'animaux en souffrent, 
-                    d'abandon, de maltraitance ou de la négligence de la part de leur maître. Certains propriétaires peuvent 
+                    La cruauté animale est inacceptable, chaque année des milliers d'animaux en souffrent,
+                    d'abandon, de maltraitance ou de la négligence de la part de leur maître. Certains propriétaires peuvent
                     aller jusqu'à la maltraitance physique envers leurs animaux, par exemple : coups jusqu'aux blessures et manque de soins.
                     La maltraitance de privation de nourriture, d'eau ou de vie adaptée à leurs besoins.
                 </p>
@@ -23,7 +23,7 @@ const Cruaute = () => {
                 </div>
                 <div className="container_paragraphes">
                     <p className="para01">
-                        La lutte contre la maltraitance est 
+                        La lutte contre la maltraitance est
                         l'une des grandes priorités de notre refuge.
                     </p>
                     <p className="para02">
@@ -39,10 +39,10 @@ const Cruaute = () => {
 
                 <div className="div_para03">
                     <p className="para03">
-                        Si vous êtes témoin d'une situation de cruauté ou de négligence, 
-                        vous pouvez appeler notre numéro d'urgence en cas de situation 
-                        grave au 0492764208 ou la police au 101. Si c'est des animaux autres 
-                        que des chiens et chats, contactez-nous et nous ferons le nécessaire 
+                        Si vous êtes témoin d'une situation de cruauté ou de négligence,
+                        vous pouvez appeler notre numéro d'urgence en cas de situation
+                        grave au 0492764208 ou la police au 101. Si c'est des animaux autres
+                        que des chiens et chats, contactez-nous et nous ferons le nécessaire
                         pour qu'ils soient pris en charge avec les meilleurs soins et respect.
                     </p>
                 </div>
