@@ -1,0 +1,97 @@
+.page_compagnons {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+  margin-top: 15rem;
+}
+
+.container_compagnons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.animal_group_compagnons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.item_flip-card {
+  perspective: 1000px;
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.3s;
+  transform-style: preserve-3d;
+}
+
+.item_flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-front {
+  background-color: #f4eaca;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  margin-top: -10rem;
+}
+
+.flip-card-front h3 {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.flip-card-front span {
+  font-size: 1.3rem;
+  display: block;
+  margin-top: 1rem;
+}
+
+.flip-card-back {
+  background-color: #f4eaca;
+  transform: rotatey(180deg);
+  padding: 1rem;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.animal-description {
+  font-size: 1.4rem;
+  padding: 1rem;
+  width: 75%;
+}
