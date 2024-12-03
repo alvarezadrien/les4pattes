@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../Fichegalerie.css'
 
 const Fichegalerie = () => {
-    const dogs = [
+    const cat = [
         { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
         { name: "Bella", age: "1 an", race: "Lorem", Sexe: "Femelle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
         { name: "Max", age: "3 Ans", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
@@ -23,15 +23,15 @@ const Fichegalerie = () => {
 
             <section className='container_appercu'>
                 <div className='animal_group'>
-                    {dogs.map((dog, index) => (
-                        <div className='item' key={`dog-${index}`}>
-                            <img src={dog.imgSrc} alt={`Photo de ${dog.name}`} />
+                    {cat.map((cat, index) => (
+                        <div className='item' key={`cat-${index}`}>
+                            <img src={cat.imgSrc} alt={`Photo de ${cat.name}`} />
                             <div className='item_info'>
-                                <h3>{dog.name}</h3>
-                                <p className='age'>Âge: {dog.age}</p>
-                                <span>Race: {dog.race}</span> <br />
-                                <span>Sexe: {dog.sexe}</span> <br />
-                                <button type="button"><Link to={`/Ficheperso_animal/${dog.name}`} className="">Détails</Link></button>
+                                <h3>{cat.name}</h3>
+                                <p className='age'>Âge: {cat.age}</p>
+                                <span>Race: {cat.race}</span> <br />
+                                <span>Sexe: {cat.sexe}</span> <br />
+                                <button type="button"><Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link></button>
 
                             </div>
                         </div>
