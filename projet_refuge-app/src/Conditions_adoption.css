@@ -174,3 +174,115 @@ h5 {
   transition: all 1.5s;
   border-radius: 100%;
 }
+
+/* .frais_comprend {
+  background-color: #f4eaca;
+  width: 50vw;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.h3_comprend {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.frais_comprend ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.frais_comprend ul li {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+} */
+
+.frais_comprend {
+  background-color: #f4eaca;
+  width: 50vw;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24%;
+  position: relative;
+  top: -10rem;
+}
+.h3_comprend {
+  font-size: 2rem;
+  margin-top: -0.5rem;
+}
+.frais_comprend ul {
+  list-style: circle;
+}
+.frais_comprend ul li {
+  font-size: 1.4rem;
+}
+
+.souhait_adopter {
+  font-size: 2rem;
+  text-align: center;
+  margin-top: -6rem;
+  margin-bottom: 3rem;
+  text-decoration: underline;
+}
+
+.div_container_chien_chat_souhait {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+.container_souhait1,
+.container_souhait2 {
+  border: 3px solid #778d45;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.img_souhait1 img,
+.img_souhait2 img {
+  width: 450px;
+  height: 230px;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.h4_souhait {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* paragraphe de souhait */
+.para_souhait1 {
+  font-size: 1.3rem;
+  text-align: center;
+  width: 25rem;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 2.5rem;
+}
+
+.button_souhait {
+  background-color: #778d45;
+  color: white;
+  border-radius: 70%;
+  border: none;
+  font-size: 1.7rem;
+  padding: 0.5rem;
+  width: 11.5rem;
+  height: 3.5rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
