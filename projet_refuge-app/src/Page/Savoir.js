@@ -9,9 +9,9 @@ const Savoir = () => {
             <div className='bull_para1'>
                 <p className='para_savoir1'>
                     Adopter un animal est une belle démarche,
-                    mais elle demande réflexion et préparation. 
-                    Voici tout ce que vous devez savoir pour vous 
-                    assurer que votre adoption se passe dans les 
+                    mais elle demande réflexion et préparation.
+                    Voici tout ce que vous devez savoir pour vous
+                    assurer que votre adoption se passe dans les
                     meilleures conditions
                 </p>
             </div>
@@ -53,14 +53,14 @@ const Savoir = () => {
 
                 <div className='container02'>
                     <p className='para01_savoir'>
-                        Adopter un animal c'est un grand engagement pour plusieurs années. 
-                        Le futur adopter sera un membres de vôtre famille, avec ses besoins 
+                        Adopter un animal c'est un grand engagement pour plusieurs années.
+                        Le futur adopter sera un membres de vôtre famille, avec ses besoins
                         en affection régulière, des soins quand il le faut.
                     </p>
                 </div>
             </div>
 
-            <div className='img_chat_long'>
+            <div className='img_chien_long'>
                 <img src="/img/img_panier_chien.jpeg" alt="" />
             </div>
 
@@ -87,11 +87,11 @@ const Savoir = () => {
 
                 <div className='container06'>
                     <p className='para02_savoir'>
-                        Lorsque vous adopter un animal, 
-                        il est tout à fait normal que l'animal 
-                        sera un peu effrayer de ce nouvel environnement, 
-                        pour aider cette étape d'adaptation offrez lui un 
-                        environnement calme et sûr. Donnez lui du temps pour s'habituer 
+                        Lorsque vous adopter un animal,
+                        il est tout à fait normal que l'animal
+                        sera un peu effrayer de ce nouvel environnement,
+                        pour aider cette étape d'adaptation offrez lui un
+                        environnement calme et sûr. Donnez lui du temps pour s'habituer
                         à se nouvel environnement et à vous.
                     </p>
                 </div>
@@ -99,9 +99,9 @@ const Savoir = () => {
 
             <div className='container07'>
                 <p className='para03_savoir'>
-                    Prenez le temps de bien réfléchir, 
-                    et si vous êtes prêt à adopter votre futur 
-                    ami à quatre pattes offrez lui une nouvelle 
+                    Prenez le temps de bien réfléchir,
+                    et si vous êtes prêt à adopter votre futur
+                    ami à quatre pattes offrez lui une nouvelle
                     maison. Contactez nous des maintenant pour en savoir plus !
                 </p>
             </div>
