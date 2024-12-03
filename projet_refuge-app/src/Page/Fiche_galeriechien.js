@@ -33,7 +33,8 @@ const Fiche_galeriechien = () => {
                                 <p className='age'>Âge: {dog.age}</p>
                                 <span>Race: {dog.race}</span> <br />
                                 <span>Sexe: {dog.sexe}</span> <br />
-                                <button type="button"><Link to={`/Ficheperso_animal/${dog.name}`} className="">Détails</Link></button>
+                                {/* <button type="button"><Link to={`/Ficheperso_animal/${dog.name}`} className="">Détails</Link></button> */}
+                                <button type="button"><Link to={`/Ficheperso_animal`} className="">Détails</Link></button>
                             </div>
                         </div>
                     ))}
