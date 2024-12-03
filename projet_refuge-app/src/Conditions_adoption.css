@@ -227,6 +227,12 @@ h5 {
   border-radius: 10px;
 }
 
+.img_souhait1:hover,
+.img_souhait2:hover {
+  transform: scale(0.9);
+  transition: all 0.8s;
+}
+
 .h4_souhait {
   font-size: 1.7rem;
   text-align: center;
