@@ -147,7 +147,7 @@
   padding: 2rem;
 }
 
-.img_chat_long {
+.img_chien_long {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
@@ -156,7 +156,7 @@
   margin-bottom: 2rem;
 }
 
-.img_chat_long img {
+.img_chien_long img {
   width: 40vw;
   height: 300px;
 }
@@ -211,29 +211,30 @@
   color: white;
   border-radius: 10px;
   margin-top: 1.5rem;
+  margin-bottom: -1.5rem;
 }
 
 .container06 {
-  display: block;
+  display: flex;
   margin: 0 auto;
   background-color: #778d45;
-  width: 40vw;
+  width: 50%;
   color: white;
   border-radius: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: -2rem;
 }
 
 .h3_03 {
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   text-align: center;
   padding: 0.5rem;
 }
 
 .para02_savoir {
-  display: block;
+  display: flex;
   margin: 0 auto;
-  font-size: 1.8rem;
-  width: 35rem;
+  font-size: 2rem;
+  width: 43rem;
   padding: 2rem;
 }
 
