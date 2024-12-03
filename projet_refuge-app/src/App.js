@@ -17,6 +17,7 @@ import Adoption from './Page/Adoption';
 import Conditions_adoption from './Page/Conditions_adoption';
 import Savoir from './Page/Savoir';
 import Cruaute from './Page/Cruaute';
+import Compagnons_adopter from './Page/Compagnons_adopter';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/Se qu'il faut savoir" element={<Savoir />} />
         <Route path="/Témoin de cruauté ?" element={<Cruaute />} />
         <Route path="/Carte" element={<Carte_carrousel />} />
+        <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
       </Routes>
       <Footer />
     </Router>
