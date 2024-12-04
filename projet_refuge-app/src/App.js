@@ -25,6 +25,7 @@ import PopupMenu from './Page/PopupMenu';
 import Filtre from './Page/Filtre';
 import Pagination from './Page/Pagination';
 import Carte_carrousel from './Page/Carte_carrousel';
+import Scroll_button from './Page/Scroll_button';
 
 const App = () => {
   return (
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
       </Routes>
       <Footer />
+      <Scroll_button />
     </Router>
   );
 };

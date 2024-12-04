@@ -8,6 +8,8 @@ import Carte_carrousel from './Carte_carrousel';
 const HomePage = () => {
     const navigate = useNavigate();
     const [currentImage, setCurrentImage] = useState(0);
+    const [typedText, setTypedText] = useState('');
+    const [textIndex, setTextIndex] = useState(0);
 
     function redirectApropos() {
         console.log('Inside redirect A propos')
@@ -39,6 +41,28 @@ const HomePage = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const contentDiv = document.getElementById('content');
+
+    // Texte à écrire
+    const text = "Notre association pour les animaux perdus et abandonnés, depuis plus de 100 ans en Belgique";
+
+    // Vitesse de frappe (en ms)
+    const typingSpeed = 50;
+
+    let index = 0;
+
+    // Effet de machine à écrire
+    useEffect(() => {
+        if (textIndex < text.length) {
+            const timeout = setTimeout(() => {
+                setTypedText((prev) => prev + text.charAt(textIndex));
+                setTextIndex((prevIndex) => prevIndex + 1);
+            }, typingSpeed);
+            return () => clearTimeout(timeout);
+        }
+    }, [textIndex, text]);
+
+
 
 
     return (
@@ -47,10 +71,11 @@ const HomePage = () => {
             <div className='container_img'>
                 <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes_blanche.png" alt="" width={40} height={40} /></h1>
 
-                <p className='paragraphe_container'>Notre association pour les animaux <br />
-                    perdus et abandonnés, depuis <br />
-                    plus de 100 ans en Belgique
-                </p>
+                <div id="content">{typedText}</div>
+
+                {/* <p className='paragraphe_container'>
+                    Notre association pour les animaux perdus et abandonnés, depuis plus de 100 ans en Belgique
+                </p> */}
 
                 <div className='circle_img0'>
                     <div className='circle_img1'>
