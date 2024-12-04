@@ -72,11 +72,6 @@ const HomePage = () => {
                 <h1 className='h1_titre'>Les 4 pattes <img src="/img/pattes_blanche.png" alt="" width={40} height={40} /></h1>
 
                 <div id="content">{typedText}</div>
-
-                {/* <p className='paragraphe_container'>
-                    Notre association pour les animaux perdus et abandonnés, depuis plus de 100 ans en Belgique
-                </p> */}
-
                 <div className='circle_img0'>
                     <div className='circle_img1'>
                         <img src={images[currentImage]} alt="" width={360} height={350} />
