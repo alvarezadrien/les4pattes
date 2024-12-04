@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import './Footer.css'
+import './Footer.css';
 
 const Footer = () => {
     return (
@@ -25,26 +25,33 @@ const Footer = () => {
 
                 <section className="icon_horaire_h2">
                     <h2 className="icon_horaire">
-                        <img src="/img/horloge.png" alt="Icône email" />
+                        <img src="/img/horloge.png" alt="Icône horaire" />
                         <span>Horaire</span>
                     </h2>
                     <ul className="liste_horaire_footer">
-                        <li>Lundi-Samedi: 10h à 16h sur</li>
-                        <li>rendez-vous au <a href="tel:0492764208">04/527.10.50</a></li>
+                        <li>Lundi-Samedi: 10h à 16h sur rendez-vous au <a href="tel:0492764208">04/527.10.50</a></li>
                         <li>Fermé les dimanches et les jours fériés.</li>
                     </ul>
                 </section>
             </section>
 
             <section className="footer_bas">
-                <div className="reseaux_sociaux">
-                    <h3>Nos réseaux sociaux: </h3>
-                    <ul className="liste_sociaux">
-                        <li><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><img src="/img/facebook.png" alt="Facebook" /></a></li>
-                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img src="/img/instagram.png" alt="Instagram" /></a></li>
-                        <li><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><img src="/img/youtube.png" alt="YouTube" /></a></li>
-                    </ul>
+                <div className="card">
+                    <span>Réseaux sociaux</span>
+                    <a className="social-link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                        <img className="social-image" src="/img/facebook.png" alt="Facebook" />
+                    </a>
+                    <a className="social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                        <img className="social-image" src="/img/instagram.png" alt="Instagram" />
+                    </a>
+                    <a className="social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                        <img className="social-image" src="/img/youtube.png" alt="YouTube" />
+                    </a>
+                    <a className="social-link" href="https://x.com/?lang=fr" target="_blank" rel="noopener noreferrer">
+                        <img className="social-image" src="/img/twitter.png" alt="X" />
+                    </a>
                 </div>
+
                 <h5 className="h5_bancaire">BE 79 1140 2004 0000 3102 8079 8178</h5>
                 <p className="copy">&copy; 2025 Refuge les 4 pattes (TFE)</p>
             </section>
