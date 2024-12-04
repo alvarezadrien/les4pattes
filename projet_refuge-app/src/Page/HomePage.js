@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import { Navigate, useNavigate } from 'react-router-dom'
 import Animalitem from './Animalitem';
@@ -6,7 +6,8 @@ import '../HomePage.css';
 import Carte_carrousel from './Carte_carrousel';
 
 const HomePage = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [currentImage, setCurrentImage] = useState(0);
 
     function redirectApropos() {
         console.log('Inside redirect A propos')
@@ -23,6 +24,23 @@ const HomePage = () => {
         navigate('/Galeriechat')
     }
 
+    const images = [
+        "/img/img_chienchat_container.jpg",
+        "/img/images_chien_chat_imgadopt1.jpg",
+        "/img/chien.jpg",
+        "/img/pexels-guvo-29025330.jpg",
+        "/img/chien\ chat\ .jpeg"
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+
+
     return (
         <div className='Page_home'>
             {/* Div container intro */}
@@ -36,7 +54,7 @@ const HomePage = () => {
 
                 <div className='circle_img0'>
                     <div className='circle_img1'>
-                        <img src="/img/img_chienchat_container.jpg" alt="" width={280} height={290} />
+                        <img src={images[currentImage]} alt="" width={360} height={350} />
 
                     </div>
                     <div className='circle_img2'>
