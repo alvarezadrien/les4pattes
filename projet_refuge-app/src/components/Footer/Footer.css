@@ -1,7 +1,7 @@
 .footer {
   background-color: #778d45;
   height: 20rem;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
