@@ -27,8 +27,8 @@
 }
 
 .circle_img0 {
-  margin-top: -10.5rem;
-  margin-right: 5rem;
+  margin-top: -10rem;
+  margin-right: 2rem;
 }
 
 .circle_img1 img {
@@ -36,6 +36,9 @@
   float: right;
   margin-right: 5rem;
   margin-top: -10rem;
+  width: 360px;
+  height: 350px;
+  transition: 5s linear;
 }
 
 .circle_img2 img {
