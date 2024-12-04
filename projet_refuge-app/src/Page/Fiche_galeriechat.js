@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import '../Fichegalerie.css'
-
+    
 const Fichegalerie = () => {
     const cat = [
         { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
