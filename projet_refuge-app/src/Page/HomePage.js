@@ -28,10 +28,10 @@ const HomePage = () => {
 
     const images = [
         "/img/img_chienchat_container.jpg",
-        "/img/images_chien_chat_imgadopt1.jpg",
-        "/img/chien.jpg",
-        "/img/pexels-guvo-29025330.jpg",
-        "/img/chien\ chat\ .jpeg"
+        "/img/photo-chat_home5.avif",
+        "/img/dog-photo_home2.jpg",
+        "/img/photo-chien-chat_home4.avif",
+        "/img/dog-home_photo3.jpg"
     ];
 
     useEffect(() => {

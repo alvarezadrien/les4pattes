@@ -54,6 +54,7 @@
   width: 360px;
   height: 350px;
   transition: 5s linear;
+  object-fit: cover;
 }
 
 .circle_img2 img {
