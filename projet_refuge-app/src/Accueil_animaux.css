@@ -1,0 +1,80 @@
+.container_accueil1 {
+  background-image: url(../public/img/pexels-anete-lusina-16621442.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 32rem;
+  min-width: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+}
+
+.h1_accueil {
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.container_img_accueil img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.container_img_accueil {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.img_accueil1 img,
+.img_accueil3 img {
+  border-radius: 100%;
+}
+
+.h2_accueil {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.para_accueil1 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 55rem;
+  display: block;
+  display: flex;
+  margin: 0 auto;
+  line-height: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.para_accueil2 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 60rem;
+  display: flex;
+  margin: 0 auto;
+  line-height: 1.7rem;
+  margin-bottom: 3rem;
+}
+
+.img_accueil_chat {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  object-fit: cover;
+}
+
+.para_accueil3 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 55rem;
+  display: block;
+  display: flex;
+  margin: 0 auto;
+  line-height: 1.8rem;
+  margin-bottom: 2rem;
+}

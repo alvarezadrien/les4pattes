@@ -1,0 +1,124 @@
+.container_img_adhesions {
+  background-image: url(../public/img/pexels-anete-lusina-16621442.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 6rem;
+  height: 40rem;
+  border-bottom-right-radius: 30%;
+  border-bottom-left-radius: 30%;
+}
+
+.div_img_adhesions1 {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.div_img_adhesions1 img {
+  border-radius: 60%;
+  object-fit: cover;
+}
+
+.div_img_adhesions2 {
+  float: right;
+  margin-right: 15rem;
+  position: relative;
+  z-index: 1;
+  bottom: 10rem;
+}
+
+.div_img_adhesions2 img {
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.div_para_adhesions1 {
+  color: white;
+  margin-top: -7rem;
+  margin-left: 8rem;
+}
+
+.h1_adhesions {
+  font-size: 3rem;
+}
+
+.para_adhesions1 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 20rem;
+  margin-top: -1.5rem;
+  position: relative;
+  right: 3.6%;
+}
+
+.h2_adhesions {
+  font-size: 2rem;
+  margin-left: 8rem;
+}
+
+.ul_adhesions {
+  margin-left: 10rem;
+  margin-bottom: 2rem;
+}
+
+.ul_adhesions li {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.ul_adhesions li::before {
+  content: "-";
+  color: #778d45;
+  padding-right: 0.5rem;
+}
+
+.container_paiement {
+  background-color: #f4eaca;
+  display: block;
+  width: 40vw;
+  height: 12rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  border-radius: 30px;
+  margin-top: 5rem;
+}
+
+.h5_adhesions {
+  font-size: 1.8rem;
+  padding-top: 1rem;
+}
+
+.span_bank {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.ul_bank li {
+  font-size: 1.1rem;
+  padding-left: 1.5rem;
+}
+
+.div_para_adhesions {
+  display: flex;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.para_adhesions2 {
+  font-size: 1.5rem;
+  text-align: justify;
+  width: 70%;
+  line-height: 2rem;
+  display: flex;
+  margin: 0 auto;
+}
+
+.para_adhesions3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  display: flex;
+  margin: 0 auto;
+  width: 70%;
+  text-align: justify;
+}

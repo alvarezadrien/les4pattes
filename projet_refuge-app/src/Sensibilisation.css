@@ -1,0 +1,144 @@
+.container_sensibilisation {
+  background-image: url(../public/img/pexels-anete-lusina-16621442.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 33rem;
+  min-width: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+}
+
+.h1_sensibilisation {
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.container_sensibilisation img {
+  border-radius: 80%;
+  display: flex;
+  margin: 0 auto;
+  object-fit: cover;
+  object-position: center;
+  padding-top: 0.5rem;
+}
+
+.h2_sensibilisation1 {
+  font-size: 2.3rem;
+  text-align: center;
+}
+
+.container_para_sensibilisation1 {
+  background-color: #f4eaca;
+  padding: 1rem;
+  display: flex;
+  width: 60vw;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.para_sensibilisation1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.h3_para_sensibilisation1 {
+  font-size: 1.7rem;
+  margin-left: 18rem;
+  margin-top: 4rem;
+}
+
+.para_sensibilisation2 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 25rem;
+}
+
+.container_para_sensibilisation2 {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 18rem;
+  flex-wrap: wrap;
+}
+
+.div_img_sensibilisation1 img {
+  position: relative;
+  bottom: 3rem;
+  border-radius: 20%;
+  margin-right: 20rem;
+  object-position: center;
+}
+
+.container_para_sensibilisation3 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 18rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.h3_para_sensibilisation2 {
+  font-size: 1.7rem;
+}
+
+.para_sensibilisation3 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 30rem;
+  margin-right: 22rem;
+}
+
+.div_img_sensibilisation2 img {
+  border-radius: 20%;
+}
+
+.para_sensibilisation4 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 50rem;
+  display: flex;
+  margin: 0 auto;
+  padding-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.h3_para_sensibilisation3 {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.para_sensibilisation5 {
+  font-size: 1.5rem;
+  text-align: center;
+  width: 40rem;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+}
+
+.container_para_sensibilisation4 {
+  display: flex;
+  margin-left: 18rem;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  justify-content: space-between;
+}
+
+.div_img_sensibilisation3 img {
+  border-radius: 20%;
+  padding-top: 1.3rem;
+}
+
+.para_sensibilisation6 {
+  font-size: 1.5rem;
+  width: 25rem;
+  text-align: center;
+  margin-right: 22rem;
+}

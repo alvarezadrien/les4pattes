@@ -1,9 +1,9 @@
 .footer {
   background-color: #778d45;
-  height: 20rem;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  max-height: 25rem;
 }
 
 .footer_haut {
@@ -13,12 +13,9 @@
 
 .logo_footer img {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  padding-left: 10px;
+  margin-left: 2rem;
   border-radius: 100%;
-  padding-top: 1rem;
+  margin-top: 2rem;
   width: 180px;
 }
 
@@ -203,8 +200,8 @@ a {
 
 .h5_bancaire {
   color: white;
-  /* color: red; */
   margin-top: -1rem;
+  /* color: red; */
   font-size: 1.3rem;
   float: right;
   margin-right: -27rem;
