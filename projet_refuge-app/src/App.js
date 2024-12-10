@@ -61,7 +61,7 @@ const App = () => {
         <Route path="/Adhésions" element={<Adhesions />} />
       </Routes>
       <Scroll_button />
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };

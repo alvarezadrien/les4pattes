@@ -24,8 +24,10 @@
   margin-bottom: 2rem;
 }
 
-input,
-textarea {
+.input_container_adoption1 input,
+.input_container_adoption2 input,
+.input_container_adoption1 textarea,
+#textarea_adoption1 textarea {
   display: block;
   margin: 0 auto;
   width: 30vw;
@@ -102,6 +104,7 @@ textarea {
 
 textarea {
   height: 13rem;
+  resize: none;
 }
 
 .input_textarea label {

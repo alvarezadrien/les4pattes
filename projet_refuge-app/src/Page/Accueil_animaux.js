@@ -9,15 +9,15 @@ const Accueil_animaux = () => {
 
                 <div className='container_img_accueil'>
                     <div className='img_accueil1'>
-                        <img src="/img/photo_chien_accueil1.jpg" alt="" width={330} height={330}/>
+                        <img src="/img/photo_chien_accueil1.jpg" alt="" width={330} height={330} />
                     </div>
 
                     <div className='img_accueil2'>
-                        <img src="/img/animals-chien_et_chat.jpg" alt="" width={600} height={350}/>
+                        <img src="/img/animals-chien_et_chat.jpg" alt="" width={600} height={350} />
                     </div>
 
                     <div className='img_accueil3'>
-                        <img src="img/photo_cat_accueil1.jpg" alt="" width={330} height={330}/>
+                        <img src="img/photo_cat_accueil1.jpg" alt="" width={330} height={330} />
                     </div>
                 </div>
             </div>
@@ -25,12 +25,12 @@ const Accueil_animaux = () => {
             <h2 className='h2_accueil'>L'accueil</h2>
 
             <p className='para_accueil1'>
-                Au refuge Les 4 Pattes, chaque animal 
-                trouve une seconde chance pour commencer 
-                une nouvelle vie, pleine de soin et d'attention. 
-                Dès leur arrivée, nos équipes dévouées veillent à 
-                offrir un environnement sécurisé et rassurant, adapté 
-                aux besoins de chaque compagnon. Que ce soit un chien, 
+                Au refuge Les 4 Pattes, chaque animal
+                trouve une seconde chance pour commencer
+                une nouvelle vie, pleine de soin et d'attention.
+                Dès leur arrivée, nos équipes dévouées veillent à
+                offrir un environnement sécurisé et rassurant, adapté
+                aux besoins de chaque compagnon. Que ce soit un chien,
                 un chat, notre priorité est leur bien-être.
             </p>
 
@@ -47,7 +47,7 @@ const Accueil_animaux = () => {
             </p>
 
             <div className='img_accueil_chat'>
-                <img src="/img/photo_cat_accueil2.jpg" alt="" width={500} height={200}/>
+                <img src="/img/photo_cat_accueil2.jpg" alt="" width={800} height={300} />
             </div>
 
             <p className='para_accueil3'>

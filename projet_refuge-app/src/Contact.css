@@ -43,14 +43,13 @@
   margin-bottom: 2rem;
 }
 
-input,
-textarea {
+.input-container input,
+.input-container textarea {
   display: block;
   margin: 0 auto;
   width: 30vw;
   padding: 0.8rem 0.5rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
@@ -103,8 +102,8 @@ textarea:not(:placeholder-shown) + label,
     display: block;
   }
 
-  input,
-  textarea {
+  .input-container input,
+  .input-container textarea {
     width: 80vw;
   }
 
@@ -128,8 +127,8 @@ textarea:not(:placeholder-shown) + label,
     display: block;
   }
 
-  input,
-  textarea {
+  .input-container input,
+  .input-container textarea {
     width: 60vw;
   }
 
@@ -153,8 +152,8 @@ textarea:not(:placeholder-shown) + label,
     display: block;
   }
 
-  input,
-  textarea {
+  .input-container input,
+  .input-container textarea {
     width: 80%;
   }
 
@@ -178,8 +177,8 @@ textarea:not(:placeholder-shown) + label,
     display: block;
   }
 
-  input,
-  textarea {
+  .input-container input,
+  .input-container textarea {
     width: 80%;
   }
 
@@ -202,9 +201,9 @@ textarea:not(:placeholder-shown) + label,
     width: 45vw;
     display: block;
   }
-
-  input,
-  textarea {
+  
+  .input-container input,
+  .input-container textarea {
     width: 80%;
   }
 

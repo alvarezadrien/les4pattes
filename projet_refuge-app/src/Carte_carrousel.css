@@ -123,3 +123,14 @@
 .carrousel-button.next {
   right: 10px;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .carrousel-container {
+    width: 70vw;
+    height: 30rem;
+  }
+
+  .carrousel {
+    width: 37rem;
+  }
+}

@@ -203,6 +203,7 @@
   background-color: #f4eaca;
   height: 35rem;
   display: block;
+  flex-wrap: wrap;
 }
 
 .h2_titre_soins {
@@ -310,6 +311,102 @@
     position: relative;
     left: 20%;
     top: 2rem;
+  }
+
+  .container_choix {
+    display: block;
+    height: 45rem;
+  }
+
+  .container_choix img {
+    width: 200px;
+    height: 200px;
+    margin-left: 3rem;
+  }
+
+  .button_choix_chiens,
+  .button_choix_chats {
+    display: flex;
+  }
+
+  .span_maison {
+    font-size: 1.9rem;
+    margin-left: -9.5rem;
+  }
+
+  .nombre {
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+
+  .leur_maison img {
+    margin-right: 0;
+    margin-top: -7.5rem;
+    width: 150px;
+    height: 150px;
+  }
+
+  .titre_carte {
+    font-size: 1.5rem;
+  }
+
+  .titre_carte img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .home_propos h2 {
+    font-size: 1.5rem;
+  }
+
+  .home_propos img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .paragraphe_home_propos {
+    font-size: 1.3rem;
+    margin: 0 auto;
+    text-align: justify;
+    width: 80vw;
+  }
+
+  .home_propos_img img {
+    width: 250px;
+    height: 250px;
+    margin: 0;
+    margin-top: 18rem;
+    margin-right: 2.5rem;
+  }
+
+  .home_propos button {
+    margin-left: -31.5rem;
+    margin-top: 21rem;
+  }
+
+  .container_aides_soins {
+    height: 55rem;
+    margin-top: -5rem;
+  }
+
+  .container_aides_soins h2 {
+    font-size: 1.5rem;
+    margin-left: -8rem;
+  }
+
+  .h2_titre_soins img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .icon_soins1 img,
+  .icon_soins2 img {
+    width: 170px;
+    height: 170px;
+  }
+
+  .icon_ensemble {
+    display: block;
   }
 }
 
