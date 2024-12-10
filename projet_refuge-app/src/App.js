@@ -19,6 +19,9 @@ import Savoir from './Page/Savoir';
 import Cruaute from './Page/Cruaute';
 import Compagnons_adopter from './Page/Compagnons_adopter';
 import Mon_compte from './Page/Mon_compte';
+import Accueil_animaux from './Page/Accueil_animaux';
+import Sensibilisation from './Page/Sensibilisation';
+import Adhesions from './Page/Adhesions';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -53,9 +56,12 @@ const App = () => {
         <Route path="/Carte" element={<Carte_carrousel />} />
         <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
         <Route path="/Mon compte" element={<Mon_compte />} />
+        <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
+        <Route path="/Sensibilisation" element={<Sensibilisation />} />
+        <Route path="/Adhésions" element={<Adhesions />} />
       </Routes>
-      <Footer />
       <Scroll_button />
+      <Footer />
     </Router>
   );
 };

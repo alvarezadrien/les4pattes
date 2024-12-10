@@ -76,7 +76,6 @@ function Navbar() {
             >
               {option.title}
             </a>
-            {/* Popup affiché uniquement pour les propositions */}
             {showPopup === index && option.propositions && (
               <div className="popup">
                 {option.propositions.map((prop, i) => (
@@ -95,7 +94,7 @@ function Navbar() {
         ))}
 
         <li className="navbar_item icon_navbar">
-          <a className="navbar_link" href="">
+          <a className="navbar_link" href="/Adhésions">
             <img
               src="/img/coeurs.png"
               alt="C'est l'icon pour faire un don en forme de coeur"
