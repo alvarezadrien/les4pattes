@@ -52,9 +52,29 @@ const Inscription = () => {
     };
 
     // Gestion de la soumission du formulaire
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Données soumises:", formData);
+
+        // Envoi des données au backend via une requête POST
+        try {
+            const response = await fetch('/api/inscription', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData), // Envoi des données sous forme JSON
+            });
+
+            if (response.ok) {
+                // Réponse réussie du serveur
+                const result = await response.json();
+                console.log("Données enregistrées:", result);
+            } else {
+                console.error("Erreur lors de l'inscription");
+            }
+        } catch (error) {
+            console.error("Erreur de connexion:", error);
+        }
 
         // Réinitialiser le formulaire après soumission
         setFormData({

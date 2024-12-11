@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-    
+
 const Fichegalerie = () => {
     const cat = [
         { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/chat_galeriefiche.jpg" },
@@ -30,8 +30,8 @@ const Fichegalerie = () => {
                                 <p className='age'>Âge: {cat.age}</p>
                                 <span>Race: {cat.race}</span> <br />
                                 <span>Sexe: {cat.sexe}</span> <br />
-                                {/* <button type="button"><Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link></button> */}
-                                <button type="button"><Link to={`/Ficheperso_animal`} className="">Détails</Link></button>
+                                <button type="button"><Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link></button>
+                                {/* <button type="button"><Link to={`/Ficheperso_animal`} className="">Détails</Link></button> */}
 
                             </div>
                         </div>

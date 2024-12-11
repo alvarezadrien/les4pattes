@@ -1,19 +1,24 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Middleware pour analyser les requêtes POST (JSON)
+// Middleware
+app.use(cors());
 app.use(express.json());
 
 // Connexion à la base de données
-connectDB();
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie'))
+    .catch((error) => console.log('Erreur de connexion à MongoDB:', error));
 
-// Exemple de route
-app.get('/', (req, res) => {
-    res.send('API du refuge 4 pattes est opérationnelle !');
-});
+// Importer la route d'inscription
+const registerRoute = require('./routes/register');
+app.use('/api', registerRoute);
 
-// Démarrer le serveur
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+app.listen(PORT, () => console.log(`Serveur en écoute sur le port ${PORT}`));

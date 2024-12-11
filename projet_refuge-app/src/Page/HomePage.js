@@ -92,7 +92,7 @@ const HomePage = () => {
                 {/* <h3 className="h2_choix">Adopter un animal de compagnie</h3> */}
 
                 <div className='container_choix1'>
-                    <img src="/img/chien img choix.jpeg" alt="" width={300} height={300} onClick={redirectChien} />
+                    <img src="/img/chien img choix.jpeg" alt="image chien" width={300} height={300} onClick={redirectChien} />
                     <button className='button_choix_chiens' onClick={redirectChien}>Chiens</button>
                 </div>
                 <div className='container_choix2'>
