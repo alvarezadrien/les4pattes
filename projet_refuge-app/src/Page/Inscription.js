@@ -8,6 +8,8 @@ const Inscription = () => {
         email: "",
         telephone: "",
         adresse: "",
+        dob: "",
+        password: "",
     });
 
     const [focused, setFocused] = useState({
@@ -18,6 +20,7 @@ const Inscription = () => {
     });
 
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(""); // Ajout de l'état pour l'erreur
 
     // Gestion des changements de champs
     const handleChange = (event) => {
@@ -55,25 +58,32 @@ const Inscription = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Envoi des données au backend via une requête POST
+        // Réinitialiser l'erreur avant l'envoi
+        setErrorMessage("");
+
         try {
             const response = await fetch('/api/inscription', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData), // Envoi des données sous forme JSON
+                body: JSON.stringify(formData),
             });
 
+            const result = await response.json();
+
             if (response.ok) {
-                // Réponse réussie du serveur
-                const result = await response.json();
                 console.log("Données enregistrées:", result);
+                // Rediriger l'utilisateur ou afficher un message de succès
+                // window.location.href = "/connexion"; ou quelque chose de similaire
             } else {
-                console.error("Erreur lors de l'inscription");
+                console.error("Erreur lors de l'inscription:", result.message);
+                // Afficher un message d'erreur si l'email est déjà utilisé
+                setErrorMessage(result.message || "Erreur lors de l'inscription");
             }
         } catch (error) {
             console.error("Erreur de connexion:", error);
+            setErrorMessage("Erreur lors de l'inscription, veuillez réessayer.");
         }
 
         // Réinitialiser le formulaire après soumission
@@ -83,12 +93,8 @@ const Inscription = () => {
             email: "",
             telephone: "",
             adresse: "",
-        });
-        setFocused({
-            name: false,
-            prenom: false,
-            email: false,
-            telephone: false,
+            dob: "",
+            password: "",
         });
     };
 
@@ -109,13 +115,6 @@ const Inscription = () => {
                             onBlur={() => handleBlur("name")}
                             required
                         />
-                        <div className='img_cat_form'>
-                            <img
-                                src="/img/contact-cat.png"
-                                alt="Icone nom"
-                                style={{ marginLeft: "8px", verticalAlign: "middle" }}
-                            />
-                        </div>
                         <label htmlFor="name" className={focused.name || formData.name ? 'focused' : ''}>
                             Nom
                         </label>
@@ -143,6 +142,8 @@ const Inscription = () => {
                             type="date"
                             id="dob"
                             name="dob"
+                            value={formData.dob}
+                            onChange={handleChange}
                             required
                         />
                         <label htmlFor="dob">Date de naissance</label>
@@ -201,6 +202,7 @@ const Inscription = () => {
                         </label>
                     </div>
 
+                    {/* Champ Mot de passe */}
                     <div className="input_container_inscri">
                         <label htmlFor="password">Mot de passe</label>
                         <div className="password_container">
@@ -208,6 +210,9 @@ const Inscription = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
                                 placeholder="Entrez votre mot de passe"
+                                value={formData.password}
+                                onChange={handleChange}
+                            // required
                             />
                             <button
                                 type="button"
@@ -221,19 +226,14 @@ const Inscription = () => {
                                 )}
                             </button>
                         </div>
-
-                        <div className="input_conditions">
-                            <label htmlFor="terms">
-                                <input
-                                    type="checkbox"
-                                    id="terms"
-                                    name="terms"
-                                    required
-                                />
-                                J'accepte les conditions générales
-                            </label>
-                        </div>
                     </div>
+
+                    {/* Affichage des messages d'erreur */}
+                    {errorMessage && (
+                        <div className="error-message">
+                            <p>{errorMessage}</p>
+                        </div>
+                    )}
 
                     <button className="button_envoyer_inscri" type="submit">
                         Confirmer

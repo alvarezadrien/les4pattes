@@ -1,10 +1,4 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const User = require('./models/User');
-
-// Route POST /api/register
-router.post('/register', async (req, res) => {
+router.post('/inscription', async (req, res) => {  // Change to match frontend
     try {
         const { name, prenom, email, telephone, adresse, dob, password } = req.body;
 
@@ -30,10 +24,9 @@ router.post('/register', async (req, res) => {
         });
 
         await newUser.save();
-        res.status(201).json({ message: 'Utilisateur créé avec succès !' });
+        res.status(201).json({ message: 'Utilisateur créé avec succès !', user: newUser });
     } catch (error) {
-        res.status(500).json({ message: 'Erreur serveur', error });
+        console.error("Erreur lors de l'inscription:", error);
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
-
-module.exports = router;

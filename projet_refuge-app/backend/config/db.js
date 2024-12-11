@@ -1,21 +1,16 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://adrienalvarez15:<XpVA4QwlmaKI4je3>@refuge4pattes.iidms.mongodb.net/?retryWrites=true&w=majority&appName=Refuge4pattes";
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
+dotenv.config();
 
-async function connectDB() {
+// Connexion à MongoDB
+const connectDB = async () => {
     try {
-        await client.connect();
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log('Connexion à MongoDB réussie');
     } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
+        console.error('Erreur de connexion à MongoDB:', error);
     }
-}
+};
 
 module.exports = connectDB;

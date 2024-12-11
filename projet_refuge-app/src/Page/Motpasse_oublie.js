@@ -36,7 +36,7 @@ const Motpasse_oublie = () => {
                     </form>
                 </div>
             </div>
-            <img src="/img/img_chat_oublie.jpg" alt="Chien" className="right-image" />
+            <img src="/img/img_chat_oublie.jpg" alt="Chien" className="right-oublie-image" />
         </div>
     );
 };
