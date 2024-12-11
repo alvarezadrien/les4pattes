@@ -18,17 +18,17 @@ const Partenaires = () => {
             </div>
 
             <div className='container_logo_partenaires'>
-                    <ul className='img_logo'>
-                        {logos.map((logo, index) => (
-                            <li key={index}>
-                                <img
-                                    src={logo}
-                                    alt={`Logo partenaire ${index + 1}`}
-                                    className='logo_image'
-                                />
-                            </li>
-                        ))}
-                    </ul>
+                <ul className='img_logo'>
+                    {logos.map((logo, index) => (
+                        <li key={index}>
+                            <img
+                                src={logo}
+                                alt={`Logo partenaire ${index + 1}`}
+                                className='logo_image'
+                            />
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );

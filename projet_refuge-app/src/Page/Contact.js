@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import '../Contact.css';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,9 @@ const Contact = () => {
     message: false,
   });
 
+  const [statusMessage, setStatusMessage] = useState(""); // Pour afficher un message de statut
+
+  // Gérer les changements des champs de formulaire
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -24,6 +28,7 @@ const Contact = () => {
     });
   };
 
+  // Gérer la mise en focus sur les champs
   const handleFocus = (field) => {
     setFocused({
       ...focused,
@@ -31,6 +36,7 @@ const Contact = () => {
     });
   };
 
+  // Gérer la perte de focus des champs
   const handleBlur = (field) => {
     if (!formData[field]) {
       setFocused({
@@ -40,16 +46,33 @@ const Contact = () => {
     }
   };
 
+  // Gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Données soumises:", formData);
-    setFormData({ name: "", email: "", telephone: "", message: "" });
-    setFocused({ name: false, email: false, telephone: false, message: false });
+
+    // Récupérer les données du formulaire
+    const { name, email, telephone, message } = formData;
+
+    // Envoi de l'email via EmailJS
+    emailjs.send('service_5q958pf', 'template_0wcw1wp', {
+      name,
+      email,
+      telephone,
+      message
+    }, 'GprZAo7Xbj4DQXKdY')  // Remplace par ta clé publique EmailJS
+      .then((result) => {
+        console.log('E-mail envoyé !', result.text);
+        setStatusMessage("Votre message a bien été envoyé ! ✅");
+      }, (error) => {
+        console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
+        setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
+      });
   };
 
   return (
     <div className="container_page_contact">
-      <img className="img_contact" src="/img/chien contact.jpeg" alt="Chien contact" />
+      {/* L'image de contact */}
+      <img className="img_contact" src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
 
       <div className="container_form">
         <h1 className="h1_contact">Contact</h1>
@@ -114,6 +137,9 @@ const Contact = () => {
 
           <button className="button_envoyer" type="submit">Envoyer</button>
         </form>
+
+        {/* Affichage du message de statut */}
+        {statusMessage && <p className="status-message">{statusMessage}</p>}
       </div>
     </div>
   );

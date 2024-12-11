@@ -184,6 +184,7 @@
     width: 290px;
     height: 290px;
     margin-left: -17rem;
+    padding: 0;
   }
 
   .div_img_sensibilisation2 img {
@@ -208,5 +209,29 @@
     margin-top: -2rem;
     font-size: 1.3rem;
     width: 19rem;
+  }
+
+  .para_sensibilisation5 {
+    font-size: 1.3rem;
+    width: 19rem;
+  }
+
+  .div_img_sensibilisation3 img {
+    margin-top: -2rem;
+    margin-left: -17rem;
+  }
+
+  .para_sensibilisation6 {
+    display: block;
+    font-size: 1.3rem;
+    width: 19rem;
+    margin-left: -17.5rem;
+  }
+
+  .container_para_sensibilisation4 {
+    display: block;
+  }
+
+  .container_para_sensibilisation2 {
   }
 }

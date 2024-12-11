@@ -201,7 +201,7 @@ textarea:not(:placeholder-shown) + label,
     width: 45vw;
     display: block;
   }
-  
+
   .input-container input,
   .input-container textarea {
     width: 80%;
