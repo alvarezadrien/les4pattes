@@ -3,21 +3,22 @@ import '../Contact.css';
 import emailjs from 'emailjs-com';
 
 const Contact = () => {
+  const [statusMessage, setStatusMessage] = useState(""); // Pour afficher un message de statut
+
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    telephone: "",
-    message: "",
+    name1: "",
+    email1: "",
+    telephone1: "",
+    message1: "",
   });
 
   const [focused, setFocused] = useState({
-    name: false,
-    email: false,
-    telephone: false,
-    message: false,
+    name1: false,
+    email1: false,
+    telephone1: false,
+    message1: false,
   });
 
-  const [statusMessage, setStatusMessage] = useState(""); // Pour afficher un message de statut
 
   // Gérer les changements des champs de formulaire
   const handleChange = (event) => {
@@ -51,14 +52,14 @@ const Contact = () => {
     event.preventDefault();
 
     // Récupérer les données du formulaire
-    const { name, email, telephone, message } = formData;
+    const { name1, email1, telephone1, message1 } = formData;
 
     // Envoi de l'email via EmailJS
     emailjs.send('service_5q958pf', 'template_0wcw1wp', {
-      name,
-      email,
-      telephone,
-      message
+      name1,
+      email1,
+      telephone1,
+      message1
     }, 'GprZAo7Xbj4DQXKdY')  // Remplace par ta clé publique EmailJS
       .then((result) => {
         console.log('E-mail envoyé !', result.text);
@@ -81,58 +82,58 @@ const Contact = () => {
           <div className="input-container">
             <input
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              id="name1"
+              name="name1"
+              value={formData.name1}
               onChange={handleChange}
-              onFocus={() => handleFocus("name")}
-              onBlur={() => handleBlur("name")}
+              onFocus={() => handleFocus("name1")}
+              onBlur={() => handleBlur("name1")}
               required
             />
-            <label htmlFor="name" className={focused.name || formData.name ? 'focused' : ''}>Nom</label>
+            <label htmlFor="name1" className={focused.name1 || formData.name1 ? 'focused' : ''}>Nom</label>
           </div>
 
           <div className="input-container">
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              type="email1"
+              id="email1"
+              name="email1"
+              value={formData.email1}
               onChange={handleChange}
-              onFocus={() => handleFocus("email")}
-              onBlur={() => handleBlur("email")}
+              onFocus={() => handleFocus("email1")}
+              onBlur={() => handleBlur("email1")}
               required
             />
-            <label htmlFor="email" className={focused.email || formData.email ? 'focused' : ''}>Email</label>
+            <label htmlFor="email1" className={focused.email1 || formData.email1 ? 'focused' : ''}>Email</label>
           </div>
 
           <div className="input-container">
             <input
               type="tel"
-              id="telephone"
-              name="telephone"
-              value={formData.telephone}
+              id="telephone1"
+              name="telephone1"
+              value={formData.telephone1}
               onChange={handleChange}
-              onFocus={() => handleFocus("telephone")}
-              onBlur={() => handleBlur("telephone")}
+              onFocus={() => handleFocus("telephone1")}
+              onBlur={() => handleBlur("telephone1")}
               pattern="^[0-9]{10}$"
               title="Veuillez entrer un numéro de téléphone de 10 chiffres."
               required
             />
-            <label htmlFor="telephone" className={focused.telephone || formData.telephone ? 'focused' : ''}>Téléphone</label>
+            <label htmlFor="telephone1" className={focused.telephone1 || formData.telephone1 ? 'focused' : ''}>Téléphone</label>
           </div>
 
           <div className="input-container">
             <textarea
-              id="message"
-              name="message"
-              value={formData.message}
+              id="message1"
+              name="message1"
+              value={formData.message1}
               onChange={handleChange}
-              onFocus={() => handleFocus("message")}
-              onBlur={() => handleBlur("message")}
+              onFocus={() => handleFocus("message1")}
+              onBlur={() => handleBlur("message1")}
               required
             />
-            <label htmlFor="message" className={focused.message || formData.message ? 'focused' : ''}>Message</label>
+            <label htmlFor="message1" className={focused.message1 || formData.message1 ? 'focused' : ''}>Message</label>
           </div>
 
           <button className="button_envoyer" type="submit">Envoyer</button>

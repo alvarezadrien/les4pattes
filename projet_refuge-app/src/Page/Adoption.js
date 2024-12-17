@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 import '../Adoption.css';
 import emailjs from 'emailjs-com';
 
+
+
 const Adoption = () => {
+    const [statusMessage, setStatusMessage] = useState("");
+
     const [formData, setFormData] = useState({
         name: "",
         prenom: "",
         email: "",
         telephone: "",
+        animal: "",
+        name2: "",
+        prenom2: "",
+        email2: "",
+        telephone2: "",
         adresse: "",
+        anniv_adopt: "",
+        logement: "",
+        acces: "",
+        enfants: "",
+        animaux: "",
+        animal2: ""
     });
 
     const [focused, setFocused] = useState({
@@ -16,6 +31,19 @@ const Adoption = () => {
         prenom: false,
         email: false,
         telephone: false,
+        name2: false,
+        prenom2: false,
+        email2: false,
+        telephone2: false,
+        animal: false,
+        message: false,
+        anniv_adopt: false,
+        logement: false,
+        acces: false,
+        adresse: false,
+        enfants: false,
+        animaux: false,
+        animal2: false
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -55,55 +83,40 @@ const Adoption = () => {
     // Gestion de la soumission du formulaire
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Données soumises:", formData);
-
-        // Réinitialiser le formulaire après soumission
-        setFormData({
-            name: "",
-            prenom: "",
-            email: "",
-            telephone: "",
-            adresse: "",
-        });
-        setFocused({
-            name: false,
-            prenom: false,
-            email: false,
-            telephone: false,
-        });
-    };
-
-    // Gérer la soumission du formulaire
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
         // Récupérer les données du formulaire
-        const { name, email, telephone, animal, message, } = formData;
-        const { name2, prenom, anniv_adopt2, telephone2, email2, adresse, logement, acces, enfants, animaux } = formData;
+        // const form 1
+        const { name, prenom, email, telephone, animal, message, } = formData;
+        // const form 2
+        const { name2, prenom2, anniv_adopt, telephone2, email2, adresse, logement, acces, enfants, animaux, animal2 } = formData;
 
         // Envoi de l'email via EmailJS
-        emailjs.send('service_268vdcp', 'template_0wcw1wp', {
+        emailjs.send('service_268vdcp', 'template_q44v26a', {
+            // form 1
             name,
+            prenom,
             email,
             telephone,
             animal,
             message,
-            prenom,
-            anniv_adopt2,
+            // form 2
+            name2,
+            prenom2,
+            telephone2,
+            email2,
+            anniv_adopt,
             adresse,
             logement,
             acces,
             enfants,
             animaux,
-            name2,
-            telephone2,
-            email2
-        }, 'GprZAo7Xbj4DQXKdY')  // Remplace par ta clé publique EmailJS
+            animal2
+        }, 'GprZAo7Xbj4DQXKdY')
             .then((result) => {
                 console.log('E-mail envoyé !', result.text);
                 setStatusMessage("Votre message a bien été envoyé ! ✅");
             }, (error) => {
-                console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
+                console.log("Erreur lors de l'envoi de l'e-mail:", error);
                 setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
             });
     };
@@ -251,15 +264,15 @@ const Adoption = () => {
                         <div className='input_container_adoption2'>
                             <input
                                 type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
+                                id="name2"
+                                name="name2"
+                                value={formData.name2}
                                 onChange={handleChange}
-                                onFocus={() => handleFocus("name")}
-                                onBlur={() => handleBlur("name")}
+                                onFocus={() => handleFocus("name2")}
+                                onBlur={() => handleBlur("name2")}
                                 required
                             />
-                            <label htmlFor="name" className={focused.name || formData.name ? 'focused' : ''}>
+                            <label htmlFor="name2" className={focused.name2 || formData.name2 ? 'focused' : ''}>
                                 Nom
                             </label>
                         </div>
@@ -267,15 +280,15 @@ const Adoption = () => {
                         <div className='input_container_adoption2'>
                             <input
                                 type="text"
-                                id="prenom"
-                                name="prenom"
-                                value={formData.prenom}
+                                id="prenom2"
+                                name="prenom2"
+                                value={formData.prenom2}
                                 onChange={handleChange}
-                                onFocus={() => handleFocus("prenom")}
-                                onBlur={() => handleBlur("prenom")}
+                                onFocus={() => handleFocus("prenom2")}
+                                onBlur={() => handleBlur("prenom2")}
                                 required
                             />
-                            <label htmlFor="Prénom" className={focused.prenom || formData.prenom ? 'focused' : ''}>
+                            <label htmlFor="Prénom2" className={focused.prenom2 || formData.prenom2 ? 'focused' : ''}>
                                 Prénom
                             </label>
                         </div>
@@ -283,8 +296,8 @@ const Adoption = () => {
                         <div className="input_container_adoption2">
                             <input
                                 type="date"
-                                id="anniv_adopt2"
-                                name="anniv_adopt2"
+                                id="anniv_adopt"
+                                name="anniv_adopt"
                                 required
                             />
                             <label htmlFor="dob">Date de naissance</label>
@@ -293,33 +306,33 @@ const Adoption = () => {
                         <div className="input_container_adoption2">
                             <input
                                 type="tel"
-                                id="telephone"
-                                name="telephone"
-                                value={formData.telephone}
+                                id="telephone2"
+                                name="telephone2"
+                                value={formData.telephone2}
                                 onChange={handleChange}
-                                onFocus={() => handleFocus("telephone")}
-                                onBlur={() => handleBlur("telephone")}
+                                onFocus={() => handleFocus("telephone2")}
+                                onBlur={() => handleBlur("telephone2")}
                                 pattern="^[0-9]{10}$"
                                 title="Veuillez entrer un numéro de téléphone de 10 chiffres."
                                 required
                             />
-                            <label htmlFor="telephone" className={focused.telephone || formData.telephone ? 'focused' : ''}>
+                            <label htmlFor="telephone2" className={focused.telephone2 || formData.telephone2 ? 'focused' : ''}>
                                 Téléphone
                             </label>
                         </div>
 
                         <div className="input_container_adoption2">
                             <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
+                                type="email2"
+                                id="email2"
+                                name="email2"
+                                value={formData.email2}
                                 onChange={handleChange}
-                                onFocus={() => handleFocus("email")}
-                                onBlur={() => handleBlur("email")}
+                                onFocus={() => handleFocus("email2")}
+                                onBlur={() => handleBlur("email2")}
                                 required
                             />
-                            <label htmlFor="email" className={focused.email || formData.email ? 'focused' : ''}>
+                            <label htmlFor="email2" className={focused.email2 || formData.email2 ? 'focused' : ''}>
                                 Email
                             </label>
                         </div>
@@ -381,14 +394,14 @@ const Adoption = () => {
                         <div className='input_container_adoption2'>
                             <input
                                 type="text"
-                                id="prenom"
-                                name="prenom"
-                                value={formData.prenom}
+                                id="animal2"
+                                name="animal2"
+                                value={formData.animal2}
                                 onChange={handleChange}
-                                onFocus={() => handleFocus("prenom")}
-                                onBlur={() => handleBlur("prenom")}
+                                onFocus={() => handleFocus("animal2")}
+                                onBlur={() => handleBlur("animal2")}
                             />
-                            <label htmlFor="Prénom" className={focused.prenom || formData.prenom ? 'focused' : ''}>
+                            <label htmlFor="animal2" className={focused.animal2 || formData.animal2 ? 'focused' : ''}>
                                 Type animaux ?
                             </label>
                         </div>
@@ -403,6 +416,8 @@ const Adoption = () => {
                 <button className="button_envoie" type="submit">
                     Envoyer
                 </button>
+                {/* Affichage du message de statut */}
+                {statusMessage && <p className="status-message">{statusMessage}</p>}
             </form>
 
         </div>
