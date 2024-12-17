@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../Adoption.css';
+import emailjs from 'emailjs-com';
 
 const Adoption = () => {
     const [formData, setFormData] = useState({
@@ -70,6 +71,41 @@ const Adoption = () => {
             email: false,
             telephone: false,
         });
+    };
+
+    // Gérer la soumission du formulaire
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // Récupérer les données du formulaire
+        const { name, email, telephone, animal, message, } = formData;
+        const { name2, prenom, anniv_adopt2, telephone2, email2, adresse, logement, acces, enfants, animaux } = formData;
+
+        // Envoi de l'email via EmailJS
+        emailjs.send('service_268vdcp', 'template_0wcw1wp', {
+            name,
+            email,
+            telephone,
+            animal,
+            message,
+            prenom,
+            anniv_adopt2,
+            adresse,
+            logement,
+            acces,
+            enfants,
+            animaux,
+            name2,
+            telephone2,
+            email2
+        }, 'GprZAo7Xbj4DQXKdY')  // Remplace par ta clé publique EmailJS
+            .then((result) => {
+                console.log('E-mail envoyé !', result.text);
+                setStatusMessage("Votre message a bien été envoyé ! ✅");
+            }, (error) => {
+                console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
+                setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
+            });
     };
 
     return (
@@ -205,6 +241,8 @@ const Adoption = () => {
                         </button>
                     </form>
                 </div>
+
+                {/* form 2 */}
 
                 <h2 className='h2_2'>Formulaire de l'adoptant</h2>
 
