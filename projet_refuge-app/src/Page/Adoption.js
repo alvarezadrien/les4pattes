@@ -355,39 +355,39 @@ const Adoption = () => {
 
                         <div className="input_container_adoption2">
                             <label htmlFor="logement">Type de logement</label>
-                            <select id="logement" name="logement" required>
-                                <option value="">Sélectionner</option>
+                            <select id="infos_form2" name="logement" required>
+                                <option value="selectionner">Sélectionner</option>
                                 <option value="appartement">Appartement</option>
                                 <option value="maison">Maison</option>
                             </select>
                         </div>
 
                         <div className="input_container_adoption2">
-                            <label htmlFor="logement">Accès extérieur</label>
-                            <select id="logement" name="acces" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Jardin</option>
-                                <option value="maison">terrasse</option>
-                                <option value="maison">Balcon</option>
-                                <option value="maison">Aucun</option>
+                            <label htmlFor="acces">Accès extérieur</label>
+                            <select id="infos_form2" name="acces" required>
+                                <option value="selectionner">Sélectionner</option>
+                                <option value="jardin">Jardin</option>
+                                <option value="terrasse">terrasse</option>
+                                <option value="balcon">Balcon</option>
+                                <option value="aucun">Aucun</option>
                             </select>
                         </div>
 
                         <div className="input_container_adoption2">
-                            <label htmlFor="logement">Avez vous des enfants ?</label>
-                            <select id="logement" name="enfants" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Oui</option>
-                                <option value="maison">Non</option>
+                            <label htmlFor="enfants">Avez vous des enfants ?</label>
+                            <select id="infos_form2" name="enfants" required>
+                                <option value="selectionner">Sélectionner</option>
+                                <option value="oui">Oui</option>
+                                <option value="non">Non</option>
                             </select>
                         </div>
 
                         <div className="input_container_adoption2">
-                            <label htmlFor="logement">Avez vous des animaux ?</label>
-                            <select id="logement" name="animaux" required>
-                                <option value="">Sélectionner</option>
-                                <option value="appartement">Oui</option>
-                                <option value="maison">Non</option>
+                            <label htmlFor="animaux">Avez vous des animaux ?</label>
+                            <select id="infos_form2" name="animaux" required>
+                                <option value="selectionner">Sélectionner</option>
+                                <option value="oui">Oui</option>
+                                <option value="non">Non</option>
                             </select>
                         </div>
 

@@ -105,6 +105,7 @@
 textarea {
   height: 13rem;
   resize: none;
+  width: 25rem;
 }
 
 .input_textarea label {
@@ -156,7 +157,7 @@ textarea {
   color: #778d45;
 }
 
-#logement {
+#infos_form2 {
   width: 100%;
   padding: 10px;
   border: 2px solid #778d45;
@@ -165,7 +166,7 @@ textarea {
   color: #778d45;
 }
 
-#logement:hover {
+#buton_form2:hover {
   border-color: #778d45;
 }
 
