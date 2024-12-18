@@ -1,4 +1,4 @@
-/* Formulaire 1 */
+/********** Formulaire 1 ************/
 
 .h2_1 {
   font-size: 3rem;
@@ -14,7 +14,7 @@
   width: 50vw;
   border-radius: 30px;
   padding: 2rem;
-  height: 52rem;
+  height: 45rem;
   margin-bottom: 2rem;
   padding-top: 5rem;
 }
@@ -25,9 +25,7 @@
 }
 
 .input_container_adoption1 input,
-.input_container_adoption2 input,
-.input_container_adoption1 textarea,
-#textarea_adoption1 textarea {
+.input_container_adoption2 input {
   display: block;
   margin: 0 auto;
   width: 30vw;
@@ -38,34 +36,6 @@
   outline: none;
   box-sizing: border-box;
   transition: 0.3s;
-}
-
-.input_conditions {
-  position: relative;
-  top: 3.5rem;
-}
-
-.input_conditions input {
-  width: 40px;
-}
-
-.input_conditions label {
-  display: flex;
-  color: #778d45;
-}
-
-.button_enregistrer {
-  display: block;
-  margin: 0 auto;
-  padding: 0.8rem 2rem;
-  margin-top: 5rem;
-  color: #778d45;
-  border: 2px solid #778d45;
-  border-radius: 4px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  background-color: white;
-  font-size: 1.5rem;
 }
 
 .input_radio_group {
@@ -105,7 +75,8 @@
 textarea {
   height: 13rem;
   resize: none;
-  width: 30rem;
+  width: 30vw;
+  border-radius: 4px;
 }
 
 .input_textarea label {
@@ -117,7 +88,68 @@ textarea {
   left: 35.4%;
 }
 
-/* Formulaire 2 */
+/*************** media query form 1 ****************/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .h2_1 {
+    font-size: 2.6rem;
+  }
+
+  .formulaire1 {
+    width: 75vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 82vw;
+  }
+
+  .input_radio_group {
+    width: 95%;
+  }
+
+  textarea {
+    width: 82vw;
+  }
+
+  .input_textarea label {
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .h2_1 {
+    font-size: 2.6rem;
+  }
+
+  .formulaire1 {
+    width: 83vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 80vw;
+  }
+
+  textarea {
+    width: 80vw;
+  }
+
+  .input_textarea label {
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+}
+
+/*************** Formulaire 2 ****************/
 
 .h2_2 {
   font-size: 3rem;
@@ -132,7 +164,7 @@ textarea {
   width: 50vw;
   border-radius: 30px;
   padding: 2rem;
-  height: 100%;
+  height: 50rem;
   margin-bottom: 2rem;
   padding-top: 5rem;
 }
@@ -174,7 +206,7 @@ textarea {
   margin-top: -0.5rem;
 }
 
-/* button envoie */
+/***************** button envoie des deux formulaire ********************/
 
 .button_envoie {
   display: block;
@@ -188,4 +220,35 @@ textarea {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   font-size: 2rem;
+}
+
+/************* media query form 2 ****************/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .h2_2 {
+    font-size: 2.5rem;
+  }
+
+  .formulaire2 {
+    width: 75vw;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .h2_2 {
+    font-size: 2.5rem;
+  }
+
+  .formulaire2 {
+    width: 83vw;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
 }
