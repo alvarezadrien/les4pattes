@@ -158,39 +158,64 @@ const Adoption = () => {
 
                     <div className="input_radio_group">
                         <div className="radio_option">
-                            <label htmlFor="chien">Chien</label>
+                            <label
+                                htmlFor="chien"
+                                className={focused.animal === 'chien' || formdata1.animal === 'chien' ? 'focused' : ''}
+                            >
+                                Chien
+                            </label>
                             <input
                                 type="radio"
                                 id="chien"
                                 name="animal"
                                 value="chien"
+                                checked={formdata1.animal === 'chien'}
+                                onChange={handleChange1}
+                                onFocus={() => handleFocus1("animal")}
+                                onBlur={() => handleBlur1("animal")}
                                 required
                             />
                         </div>
+
                         <div className="radio_option">
-                            <label htmlFor="chat">Chat</label>
+                            <label
+                                htmlFor="chat"
+                                className={focused.animal === 'chat' || formdata1.animal === 'chat' ? 'focused' : ''}
+                            >
+                                Chat
+                            </label>
                             <input
                                 type="radio"
                                 id="chat"
                                 name="animal"
                                 value="chat"
+                                checked={formdata1.animal === 'chat'}
+                                onChange={handleChange1}
+                                onFocus={() => handleFocus1("animal")}
+                                onBlur={() => handleBlur1("animal")}
                                 required
                             />
                         </div>
                     </div>
 
                     <div className="input_textarea">
-                        <label htmlFor="message" className={focused.message || formdata1.message ? 'focused' : ''}>Message</label>
+                        <label
+                            htmlFor="message"
+                            className={focused.message || formdata1.message ? 'focused' : ''}
+                        >
+                            Message
+                        </label>
                         <textarea
-                            id="message_adopt1"
-                            name="message_area"
+                            id="message"
+                            name="message"
                             value={formdata1.message}
                             onChange={handleChange1}
-                            onFocus={() => handleFocus1("message_area")}
-                            onBlur={() => handleBlur1("message_area")}
+                            onFocus={() => handleFocus1("message")}
+                            onBlur={() => handleBlur1("message")}
                             required
                         />
                     </div>
+
                 </form>
             </div>
 
@@ -237,9 +262,13 @@ const Adoption = () => {
                             type="date"
                             id="anniv_adopt"
                             name="anniv_adopt"
+                            value={formdata1.anniv_adopt}
+                            onChange={handleChange1}
+                            onFocus={() => handleFocus1("anniv_adopt")}
+                            onBlur={() => handleBlur1("anniv_adopt")}
                             required
                         />
-                        <label htmlFor="dob">Date de naissance</label>
+                        <label htmlFor="dob" className={focused.anniv_adopt || formdata1.anniv_adopt ? 'focused' : ''}>Date de naissance</label>
                     </div>
 
                     <div className="input_container_adoption2">
@@ -293,8 +322,8 @@ const Adoption = () => {
                     </div>
 
                     <div className="input_container_adoption2">
-                        <label htmlFor="logement">Type de logement</label>
-                        <select id="infos_form2" name="logement" required>
+                        <label htmlFor="logement" className={focused.logement || formdata1.logement ? 'focused' : ''}>Type de logement</label>
+                        <select id="infos_form2" name="logement" value={formdata1.logement} onChange={handleChange1} onFocus={() => handleFocus1("logement")} onBlur={() => handleBlur1("logement")} required>
                             <option value="selectionner">Sélectionner</option>
                             <option value="appartement">Appartement</option>
                             <option value="maison">Maison</option>
@@ -302,8 +331,8 @@ const Adoption = () => {
                     </div>
 
                     <div className="input_container_adoption2">
-                        <label htmlFor="acces">Accès extérieur</label>
-                        <select id="infos_form2" name="acces" required>
+                        <label htmlFor="acces" className={focused.acces || formdata1.acces ? 'focused' : ''}>Accès extérieur</label>
+                        <select id="infos_form2" name="acces" value={formdata1.acces} onChange={handleChange1} onFocus={() => handleFocus1("acces")} onBlur={() => handleBlur1("acces")} required>
                             <option value="selectionner">Sélectionner</option>
                             <option value="jardin">Jardin</option>
                             <option value="terrasse">terrasse</option>
@@ -313,8 +342,8 @@ const Adoption = () => {
                     </div>
 
                     <div className="input_container_adoption2">
-                        <label htmlFor="enfants">Avez vous des enfants ?</label>
-                        <select id="infos_form2" name="enfants" required>
+                        <label htmlFor="enfants" className={focused.enfants || formdata1.enfants ? 'focused' : ''}>Avez vous des enfants ?</label>
+                        <select id="infos_form2" name="enfants" value={formdata1.enfants} onChange={handleChange1} onFocus={() => handleFocus1("enfants")} onBlur={() => handleBlur1("enfants")} required>
                             <option value="selectionner">Sélectionner</option>
                             <option value="oui">Oui</option>
                             <option value="non">Non</option>
@@ -322,8 +351,8 @@ const Adoption = () => {
                     </div>
 
                     <div className="input_container_adoption2">
-                        <label htmlFor="animaux">Avez vous des animaux ?</label>
-                        <select id="infos_form2" name="animaux" required>
+                        <label htmlFor="animaux" className={focused.animaux || formdata1.animaux ? 'focused' : ''}>Avez vous des animaux ?</label>
+                        <select id="infos_form2" name="animaux" value={formdata1.animaux} onChange={handleChange1} onFocus={() => handleFocus1("animaux")} onBlur={() => handleBlur1("animaux")} required>
                             <option value="selectionner">Sélectionner</option>
                             <option value="oui">Oui</option>
                             <option value="non">Non</option>
