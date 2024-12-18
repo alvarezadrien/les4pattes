@@ -365,10 +365,10 @@
   }
 
   .paragraphe_home_propos {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin: 0 auto;
-    text-align: justify;
-    width: 80vw;
+    text-align: center;
+    width: 95vw;
   }
 
   .home_propos_img img {
@@ -389,9 +389,15 @@
     margin-top: -5rem;
   }
 
+  .div_soins {
+  }
+
   .container_aides_soins h2 {
+    font-size: 2rem;
+  }
+
+  .container_aides_soins h3 {
     font-size: 1.5rem;
-    margin-left: -8rem;
   }
 
   .h2_titre_soins img {
