@@ -141,6 +141,31 @@ textarea {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  .formulaire1 {
+    width: 87vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 75vw;
+  }
+
+  .input_radio_group {
+    width: 80%;
+  }
+
+  .input_radio_group label {
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  .input_textarea label {
+    left: 0;
+  }
+
+  textarea {
+    width: 82vw;
+  }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
@@ -245,6 +270,9 @@ textarea {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  .formulaire2 {
+    width: 87vw;
+  }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
