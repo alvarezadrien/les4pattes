@@ -3,7 +3,8 @@ import '../Adoption.css';
 import emailjs from 'emailjs-com';
 
 const Adoption = () => {
-    const [statusMessage, setStatusMessage1] = useState("");
+    const [statusMessage, setStatusMessage] = useState("");
+    const [statusClass, setStatusClass] = useState("");
 
     const [formdata1, setFormData] = useState({
         name: "",
@@ -11,10 +12,6 @@ const Adoption = () => {
         email: "",
         telephone: "",
         animal: "",
-        name2: "",
-        prenom2: "",
-        email2: "",
-        telephone2: "",
         adresse: "",
         anniv_adopt: "",
         logement: "",
@@ -29,10 +26,6 @@ const Adoption = () => {
         prenom: false,
         email: false,
         telephone: false,
-        name2: false,
-        prenom2: false,
-        email2: false,
-        telephone2: false,
         animal: false,
         message: false,
         anniv_adopt: false,
@@ -75,10 +68,12 @@ const Adoption = () => {
         emailjs.send('service_268vdcp', 'template_q44v26a', emailParams, 'GprZAo7Xbj4DQXKdY')
             .then((result) => {
                 console.log('E-mail envoyé !', result.text);
-                setStatusMessage1("Votre message a bien été envoyé ! ✅");
+                setStatusMessage("Votre message a bien été envoyé ! ✅");
+                setStatusClass("popup-success"); // Classe CSS pour le succès
             }, (error) => {
                 console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
-                setStatusMessage1("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
+                setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
+                setStatusClass("popup-error"); // Classe CSS pour l'erreur
             });
     };
 
@@ -225,38 +220,6 @@ const Adoption = () => {
 
             <div className='formulaire2'>
                 <form onSubmit={handlesubmit1}>
-                    <div className='input_container_adoption2'>
-                        <input
-                            type="text"
-                            id="name2"
-                            name="name2"
-                            value={formdata1.name2}
-                            onChange={handleChange1}
-                            onFocus={() => handleFocus1("name2")}
-                            onBlur={() => handleBlur1("name2")}
-                            required
-                        />
-                        <label htmlFor="name2" className={focused.name2 || formdata1.name2 ? 'focused' : ''}>
-                            Nom
-                        </label>
-                    </div>
-
-                    <div className='input_container_adoption2'>
-                        <input
-                            type="text"
-                            id="prenom2"
-                            name="prenom2"
-                            value={formdata1.prenom2}
-                            onChange={handleChange1}
-                            onFocus={() => handleFocus1("prenom2")}
-                            onBlur={() => handleBlur1("prenom2")}
-                            required
-                        />
-                        <label htmlFor="Prénom2" className={focused.prenom2 || formdata1.prenom2 ? 'focused' : ''}>
-                            Prénom
-                        </label>
-                    </div>
-
                     <div className="input_container_adoption2">
                         <input
                             type="date"
@@ -270,41 +233,6 @@ const Adoption = () => {
                         />
                         <label htmlFor="dob" className={focused.anniv_adopt || formdata1.anniv_adopt ? 'focused' : ''}>Date de naissance</label>
                     </div>
-
-                    <div className="input_container_adoption2">
-                        <input
-                            type="tel"
-                            id="telephone2"
-                            name="telephone2"
-                            value={formdata1.telephone2}
-                            onChange={handleChange1}
-                            onFocus={() => handleFocus1("telephone2")}
-                            onBlur={() => handleBlur1("telephone2")}
-                            pattern="^[0-9]{10}$"
-                            title="Veuillez entrer un numéro de téléphone de 10 chiffres."
-                            required
-                        />
-                        <label htmlFor="telephone2" className={focused.telephone2 || formdata1.telephone2 ? 'focused' : ''}>
-                            Téléphone
-                        </label>
-                    </div>
-
-                    <div className="input_container_adoption2">
-                        <input
-                            type="email"
-                            id="email2"
-                            name="email2"
-                            value={formdata1.email2}
-                            onChange={handleChange1}
-                            onFocus={() => handleFocus1("email2")}
-                            onBlur={() => handleBlur1("email2")}
-                            required
-                        />
-                        <label htmlFor="email2" className={focused.email2 || formdata1.email2 ? 'focused' : ''}>
-                            Email
-                        </label>
-                    </div>
-
                     <div className="input_container_adoption2">
                         <input
                             type="text"

@@ -3,7 +3,9 @@ import '../Contact.css';
 import emailjs from 'emailjs-com';
 
 const Contact = () => {
-  const [statusMessage, setStatusMessage] = useState(""); // Pour afficher un message de statut
+  const [statusMessage, setStatusMessage] = useState(""); // Message de statut
+  const [showPopup, setShowPopup] = useState(false); // Contrôle de la pop-up
+  const [popupClass, setPopupClass] = useState(""); // Classe pour le style dynamique
 
   const [formData, setFormData] = useState({
     name1: "",
@@ -12,15 +14,6 @@ const Contact = () => {
     message1: "",
   });
 
-  const [focused, setFocused] = useState({
-    name1: false,
-    email1: false,
-    telephone1: false,
-    message1: false,
-  });
-
-
-  // Gérer les changements des champs de formulaire
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -29,50 +22,45 @@ const Contact = () => {
     });
   };
 
-  // Gérer la mise en focus sur les champs
-  const handleFocus = (field) => {
-    setFocused({
-      ...focused,
-      [field]: true,
-    });
-  };
-
-  // Gérer la perte de focus des champs
-  const handleBlur = (field) => {
-    if (!formData[field]) {
-      setFocused({
-        ...focused,
-        [field]: false,
-      });
-    }
-  };
-
-  // Gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Récupérer les données du formulaire
     const { name1, email1, telephone1, message1 } = formData;
 
-    // Envoi de l'email via EmailJS
-    emailjs.send('service_5q958pf', 'template_0wcw1wp', {
-      name1,
-      email1,
-      telephone1,
-      message1
-    }, 'GprZAo7Xbj4DQXKdY')  // Remplace par ta clé publique EmailJS
-      .then((result) => {
-        console.log('E-mail envoyé !', result.text);
-        setStatusMessage("Votre message a bien été envoyé ! ✅");
-      }, (error) => {
-        console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
-        setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
-      });
+    emailjs
+      .send(
+        'service_5q958pf',
+        'template_0wcw1wp',
+        { name1, email1, telephone1, message1 },
+        'GprZAo7Xbj4DQXKdY'
+      )
+      .then(
+        (result) => {
+          console.log('E-mail envoyé !', result.text);
+          setStatusMessage("Votre message a bien été envoyé !");
+          setPopupClass("success"); // Classe pour le succès
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 5000); // Disparaît après 5 secondes
+        },
+        (error) => {
+          console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
+          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
+          setPopupClass("error"); // Classe pour l'erreur
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 5000);
+        }
+      );
   };
 
   return (
     <div className="container_page_contact">
-      {/* L'image de contact */}
+      {/* Message de statut en pop-up */}
+      {showPopup && (
+        <div className={`popup-status ${popupClass}`}>
+          {statusMessage}
+        </div>
+      )}
+
       <img className="img_contact" src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
 
       <div className="container_form">
@@ -86,11 +74,9 @@ const Contact = () => {
               name="name1"
               value={formData.name1}
               onChange={handleChange}
-              onFocus={() => handleFocus("name1")}
-              onBlur={() => handleBlur("name1")}
               required
             />
-            <label htmlFor="name1" className={focused.name1 || formData.name1 ? 'focused' : ''}>Nom</label>
+            <label htmlFor="name1">Nom</label>
           </div>
 
           <div className="input-container">
@@ -100,11 +86,9 @@ const Contact = () => {
               name="email1"
               value={formData.email1}
               onChange={handleChange}
-              onFocus={() => handleFocus("email1")}
-              onBlur={() => handleBlur("email1")}
               required
             />
-            <label htmlFor="email1" className={focused.email1 || formData.email1 ? 'focused' : ''}>Email</label>
+            <label htmlFor="email1">Email</label>
           </div>
 
           <div className="input-container">
@@ -114,13 +98,11 @@ const Contact = () => {
               name="telephone1"
               value={formData.telephone1}
               onChange={handleChange}
-              onFocus={() => handleFocus("telephone1")}
-              onBlur={() => handleBlur("telephone1")}
               pattern="^[0-9]{10}$"
               title="Veuillez entrer un numéro de téléphone de 10 chiffres."
               required
             />
-            <label htmlFor="telephone1" className={focused.telephone1 || formData.telephone1 ? 'focused' : ''}>Téléphone</label>
+            <label htmlFor="telephone1">Téléphone</label>
           </div>
 
           <div className="input-container">
@@ -129,18 +111,13 @@ const Contact = () => {
               name="message1"
               value={formData.message1}
               onChange={handleChange}
-              onFocus={() => handleFocus("message1")}
-              onBlur={() => handleBlur("message1")}
               required
             />
-            <label htmlFor="message1" className={focused.message1 || formData.message1 ? 'focused' : ''}>Message</label>
+            <label htmlFor="message1">Message</label>
           </div>
 
           <button className="button_envoyer" type="submit">Envoyer</button>
         </form>
-
-        {/* Affichage du message de statut */}
-        {statusMessage && <p className="status-message">{statusMessage}</p>}
       </div>
     </div>
   );
