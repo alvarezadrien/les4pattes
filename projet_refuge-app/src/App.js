@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Form } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import HomePage from './Page/HomePage';
@@ -32,9 +32,13 @@ import Carte_carrousel from './Page/Carte_carrousel';
 import Scroll_button from './Page/Scroll_button';
 
 const App = () => {
+  // Vérifie si la page actuelle est une des pages à exclure (Connexion, Inscription, Mot de passe oublié)
+  const noNavbarFooter = ["/Connexion", "/Inscription", "/Mot de passe oublié"].includes(window.location.pathname);
+
   return (
     <Router>
-      <Navbar />
+      {/* Exclure Navbar et Footer sur les pages spécifiées */}
+      {!noNavbarFooter && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/HomePage" element={<HomePage />} />
@@ -61,7 +65,8 @@ const App = () => {
         <Route path="/Adhésions" element={<Adhesions />} />
       </Routes>
       <Scroll_button />
-      {/* <Footer /> */}
+      {/* Exclure Footer sur les pages spécifiées */}
+      {/* {!noNavbarFooter && <Footer />} */}
     </Router>
   );
 };
