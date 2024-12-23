@@ -3,8 +3,9 @@ import '../Adoption.css';
 import emailjs from 'emailjs-com';
 
 const Adoption = () => {
-    const [statusMessage, setStatusMessage] = useState("");
-    const [statusClass, setStatusClass] = useState("");
+    const [statusMessage, setStatusMessage] = useState(""); // Message de statut
+    const [showPopup, setShowPopup] = useState(false); // Contrôle de la pop-up
+    const [popupClass, setPopupClass] = useState(""); // Classe pour le style dynamique
 
     const [formdata1, setFormData] = useState({
         name: "",
@@ -66,19 +67,32 @@ const Adoption = () => {
         const emailParams = { ...formdata1 };
 
         emailjs.send('service_268vdcp', 'template_q44v26a', emailParams, 'GprZAo7Xbj4DQXKdY')
-            .then((result) => {
-                console.log('E-mail envoyé !', result.text);
-                setStatusMessage("Votre message a bien été envoyé ! ✅");
-                setStatusClass("popup-success"); // Classe CSS pour le succès
-            }, (error) => {
-                console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
-                setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer. ❌");
-                setStatusClass("popup-error"); // Classe CSS pour l'erreur
-            });
+            .then(
+                (result) => {
+                    console.log('E-mail envoyé !', result.text);
+                    setStatusMessage("Votre message a bien été envoyé !");
+                    setPopupClass("success"); // Classe pour le succès
+                    setShowPopup(true);
+                    setTimeout(() => setShowPopup(false), 5000); // Disparaît après 5 secondes
+                },
+                (error) => {
+                    console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
+                    setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
+                    setPopupClass("error"); // Classe pour l'erreur
+                    setShowPopup(true);
+                    setTimeout(() => setShowPopup(false), 5000);
+                }
+            );
     };
 
     return (
         <div className='page_adoption'>
+            {/* Message de statut en pop-up */}
+            {showPopup && (
+                <div className={`popup-status ${popupClass}`}>
+                    {statusMessage}
+                </div>
+            )}
             <h2 className='h2_1'>Formulaire d'adoption</h2>
             <div className='formulaire1'>
                 <form onSubmit={handlesubmit1}>
@@ -160,7 +174,8 @@ const Adoption = () => {
                                 Chien
                             </label>
                             <input
-                                type="radio"
+                                className='radio_choix_animal'
+                                type="checkbox"
                                 id="chien"
                                 name="animal"
                                 value="chien"
@@ -180,7 +195,8 @@ const Adoption = () => {
                                 Chat
                             </label>
                             <input
-                                type="radio"
+                                className='radio_choix_animal'
+                                type="checkbox"
                                 id="chat"
                                 name="animal"
                                 value="chat"
@@ -310,9 +326,6 @@ const Adoption = () => {
             <button className="button_envoie" type="submit" onClick={handlesubmit1}>
                 Envoyer
             </button>
-
-            {/* Affichage du message de statut */}
-            {statusMessage && <p className="status-message">{statusMessage}</p>}
         </div>
     )
 }
