@@ -62,34 +62,7 @@
   transition: ease-in 0.3s;
 }
 
-/* .item_info h3 {
-  font-size: 2rem;
-  margin-top: 0.5rem;
-  margin-left: 1.5rem;
-}
-
-.item_info button {
-  background-color: #778d45;
-  border: #778d45;
-  color: white;
-  float: right;
-  margin-right: 3rem;
-  width: 6rem;
-  height: 2rem;
-  font-size: 1.5rem;
-  margin-top: 2rem;
-  cursor: pointer;
-}
-
-.item_info {
-  display: block;
-}
-
-.item_info span {
-  margin-left: 1rem;
-} */
-
-.animal_group {
+.animal_group_chat {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }

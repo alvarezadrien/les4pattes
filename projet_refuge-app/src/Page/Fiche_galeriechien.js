@@ -23,7 +23,7 @@ const Fiche_galeriechien = () => {
     return (
         <div className="page-container">
             <section className='container_appercu'>
-                <div className='animal_group'>
+                <div className='animal_group_chien'>
                     {dogs.map((dog, index) => (
                         <div className='item' key={`dog-${index}`}>
                             <img src={dog.imgSrc} alt={`Photo de ${dog.name}`} />

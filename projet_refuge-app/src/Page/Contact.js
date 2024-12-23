@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import '../Contact.css';
 import emailjs from 'emailjs-com';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const Contact = () => {
   const [statusMessage, setStatusMessage] = useState(""); // Message de statut
@@ -52,6 +53,23 @@ const Contact = () => {
       );
   };
 
+  const containerStyle = {
+    width: '',
+    height: '',
+  };
+
+  const center = {
+    lat: 50.82513,
+    lng: 4.34519,
+  };
+
+
+  <Marker
+    position={center}
+    icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+  />
+
+
   return (
     <div className="container_page_contact">
       {/* Message de statut en pop-up */}
@@ -81,7 +99,7 @@ const Contact = () => {
 
           <div className="input-container">
             <input
-              type="email1"
+              type="email"
               id="email1"
               name="email1"
               value={formData.email1}
@@ -119,6 +137,18 @@ const Contact = () => {
           <button className="button_envoyer" type="submit">Envoyer</button>
         </form>
       </div>
+
+      {/* Intégration de la carte Google Maps */}
+      <LoadScript googleMapsApiKey="AIzaSyAmS3BJbSJHo_FREi_Xn2Hfjror9NvaVxc">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          mapContainerClassName="map_container"
+          center={center}
+          zoom={12}
+        >
+          <Marker position={center} />
+        </GoogleMap>
+      </LoadScript>
     </div>
   );
 };

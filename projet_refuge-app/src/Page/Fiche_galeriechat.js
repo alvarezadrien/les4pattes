@@ -21,7 +21,7 @@ const Fichegalerie = () => {
         <div className="page-container">
 
             <section className='container_appercu'>
-                <div className='animal_group'>
+                <div className='animal_group_chat'>
                     {cat.map((cat, index) => (
                         <div className='item' key={`cat-${index}`}>
                             <img src={cat.imgSrc} alt={`Photo de ${cat.name}`} />

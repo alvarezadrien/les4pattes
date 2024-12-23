@@ -204,9 +204,43 @@ textarea {
   .input_container_adoption2 input {
     width: 65vw;
   }
+
+  .input_radio_group label {
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  textarea {
+    width: 65vw;
+  }
+
+  .input_textarea label {
+    left: 12rem;
+  }
 }
 
 @media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .formulaire1 {
+    width: 75vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 57vw;
+  }
+
+  .input_radio_group label {
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  textarea {
+    width: 57vw;
+  }
+
+  .input_textarea label {
+    left: 16.5rem;
+  }
 }
 
 /*************** Formulaire 2 ****************/
@@ -340,4 +374,7 @@ textarea {
 }
 
 @media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .formulaire2 {
+    width: 75vw;
+  }
 }
