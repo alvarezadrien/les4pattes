@@ -66,7 +66,7 @@ const App = () => {
       </Routes>
       <Scroll_button />
       {/* Exclure Footer sur les pages spécifiées */}
-      {/* {!noNavbarFooter && <Footer />} */}
+      {!noNavbarFooter && <Footer />}
     </Router>
   );
 };
