@@ -42,7 +42,12 @@
   justify-content: center;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
+@media screen and (max-width: 358px) {
+  .container_logo_partenaires {
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 359px) {
   .container_img_partenaires {
     background-size: contain;
     margin-top: -8.2rem;
@@ -50,9 +55,25 @@
 
   .h1_partenaires {
     font-size: 2.2rem;
-    color: red;
-    /* position: relative; */
-    /* top: -11.5rem; */
+    color: white;
+    position: relative;
+    top: -11rem;
+  }
+
+  .img_logo {
+    gap: 2rem;
+  }
+}
+
+@media screen and (min-with: 360px) and (max-width: 480px) {
+  .container_img_partenaires img {
+    background-size: cover;
+    margin-top: -8.2rem;
+  }
+
+  .h1_partenaires {
+    position: relative;
+    bottom: -4rem;
   }
 
   .img_logo {
