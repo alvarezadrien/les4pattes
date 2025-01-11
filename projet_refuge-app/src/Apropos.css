@@ -79,7 +79,7 @@
 .img_homme_chien img {
   border-radius: 15%;
   margin-top: -3rem;
-  margin-left: 50rem;
+  margin-left: 57rem;
 }
 
 .paragraphe_pattes2 {
@@ -88,6 +88,7 @@
   margin-top: -30rem;
   padding-bottom: 13rem;
   text-align: justify;
+  width: 55rem;
 }
 
 hr {
