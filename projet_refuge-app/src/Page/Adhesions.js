@@ -32,6 +32,8 @@ const Adhesions = () => {
                 <li>La cotisation en tant que membre à vie : 250€ (à ne payer qu'une seule fois)</li>
             </ul>
 
+            <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image_paiement" />
+
             <div className='container_paiement'>
                 <h5 className='h5_adhesions'>Voici notre numéro de compte pour le paiement</h5>
                 <span className='span_bank'>BE 79 1140 2004 0000 3102 8079 8178</span>

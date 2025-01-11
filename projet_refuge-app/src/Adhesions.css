@@ -80,7 +80,7 @@
   margin: 0 auto;
   margin-bottom: 2rem;
   border-radius: 30px;
-  margin-top: 5rem;
+  margin-top: 8rem;
 }
 
 .h5_adhesions {
@@ -121,4 +121,13 @@
   margin: 0 auto;
   width: 70%;
   text-align: justify;
+}
+
+.cat_image_paiement {
+  width: 220px;
+  height: 250px;
+  /* margin-left: -10.8rem; */
+  margin-left: 18.5rem;
+  position: absolute;
+  margin-top: -0.3rem;
 }
