@@ -199,7 +199,76 @@
   cursor: pointer;
 }
 
+.div_soins {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .container_aides_soins {
+  background-color: #f4eaca;
+  height: 28rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 7rem;
+}
+
+.h2_titre_soins {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.icon_ensemble {
+  display: flex;
+  justify-content: center;
+  gap: 20rem;
+  flex-wrap: wrap;
+}
+
+.icon_soins1,
+.icon_soins2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+}
+
+.icon_soins1 img,
+.icon_soins2 img {
+  width: 200px;
+  height: 200px;
+}
+
+.icon_soins1 h3,
+.icon_soins2 h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.icon_soins1 button,
+.icon_soins2 button {
+  margin-top: 0.5rem;
+  background-color: #778d45;
+  border: none;
+  border-radius: 50px;
+  width: 7rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.icon_soins1 button a,
+.icon_soins2 button a {
+  text-decoration: none;
+  color: white;
+}
+
+/* .container_aides_soins {
   background-color: #f4eaca;
   height: 35rem;
   display: block;
@@ -258,7 +327,7 @@
   width: 7rem;
   height: 2rem;
   font-size: 1.3rem;
-}
+} */
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container_img {

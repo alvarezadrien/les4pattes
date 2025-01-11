@@ -257,3 +257,12 @@ h5 {
   margin: 0 auto;
   margin-bottom: 1rem;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .img_conditions img {
+    width: 300px;
+  }
+
+  .h1_adopt {
+  }
+}

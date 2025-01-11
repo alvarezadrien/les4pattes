@@ -247,7 +247,7 @@ const Adoption = () => {
                             onBlur={() => handleBlur1("anniv_adopt")}
                             required
                         />
-                        <label htmlFor="dob" className={focused.anniv_adopt || formdata1.anniv_adopt ? 'focused' : ''}>Date de naissance</label>
+                        <label htmlFor="anniv_adopt" className={focused.anniv_adopt || formdata1.anniv_adopt ? 'focused' : ''}>Date de naissance</label>
                     </div>
                     <div className="input_container_adoption2">
                         <input

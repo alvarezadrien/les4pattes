@@ -1,9 +1,8 @@
 .page_cruaute {
-  background-image: url(../public/img/chien_abandon1.jpeg);
+  background-image: url(../public/img/chien_abandon1.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 100%;
   height: 35rem;
   margin-top: 6rem;
   margin-bottom: 2rem;

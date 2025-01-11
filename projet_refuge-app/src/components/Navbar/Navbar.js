@@ -96,9 +96,9 @@ function Navbar() {
         <li className="navbar_item icon_navbar">
           <a className="navbar_link" href="/Adhésions">
             <img
-              src="/img/coeurs.png"
+              src="/img/coeur_dons_modif.jpg"
               alt="C'est l'icon pour faire un don en forme de coeur"
-              width={40}
+              width={55}
             />
           </a>
         </li>
@@ -108,7 +108,7 @@ function Navbar() {
             <img
               src="/img/profil.png"
               alt="C'est l'icon de connexion avec un petit profil"
-              width={40}
+              width={55}
             />
           </a>
         </li>
