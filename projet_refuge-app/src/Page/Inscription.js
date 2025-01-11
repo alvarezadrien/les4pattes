@@ -104,6 +104,7 @@ const Inscription = () => {
             <div className='container_form_inscription'>
                 <form onSubmit={handleSubmit}>
                     {/* Champ Nom */}
+                    <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image" />
                     <div className="input_container_inscri">
                         <input
                             type="text"
