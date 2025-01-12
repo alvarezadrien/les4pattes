@@ -207,6 +207,7 @@ hr {
     text-align: center;
     font-size: 1rem;
     padding: 0;
+    width: 20rem;
     margin-bottom: 33rem;
   }
 
@@ -260,17 +261,24 @@ hr {
 
   .img_1 img,
   .img_2 img {
-    display: none;
-    /* display: flex;
-    margin: 0 auto;
     width: 150px;
     height: 150px;
-    padding: 0; */
+    position: relative;
+    top: 15rem;
+    display: none;
   }
 
   .img_3 img,
   .img_4 img {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: 23rem;
     display: none;
+  }
+
+  .pattes_propos h2 {
+    font-size: 3.5rem;
   }
 
   .pattes_propos img {
@@ -281,7 +289,6 @@ hr {
   }
 
   .paragraphe_pattes {
-    display: inline-flex;
     font-size: 1.5rem;
     text-align: center;
   }
@@ -308,9 +315,9 @@ hr {
   }
 
   .paragraphe_histoire1 {
-    width: 25rem;
     padding: 0;
     margin-top: 1.5rem;
+    text-align: center;
   }
 
   .div_histoire2 {
@@ -337,6 +344,6 @@ hr {
     top: 0.5rem;
     justify-content: center;
     align-items: center;
-    width: 25rem;
+    width: 30rem;
   }
 }
