@@ -5,7 +5,7 @@ const Conditions_adoption = () => {
     return (
         <div className='page_container_conditions'>
             <div className='img_conditions'>
-                <img src="/img/images_condi_adopt.jpg" alt="" />
+                <img src="/img/pexels_chien_adopt.jpg" alt="" />
             </div>
 
             <h1 className='h1_adopt'>Nos conditions d'adoption</h1>

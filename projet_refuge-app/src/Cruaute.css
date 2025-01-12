@@ -1,11 +1,11 @@
 .page_cruaute {
-  background-image: url(../public/img/chien_abandon1.jpg);
+  background-image: url(../public/img/chien_route_abandon.webp);
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
-  height: 35rem;
-  margin-top: 6rem;
+  height: 55rem;
   margin-bottom: 2rem;
+  margin-top: -2rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -13,13 +13,12 @@
 }
 
 .h1_titre_cruaute {
-  color: white;
-  font-size: 3rem;
+  font-size: 3.5rem;
   text-align: center;
   margin-bottom: 2rem;
   position: relative;
-  right: 15rem;
-  top: 10rem;
+  right: 5rem;
+  top: 6rem;
 }
 
 .container_para_cruaute1 {
@@ -137,19 +136,16 @@
   transform: rotate(-8deg);
   margin-bottom: 2rem;
 }
-
 .container_img_cruaute3 img {
   margin-top: 2.3rem;
   transform: rotate(8deg);
   width: 350px;
   height: 250px;
 }
-
 .h2_titre05 {
   font-size: 2.3rem;
   text-align: center;
 }
-
 .para05 {
   display: flex;
   margin: 0 auto;
@@ -168,13 +164,11 @@
   border-radius: 20px;
   margin-top: 3rem;
 }
-
 .h2_titre06,
 .h2_titre07 {
   text-align: center;
   font-size: 2rem;
 }
-
 .div_para06,
 .div_para07 {
   display: flex;
@@ -187,7 +181,6 @@
   padding: 2rem;
   border-radius: 20px;
 }
-
 .ol_li li {
   font-size: 1.8rem;
 }

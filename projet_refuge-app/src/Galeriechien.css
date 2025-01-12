@@ -78,6 +78,13 @@
 .animal_group_chien {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+}
+
+.container_galerie {
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {

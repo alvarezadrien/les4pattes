@@ -17,7 +17,7 @@ const Savoir = () => {
             </div>
 
             <div className="div_img1">
-                <img src="/img/img_chat_chien_respon.jpeg" alt="" />
+                <img src="/img/pexels_chat_respon.jpg" alt="chat" />
             </div>
 
             <div className='container_para1'>
@@ -29,13 +29,13 @@ const Savoir = () => {
             </div>f
 
             <div className='div_img2'>
-                <img src="/img/img_chien_chat_savoir.png" alt="" />
+                <img src="/img/pexels_chien_chat_savoir.jpg" alt="" />
             </div>
 
             <hr />
 
             <div className='div_img3'>
-                <img src="/img/images_véto_page_savoir.jpeg" alt="" />
+                <img src="/img/pexels_veto_soins.jpg" alt="" />
             </div>
 
             <div className='container_para2'>
@@ -61,7 +61,7 @@ const Savoir = () => {
             </div>
 
             <div className='img_chien_long'>
-                <img src="/img/img_panier_chien.jpeg" alt="" />
+                <img src="/img/pexels_chien_panier.jpg" alt="" />
             </div>
 
             <div className='container_savoir01'>
