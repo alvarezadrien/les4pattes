@@ -18,7 +18,7 @@ const Motpasse_oublie = () => {
     return (
         <div className="page_oublie">
             <div className="left-content">
-                <h1>Mot de passe oublié ? Récupérez votre compte ici</h1>
+                <h1 className='h1_oublie'>Mot de passe oublié ? Récupérez votre compte ici</h1>
                 <div className="container_form_login">
                     <form>
                         <div className="form-group">

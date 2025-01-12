@@ -38,8 +38,11 @@ const App = () => {
 
   return (
     <Router>
+
       {/* Exclure Navbar et Footer sur les pages spécifiées */}
+
       {!noNavbarFooter && <Navbar />}
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/HomePage" element={<HomePage />} />
@@ -65,9 +68,13 @@ const App = () => {
         <Route path="/Sensibilisation" element={<Sensibilisation />} />
         <Route path="/Adhésions" element={<Adhesions />} />
       </Routes>
+
       <Scroll_button />
+
       {/* Exclure Footer sur les pages spécifiées */}
+
       {/* {!noNavbarFooter && <Footer />} */}
+
     </Router>
   );
 };

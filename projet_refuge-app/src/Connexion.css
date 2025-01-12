@@ -110,4 +110,39 @@
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
+  .page_connexion {
+    flex-direction: column;
+  }
+
+  .container_form_login_connexion {
+    width: 80%;
+  }
+
+  .container_form_login_connexion input {
+    width: 100%;
+  }
+
+  .toggle-password {
+    right: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .page_connexion {
+    flex-direction: column;
+  }
+
+  .right-image {
+    height: fit-content;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 999px) {
+  .page_connexion {
+    flex-direction: column;
+  }
+
+  .right-image {
+    height: fit-content;
+  }
 }

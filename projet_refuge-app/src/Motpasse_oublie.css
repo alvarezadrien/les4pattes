@@ -65,3 +65,45 @@
   height: 100%;
   object-fit: cover;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .page_oublie {
+    flex-direction: column;
+  }
+
+  .container_form_login {
+    width: 80%;
+  }
+
+  .container_form_login input {
+    width: 100%;
+  }
+
+  .h1_oublie {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+  }
+
+  .container_form_login label {
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .page_oublie {
+    flex-direction: column;
+  }
+
+  .right-oublie-image {
+    height: fit-content;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 999px) {
+  .page_oublie {
+    flex-direction: column;
+  }
+
+  .right-oublie-image {
+    height: fit-content;
+  }
+}
