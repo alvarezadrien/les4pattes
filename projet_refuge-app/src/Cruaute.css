@@ -40,6 +40,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 2rem;
+  flex-wrap: wrap;
 }
 
 .container_img_cruaute1 img {
@@ -127,6 +128,7 @@
   width: 70%;
   padding: 1rem;
   margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .container_img_cruaute2 img {
@@ -136,6 +138,7 @@
   transform: rotate(-8deg);
   margin-bottom: 2rem;
 }
+
 .container_img_cruaute3 img {
   margin-top: 2.3rem;
   transform: rotate(8deg);
@@ -183,4 +186,79 @@
 }
 .ol_li li {
   font-size: 1.8rem;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .page_cruaute {
+    margin-top: -16rem;
+  }
+
+  .h1_titre_cruaute {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: -1rem;
+  }
+
+  .para_cruaute1 {
+    position: relative;
+    bottom: 22rem;
+    font-size: 1.5rem;
+    width: 17rem;
+  }
+
+  .container_img_cruaute1 img {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    bottom: 20rem;
+    right: 16rem;
+  }
+
+  .container_paragraphes {
+    height: 100%;
+    margin-top: -15rem;
+    width: 60vw;
+  }
+
+  .container_cruaute_chat {
+  }
+
+  .para01,
+  .para02 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .div_para04 {
+    height: 7rem;
+  }
+
+  .container_img_cruaute2 img,
+  .container_img_cruaute3 img {
+    width: 250px;
+    height: 250px;
+    transform: rotate(0deg);
+  }
+
+  .h2_titre05 {
+    font-size: 2.1rem;
+  }
+
+  .para05 {
+    font-size: 1.5rem;
+    width: 15rem;
+  }
+
+  .h2_titre06 {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
 }
