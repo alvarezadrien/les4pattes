@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Carte_carrousel.css";
 
@@ -42,6 +42,15 @@ const Carte_carrousel = () => {
             setCurrentIndex(currentIndex - itemsPerPage);
         }
     };
+
+    // Défilement automatique
+    useEffect(() => {
+        const autoScroll = setInterval(() => {
+            handleNext();
+        }, 3000); // Défiler toutes les 3 secondes
+
+        return () => clearInterval(autoScroll); // Nettoyer l'intervalle lors du démontage du composant
+    }, [currentIndex]);
 
     return (
         <div className="carrousel-container">
