@@ -6,14 +6,14 @@ import Carte_carrousel from './Carte_carrousel';
 const AnimalDetails = () => {
   const animals = [
     {
-      name: "Diablo",
-      race: "Labrador",
-      age: "2 ans",
-      size: "Petit",
-      arrivalDate: "2022-06-15",
-      description: "Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.",
-      mainImg: "/img/img_galeriechat/sydney-chat1.jpg",
-      smallImgs: ["./img/img_galeriechat/sydney-chat1.jpg", "./img/img_galeriechat/sydney-chat2.jpg", "./img/img_galeriechat/sydney-chat3.jpg"]
+      name: "Oreo",
+      race: "Européen",
+      age: "1 An 1/2",
+      size: "Normal",
+      arrivalDate: "2024-06-15",
+      description: "Oreo est un chien très énergique, toujours prêt à jouer. Oreo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.",
+      mainImg: "/img/img_galeriechat/oreo_1.1.jpg",
+      smallImgs: ["./img/img_galeriechat/oreo_1.1.jpg", "./img/img_galeriechat/oreo_1.2.jpg", "./img/img_galeriechat/oreo_1.3.jpg"]
     },
     {
       name: "Bella",
