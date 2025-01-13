@@ -47,7 +47,7 @@ const Carte_carrousel = () => {
     useEffect(() => {
         const autoScroll = setInterval(() => {
             handleNext();
-        }, 3000); // Défiler toutes les 3 secondes
+        }, 3500);
 
         return () => clearInterval(autoScroll); // Nettoyer l'intervalle lors du démontage du composant
     }, [currentIndex]);
