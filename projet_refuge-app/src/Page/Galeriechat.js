@@ -20,7 +20,7 @@ const Galeriechat = () => {
 
                 <div className='divimg_principal'>
                     {images.map((image, index) => (
-                        <div key={index} className={`img_galerie${index + 1}`}>
+                        <div key={index} className={`img_galerie img_galerie${index + 1}`}>
                             <img src={image.src} alt={image.alt} />
                         </div>
                     ))}
@@ -28,9 +28,7 @@ const Galeriechat = () => {
             </div>
 
             <Filtre />
-
             <Fichegalerie />
-
             <Pagination totalPages={totalPages} />
         </div>
     );

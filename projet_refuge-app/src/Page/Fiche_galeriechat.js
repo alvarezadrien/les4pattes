@@ -19,7 +19,6 @@ const Fichegalerie = () => {
 
     return (
         <div className="page-container">
-
             <section className='container_appercu'>
                 <div className='animal_group_chat'>
                     {cat.map((cat, index) => (
@@ -30,9 +29,9 @@ const Fichegalerie = () => {
                                 <p className='age'>Âge: {cat.age}</p>
                                 <span>Race: {cat.race}</span> <br />
                                 <span>Sexe: {cat.sexe}</span> <br />
-                                {/* <button type="button"><Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link></button> */}
-                                <button type="button"><Link to={`/Ficheperso_animal`} className="">Détails</Link></button>
-
+                                <button type="button">
+                                    <Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link>
+                                </button>
                             </div>
                         </div>
                     ))}
