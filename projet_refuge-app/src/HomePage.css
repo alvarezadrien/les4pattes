@@ -207,12 +207,13 @@
 }
 
 .container_aides_soins {
+  display: flex;
   background-color: #f4eaca;
   height: 28rem;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  margin-top: 7rem;
+  width: 100%;
+  padding: 0;
 }
 
 .h2_titre_soins {
