@@ -80,11 +80,12 @@
   }
 
   .h1_oublie {
-    font-size: 2.5rem;
-    margin-top: 5rem;
+    font-size: 2rem;
+    margin-top: 5.5rem;
   }
 
   .container_form_login label {
+    font-size: 1.4rem;
   }
 }
 
