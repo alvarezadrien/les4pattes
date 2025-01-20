@@ -42,14 +42,8 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 358px) {
-  .container_logo_partenaires {
-  }
-}
-
 @media screen and (min-width: 320px) and (max-width: 359px) {
   .container_img_partenaires {
-    background-size: contain;
     margin-top: -8.2rem;
   }
 
@@ -67,7 +61,6 @@
 
 @media screen and (min-with: 360px) and (max-width: 480px) {
   .container_img_partenaires img {
-    background-size: cover;
     margin-top: -8.2rem;
   }
 
@@ -107,5 +100,11 @@
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .img_logo {
     gap: 4rem;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .container_img_partenaires {
+    background-size: contain;
   }
 }
