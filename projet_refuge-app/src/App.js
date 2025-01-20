@@ -73,7 +73,7 @@ const App = () => {
 
       {/* Exclure Footer sur les pages spécifiées */}
 
-      {/* {!noNavbarFooter && <Footer />} */}
+      {!noNavbarFooter && <Footer />}
 
     </Router>
   );

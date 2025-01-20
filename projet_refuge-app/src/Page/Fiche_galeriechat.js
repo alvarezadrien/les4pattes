@@ -30,7 +30,8 @@ const Fichegalerie = () => {
                                 <span>Race: {cat.race}</span> <br />
                                 <span>Sexe: {cat.sexe}</span> <br />
                                 <button type="button">
-                                    <Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link>
+                                    {/* <Link to={`/Ficheperso_animal/${cat.name}`} className="">Détails</Link> */}
+                                    <Link to={`/Ficheperso_animal`} className="">Détails</Link>
                                 </button>
                             </div>
                         </div>
