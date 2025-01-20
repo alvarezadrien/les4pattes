@@ -141,5 +141,14 @@ input {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container_form_inscription {
     width: 75vw;
+    height: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .cat_image {
+    display: none;
   }
 }
