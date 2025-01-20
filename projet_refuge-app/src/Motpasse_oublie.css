@@ -90,6 +90,10 @@
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
+  .h1_oublie {
+    margin-top: 5.5rem;
+  }
+
   .page_oublie {
     flex-direction: column;
   }
@@ -100,6 +104,10 @@
 }
 
 @media screen and (min-width: 769px) and (max-width: 999px) {
+  .h1_oublie {
+    margin-top: 6rem;
+  }
+
   .page_oublie {
     flex-direction: column;
   }
