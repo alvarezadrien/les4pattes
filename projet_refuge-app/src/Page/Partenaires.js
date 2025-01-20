@@ -2,12 +2,12 @@ import React from 'react';
 import '../Partenaires.css';
 
 const logos = [
-    "/img/logo_partenaires/logo_Nestle-Purina.jpg",
-    "/img/logo_partenaires/logo_pedigree.png",
-    "/img/logo_partenaires/logo-maxizoo.jpg",
-    "/img/logo_partenaires/friskies-logo-comp.jpg",
-    "/img/logo_partenaires/logo_nestle-good.jpg",
-    "/img/logo_partenaires/whiskas-logo.png"
+    { src: "/img/logo_partenaires/logo_Nestle-Purina.jpg", link: "https://www.purina.com" },
+    { src: "/img/logo_partenaires/logo_pedigree.png", link: "https://www.pedigree.fr" },
+    { src: "/img/logo_partenaires/logo-maxizoo.jpg", link: "https://www.maxizoo.fr" },
+    { src: "/img/logo_partenaires/friskies-logo-comp.jpg", link: "https://www.friskies.com" },
+    { src: "/img/logo_partenaires/logo_nestle-good.jpg", link: "https://www.nestle.com" },
+    { src: "/img/logo_partenaires/whiskas-logo.png", link: "https://www.whiskas.fr" },
 ];
 
 const Partenaires = () => {
@@ -21,11 +21,13 @@ const Partenaires = () => {
                 <ul className='img_logo'>
                     {logos.map((logo, index) => (
                         <li key={index}>
-                            <img
-                                src={logo}
-                                alt={`Logo partenaire ${index + 1}`}
-                                className='logo_image'
-                            />
+                            <a href={logo.link} target="_blank" rel="noopener noreferrer">
+                                <img
+                                    src={logo.src}
+                                    alt={`Logo partenaire ${index + 1}`}
+                                    className='logo_image'
+                                />
+                            </a>
                         </li>
                     ))}
                 </ul>
@@ -33,4 +35,5 @@ const Partenaires = () => {
         </div>
     );
 };
+
 export default Partenaires;
