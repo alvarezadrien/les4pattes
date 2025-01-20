@@ -137,3 +137,9 @@ input {
   position: absolute;
   margin-top: -6.7rem;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .container_form_inscription {
+    width: 75vw;
+  }
+}
