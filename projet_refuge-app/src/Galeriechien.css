@@ -19,7 +19,7 @@
 .h1_proteges {
   display: block;
   margin: 0 auto;
-  color: white;
+  color: var(--tertiary-color);
   font-size: 2.5rem;
   text-align: center;
   margin-top: 5rem;

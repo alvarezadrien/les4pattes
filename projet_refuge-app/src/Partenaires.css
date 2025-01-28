@@ -80,8 +80,9 @@
   }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
+@media screen and (min-width: 481px) and (max-width: 679px) {
   .container_img_partenaires {
+    margin-top: -5.5rem;
   }
 
   .h1_partenaires {
@@ -97,7 +98,17 @@
   }
 }
 
+@media screen and (min-width: 670px) and (max-width: 768px) {
+  .container_img_partenaires {
+    margin-top: -4rem;
+  }
+}
+
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  .container_img_partenaires {
+    margin-top: -1rem;
+  }
+
   .img_logo {
     gap: 4rem;
   }

@@ -47,12 +47,12 @@
 }
 
 .ul_moyen_adopt a {
-  color: #778d45;
+  color: var(--primary-color);
 }
 
 .ul_moyen_adopt:hover a {
   text-decoration: underline;
-  color: #778d45;
+  color: var(--primary-color);
 }
 
 .img_adopt1 {
@@ -67,7 +67,7 @@
   width: 500px;
   height: 330px;
   border-radius: 40%;
-  border: 2px dashed #778d45;
+  border: 2px dashed var(--primary-color);
 }
 
 .div_respecter {
@@ -77,7 +77,7 @@
   align-items: center;
   max-width: 600px;
   padding: 1rem;
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   border-radius: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
@@ -116,7 +116,7 @@ h5 {
   max-width: 600px;
   padding: 20px;
   margin-left: 11rem;
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -160,8 +160,8 @@ h5 {
   width: 400px;
   border-radius: 10px;
   transform: rotate(15deg);
-  border: 2px solid #778d45;
-  box-shadow: 0 2px 5px black;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 2px 5px var(--quaternary-color);
 }
 
 .img_adopt2:hover img {
@@ -171,7 +171,7 @@ h5 {
 }
 
 .frais_comprend {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   width: 50vw;
   height: 15rem;
   display: flex;
@@ -209,7 +209,7 @@ h5 {
 
 .container_souhait1,
 .container_souhait2 {
-  border: 3px solid #778d45;
+  border: 3px solid var(--primary-color);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
   height: 100%;
 }
@@ -245,8 +245,8 @@ h5 {
 }
 
 .button_souhait {
-  background-color: #778d45;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
   border-radius: 70%;
   border: none;
   font-size: 1.7rem;

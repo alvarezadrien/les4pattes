@@ -13,7 +13,7 @@
 .h1_equipe {
   font-size: 3rem;
   text-align: center;
-  color: white;
+  color: var(--tertiary-color);
   padding-top: 2rem;
 }
 

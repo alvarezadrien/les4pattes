@@ -12,7 +12,7 @@
 }
 
 .h1_titre {
-  color: white;
+  color: var(--tertiary-color);
   margin-top: -20rem;
   font-size: 4rem;
   margin-left: 20rem;
@@ -22,9 +22,9 @@
 #content {
   font-size: 2.5rem;
   margin-left: 15rem;
-  color: white;
+  color: var(--tertiary-color);
   display: flex;
-  border-right: 2px solid black;
+  border-right: 2px solid var(--quaternary-color);
   overflow: hidden;
   max-width: 600px;
   animation: blink-cursor 0.9s steps(2, start) infinite;
@@ -34,7 +34,7 @@
 
 @keyframes blink-cursor {
   from {
-    border-right-color: white;
+    border-right-color: var(--tertiary-color);
   }
   to {
     border-right-color: transparent;
@@ -47,6 +47,7 @@
 }
 
 .circle_img1 img {
+  position: relative;
   border-radius: 100%;
   float: right;
   margin-right: 5rem;
@@ -72,24 +73,23 @@
 }
 
 .button_propos {
-  background-color: #778d45;
+  background-color: var(--primary-color);
   border-radius: 50px;
   width: 12rem;
   height: 3rem;
-  border: #778d45;
+  border: var(--primary-color);
   margin-left: 40rem;
   margin-top: 13rem;
   font-size: 1.5rem;
-  color: white;
+  color: var(--tertiary-color);
 }
 
 .container_choix {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   height: 30rem;
   display: flex;
   gap: 15rem;
   justify-content: center;
-  /* width: 100%; */
   top: 0;
   left: 0;
   padding: 0;
@@ -110,8 +110,8 @@
   height: 2.5rem;
   font-size: 1.8rem;
   border-radius: 50px;
-  border: 2px solid #778d45;
-  color: #778d45;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .button_choix_chats {
@@ -124,8 +124,8 @@
   height: 2.5rem;
   font-size: 1.8rem;
   border-radius: 50px;
-  border: 2px solid #778d45;
-  color: #778d45;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .leur_maison {
@@ -136,7 +136,7 @@
 
 .span_maison {
   position: relative;
-  color: #778d45;
+  color: var(--primary-color);
   font-size: 4rem;
   top: -3rem;
   left: 10rem;
@@ -150,7 +150,7 @@
 }
 
 .nombre {
-  color: #778d45;
+  color: var(--primary-color);
   font-size: 4rem;
   margin-left: 40rem;
 }
@@ -186,9 +186,9 @@
 }
 
 .home_propos button {
-  background-color: #778d45;
-  border: #778d45;
-  color: white;
+  background-color: var(--primary-color);
+  border: var(--primary-color);
+  color: var(--tertiary-color);
   border-radius: 50px;
   width: 12rem;
   height: 2.5rem;
@@ -208,12 +208,13 @@
 
 .container_aides_soins {
   display: flex;
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   height: 28rem;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 0;
+  margin-top: -30rem;
 }
 
 .h2_titre_soins {
@@ -253,82 +254,21 @@
 .icon_soins1 button,
 .icon_soins2 button {
   margin-top: 0.5rem;
-  background-color: #778d45;
+  background-color: var(--primary-color);
   border: none;
   border-radius: 50px;
   width: 7rem;
   height: 2rem;
   font-size: 1.1rem;
-  color: white;
+  color: var(--tertiary-color);
   cursor: pointer;
 }
 
 .icon_soins1 button a,
 .icon_soins2 button a {
   text-decoration: none;
-  color: white;
+  color: var(--tertiary-color);
 }
-
-/* .container_aides_soins {
-  background-color: #f4eaca;
-  height: 35rem;
-  display: block;
-  flex-wrap: wrap;
-}
-
-.h2_titre_soins {
-  position: relative;
-  left: 25%;
-  max-width: fit-content;
-}
-
-.container_aides_soins h2 {
-  margin-top: 9rem;
-  text-align: center;
-  padding: 2.5rem;
-  font-size: 2rem;
-}
-
-.icon_ensemble {
-  display: flex;
-  gap: 20rem;
-}
-
-.div_soins {
-  display: block;
-  margin-left: 15%;
-}
-
-.icon_soins1 img {
-  display: block;
-  margin: 0 auto;
-}
-
-.icon_soins1 h2 {
-  margin-top: 1rem;
-}
-
-.icon_soins2 img {
-  display: block;
-  margin: 0 auto;
-}
-
-.icon_soins2 h2 {
-  margin-top: 1rem;
-}
-
-.icon_soins1 button,
-.icon_soins2 button {
-  display: block;
-  margin: 0 auto;
-  margin-top: -2rem;
-  background-color: #778d45;
-  border: #778d45;
-  border-radius: 50px;
-  width: 7rem;
-  height: 2rem;
-  font-size: 1.3rem;
-} */
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container_img {
@@ -354,10 +294,11 @@
   }
 
   .circle_img1 img {
+    left: 3.5rem;
     width: 200px;
     height: 200px;
     display: block;
-    margin-left: 3.5rem;
+    /* margin-left: 3.5rem; */
   }
 
   .circle_img2 img {

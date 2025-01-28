@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 .footer {
-  background-color: #778d45;
+  background-color: var(--primary-color);
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -32,8 +32,7 @@
 .icon_email_h2 {
   margin-left: 20rem;
   margin-top: -11rem;
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
   font-size: 1.8rem;
 }
 
@@ -48,14 +47,12 @@
 }
 
 .liste_contact_footer li {
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
 }
 
 .liste_contact_footer a {
   text-decoration: none;
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
 }
 
 .icon_horaire_h2 img {
@@ -67,8 +64,7 @@
 
 .icon_horaire_h2 {
   font-size: 1.8rem;
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
   margin-left: 60rem;
   margin-top: -13.5rem;
 }
@@ -80,20 +76,17 @@
   position: relative;
   top: -1rem;
   padding-left: 1rem;
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
   font-size: 1.3rem;
 }
 
 .liste_horaire_footer a {
   text-decoration: none;
-  color: white;
-  /* color: red; */
+  color: var(--primary-color);
 }
 
 a {
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
 }
 
 .card img {
@@ -168,7 +161,7 @@ a {
   justify-content: center;
   width: 100%;
   height: 100%;
-  color: white;
+  color: var(--tertiary-color);
   font-family: "Fira Mono", monospace;
   font-size: 24px;
   font-weight: 700;
@@ -184,7 +177,7 @@ a {
   justify-content: center;
   width: 25%;
   height: 100%;
-  color: white;
+  color: var(--tertiary-color);
   font-size: 24px;
   text-decoration: none;
   transition: 0.25s;
@@ -202,9 +195,8 @@ a {
 }
 
 .h5_bancaire {
-  color: white;
+  color: var(--tertiary-color);
   margin-top: -1rem;
-  /* color: red; */
   font-size: 1.3rem;
   float: right;
   margin-right: -27rem;
@@ -213,8 +205,7 @@ a {
 .copy {
   margin-top: -0.5rem;
   margin-left: 50rem;
-  color: white;
-  /* color: red; */
+  color: var(--tertiary-color);
 }
 
 .footer_bas {

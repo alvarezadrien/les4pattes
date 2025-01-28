@@ -10,23 +10,23 @@
 .ul_filtre li {
   cursor: pointer;
   padding: 0.5rem 1.5rem;
-  border: 2px solid #778d45;
+  border: 2px solid var(--primary-color);
   border-radius: 15px;
   width: 7rem;
   height: 2rem;
   text-align: center;
   font-size: 1.5rem;
-  color: #778d45;
+  color: var(--primary-color);
 }
 
 .ul_filtre li.active {
-  background-color: #778d45;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
   border: none;
 }
 
 .ul_filtre select {
-  color: #778d45;
+  color: var(--primary-color);
   text-align: center;
   border: none;
   font-size: 1.5rem;
@@ -34,7 +34,7 @@
 
 .appliquer-filtre {
   display: flex;
-  background-color: #778d45;
+  background-color: var(--primary-color);
   margin: 0 auto;
   width: 11rem;
   height: 2.5rem;
@@ -42,7 +42,7 @@
   margin-bottom: 2rem;
   padding: 0.5rem 1.5rem;
   text-align: center;
-  color: white;
+  color: var(--tertiary-color);
   font-size: 1.5rem;
   border-radius: 15px;
   border: none;

@@ -44,7 +44,7 @@
 }
 
 .container_img_cruaute1 img {
-  border: 2px solid black;
+  border: 2px solid var(--quaternary-color);
   width: 400px;
   height: 400px;
   object-fit: cover;
@@ -52,7 +52,7 @@
 }
 
 .container_paragraphes {
-  border: 2px solid black;
+  border: 2px solid var(--quaternary-color);
   padding: 1rem;
   width: 30vw;
   display: flex;
@@ -74,8 +74,8 @@
 .div_h2_cruaute1 {
   display: block;
   margin: 0 auto;
-  background-color: #f4eaca;
-  border: 1.5px solid black;
+  background-color: var(--secondary-color);
+  border: 1.5px solid var(--quaternary-color);
   width: 70vw;
   margin-top: 3rem;
 }
@@ -88,8 +88,8 @@
 .div_para03 {
   display: flex;
   margin: 0 auto;
-  background-color: #f4eaca;
-  border: 1.5px solid black;
+  background-color: var(--secondary-color);
+  border: 1.5px solid var(--quaternary-color);
   width: 65vw;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -109,7 +109,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  border: 2px solid black;
+  border: 2px solid var(--quaternary-color);
   width: 67vw;
   height: 5rem;
   padding: 1rem;
@@ -161,8 +161,8 @@
 .div_h2_cruaute07 {
   display: block;
   margin: 0 auto;
-  background-color: #f4eaca;
-  border: 1.5px solid black;
+  background-color: var(--secondary-color);
+  border: 1.5px solid var(--quaternary-color);
   width: 60vw;
   border-radius: 20px;
   margin-top: 3rem;
@@ -176,8 +176,8 @@
 .div_para07 {
   display: flex;
   margin: 0 auto;
-  background-color: #f4eaca;
-  border: 1.5px solid black;
+  background-color: var(--secondary-color);
+  border: 1.5px solid var(--quaternary-color);
   width: 55vw;
   margin-top: 1rem;
   margin-bottom: 2rem;

@@ -1,5 +1,5 @@
 .container_img_propos {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   margin-top: 3.5rem;
   height: 28rem;
 }

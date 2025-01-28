@@ -35,7 +35,7 @@
 }
 
 .div_para_adhesions1 {
-  color: white;
+  color: var(--tertiary-color);
   margin-top: -7rem;
   margin-left: 8rem;
 }
@@ -71,12 +71,12 @@
 
 .ul_adhesions li::before {
   content: "-";
-  color: #778d45;
+  color: var(--primary-color);
   padding-right: 0.5rem;
 }
 
 .container_paiement {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   display: block;
   width: 40vw;
   height: 12rem;
