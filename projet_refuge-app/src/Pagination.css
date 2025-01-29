@@ -10,17 +10,17 @@
 
 .pagination button {
   padding: 8px 12px;
-  border: 1px solid #778d45;
-  background-color: #778d45;
-  color: white;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .pagination button:hover {
-  background-color: #778d45;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
 }
 
 .pagination button:disabled {
@@ -31,7 +31,7 @@
 }
 
 .pagination button.active {
-  background-color: #778d45;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
   font-weight: bold;
 }

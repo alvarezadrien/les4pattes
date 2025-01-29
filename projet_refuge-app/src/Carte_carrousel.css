@@ -3,7 +3,7 @@
   width: 63vw;
   margin: auto;
   overflow: hidden;
-  background-color: #778d45;
+  background-color: var(--primary-color);
   border-radius: 20px;
   padding: 10px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,7 +15,7 @@
 
 .carrousel_card {
   flex: 0 0 calc(100% / 3);
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   border-top-left-radius: 40px;
   border-bottom-left-radius: 10%;
   border-bottom-right-radius: 10%;
@@ -48,25 +48,25 @@
 }
 
 .card-info button {
-  background-color: #778d45;
+  background-color: var(--primary-color);
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  color: white;
+  color: var(--tertiary-color);
   cursor: pointer;
   transition: background-color 2s ease;
   margin-top: 1rem;
 }
 
 .card-info button:hover {
-  background-color: #567334;
+  background-color: var(--senary-color);
 }
 
 .details-button {
   display: inline-block;
-  background-color: #778d45;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 5px;
@@ -98,7 +98,7 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: #2c3e50;
-  color: #fff;
+  color: var(--tertiary-color);
   border: none;
   border-radius: 25%;
   width: 40px;

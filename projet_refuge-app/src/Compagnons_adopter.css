@@ -61,7 +61,7 @@
 }
 
 .flip-card-front {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -91,7 +91,7 @@
 }
 
 .flip-card-back {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   transform: rotatey(180deg);
   padding: 1rem;
   border-radius: 100%;
