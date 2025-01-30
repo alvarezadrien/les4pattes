@@ -21,7 +21,7 @@ J'ai voulu rester dans les même couleur mais en fessant une petite différence.
 
 Fonts:
 -----
-Poppins (Navbar et Footer)
+Exo2 (Navbar et Footer)
 ..........................
 J'ai choisi cette police pour les lien et écriture de la navbar et footer, car je trouve quelle est claire et simple en même temps.
 
