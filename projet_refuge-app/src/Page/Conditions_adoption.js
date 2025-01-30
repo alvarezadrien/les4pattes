@@ -133,7 +133,7 @@ const Conditions_adoption = () => {
                     <h4 className='h4_souhait'>À la recherche d'un chat ?</h4>
 
                     <p className='para_souhait1'>
-                        Notre refuge accueille de nombreux chiens en
+                        Notre refuge accueille de nombreux chats en
                         attente d'une famille aimante. Découvrez tous
                         nos protégés sur notre page "Galeriechat".
                         Certains d'entre eux séjournent chez nous depuis
@@ -143,7 +143,7 @@ const Conditions_adoption = () => {
                     <h4 className='h4_souhait'>Vous souhaitez adopter un chat ?</h4>
 
                     <p className='para_souhait1'>
-                        Remplir notre formulaire d'adoption : Afin de trouver le compagnon idéal pour vous, nous vous invitons à remplir notre formulaire en ligne. Celui-ci nous permettra de mieux connaître votre situation (type de logement, présence d'enfants, etc.) et de vous proposer les chiens les plus adaptés.
+                        Remplir notre formulaire d'adoption : Afin de trouver le compagnon idéal pour vous, nous vous invitons à remplir notre formulaire en ligne. Celui-ci nous permettra de mieux connaître votre situation (type de logement, présence d'enfants, etc.) et de vous proposer les chats les plus adaptés.
                     </p>
 
                     <p className='para_souhait1'>
@@ -151,7 +151,7 @@ const Conditions_adoption = () => {
                     </p>
 
                     <p className='para_souhait1'>
-                        Faire connaissance : Lors de votre visite, vous pourrez rencontrer les chiens et profiter de nos parcs à jeux spécialement aménagés pour vous aider à faire votre choix.
+                        Faire connaissance : Lors de votre visite, vous pourrez rencontrer les chats et profiter de nos parcs à jeux spécialement aménagés pour vous aider à faire votre choix.
                     </p>
 
                     <p className='para_souhait1'>
@@ -161,19 +161,15 @@ const Conditions_adoption = () => {
                     <h4 className='h4_souhait'>Informations importantes :</h4>
 
                     <p className='para_souhait1'>
-                        Chiens trouvés : Les chiens trouvés sont mis en adoption après un délai légal de 15 jours afin de permettre à leurs propriétaires de les retrouver.
+                        Chats trouvés : Les chats trouvés sont mis en adoption après un délai légal de 15 jours afin de permettre à leurs propriétaires de les retrouver.
                     </p>
 
                     <p className='para_souhait1'>
-                        Chiens saisis : Les chiens saisis en raison de maltraitance ne sont pas immédiatement disponibles à l'adoption. Leur situation est évaluée au cas par cas par les autorités compétentes.
+                        Chats donnés : Les chats confiés à notre refuge peuvent généralement être adoptés rapidement après un examen vétérinaire.
                     </p>
 
                     <p className='para_souhait1'>
-                        Chiens donnés : Les chiens confiés à notre refuge peuvent généralement être adoptés rapidement après un examen vétérinaire.
-                    </p>
-
-                    <p className='para_souhait1'>
-                        Tous nos chiens sont : vaccinés, traités contre la rage, stérilisés et identifiés par puce.
+                        Tous nos chats sont : vaccinés, traités contre la rage, stérilisés et identifiés par puce.
                     </p>
 
                     <button className='button_souhait'><a href="/Galeriechat">Nos chats</a></button>
