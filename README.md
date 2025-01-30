@@ -25,7 +25,7 @@ Exo2 (Navbar et Footer)
 ..........................
 J'ai choisi cette police pour les lien et écriture de la navbar et footer, car je trouve quelle est claire et simple en même temps.
 
-Laila (Titre h)
+Barlow (Titre h)
 ................
 J'ai choisi cette police pour tout les titre H dans mon site. Pour qu'on les voit bien et les differencie bien des paragraphe.
 
