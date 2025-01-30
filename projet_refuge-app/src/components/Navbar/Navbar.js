@@ -106,7 +106,7 @@ function Navbar() {
         <li className="navbar_item icon_navbar icon_profil">
           <a className="navbar_link" href="/Connexion">
             <img
-              src="/img/profil.png"
+              src="/img/img_profil.svg"
               alt="C'est l'icon de connexion avec un petit profil"
               width={55}
             />
