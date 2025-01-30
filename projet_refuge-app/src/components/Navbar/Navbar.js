@@ -57,7 +57,7 @@ function Navbar() {
             src="/img/Logo_refuge.png"
             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
             width={100}
-            height={85}
+            height={90}
           />
         </a>
       </div>
