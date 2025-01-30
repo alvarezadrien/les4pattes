@@ -29,7 +29,7 @@ Barlow (Titre h)
 ................
 J'ai choisi cette police pour tout les titre H dans mon site. Pour qu'on les voit bien et les differencie bien des paragraphe.
 
-Taviraj (Paragraphe)
+Ubuntu (Paragraphe)
 ...................
 J'ai choisi cette police d'écriture pour les paragraphe du site, car elle est tout aussi lisibles et adaptée au écran.
 
