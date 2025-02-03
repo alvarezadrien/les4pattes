@@ -45,3 +45,7 @@ const Fiche_galeriechien = () => {
 };
 
 export default Fiche_galeriechien
+
+
+
+

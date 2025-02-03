@@ -1,0 +1,55 @@
+{
+   "animaux": {
+     "chiens": [
+       {
+         "id": 1,
+         "nom": "Diblo",
+         "age": "2 ans 1/2",
+         "race": "Malinois",
+         "sexe": "Mâle stérilisé",
+         "image": "/img/img_galeriechien/chien_malinois_2.1.jpg"
+       },
+       {
+         "id": 2,
+         "nom": "Bella",
+         "age": "1 an",
+         "race": "Labrador",
+         "sexe": "Femelle stérilisée",
+         "image": "/img/img_galeriechien/chien_brun_1.2.jpg"
+       },
+       {
+         "id": 3,
+         "nom": "Max",
+         "age": "3 ans",
+         "race": "Beagle",
+         "sexe": "Mâle stérilisé",
+         "image": "/img/img_galeriechien/chien_petit_1.3.jpeg"
+       },
+       {
+         "id": 4,
+         "nom": "Buddy",
+         "age": "4 ans",
+         "race": "Golden Retriever",
+         "sexe": "Mâle stérilisé",
+         "image": "/img/img_galeriechien/chien_petit_1.3.jpeg"
+       },
+       {
+         "id": 5,
+         "nom": "Charlie",
+         "age": "5 ans",
+         "race": "Basset Hound",
+         "sexe": "Mâle stérilisé",
+         "image": "/img/img_galeriechien/chien_assis_1.1.jpeg"
+       },
+       {
+         "id": 6,
+         "nom": "Max",
+         "age": "3 ans",
+         "race": "Rottweiler",
+         "sexe": "Mâle stérilisé",
+         "image": "/img/img_galeriechien/chien_assis_1.1.jpeg"
+       }
+     ]
+   }
+ }
+ 
