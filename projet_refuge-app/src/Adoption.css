@@ -317,6 +317,10 @@ textarea {
   font-size: 2rem;
 }
 
+.button_envoie:hover {
+  background-color: var(--senary-color);
+}
+
 /****************** CSS pour message envoie ********************/
 
 .popup-status {

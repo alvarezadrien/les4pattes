@@ -4,7 +4,6 @@
   background-size: cover;
   position: relative;
   height: 30rem;
-  /* min-width: 100%; */
   top: 0;
   left: 0;
   padding: 0;
@@ -48,7 +47,7 @@
 
 .circle_img1 img {
   position: relative;
-  border-radius: 100%;
+  border-radius: 50%;
   float: right;
   margin-right: 5rem;
   margin-top: -10rem;
@@ -59,17 +58,18 @@
 }
 
 .circle_img2 img {
-  border-radius: 100%;
+  border-radius: 50%;
   float: right;
   margin-right: -3rem;
   margin-top: -10rem;
 }
 
 .circle_img3 img {
-  border-radius: 100%;
+  border-radius: 50%;
   float: right;
   margin-right: -18rem;
   margin-top: 4rem;
+  width: auto;
 }
 
 .button_propos {
@@ -84,6 +84,10 @@
   color: var(--tertiary-color);
 }
 
+.button_propos:hover {
+  background-color: var(--senary-color);
+}
+
 .container_choix {
   background-color: var(--secondary-color);
   height: 30rem;
@@ -96,8 +100,9 @@
 }
 
 .container_choix img {
-  border-radius: 100%;
+  border-radius: 50%;
   margin-top: 5rem;
+  object-fit: cover;
 }
 
 .button_choix_chiens {
@@ -126,6 +131,12 @@
   border-radius: 50px;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
+}
+
+.button_choix_chiens:hover,
+.button_choix_chats:hover {
+  background-color: var(--senary-color);
+  color: var(--tertiary-color);
 }
 
 .leur_maison {
@@ -199,6 +210,10 @@
   cursor: pointer;
 }
 
+.home_propos button:hover {
+  background-color: var(--senary-color);
+}
+
 .div_soins {
   display: flex;
   flex-direction: column;
@@ -262,6 +277,11 @@
   font-size: 1.1rem;
   color: var(--tertiary-color);
   cursor: pointer;
+}
+
+.icon_soins1 button:hover,
+.icon_soins2 button:hover {
+  background-color: var(--senary-color);
 }
 
 .icon_soins1 button a,

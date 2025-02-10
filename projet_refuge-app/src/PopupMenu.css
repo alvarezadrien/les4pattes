@@ -28,7 +28,8 @@
   margin: 0 auto;
   top: 5rem;
   width: 15rem;
-  background-color: var(--primary-color);
+  /* background-color: var(--primary-color); */
+  background-color: var(--tertiary-color);
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: none;
@@ -43,14 +44,16 @@ li:hover .popup {
 
 .popup_item:hover {
   background-color: #5d6e34;
-  border-radius: 30px;
+  color: var(--tertiary-color);
+  /* border-radius: 30px; */
 }
 
 .popup a {
   margin: 0;
   padding: 5px 0;
   font-size: 1.2rem;
-  color: white;
+  /* color: var(--tertiary-color); */
+  color: var(--quaternary-color);
   cursor: pointer;
   flex-direction: column;
   display: flex;

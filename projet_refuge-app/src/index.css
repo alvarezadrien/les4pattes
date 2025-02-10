@@ -27,8 +27,8 @@ p {
 :root {
   --primary-color: #778d45;
   --secondary-color: #f4eaca;
-  --tertiary-color: #ffffff;
-  --quaternary-color: #000000;
+  --tertiary-color: #fff;
+  --quaternary-color: #000;
   --quinairy-color: #007bff;
   --senary-color: #567334;
 }

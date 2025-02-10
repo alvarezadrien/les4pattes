@@ -60,7 +60,7 @@ const HomePage = () => {
             {/* Div container intro */}
             <div className='container_img'>
                 <h1 className='h1_titre'>
-                    Les 4 pattes 
+                    Les 4 pattes
                     <img src="/img/pattes_blanche.png" alt="" width={40} height={40} />
                 </h1>
                 <div id="content">{typedText}</div>
@@ -83,24 +83,24 @@ const HomePage = () => {
             {/* Div container choix */}
             <div className='container_choix'>
                 <div className='container_choix1'>
-                    <img 
-                        src="/img/chien img choix.jpeg" 
-                        alt="image chien" 
-                        width={300} 
-                        height={300} 
-                        onClick={redirectChien} 
+                    <img
+                        src="/img/chien img choix.jpeg"
+                        alt="image chien"
+                        width={470}
+                        height={300}
+                        onClick={redirectChien}
                     />
                     <button className='button_choix_chiens' onClick={redirectChien}>
                         Chiens
                     </button>
                 </div>
                 <div className='container_choix2'>
-                    <img 
-                        src="/img/images.jpeg" 
-                        alt="" 
-                        width={300} 
-                        height={300} 
-                        onClick={redirectChat} 
+                    <img
+                        src="/img/images.jpeg"
+                        alt=""
+                        width={470}
+                        height={300}
+                        onClick={redirectChat}
                     />
                     <button className='button_choix_chats' onClick={redirectChat}>
                         Chats
@@ -119,8 +119,8 @@ const HomePage = () => {
             {/* Importation code carte carrousel */}
             <div className='container_carte'>
                 <h3 className='titre_carte'>
-                    <img src="/img/pattes.png" alt="" width={40} height={40} /> 
-                    Animaux à adopter 
+                    <img src="/img/pattes.png" alt="" width={40} height={40} />
+                    Animaux à adopter
                     <img src="/img/pattes.png" alt="" width={40} height={40} />
                 </h3>
                 <Carte_carrousel />
@@ -129,8 +129,8 @@ const HomePage = () => {
             {/* Div home propos */}
             <div className='home_propos'>
                 <h2>
-                    <img src="/img/pattes.png" alt="" width={40} height={40} /> 
-                    À propos de nous 
+                    <img src="/img/pattes.png" alt="" width={40} height={40} />
+                    À propos de nous
                     <img src="/img/pattes.png" alt="" width={40} height={40} />
                 </h2>
                 <br />
@@ -159,11 +159,11 @@ const HomePage = () => {
                     <h2 className='h2_titre_soins'>Nos aides et soins</h2>
                     <div className='icon_ensemble'>
                         <div className='icon_soins1'>
-                            <img 
-                                src="/img/maison-pour-animaux-de-compagnie.png" 
-                                alt="" 
-                                width={200} 
-                                height={200} 
+                            <img
+                                src="/img/maison-pour-animaux-de-compagnie.png"
+                                alt=""
+                                width={200}
+                                height={200}
                             />
                             <h3>L'accueil des animaux</h3>
                             <button>
@@ -171,11 +171,11 @@ const HomePage = () => {
                             </button>
                         </div>
                         <div className='icon_soins2'>
-                            <img 
-                                src="/img/sensibilisation.png" 
-                                alt="" 
-                                width={200} 
-                                height={200} 
+                            <img
+                                src="/img/sensibilisation.png"
+                                alt=""
+                                width={200}
+                                height={200}
                             />
                             <h3>Sensibilisation</h3>
                             <button>

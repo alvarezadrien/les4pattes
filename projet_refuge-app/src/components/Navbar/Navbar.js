@@ -56,8 +56,8 @@ function Navbar() {
           <img
             src="/img/Logo_refuge.png"
             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
-            width={100}
-            height={90}
+            width={130}
+            height={130}
           />
         </a>
       </div>
@@ -106,9 +106,9 @@ function Navbar() {
         <li className="navbar_item icon_navbar icon_profil">
           <a className="navbar_link" href="/Connexion">
             <img
-              src="/img/img_profil.svg"
+              src="/img/svg_profil.svg"
               alt="C'est l'icon de connexion avec un petit profil"
-              width={55}
+              width={65}
             />
           </a>
         </li>
