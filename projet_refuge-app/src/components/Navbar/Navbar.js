@@ -54,7 +54,7 @@ function Navbar() {
       <div className="navbar_logo">
         <a href="/">
           <img
-            src="/img/Logo_refuge.png"
+            src="/img/les 4 pattes logo.png"
             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
             width={130}
             height={130}
@@ -96,7 +96,7 @@ function Navbar() {
         <li className="navbar_item icon_navbar">
           <a className="navbar_link" href="/Adhésions">
             <img
-              src="/img/coeur_dons_modif.jpg"
+              src="/img/coeur_dons_modif3.png"
               alt="C'est l'icon pour faire un don en forme de coeur"
               width={55}
             />
