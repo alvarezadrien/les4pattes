@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "animals",
+  "info": {
+    "singularName": "animal",
+    "pluralName": "animals",
+    "displayName": "Animaux",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Galerie_chats": {
+      "type": "string"
+    },
+    "Galerie_chiens": {
+      "type": "string"
+    }
+  }
+}

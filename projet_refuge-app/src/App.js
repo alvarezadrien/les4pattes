@@ -23,6 +23,7 @@ import Mon_compte from './Page/Mon_compte';
 import Accueil_animaux from './Page/Accueil_animaux';
 import Sensibilisation from './Page/Sensibilisation';
 import Adhesions from './Page/Adhesions';
+import propos_test from './Page/propos_test';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
@@ -31,6 +32,7 @@ import Filtre from './Page/Filtre';
 import Pagination from './Page/Pagination';
 import Carte_carrousel from './Page/Carte_carrousel';
 import Scroll_button from './Page/Scroll_button';
+import Carousel_swiper from './Page/Carrousel_swiper';
 
 const App = () => {
   // Vérifie si la page actuelle est une des pages à exclure (Connexion, Inscription, Mot de passe oublié)
@@ -67,6 +69,8 @@ const App = () => {
         <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
         <Route path="/Sensibilisation" element={<Sensibilisation />} />
         <Route path="/Adhésions" element={<Adhesions />} />
+        <Route path="/swiper" element={<Carousel_swiper />} />
+        <Route path="/propos_test" element={<propos_test />} />
       </Routes>
 
       <Scroll_button />

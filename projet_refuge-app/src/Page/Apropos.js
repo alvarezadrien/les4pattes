@@ -1,38 +1,13 @@
 import React from "react";
 import '../Apropos.css'
-import Navbar from '../components/Navbar/Navbar'
 
 const Apropos = () => {
     return (
         <div>
-            <div className="container_img_propos">
-                <div className="img0">
-                    <img src="/img/img_etablissement.jpg" alt="" />
-                </div>
-
-                {/* Côté gauche */}
-
-                <div className="img_1">
-                    <img src="/img/téléchargement (1).jpeg" alt="" width={230} height={230} />
-                </div>
-                <div className="img_2">
-                    <img src="/img/téléchargement (2).jpeg" alt="" width={230} height={230} />
-                </div>
-
-                {/* Côté droit */}
-
-                <div className="img_3">
-                    <img src="/img/téléchargement(3).jpeg" alt="" width={230} height={230} />
-                </div>
-                <div className="img_4">
-                    <img src="/img/téléchargement (4).jpeg" alt="" width={230} height={230} />
-                </div>
-
-            </div>
+            <div className="container_img_propos" />
 
             {/* Div pattes propos */}
             <div className="pattes_propos">
-                <h2>Les 4 pattes</h2>
                 <img src="/img/img_aide_soins.jpg" alt="" width={500} height={420} />
 
                 <p className="paragraphe_pattes">L’association Protectrice des Animaux Les 4 <br />
@@ -48,7 +23,7 @@ const Apropos = () => {
                 </p>
 
                 <div className="img_homme_chien">
-                    <img src="/img/homme_chien.jpg" alt="" width={500} height={500} />
+                    <img src="/img/homme_chien.jpg" alt="" />
                 </div>
 
                 <p className="paragraphe_pattes2">
@@ -94,7 +69,7 @@ const Apropos = () => {
 
             </div>
 
-        </div>
+        </div >
     );
 };
 
