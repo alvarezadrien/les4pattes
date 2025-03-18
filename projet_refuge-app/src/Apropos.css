@@ -8,288 +8,113 @@
   margin-top: 3.5rem;
 }
 
-.pattes_propos img {
-  border-radius: 100%;
-  padding: 3rem;
+.div_propos1,
+.div_propos2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
-.paragraphe_pattes {
-  text-align: justify;
-  font-size: 2rem;
-  float: right;
-  padding: 3rem;
-  margin-right: 3.5rem;
-  margin-top: -0.8rem;
-}
-
-.img_homme_chien img {
-  border-radius: 15%;
-  margin-top: -3rem;
-  margin-left: 57rem;
-}
-
-.paragraphe_pattes2 {
-  font-size: 2rem;
-  padding: 3rem;
-  margin-top: -30rem;
-  padding-bottom: 13rem;
-  text-align: justify;
-  width: 55rem;
-}
-
-hr {
-  font-size: 2rem;
-}
-
-.histoire h2 {
+.rectangle_propos1,
+.rectangle_propos2 {
+  background-color: var(--secondary-color);
+  width: 50%;
+  margin-top: -5px;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 3rem;
 }
 
-.img_histoire1 img {
-  display: block;
-  margin: 0 auto;
+.rectangle_propos1 h2,
+.rectangle_propos2 h2 {
+  font-size: 25px;
+  border: 3px solid var(--primary-color);
+  display: inline-block;
+  padding: 5px;
+}
+
+.rectangle_propos1 p,
+.rectangle_propos2 p {
+  font-size: 18px;
   width: 80%;
-  height: 420px;
-  margin-top: -1rem;
+  text-align: center;
 }
 
-.paragraphe_histoire1 {
-  font-size: 1.3rem;
-  text-align: justify;
-  width: 75%;
+.image_propos1 img,
+.image_propos2 img {
+  width: 400px;
+  height: 400px;
+}
+
+.div_espace1 {
+  background-color: var(--primary-color);
+  height: 0.5rem;
+  width: 73.7%;
+  margin-top: -0.5rem;
+}
+
+.h1_histoire {
+  font-size: 33px;
+  border: 4px solid var(--primary-color);
   display: block;
-  margin: 0 auto;
-  padding: 3rem;
+  padding: 10px;
+  text-align: center;
+  margin: 2rem auto;
+  width: fit-content;
 }
 
-.img_histoire2 img {
-  width: 280px;
-  height: 380px;
-  border-radius: 50%;
-  margin-top: -1rem;
-  padding: 2rem;
-  margin-left: 8rem;
+.image_histoire1 {
+  display: flex;
+  justify-content: center;
 }
 
-.paragraphe_histoire2 {
-  width: 40%;
+.image_histoire1 img {
+  width: 73.7%;
+  height: 300px;
+}
+
+.container_histoire2 {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.div_container_histoire1,
+.div_container_histoire2 {
+  background-color: var(--secondary-color);
+  width: 30vw;
+  height: 57rem;
+  justify-items: center;
+}
+
+.div_container_histoire1 p,
+.div_container_histoire2 p {
+  font-size: 18px;
+  justify-self: center;
+  width: 80%;
   text-align: justify;
-  float: right;
-  margin-top: -25.5rem;
-  margin-right: 22rem;
-  font-size: 1.5rem;
+  padding: 8px;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .container_img_propos {
-    height: 20rem;
-  }
-
-  .img0 img {
-    position: relative;
-    bottom: 0.5rem;
-    margin-top: 4rem;
-    width: 305px;
-  }
-
-  .pattes_propos h2 {
-    margin-top: -1.5rem;
-  }
-
-  .img_1 img,
-  .img_2 img,
-  .img_3 img,
-  .img_4 img {
-    display: none;
-  }
-
-  .pattes_propos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  .pattes_propos img {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    top: -1rem;
-    padding: 0;
-  }
-
-  .paragraphe_pattes {
-    position: relative;
-    width: 15rem;
-    text-align: center;
-    display: flex;
-    margin: 0 auto;
-    font-size: 1rem;
-    padding: 0;
-  }
-
-  .img_homme_chien {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .img_homme_chien img {
-    width: 300px;
-    height: 230px;
-    position: relative;
-    display: flex;
-    margin: 0 auto;
-    top: 1rem;
-    padding: 0;
-  }
-
-  .paragraphe_pattes2 {
-    position: relative;
-    top: 32rem;
-    text-align: center;
-    font-size: 1rem;
-    padding: 0;
-    width: 20rem;
-    margin-bottom: 33rem;
-  }
-
-  .img_histoire1 img {
-    width: 95vw;
-    height: 250px;
-  }
-
-  .paragraphe_histoire1 {
-    font-size: 1rem;
-    text-align: center;
-    position: relative;
-    top: 1.5rem;
-    padding: 0;
-  }
-
-  .img_histoire2 img {
-    display: flex;
-    margin: 0 auto;
-    position: relative;
-    top: 3rem;
-    width: 270px;
-    padding: 0;
-  }
-
-  .paragraphe_histoire2 {
-    margin: 0 auto;
-    font-size: 1rem;
-    text-align: center;
-    position: relative;
-    top: 4.5rem;
-    justify-content: center;
-    align-items: center;
-    width: 17rem;
-  }
-
-  .div_histoire2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0 auto;
-  }
+.div_container_histoire2 img {
+  border-radius: 70%;
+  padding: 8px;
+  height: 450px;
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .img0 img {
-    width: 90vw;
-    margin-top: 4rem;
-  }
+.img_jules {
+  text-align: center;
+}
 
-  .img_1 img,
-  .img_2 img {
-    width: 150px;
-    height: 150px;
-    position: relative;
-    top: 15rem;
-    display: none;
-  }
-
-  .img_3 img,
-  .img_4 img {
-    width: 150px;
-    height: 150px;
-    position: relative;
-    top: 23rem;
-    display: none;
-  }
-
-  .pattes_propos h2 {
-    font-size: 3.5rem;
-  }
-
-  .pattes_propos img {
-    padding: 0;
-    width: 80vw;
-    display: flex;
-    margin: 0 auto;
-  }
-
-  .paragraphe_pattes {
-    font-size: 1.5rem;
-    text-align: center;
-  }
-
-  .img_homme_chien img {
-    position: relative;
-    top: -2rem;
-    height: 300px;
-  }
-
-  .paragraphe_pattes2 {
-    position: relative;
-    top: -1rem;
-    font-size: 1.5rem;
-    display: flex;
-    margin: 0 auto;
-    text-align: center;
-    width: 25rem;
-    padding: 0;
-  }
-
-  .img_histoire1 img {
-    width: 95vw;
-  }
-
-  .paragraphe_histoire1 {
-    padding: 0;
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-
-  .div_histoire2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0 auto;
-  }
-
-  .img_histoire2 img {
-    display: flex;
-    margin: 0 auto;
-    position: relative;
-    top: 1rem;
-    width: 270px;
-  }
-
-  .paragraphe_histoire2 {
-    margin: 0 auto;
-    font-size: 1.5rem;
-    text-align: center;
-    position: relative;
-    top: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    width: 30rem;
-  }
+.mini-_titre {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+  font-style: italic;
 }
