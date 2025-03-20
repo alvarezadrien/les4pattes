@@ -1,4 +1,4 @@
-.container_sensibilisation {
+.container_sensibilisation1 {
   background-image: url(../public/img/pexels-anete-lusina-16621442.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -12,226 +12,159 @@
   margin-bottom: 2rem;
 }
 
-.h1_sensibilisation {
-  font-size: 3rem;
+.h1_sensi1 {
   color: var(--tertiary-color);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 1.7rem;
 }
 
-.container_sensibilisation img {
-  border-radius: 80%;
+.div_container_sensi1 {
   display: flex;
-  margin: 0 auto;
-  object-fit: cover;
-  object-position: center;
-  padding-top: 0.5rem;
-}
-
-.h2_sensibilisation1 {
-  font-size: 2.3rem;
-  text-align: center;
-}
-
-.container_para_sensibilisation1 {
-  background-color: var(--secondary-color);
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
   padding: 1rem;
-  display: flex;
+  width: 70vw;
+  margin: 0 auto;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.div_container_sensi1 img {
+  border-radius: 15px;
+  width: 310px;
+  height: 310px;
+  object-fit: cover;
+}
+
+.text_sensi1 {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 68%;
+  padding: 4px;
+}
+
+.text_sensi1 h2 {
+  font-size: 1.4rem;
+  width: 40rem;
+  margin-bottom: 0.5rem;
+}
+
+.text_sensi1 p {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: justify;
+  padding: 7px;
+}
+
+.container_sensi_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+  justify-items: center;
+  margin-bottom: 2rem;
+}
+
+.grid_item_sensi img {
+  width: 330px;
+  height: 330px;
+  object-fit: cover;
+}
+
+.grid_item_sensi {
+  background-color: rgba(255, 255, 255, 0.714);
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.grid_item_sensi1 {
+  background-color: #e75557;
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.grid_item_sensi2 {
+  background-color: #a7e8d5;
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.grid_item_sensi3 {
+  background-color: #ea8c62;
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container_sensi_grid h3 {
+  text-align: center;
+  color: var(--tertiary-color);
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.container_sensi_grid p {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--tertiary-color);
+  font-size: 18px;
+}
+
+.container_sensi2 {
+  background-color: var(--secondary-color);
   width: 60vw;
   margin: 0 auto;
-  margin-bottom: 2rem;
-}
-
-.para_sensibilisation1 {
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.h3_para_sensibilisation1 {
-  font-size: 1.7rem;
-  margin-left: 18rem;
-  margin-top: 4rem;
-}
-
-.para_sensibilisation2 {
-  font-size: 1.5rem;
-  text-align: center;
-  width: 25rem;
-}
-
-.container_para_sensibilisation2 {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 18rem;
-  flex-wrap: wrap;
-}
-
-.div_img_sensibilisation1 img {
-  position: relative;
-  bottom: 3rem;
-  border-radius: 20%;
-  margin-right: 20rem;
-  object-position: center;
-}
-
-.container_para_sensibilisation3 {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 18rem;
-  justify-content: space-between;
+  padding: 1rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.h3_para_sensibilisation2 {
-  font-size: 1.7rem;
-}
-
-.para_sensibilisation3 {
+.text_sensi2 h3 {
+  text-align: center;
   font-size: 1.5rem;
-  text-align: center;
-  width: 30rem;
-  margin-right: 22rem;
+  margin-bottom: 1rem;
 }
 
-.div_img_sensibilisation2 img {
-  border-radius: 20%;
-}
-
-.para_sensibilisation4 {
-  font-size: 1.5rem;
-  text-align: center;
-  width: 50rem;
-  display: flex;
-  margin: 0 auto;
-  padding-top: 2rem;
-  margin-bottom: 4rem;
-}
-
-.h3_para_sensibilisation3 {
-  font-size: 1.7rem;
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.para_sensibilisation5 {
-  font-size: 1.5rem;
-  text-align: center;
+.text_sensi2 p {
+  text-align: justify;
   width: 40rem;
-  display: flex;
   margin: 0 auto;
-  margin-bottom: 3rem;
+  font-size: 16px;
 }
 
-.container_para_sensibilisation4 {
+.text_sensi2 {
+  margin-bottom: 1.5rem;
+}
+
+.img_sensi2 img {
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.img_sensi2 {
   display: flex;
-  margin-left: 18rem;
-  margin-top: 5rem;
-  margin-bottom: 3rem;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.div_img_sensibilisation3 img {
-  border-radius: 20%;
-  padding-top: 1.3rem;
-}
-
-.para_sensibilisation6 {
-  font-size: 1.5rem;
-  width: 25rem;
-  text-align: center;
-  margin-right: 22rem;
-}
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .container_sensibilisation {
-    height: 25rem;
-  }
-
-  .container_sensibilisation img {
-    object-fit: cover;
-    width: 310px;
-    height: 250px;
-  }
-
-  .h2_sensibilisation1 {
-    font-size: 1.8rem;
-  }
-
-  .container_para_sensibilisation1 {
-    width: 17rem;
-  }
-
-  .para_sensibilisation1 {
-    font-size: 1.3rem;
-  }
-
-  .h3_para_sensibilisation1 {
-    font-size: 1.5rem;
-    margin: 0;
-    padding-left: 1rem;
-    text-align: center;
-  }
-
-  .para_sensibilisation2 {
-    font-size: 1.3;
-    margin-left: -17.5rem;
-    width: 19rem;
-  }
-
-  .div_img_sensibilisation1 img {
-    margin-top: 5rem;
-    width: 290px;
-    height: 290px;
-    margin-left: -17rem;
-    padding: 0;
-  }
-
-  .div_img_sensibilisation2 img {
-    margin-left: -17rem;
-  }
-
-  .h3_para_sensibilisation2 {
-    font-size: 1.5rem;
-    margin-left: -18rem;
-    margin-top: 2rem;
-    text-align: center;
-    width: 20rem;
-  }
-
-  .para_sensibilisation3 {
-    font-size: 1.3rem;
-    margin-left: -17.5rem;
-    width: 19rem;
-  }
-
-  .para_sensibilisation4 {
-    margin-top: -2rem;
-    font-size: 1.3rem;
-    width: 19rem;
-  }
-
-  .para_sensibilisation5 {
-    font-size: 1.3rem;
-    width: 19rem;
-  }
-
-  .div_img_sensibilisation3 img {
-    margin-top: -2rem;
-    margin-left: -17rem;
-  }
-
-  .para_sensibilisation6 {
-    display: block;
-    font-size: 1.3rem;
-    width: 19rem;
-    margin-left: -17.5rem;
-  }
-
-  .container_para_sensibilisation4 {
-    display: block;
-  }
-
-  .container_para_sensibilisation2 {
-  }
+.img_sensi2 p {
+  text-align: justify;
+  width: 23rem;
+  margin-top: 1rem;
+  font-size: 18px;
 }
