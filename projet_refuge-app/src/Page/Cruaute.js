@@ -24,7 +24,7 @@ const Cruaute = () => {
 
       <div className="container_cruaute2">
         <div className="image_cruaute2">
-          <img src="/img/chat_abandon1.jpeg" alt="" width={290} />
+          <img src="/img/chat_abandon1.jpeg" alt="" width={310} height={310} />
         </div>
         <div className="paragraphe_cruaute2">
           <p>
