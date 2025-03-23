@@ -27,8 +27,7 @@ function Navbar() {
       propositions: [
         { text: "Témoin de cruauté animale ?", link: "/Témoin de cruauté ?" },
         { text: "Nos compagnons adoptés", link: "/Nos compagnons adoptés" },
-        { text: "Se qu'il faut savoir", link: "/Se qu'il faut savoir" }
-
+        { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" }
       ]
     },
     {
@@ -71,7 +70,7 @@ function Navbar() {
             onMouseLeave={handleMouseLeave}
           >
             <a
-              className="navbar_link"
+              className={`navbar_link ${showPopup === index ? "active" : ""}`}
               href={option.link || "#"}
             >
               {option.title}

@@ -43,7 +43,8 @@ li:hover .popup {
 }
 
 .popup_item:hover {
-  background-color: #5d6e34;
+  border-top: #bc5759 2px solid;
+  background-color: #bc5759;
   color: var(--tertiary-color);
   /* border-radius: 30px; */
 }
