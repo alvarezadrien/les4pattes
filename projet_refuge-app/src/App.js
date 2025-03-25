@@ -61,7 +61,7 @@ const App = () => {
         <Route path="/Inscription" element={<Inscription />} />
         <Route path="/Formulaire d'adoption" element={<Adoption />} />
         <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
-        <Route path="/Se qu'il faut savoir" element={<Savoir />} />
+        <Route path="/Ce qu'il faut savoir" element={<Savoir />} />
         <Route path="/Témoin de cruauté ?" element={<Cruaute />} />
         <Route path="/Carte" element={<Carte_carrousel />} />
         <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />

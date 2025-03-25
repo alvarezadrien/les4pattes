@@ -79,63 +79,65 @@ const Contact = () => {
         </div>
       )}
 
-      <img className="img_contact" src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
+      <div>
+        <img className="img_contact" src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
 
-      <div className="container_form">
-        <h1 className="h1_contact">Contact</h1>
+        <div className="container_form">
+          <h1 className="h1_contact">Contactez-nous</h1>
 
-        <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <input
-              type="text"
-              id="name1"
-              name="name1"
-              value={formData.name1}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="name1">Nom</label>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <input
+                type="text"
+                id="name1"
+                name="name1"
+                value={formData.name1}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="name1">Nom</label>
+            </div>
 
-          <div className="input-container">
-            <input
-              type="email"
-              id="email1"
-              name="email1"
-              value={formData.email1}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="email1">Email</label>
-          </div>
+            <div className="input-container">
+              <input
+                type="email"
+                id="email1"
+                name="email1"
+                value={formData.email1}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="email1">Email</label>
+            </div>
 
-          <div className="input-container">
-            <input
-              type="tel"
-              id="telephone1"
-              name="telephone1"
-              value={formData.telephone1}
-              onChange={handleChange}
-              pattern="^[0-9]{10}$"
-              title="Veuillez entrer un numéro de téléphone de 10 chiffres."
-              required
-            />
-            <label htmlFor="telephone1">Téléphone</label>
-          </div>
+            <div className="input-container">
+              <input
+                type="tel"
+                id="telephone1"
+                name="telephone1"
+                value={formData.telephone1}
+                onChange={handleChange}
+                pattern="^[0-9]{10}$"
+                title="Veuillez entrer un numéro de téléphone de 10 chiffres."
+                required
+              />
+              <label htmlFor="telephone1">Téléphone</label>
+            </div>
 
-          <div className="input-container">
-            <textarea
-              id="message1"
-              name="message1"
-              value={formData.message1}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="message1">Message</label>
-          </div>
+            <div className="input-container">
+              <textarea
+                id="message1"
+                name="message1"
+                value={formData.message1}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="message1">Message</label>
+            </div>
 
-          <button className="button_envoyer" type="submit">Envoyer</button>
-        </form>
+            <button className="button_envoyer" type="submit">Envoyer</button>
+          </form>
+        </div>
       </div>
 
       {/* Intégration de la carte Google Maps */}
