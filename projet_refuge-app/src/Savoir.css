@@ -223,6 +223,8 @@
     width: 85%;
     height: auto;
     padding: 0.5rem;
+    justify-self: center;
+    align-content: center;
   }
 }
 
@@ -304,6 +306,8 @@
     width: 85%;
     height: auto;
     padding: 1.2rem;
+    justify-self: center;
+    align-content: center;
   }
 }
 
@@ -385,6 +389,8 @@
     width: 85%;
     height: auto;
     padding: 1.2rem;
+    justify-self: center;
+    align-content: center;
   }
 }
 
@@ -469,6 +475,8 @@
     width: 90%;
     height: auto;
     padding: 1rem;
+    justify-self: center;
+    align-content: center;
   }
 }
 
