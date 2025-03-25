@@ -90,46 +90,37 @@
 
 .container_choix {
   background-color: var(--secondary-color);
-  height: 30rem;
   display: flex;
-  gap: 15rem;
+  flex-wrap: wrap;
   justify-content: center;
-  top: 0;
-  left: 0;
-  padding: 0;
+  gap: 15rem;
+  height: 30rem;
+}
+
+.container_choix1,
+.container_choix2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container_choix img {
-  border-radius: 50%;
   margin-top: 5rem;
   object-fit: cover;
+  box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
 }
 
-.button_choix_chiens {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 5.5rem;
-  margin-top: 1.5rem;
-  width: 8rem;
-  height: 2.5rem;
-  font-size: 1.8rem;
-  border-radius: 50px;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-}
-
+.button_choix_chiens,
 .button_choix_chats {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   margin-top: 1.5rem;
-  margin-left: 6rem;
   width: 8rem;
   height: 2.5rem;
   font-size: 1.8rem;
   border-radius: 50px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid #b15254;
   color: var(--primary-color);
 }
 
@@ -224,12 +215,11 @@
 .container_aides_soins {
   display: flex;
   background-color: var(--secondary-color);
-  height: 28rem;
+  height: 30rem;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  padding: 0;
-  margin-top: -30rem;
 }
 
 .h2_titre_soins {
@@ -250,8 +240,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  max-width: 200px;
+}
+
+.box_soins1,
+.box_soins2 {
+  padding: 1rem;
+  border-radius: 35px;
+  width: 25rem;
+  background-color: var(--tertiary-color);
+  box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
 }
 
 .icon_soins1 img,
