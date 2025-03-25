@@ -143,3 +143,247 @@
   text-align: center;
   font-size: 17px;
 }
+
+/* Responsive Design */
+@media (max-width: 320px) {
+  .container_savoir1 {
+    padding: 1rem;
+  }
+
+  .image_savoir1 img {
+    width: 100%;
+  }
+
+  .div_savoir1 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .container_savoir_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .grid_item_savoir,
+  .grid_item_savoir1,
+  .grid_item_savoir2,
+  .grid_item_savoir3 {
+    width: 85%;
+    height: auto;
+  }
+
+  .grid_item_savoir img {
+    width: 100%;
+    height: auto;
+  }
+
+  .container_savoir2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .div_savoir2,
+  .div_savoir3,
+  .div_savoir4 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .div_savoir1 h1 {
+    font-size: 1.5rem;
+  }
+
+  .div_savoir1 p,
+  .div_savoir2 ul li,
+  .div_savoir3 p,
+  .div_savoir4 p {
+    font-size: 15px;
+  }
+
+  .image_savoir3 img {
+    width: 95vw;
+    height: auto;
+  }
+
+  .container_savoir_grid h3 {
+    font-size: 1.2rem;
+  }
+
+  .container_savoir_grid p {
+    font-size: 16px;
+  }
+
+  .div_savoir1 button {
+    font-size: 15px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .container_savoir2 {
+    width: 85%;
+    height: auto;
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 480px) {
+  .container_savoir1 {
+    padding: 1rem;
+  }
+
+  .image_savoir1 img {
+    width: 100%;
+  }
+
+  .div_savoir1 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .container_savoir_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .grid_item_savoir,
+  .grid_item_savoir1,
+  .grid_item_savoir2,
+  .grid_item_savoir3 {
+    width: 85%;
+    height: auto;
+  }
+
+  .grid_item_savoir img {
+    width: 100%;
+    height: auto;
+  }
+
+  .container_savoir2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .div_savoir2,
+  .div_savoir3,
+  .div_savoir4 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .div_savoir1 h1 {
+    font-size: 1.5rem;
+  }
+
+  .div_savoir1 p,
+  .div_savoir2 ul li,
+  .div_savoir3 p,
+  .div_savoir4 p {
+    font-size: 15px;
+  }
+
+  .image_savoir3 img {
+    width: 95vw;
+    height: auto;
+  }
+
+  .container_savoir_grid h3 {
+    font-size: 1.2rem;
+  }
+
+  .container_savoir_grid p {
+    font-size: 16px;
+  }
+
+  .div_savoir1 button {
+    font-size: 15px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .container_savoir2 {
+    width: 85%;
+    height: auto;
+    padding: 1.2rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .container_savoir1 {
+    padding: 1rem;
+  }
+
+  .image_savoir1 img {
+    width: 100%;
+  }
+
+  .div_savoir1 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .container_savoir_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .grid_item_savoir,
+  .grid_item_savoir1,
+  .grid_item_savoir2,
+  .grid_item_savoir3 {
+    width: 85%;
+    height: auto;
+  }
+
+  .grid_item_savoir img {
+    width: 100%;
+    height: auto;
+  }
+
+  .container_savoir2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .div_savoir2,
+  .div_savoir3,
+  .div_savoir4 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .div_savoir1 h1 {
+    font-size: 1.5rem;
+  }
+
+  .div_savoir1 p,
+  .div_savoir2 ul li,
+  .div_savoir3 p,
+  .div_savoir4 p {
+    font-size: 15px;
+  }
+
+  .image_savoir3 img {
+    width: 95vw;
+    height: auto;
+  }
+
+  .container_savoir_grid h3 {
+    font-size: 1.2rem;
+  }
+
+  .container_savoir_grid p {
+    font-size: 16px;
+  }
+
+  .div_savoir1 button {
+    font-size: 15px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .container_savoir2 {
+    width: 85%;
+    height: auto;
+    padding: 1.2rem;
+  }
+}

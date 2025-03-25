@@ -18,8 +18,12 @@ const Savoir = () => {
             </p>
           </div>
           <div>
-            <button>Chiens</button>
-            <button>Chats</button>
+            <button>
+              <a href="/Galeriechien">Chiens</a>
+            </button>
+            <button>
+              <a href="Galeriechat">Chats</a>
+            </button>
           </div>
         </div>
         <div className="image_savoir1">
