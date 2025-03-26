@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import '../Contact.css';
-import emailjs from 'emailjs-com';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import "../Contact.css";
+import emailjs from "emailjs-com";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const Contact = () => {
-  const [statusMessage, setStatusMessage] = useState(""); // Message de statut
-  const [showPopup, setShowPopup] = useState(false); // Contrôle de la pop-up
-  const [popupClass, setPopupClass] = useState(""); // Classe pour le style dynamique
+  const [statusMessage, setStatusMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupClass, setPopupClass] = useState("");
 
   const [formData, setFormData] = useState({
     name1: "",
@@ -30,23 +30,25 @@ const Contact = () => {
 
     emailjs
       .send(
-        'service_5q958pf',
-        'template_0wcw1wp',
+        "service_5q958pf",
+        "template_0wcw1wp",
         { name1, email1, telephone1, message1 },
-        'GprZAo7Xbj4DQXKdY'
+        "GprZAo7Xbj4DQXKdY"
       )
       .then(
         (result) => {
-          console.log('E-mail envoyé !', result.text);
+          console.log("E-mail envoyé !", result.text);
           setStatusMessage("Votre message a bien été envoyé !");
-          setPopupClass("success"); // Classe pour le succès
+          setPopupClass("success");
           setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000); // Disparaît après 5 secondes
+          setTimeout(() => setShowPopup(false), 5000);
         },
         (error) => {
-          console.log('Erreur lors de l\'envoi de l\'e-mail:', error);
-          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
-          setPopupClass("error"); // Classe pour l'erreur
+          console.log("Erreur lors de l'envoi de l'e-mail:", error);
+          setStatusMessage(
+            "Erreur lors de l'envoi du message. Veuillez réessayer."
+          );
+          setPopupClass("error");
           setShowPopup(true);
           setTimeout(() => setShowPopup(false), 5000);
         }
@@ -54,8 +56,8 @@ const Contact = () => {
   };
 
   const containerStyle = {
-    width: '',
-    height: '',
+    width: "100%",
+    height: "100%",
   };
 
   const center = {
@@ -63,25 +65,20 @@ const Contact = () => {
     lng: 4.34519,
   };
 
-
-  <Marker
-    position={center}
-    icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-  />
-
-
   return (
     <div className="container_page_contact">
-      {/* Message de statut en pop-up */}
       {showPopup && (
-        <div className={`popup-status ${popupClass}`}>
-          {statusMessage}
-        </div>
+        <div className={`popup-status ${popupClass}`}>{statusMessage}</div>
       )}
 
-      <div>
-        <img className="img_contact" src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
+      <div className="img_contact">
+        <img
+          src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"}
+          alt="Chien contact"
+        />
+      </div>
 
+      <div className="div_container_contact">
         <div className="container_form">
           <h1 className="h1_contact">Contactez-nous</h1>
 
@@ -135,22 +132,24 @@ const Contact = () => {
               <label htmlFor="message1">Message</label>
             </div>
 
-            <button className="button_envoyer" type="submit">Envoyer</button>
+            <button className="button_envoyer" type="submit">
+              Envoyer
+            </button>
           </form>
         </div>
-      </div>
 
-      {/* Intégration de la carte Google Maps */}
-      <LoadScript googleMapsApiKey="AIzaSyAmS3BJbSJHo_FREi_Xn2Hfjror9NvaVxc">
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          mapContainerClassName="map_container"
-          center={center}
-          zoom={12}
-        >
-          <Marker position={center} />
-        </GoogleMap>
-      </LoadScript>
+        <div className="map_container">
+          <LoadScript googleMapsApiKey="AIzaSyAmS3BJbSJHo_FREi_Xn2Hfjror9NvaVxc">
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={10}
+            >
+              <Marker position={center} />
+            </GoogleMap>
+          </LoadScript>
+        </div>
+      </div>
     </div>
   );
 };
