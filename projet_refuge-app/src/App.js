@@ -23,7 +23,6 @@ import Mon_compte from './Page/Mon_compte';
 import Accueil_animaux from './Page/Accueil_animaux';
 import Sensibilisation from './Page/Sensibilisation';
 import Adhesions from './Page/Adhesions';
-import propos_test from './Page/propos_test';
 
 // Code réutilisable
 import Animalitem from './Page/Animalitem';
