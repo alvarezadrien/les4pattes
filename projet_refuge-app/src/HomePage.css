@@ -77,7 +77,7 @@
   border-radius: 50px;
   width: 12rem;
   height: 3rem;
-  /* border: 2px solid #bc5759; */
+  border: none;
   border: none;
   margin-left: 40rem;
   margin-top: 13rem;
@@ -121,7 +121,7 @@
   height: 2.5rem;
   font-size: 1.8rem;
   border-radius: 50px;
-  border: 2px solid #b15254;
+  border: 2px solid var(--primary-color);
   color: var(--primary-color);
 }
 
