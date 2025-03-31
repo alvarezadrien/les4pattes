@@ -14,15 +14,16 @@
   padding-bottom: 1rem;
 }
 
-.container_form {
+.div_container_contact {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  background-color: var(--secondary-color);
+  height: 63%;
+  background-color: #f4eaca;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .h1_contact {
@@ -32,10 +33,11 @@
   margin-top: -1.5rem;
 }
 
-.contact-form {
+.container_form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
 }
 
 .input-container {
@@ -50,70 +52,82 @@
   width: 30vw;
   padding: 0.8rem 0.5rem;
   font-size: 1rem;
+  border: 2px solid black;
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
-  transition: 0.3s;
+  background: transparent;
+  color: black;
   resize: none;
+}
+
+/* Style du label à l'intérieur de l'input (au début) */
+.input-container label {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #aaa;
+  pointer-events: none;
+  background: transparent;
+  padding: 0 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Lorsque l'input ou textarea est en focus, le label remonte au-dessus avec un fond */
+.input-container input:focus + label,
+.input-container textarea:focus + label,
+.input-container input:not(:placeholder-shown) + label,
+.input-container textarea:not(:placeholder-shown) + label {
+  top: -8.5px;
+  left: 0.5rem;
+  transform: translateY(0);
+  font-size: 1rem;
+  color: #778d45;
+  background-color: #f4eaca;
+  padding: 0 5px;
+}
+
+/* Pour lorsque l'input ou textarea est rempli sans focus */
+.input-container input:not(:focus):not(:placeholder-shown) + label,
+.input-container textarea:not(:focus):not(:placeholder-shown) + label {
+  top: 12px;
+  left: 0.5rem;
+  font-size: 1rem;
+  color: black;
+  background-color: #f4eaca;
+  padding: 0 5px;
+}
+
+/* Quand l'input ou textarea est en focus, la bordure devient verte */
+.input-container input:focus,
+.input-container textarea:focus {
+  border-color: #778d45;
 }
 
 textarea {
   height: 9rem;
-  border: 2px solid var(--primary-color);
-}
-
-label {
-  position: absolute;
-  left: 0.5rem;
-  transform: translateY(-50%);
-  margin-left: 5rem;
-  padding-bottom: 2rem;
-}
-
-input:focus + label,
-textarea:focus + label,
-input:not(:placeholder-shown) + label,
-textarea:not(:placeholder-shown) + label,
-.focused + label {
-  font-size: 1.2rem;
-  color: var(--primary-color);
 }
 
 .button_envoyer {
   display: block;
   margin: 0 auto;
   padding: 0.8rem 2rem;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  color: #778d45;
+  border: 2px solid #778d45;
   border-radius: 4px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
-  background-color: var(--tertiary-color);
-  font-size: 1.5rem;
+  background-color: white;
 }
 
-.popup-status {
-  position: fixed;
-  top: 7rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 20px;
+.button_envoyer:hover {
+  background-color: var(--primary-color);
   color: var(--tertiary-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  font-size: 1.5rem;
-  text-align: center;
+  border: none;
+  transition: ease 0.5s;
 }
-
-.popup-status.success {
-  background-color: rgb(7, 156, 7); /* Vert pour succès */
-}
-
-.popup-status.error {
-  background-color: rgb(220, 53, 69); /* Rouge pour erreur */
-}
-
-/**************** CSS carte maps *****************/
 
 .map_container {
   width: 100%;
@@ -123,132 +137,15 @@ textarea:not(:placeholder-shown) + label,
   border-radius: 20px;
 }
 
+/* Responsive Design */
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .img_contact {
-    margin-left: -7.5rem;
-  }
-
-  .container_form {
-    width: 70vw;
-    display: block;
-  }
-
   .input-container input,
   .input-container textarea {
     width: 80vw;
   }
 
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    margin-left: 0.5rem;
-  }
-
   .map_container {
     width: 100%;
     height: 20rem;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .img_contact {
-    margin-left: -7rem;
-  }
-
-  .container_form {
-    width: 70vw;
-    display: block;
-  }
-
-  .input-container input,
-  .input-container textarea {
-    width: 60vw;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    margin-left: 2.3rem;
-  }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .img_contact {
-    margin-left: -5rem;
-  }
-
-  .container_form {
-    width: 70vw;
-    display: block;
-  }
-
-  .input-container input,
-  .input-container textarea {
-    width: 80%;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    padding-left: 4.5rem;
-  }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .img_contact {
-    margin-left: -3rem;
-  }
-
-  .container_form {
-    width: 55vw;
-    display: block;
-  }
-
-  .input-container input,
-  .input-container textarea {
-    width: 80%;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    padding-left: 4.5rem;
-  }
-}
-
-@media screen and (min-width: 1281px) and (max-width: 1440px) {
-  .img_contact {
-    margin-left: -1.7rem;
-  }
-
-  .container_form {
-    width: 45vw;
-    display: block;
-  }
-
-  .input-container input,
-  .input-container textarea {
-    width: 80%;
-  }
-
-  .input-container {
-    display: flex;
-  }
-
-  label {
-    margin: 0;
-    padding-left: 4.5rem;
   }
 }

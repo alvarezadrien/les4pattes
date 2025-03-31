@@ -31,6 +31,7 @@
 .navbar_link:hover,
 .navbar_link.active {
   text-decoration: underline #bc5759;
+  text-underline-offset: 13px;
 }
 
 .navbar_burger {

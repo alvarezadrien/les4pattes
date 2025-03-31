@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Contact.css";
 import emailjs from "emailjs-com";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
@@ -15,17 +15,37 @@ const Contact = () => {
     message1: "",
   });
 
+  useEffect(() => {
+    const inputs = document.querySelectorAll(".input-container input, .input-container textarea");
+
+    const handleFocus = (event) => event.target.classList.add("focused");
+    const handleBlur = (event) => {
+      if (!event.target.value) event.target.classList.remove("focused");
+    };
+
+    inputs.forEach((input) => {
+      input.addEventListener("focus", handleFocus);
+      input.addEventListener("blur", handleBlur);
+    });
+
+    return () => {
+      inputs.forEach((input) => {
+        input.removeEventListener("focus", handleFocus);
+        input.removeEventListener("blur", handleBlur);
+      });
+    };
+  }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
+    setFormData((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const { name1, email1, telephone1, message1 } = formData;
 
     emailjs
@@ -36,46 +56,37 @@ const Contact = () => {
         "GprZAo7Xbj4DQXKdY"
       )
       .then(
-        (result) => {
-          console.log("E-mail envoyé !", result.text);
+        () => {
           setStatusMessage("Votre message a bien été envoyé !");
           setPopupClass("success");
           setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000);
+
+          // Réinitialisation du formulaire après succès
+          setFormData({
+            name1: "",
+            email1: "",
+            telephone1: "",
+            message1: "",
+          });
         },
-        (error) => {
-          console.log("Erreur lors de l'envoi de l'e-mail:", error);
-          setStatusMessage(
-            "Erreur lors de l'envoi du message. Veuillez réessayer."
-          );
+        () => {
+          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
           setPopupClass("error");
           setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000);
         }
       );
-  };
 
-  const containerStyle = {
-    width: "100%",
-    height: "100%",
-  };
-
-  const center = {
-    lat: 50.82513,
-    lng: 4.34519,
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
   };
 
   return (
     <div className="container_page_contact">
-      {showPopup && (
-        <div className={`popup-status ${popupClass}`}>{statusMessage}</div>
-      )}
+      {showPopup && <div className={`popup-status ${popupClass}`}>{statusMessage}</div>}
 
       <div className="img_contact">
-        <img
-          src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"}
-          alt="Chien contact"
-        />
+        <img src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
       </div>
 
       <div className="div_container_contact">
@@ -140,12 +151,8 @@ const Contact = () => {
 
         <div className="map_container">
           <LoadScript googleMapsApiKey="AIzaSyAmS3BJbSJHo_FREi_Xn2Hfjror9NvaVxc">
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={center}
-              zoom={10}
-            >
-              <Marker position={center} />
+            <GoogleMap mapContainerStyle={{ width: "100%", height: "100%" }} center={{ lat: 50.82513, lng: 4.34519 }} zoom={10}>
+              <Marker position={{ lat: 50.82513, lng: 4.34519 }} />
             </GoogleMap>
           </LoadScript>
         </div>
