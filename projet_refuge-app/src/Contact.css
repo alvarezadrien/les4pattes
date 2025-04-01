@@ -63,12 +63,11 @@
 
 /* Style du label à l'intérieur de l'input (au début) */
 .input-container label {
-  position: absolute;
+  /* position: absolute; */
   left: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
   font-size: 1rem;
-  color: #aaa;
   pointer-events: none;
   background: transparent;
   padding: 0 5px;
@@ -78,6 +77,7 @@
 /* Lorsque l'input ou textarea est en focus, le label remonte au-dessus avec un fond */
 .input-container input:focus + label,
 .input-container textarea:focus + label,
+.input-container textarea:not(:placeholder-shown) + label,
 .input-container input:not(:placeholder-shown) + label,
 .input-container textarea:not(:placeholder-shown) + label {
   top: -8.5px;
@@ -148,5 +148,71 @@ textarea {
     position: relative;
     bottom: 0;
     right: 0;
+  }
+}
+
+/* Partie pop up message */
+.popupenvoie {
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  background-color: var(--tertiary-color);
+  box-shadow: 4px 7px 9px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 0.5rem;
+  min-width: 150px;
+  z-index: 1;
+}
+
+.popupenvoie__content {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 40rem;
+}
+
+.popupenvoie__content img {
+  animation: rotateImage 5s linear infinite;
+}
+
+.popupenvoie__image {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+.popupenvoie__title {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.popupenvoie__description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.popupenvoie__button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: var(--primary-color);
+  color: var(--tertiary-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Animation de rotation infinie */
+@keyframes rotateImage {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

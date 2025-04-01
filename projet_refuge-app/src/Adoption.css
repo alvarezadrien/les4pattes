@@ -1,4 +1,4 @@
-/* .h2_1 {
+.h2_1 {
   font-size: 3rem;
   margin-top: 7rem;
   text-align: center;
@@ -106,13 +106,6 @@ legend {
 
 .input_textarea {
   margin-top: 4rem;
-}
-
-textarea {
-  height: 13rem;
-  resize: none;
-  width: 30vw;
-  border-radius: 4px;
 }
 
 .input_textarea label {
@@ -380,4 +373,4 @@ textarea {
   .formulaire2 {
     width: 75vw;
   }
-} */
+}

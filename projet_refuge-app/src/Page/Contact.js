@@ -4,9 +4,8 @@ import emailjs from "emailjs-com";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const Contact = () => {
-  const [statusMessage, setStatusMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupClass, setPopupClass] = useState("");
+  const [popupEnvoieVisible, setPopupEnvoieVisible] = useState(false);
+  const [popupEnvoieClass, setPopupEnvoieClass] = useState("");
 
   const [formData, setFormData] = useState({
     name1: "",
@@ -16,7 +15,9 @@ const Contact = () => {
   });
 
   useEffect(() => {
-    const inputs = document.querySelectorAll(".input-container input, .input-container textarea");
+    const inputs = document.querySelectorAll(
+      ".input-container input, .input-container textarea"
+    );
 
     const handleFocus = (event) => event.target.classList.add("focused");
     const handleBlur = (event) => {
@@ -57,11 +58,8 @@ const Contact = () => {
       )
       .then(
         () => {
-          setStatusMessage("Votre message a bien été envoyé !");
-          setPopupClass("success");
-          setShowPopup(true);
-
-          // Réinitialisation du formulaire après succès
+          setPopupEnvoieClass("popupenvoie-success");
+          setPopupEnvoieVisible(true);
           setFormData({
             name1: "",
             email1: "",
@@ -70,23 +68,45 @@ const Contact = () => {
           });
         },
         () => {
-          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
-          setPopupClass("error");
-          setShowPopup(true);
+          setPopupEnvoieClass("popupenvoie-erreur");
+          setPopupEnvoieVisible(true);
         }
       );
-
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 5000);
   };
 
   return (
     <div className="container_page_contact">
-      {showPopup && <div className={`popup-status ${popupClass}`}>{statusMessage}</div>}
+      {popupEnvoieVisible && (
+        <div className={`popupenvoie ${popupEnvoieClass}`}>
+          <div className="popupenvoie__content">
+            <img
+              src="/img/vert_pop.png"
+              alt="Image florale"
+              className="popupenvoie__image"
+            />
+            <h2 className="popupenvoie__title">MERCI</h2>
+            <p className="popupenvoie__description">
+              {popupEnvoieClass === "popupenvoie-success"
+                ? "Nous avons bien reçu votre demande de devis et vous remercions pour votre intérêt. Notre équipe vous recontactera sous peu avec une proposition adaptée à vos besoins."
+                : "Erreur lors de l'envoi du message. Veuillez réessayer."}
+            </p>
+            <div className="popupenvoie__buttons">
+              <button
+                onClick={() => (window.location.href = "/")}
+                className="popupenvoie__button retour"
+              >
+                Retour au menu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="img_contact">
-        <img src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"} alt="Chien contact" />
+        <img
+          src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"}
+          alt="Chien contact"
+        />
       </div>
 
       <div className="div_container_contact">
@@ -102,6 +122,7 @@ const Contact = () => {
                 value={formData.name1}
                 onChange={handleChange}
                 required
+                className={formData.name1 ? "focused" : ""}
               />
               <label htmlFor="name1">Nom</label>
             </div>
@@ -114,6 +135,7 @@ const Contact = () => {
                 value={formData.email1}
                 onChange={handleChange}
                 required
+                className={formData.email1 ? "focused" : ""}
               />
               <label htmlFor="email1">Email</label>
             </div>
@@ -128,6 +150,7 @@ const Contact = () => {
                 pattern="^[0-9]{10}$"
                 title="Veuillez entrer un numéro de téléphone de 10 chiffres."
                 required
+                className={formData.telephone1 ? "focused" : ""}
               />
               <label htmlFor="telephone1">Téléphone</label>
             </div>
@@ -139,6 +162,7 @@ const Contact = () => {
                 value={formData.message1}
                 onChange={handleChange}
                 required
+                className={formData.message1 ? "focused" : ""}
               />
               <label htmlFor="message1">Message</label>
             </div>
@@ -151,7 +175,11 @@ const Contact = () => {
 
         <div className="map_container">
           <LoadScript googleMapsApiKey="AIzaSyAmS3BJbSJHo_FREi_Xn2Hfjror9NvaVxc">
-            <GoogleMap mapContainerStyle={{ width: "100%", height: "100%" }} center={{ lat: 50.82513, lng: 4.34519 }} zoom={10}>
+            <GoogleMap
+              mapContainerStyle={{ width: "100%", height: "100%" }}
+              center={{ lat: 50.82513, lng: 4.34519 }}
+              zoom={10}
+            >
               <Marker position={{ lat: 50.82513, lng: 4.34519 }} />
             </GoogleMap>
           </LoadScript>
