@@ -194,35 +194,50 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 650px) {
+  .footer {
+    flex-direction: column;
+    padding: 20px;
+  }
+
   .footer_content {
     flex-direction: column;
-    align-items: flex-start;
+    width: 100%;
     gap: 1rem;
   }
 
   .contact_horaire_container {
     flex-direction: column;
-    align-items: flex-start;
     gap: 1rem;
   }
 
   .separator {
-    display: none;
+    height: 2px;
+    width: 80%;
+    margin: 1rem auto;
   }
 
   .footer_bas {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    right: 0;
+    top: 0;
+    margin-top: 1rem;
   }
 
   .card {
-    margin-bottom: 1rem;
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
   }
 
-  .h5_bancaire,
+  .card span {
+    font-size: 18px;
+  }
+
+  .h5_bancaire {
+    font-size: 16px;
+  }
+
   .footer_copyright {
-    margin-bottom: 1rem;
+    font-size: 10px;
   }
 }
