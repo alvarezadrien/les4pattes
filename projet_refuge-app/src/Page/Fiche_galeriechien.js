@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Fiche_galeriechien = () => {
+    const navigate = useNavigate();
+
     // Appel variable chiens
     const dogs = [
         { name: "Diablo", age: "2 ans 1/2", race: "Lorem", Sexe: "Mâle stérilisé", imgSrc: "/img/img_galeriechien/chien_malinois_2.1.jpg" },
@@ -32,8 +34,12 @@ const Fiche_galeriechien = () => {
                                 <p className='age'>Âge: {dog.age}</p>
                                 <span>Race: {dog.race}</span> <br />
                                 <span>Sexe: {dog.sexe}</span> <br />
-                                {/* <button type="button"><Link to={`/Ficheperso_animal/${dog.name}`} className="">Détails</Link></button> */}
-                                <button type="button"><Link to={`/Ficheperso_animal`} className="">Détails</Link></button>
+                                <button
+                                    type="button"
+                                    onClick={() => navigate(`/Ficheperso_animal`)}
+                                >
+                                    Détails
+                                </button>
                             </div>
                         </div>
                     ))}
