@@ -29,8 +29,6 @@ const Compagnons_adopter = () => {
                 <div className="flip-card-front">
                     <img src={animal.image} alt={`Photo de ${animal.nom}`} />
                     <h3>{animal.nom}</h3>
-                    <span>Sexe : {animal.sexe}</span>
-                    <span>Âge : {animal.age}</span>
                 </div>
                 <div className="flip-card-back">
                     <p className="animal-description">
