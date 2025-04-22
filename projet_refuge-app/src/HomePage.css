@@ -33,7 +33,7 @@
 
 @keyframes blink-cursor {
   from {
-    border-right-color: var(--tertiary-color);
+    border-right-color: transparent;
   }
   to {
     border-right-color: transparent;
