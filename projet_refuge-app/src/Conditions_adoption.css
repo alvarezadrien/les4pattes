@@ -199,6 +199,7 @@ h5 {
   margin-top: -6rem;
   margin-bottom: 3rem;
   text-decoration: underline;
+  text-underline-offset: 11px;
 }
 
 .div_container_chien_chat_souhait {
@@ -257,11 +258,11 @@ h5 {
   margin: 0 auto;
   margin-bottom: 1rem;
 }
-@media (max-width: 650px) {
+@media (max-width: 481px) {
   .img_conditions {
-    margin-top: 3rem;
+    margin-top: 6rem;
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 2rem;
   }
 
   .img_conditions img {
@@ -274,19 +275,19 @@ h5 {
   }
 
   .paragraphe_adopt1 {
-    font-size: 1.2rem;
+    font-size: 17px;
     width: 90%;
   }
 
   .h4_moyen_adopt {
-    font-size: 1.2rem;
-    width: 90%;
+    font-size: 1.3rem;
+    width: 95%;
     margin-left: 1rem;
     margin-top: 2rem;
   }
 
   .ul_moyen_adopt {
-    margin-left: 2rem;
+    margin-left: 2em;
     font-size: 1rem;
     margin-top: 2rem;
   }
@@ -305,6 +306,7 @@ h5 {
   .div_respecter {
     max-width: 90%;
     padding: 1rem;
+    margin-top: 1rem;
   }
 
   h5 {
@@ -338,20 +340,24 @@ h5 {
   }
 
   .img_adopt2 img {
-    width: 100%;
+    width: 95%;
     transform: none;
     height: auto;
-  }
-
-  .frais_comprend {
-    width: 90%;
-    height: auto;
     margin: 0 auto;
-    top: 0;
   }
 
   .h3_comprend {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    width: 95vw;
+    text-align: center;
+  }
+
+  .frais_comprend {
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+    top: 2rem;
+    padding: 1.5rem;
   }
 
   .frais_comprend ul li {
@@ -360,7 +366,7 @@ h5 {
 
   .souhait_adopter {
     font-size: 1.5rem;
-    margin-top: -3rem;
+    margin-top: -1.5rem;
   }
 
   .div_container_chien_chat_souhait {
@@ -376,12 +382,14 @@ h5 {
 
   .img_souhait1 img,
   .img_souhait2 img {
-    width: 100%;
+    width: 85vw;
     height: auto;
   }
 
   .h4_souhait {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    width: 100%;
+    text-align: center;
   }
 
   .para_souhait1 {
