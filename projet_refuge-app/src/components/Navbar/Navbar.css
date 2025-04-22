@@ -62,6 +62,7 @@ ul {
 .icon_navbar {
   position: relative;
   right: 2%;
+  top: 0.5rem;
 }
 
 @media screen and (max-width: 1024px) {
