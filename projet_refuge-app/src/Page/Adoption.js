@@ -187,7 +187,7 @@ const Adoption = () => {
               </label>
             </div>
 
-            <div className="input_radio_group">
+            {/* <div className="input_radio_group">
               <div className="radio_option">
                 <label
                   htmlFor="chien"
@@ -237,7 +237,33 @@ const Adoption = () => {
                   required
                 />
               </div>
+            </div> */}
+
+            <div class="love-group">
+              <div class="love">
+                <span class="label">Chats</span>
+                <input id="switch1" type="radio" name="love" />
+                <label class="love-heart" for="switch1">
+                  <i class="left"></i>
+                  <i class="right"></i>
+                  <i class="bottom"></i>
+                  <div class="round"></div>
+                </label>
+              </div>
+              <div class="love">
+                <span class="label">Chiens</span>
+                <input id="switch2" type="radio" name="love" />
+                <label class="love-heart" for="switch2">
+                  <i class="left"></i>
+                  <i class="right"></i>
+                  <i class="bottom"></i>
+                  <div class="round"></div>
+                </label>
+              </div>
             </div>
+
+
+
 
             <div className="input_textarea">
               <label
