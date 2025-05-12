@@ -443,6 +443,7 @@ input[type="radio"]:checked + label .round {
 /* Cœur global */
 .love-heart {
   box-sizing: border-box;
+  margin: 0 auto;
   position: relative;
   transform: rotate(-45deg) translate(-50%, -33px) scale(4);
   display: block;
@@ -488,7 +489,7 @@ input[type="radio"]:checked + .love-heart .bottom {
 
 .love-group {
   display: flex;
-  gap: 40px; /* espace entre les boutons */
+  gap: 8rem; /* espace entre les boutons */
   justify-content: center;
   align-items: flex-start;
 }

@@ -3,9 +3,9 @@ import "../Adoption.css";
 import emailjs from "emailjs-com";
 
 const Adoption = () => {
-  const [statusMessage, setStatusMessage] = useState(""); // Message de statut
-  const [showPopup, setShowPopup] = useState(false); // Contrôle de la pop-up
-  const [popupClass, setPopupClass] = useState(""); // Classe pour le style dynamique
+  const [statusMessage, setStatusMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupClass, setPopupClass] = useState("");
 
   const [formdata1, setFormData] = useState({
     name: "",
@@ -20,6 +20,7 @@ const Adoption = () => {
     enfants: "",
     animaux: "",
     animal2: "",
+    message: "",
   });
 
   const [focused, setFocused] = useState({
@@ -77,16 +78,48 @@ const Adoption = () => {
         (result) => {
           console.log("E-mail envoyé !", result.text);
           setStatusMessage("Votre message a bien été envoyé !");
-          setPopupClass("success"); // Classe pour le succès
+          setPopupClass("success");
           setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000); // Disparaît après 5 secondes
+          setTimeout(() => setShowPopup(false), 5000);
+
+          // Réinitialiser le formulaire
+          setFormData({
+            name: "",
+            prenom: "",
+            email: "",
+            telephone: "",
+            animal: "",
+            adresse: "",
+            anniv_adopt: "",
+            logement: "",
+            acces: "",
+            enfants: "",
+            animaux: "",
+            animal2: "",
+            message: "",
+          });
+          setFocused({
+            name: false,
+            prenom: false,
+            email: false,
+            telephone: false,
+            animal: false,
+            message: false,
+            anniv_adopt: false,
+            logement: false,
+            acces: false,
+            adresse: false,
+            enfants: false,
+            animaux: false,
+            animal2: false,
+          });
         },
         (error) => {
           console.log("Erreur lors de l'envoi de l'e-mail:", error);
           setStatusMessage(
             "Erreur lors de l'envoi du message. Veuillez réessayer."
           );
-          setPopupClass("error"); // Classe pour l'erreur
+          setPopupClass("error");
           setShowPopup(true);
           setTimeout(() => setShowPopup(false), 5000);
         }
@@ -95,7 +128,6 @@ const Adoption = () => {
 
   return (
     <div className="page_adoption">
-      {/* Message de statut en pop-up */}
       {showPopup && (
         <div className={`popup-status ${popupClass}`}>{statusMessage}</div>
       )}
@@ -104,7 +136,6 @@ const Adoption = () => {
         <fieldset>
           <legend>Information sur l'animal</legend>
           <form onSubmit={handlesubmit1}>
-            {/* Champ Nom */}
             <div className="input_container_adoption1">
               <input
                 type="text"
@@ -124,7 +155,6 @@ const Adoption = () => {
               </label>
             </div>
 
-            {/* Champ Prénom */}
             <div className="input_container_adoption1">
               <input
                 type="text"
@@ -144,7 +174,6 @@ const Adoption = () => {
               </label>
             </div>
 
-            {/* Champ Téléphone */}
             <div className="input_container_adoption1">
               <input
                 type="tel"
@@ -187,47 +216,12 @@ const Adoption = () => {
               </label>
             </div>
 
-            {/* <div className="input_radio_group">
-              <div className="radio_option">
-                <label
-                  htmlFor="chien"
-                  className={
-                    focused.animal === "chien" || formdata1.animal === "chien"
-                      ? "focused"
-                      : ""
-                  }
-                >
-                  Chien
-                </label>
+            <div className="love-group">
+              <div className="love">
+                <span className="label">Chats</span>
                 <input
-                  className="radio_choix_animal"
-                  type="checkbox"
-                  id="chien"
-                  name="animal"
-                  value="chien"
-                  checked={formdata1.animal === "chien"}
-                  onChange={handleChange1}
-                  onFocus={() => handleFocus1("animal")}
-                  onBlur={() => handleBlur1("animal")}
-                  required
-                />
-              </div>
-
-              <div className="radio_option">
-                <label
-                  htmlFor="chat"
-                  className={
-                    focused.animal === "chat" || formdata1.animal === "chat"
-                      ? "focused"
-                      : ""
-                  }
-                >
-                  Chat
-                </label>
-                <input
-                  className="radio_choix_animal"
-                  type="checkbox"
-                  id="chat"
+                  id="switch1"
+                  type="radio"
                   name="animal"
                   value="chat"
                   checked={formdata1.animal === "chat"}
@@ -236,34 +230,34 @@ const Adoption = () => {
                   onBlur={() => handleBlur1("animal")}
                   required
                 />
-              </div>
-            </div> */}
-
-            <div class="love-group">
-              <div class="love">
-                <span class="label">Chats</span>
-                <input id="switch1" type="radio" name="love" />
-                <label class="love-heart" for="switch1">
-                  <i class="left"></i>
-                  <i class="right"></i>
-                  <i class="bottom"></i>
-                  <div class="round"></div>
+                <label className="love-heart" htmlFor="switch1">
+                  <i className="left"></i>
+                  <i className="right"></i>
+                  <i className="bottom"></i>
+                  <div className="round"></div>
                 </label>
               </div>
-              <div class="love">
-                <span class="label">Chiens</span>
-                <input id="switch2" type="radio" name="love" />
-                <label class="love-heart" for="switch2">
-                  <i class="left"></i>
-                  <i class="right"></i>
-                  <i class="bottom"></i>
-                  <div class="round"></div>
+              <div className="love">
+                <span className="label">Chiens</span>
+                <input
+                  id="switch2"
+                  type="radio"
+                  name="animal"
+                  value="chien"
+                  checked={formdata1.animal === "chien"}
+                  onChange={handleChange1}
+                  onFocus={() => handleFocus1("animal")}
+                  onBlur={() => handleBlur1("animal")}
+                  required
+                />
+                <label className="love-heart" htmlFor="switch2">
+                  <i className="left"></i>
+                  <i className="right"></i>
+                  <i className="bottom"></i>
+                  <div className="round"></div>
                 </label>
               </div>
             </div>
-
-
-
 
             <div className="input_textarea">
               <label
@@ -286,8 +280,9 @@ const Adoption = () => {
             </div>
           </form>
         </fieldset>
+
         <fieldset>
-          <legend>Informartion sur l'adoptant</legend>
+          <legend>Information sur l'adoptant</legend>
           <form onSubmit={handlesubmit1}>
             <div className="input_container_adoption2">
               <input
@@ -309,6 +304,7 @@ const Adoption = () => {
                 Date de naissance
               </label>
             </div>
+
             <div className="input_container_adoption2">
               <input
                 type="text"
@@ -372,7 +368,7 @@ const Adoption = () => {
               >
                 <option value="selectionner">Sélectionner</option>
                 <option value="jardin">Jardin</option>
-                <option value="terrasse">terrasse</option>
+                <option value="terrasse">Terrasse</option>
                 <option value="balcon">Balcon</option>
                 <option value="aucun">Aucun</option>
               </select>
@@ -385,7 +381,7 @@ const Adoption = () => {
                   focused.enfants || formdata1.enfants ? "focused" : ""
                 }
               >
-                Avez vous des enfants ?
+                Avez-vous des enfants ?
               </label>
               <select
                 id="infos_form2"
@@ -409,7 +405,7 @@ const Adoption = () => {
                   focused.animaux || formdata1.animaux ? "focused" : ""
                 }
               >
-                Avez vous des animaux ?
+                Avez-vous des animaux ?
               </label>
               <select
                 id="infos_form2"
@@ -445,15 +441,11 @@ const Adoption = () => {
                 Type animaux ?
               </label>
             </div>
-          </form>
 
-          <button
-            className="button_envoie"
-            type="submit"
-            onClick={handlesubmit1}
-          >
-            Envoyer
-          </button>
+            <button className="button_envoie" type="submit">
+              Envoyer
+            </button>
+          </form>
         </fieldset>
       </div>
     </div>
