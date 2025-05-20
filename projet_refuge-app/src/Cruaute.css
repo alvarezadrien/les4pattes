@@ -17,7 +17,7 @@
 }
 
 .paragraphe_cruaute1 {
-  color: var(--quaternary-);
+  color: var(--quaternary-color);
   font-size: 25px;
   width: 40rem;
   text-align: justify;
@@ -34,13 +34,11 @@
   width: 60vw;
   height: 15vw;
   background-color: var(--secondary-color);
-  justify-self: center;
   border-radius: 10px;
   justify-content: center;
   overflow: hidden;
   box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.2);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem auto;
 }
 
 .paragraphe_cruaute2 {
@@ -58,19 +56,15 @@
   display: flex;
   flex-direction: column;
   width: 45%;
-  justify-self: center;
+  margin: 0 auto;
   padding: 1.5rem;
   gap: 1rem;
   text-align: center;
 }
 
-.div_cruaute1 {
-  background-color: var(--secondary-color);
-  border: 2px solid var(--primary-color);
-  padding: 1rem;
-}
-
-.div_cruaute2 {
+.div_cruaute1,
+.div_cruaute2,
+.div_cruaute3 {
   background-color: var(--secondary-color);
   border: 2px solid var(--primary-color);
   padding: 1rem;
@@ -78,13 +72,8 @@
 
 .div_cruaute2 p,
 .div_cruaute3 p {
-  justify-content: justify;
   font-size: 20px;
-}
-
-.div_cruaute3 {
-  border: 2px solid var(--primary-color);
-  padding: 1rem;
+  text-align: justify;
 }
 
 .image_cruaute3 img {
@@ -92,7 +81,6 @@
 }
 
 .container_cruaute4 {
-  justify-items: center;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -101,7 +89,6 @@
 
 .image_cruaute3,
 .image_cruaute4 {
-  justify-self: center;
   margin-bottom: 2rem;
 }
 
@@ -110,6 +97,7 @@
   padding: 5px;
   font-size: 25px;
   width: 100%;
+  text-align: center;
 }
 
 .paragraphe_cruaute4 {
@@ -117,10 +105,11 @@
   width: 22rem;
   text-align: justify;
 }
+
 .hr_cruaute {
   border: 2px solid var(--primary-color);
   width: 30%;
-  margin-top: -1rem;
+  margin: 2rem auto 0;
 }
 
 .container_cruaute5 {
@@ -144,5 +133,59 @@
   border: 2px solid var(--primary-color);
   list-style-position: inside;
   padding: 8px;
-  height: 5rem;
+  height: auto;
+}
+
+.accordion-container {
+  width: 60%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: row;
+  gap: 1.2rem;
+  flex-wrap: wrap; /* Permet de passer à la ligne si l’espace est insuffisant */
+}
+
+.accordion-item {
+  flex: 1;
+  min-width: 300px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-title {
+  width: 100%;
+  text-align: left;
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
+.accordion-content {
+  padding: 1rem;
+  font-size: 18px;
+  background-color: #fdfdfd;
+}
+
+.accordion-content ul {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .accordion-container {
+    flex-direction: column;
+  }
+
+  .accordion-item {
+    flex: 1 1 100%;
+  }
 }

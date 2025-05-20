@@ -56,7 +56,7 @@ function Navbar() {
             src="/img/les 4 pattes logo.png"
             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
             width={130}
-            height={130}
+          // height={130}
           />
         </a>
       </div>
@@ -97,7 +97,7 @@ function Navbar() {
             <img
               src="/img/coeur_dons_modif3.png"
               alt="C'est l'icon pour faire un don en forme de coeur"
-              width={55}
+              width={45}
             />
           </a>
         </li>
@@ -107,7 +107,7 @@ function Navbar() {
             <img
               src="/img/svg_profil.svg"
               alt="C'est l'icon de connexion avec un petit profil"
-              width={65}
+              width={50}
             />
           </a>
         </li>
