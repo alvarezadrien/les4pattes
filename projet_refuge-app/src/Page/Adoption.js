@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import "../Adoption.css";
 import emailjs from "emailjs-com";
 
+// Import de Material-UI
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import { fontSize } from "@mui/system";
+
 const Adoption = () => {
   const [statusMessage, setStatusMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -116,9 +124,7 @@ const Adoption = () => {
         },
         (error) => {
           console.log("Erreur lors de l'envoi de l'e-mail:", error);
-          setStatusMessage(
-            "Erreur lors de l'envoi du message. Veuillez réessayer."
-          );
+          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
           setPopupClass("error");
           setShowPopup(true);
           setTimeout(() => setShowPopup(false), 5000);
@@ -133,88 +139,110 @@ const Adoption = () => {
       )}
       <h2 className="h2_1">Formulaire d'adoption</h2>
       <div className="formulaire1">
-        <fieldset>
-          <legend>Information sur l'animal</legend>
-          <form onSubmit={handlesubmit1}>
-            <div className="input_container_adoption1">
-              <input
-                type="text"
+        <form onSubmit={handlesubmit1}>
+          <fieldset>
+            <legend>Information sur l'animal</legend>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                "& .MuiTextField-root": {
+                  m: 2,
+                  width: "60ch",
+                  fontSize: "1.2rem",
+                  // Texte de l'input noir
+                  input: {
+                    color: "black",
+                  },
+                  // Label noir par défaut
+                  label: {
+                    color: "black",
+                  },
+                  // Quand l'input est focus, label et bordure en #778d45
+                  "& label.Mui-focused": {
+                    color: "#778d45",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "black",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#778d45",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#778d45",
+                    },
+                  },
+                },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                required
                 id="name"
                 name="name"
+                label="Nom"
                 value={formdata1.name}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("name")}
                 onBlur={() => handleBlur1("name")}
-                required
+                variant="outlined"
+                autoComplete="off"
               />
-              <label
-                htmlFor="name"
-                className={focused.name || formdata1.name ? "focused" : ""}
-              >
-                Nom
-              </label>
-            </div>
-
-            <div className="input_container_adoption1">
-              <input
-                type="text"
+              <TextField
+                required
                 id="prenom"
                 name="prenom"
+                label="Prénom"
                 value={formdata1.prenom}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("prenom")}
                 onBlur={() => handleBlur1("prenom")}
-                required
+                variant="outlined"
+                autoComplete="off"
               />
-              <label
-                htmlFor="prenom"
-                className={focused.prenom || formdata1.prenom ? "focused" : ""}
-              >
-                Prénom
-              </label>
-            </div>
-
-            <div className="input_container_adoption1">
-              <input
-                type="tel"
+              <TextField
+                required
                 id="telephone"
                 name="telephone"
+                label="Téléphone"
                 value={formdata1.telephone}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("telephone")}
                 onBlur={() => handleBlur1("telephone")}
-                pattern="^[0-9]{10}$"
-                title="Veuillez entrer un numéro de téléphone de 10 chiffres."
-                required
+                variant="outlined"
+                autoComplete="off"
               />
-              <label
-                htmlFor="telephone"
-                className={
-                  focused.telephone || formdata1.telephone ? "focused" : ""
-                }
-              >
-                Téléphone
-              </label>
-            </div>
-
-            <div className="input_container_adoption1">
-              <input
-                type="email"
+              <TextField
+                required
                 id="email"
                 name="email"
+                label="Email"
                 value={formdata1.email}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("email")}
                 onBlur={() => handleBlur1("email")}
-                required
+                variant="outlined"
+                autoComplete="off"
               />
-              <label
-                htmlFor="email"
-                className={focused.email || formdata1.email ? "focused" : ""}
-              >
-                Email
-              </label>
-            </div>
+              <TextField
+                required
+                id="message"
+                name="message"
+                label="Message"
+                value={formdata1.message}
+                onChange={handleChange1}
+                onFocus={() => handleFocus1("message")}
+                onBlur={() => handleBlur1("message")}
+                variant="outlined"
+                multiline
+                rows={4}
+                autoComplete="off"
+              />
+            </Box>
 
             <div className="love-group">
               <div className="love">
@@ -258,55 +286,63 @@ const Adoption = () => {
                 </label>
               </div>
             </div>
+          </fieldset>
 
-            <div className="input_textarea">
-              <label
-                htmlFor="message"
-                className={
-                  focused.message || formdata1.message ? "focused" : ""
-                }
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formdata1.message}
-                onChange={handleChange1}
-                onFocus={() => handleFocus1("message")}
-                onBlur={() => handleBlur1("message")}
-                required
-              />
-            </div>
-          </form>
-        </fieldset>
-
-        <fieldset>
-          <legend>Information sur l'adoptant</legend>
-          <form onSubmit={handlesubmit1}>
-            <div className="input_container_adoption2">
-              <input
+          <fieldset>
+            <legend>Information sur l'adoptant</legend>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                "& .MuiTextField-root": {
+                  m: 2,
+                  width: "60ch",
+                  fontSize: "1.2rem",
+                  // Texte de l'input noir
+                  input: {
+                    color: "black",
+                  },
+                  // Label noir par défaut
+                  label: {
+                    color: "black",
+                  },
+                  // Quand l'input est focus, label et bordure en #778d45
+                  "& label.Mui-focused": {
+                    color: "#778d45",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "black",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#778d45",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#778d45",
+                    },
+                  },
+                },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
                 type="date"
                 id="anniv_adopt"
                 name="anniv_adopt"
+                label="Date de naissance"
                 value={formdata1.anniv_adopt}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("anniv_adopt")}
                 onBlur={() => handleBlur1("anniv_adopt")}
                 required
+                fullWidth
+                variant="outlined"
               />
-              <label
-                htmlFor="anniv_adopt"
-                className={
-                  focused.anniv_adopt || formdata1.anniv_adopt ? "focused" : ""
-                }
-              >
-                Date de naissance
-              </label>
-            </div>
-
-            <div className="input_container_adoption2">
-              <input
+              <TextField
+                required
                 type="text"
                 id="adresse"
                 name="adresse"
@@ -314,116 +350,72 @@ const Adoption = () => {
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("adresse")}
                 onBlur={() => handleBlur1("adresse")}
-                required
+                variant="outlined"
+                label="Adresse"
+                autoComplete="off"
+                fullWidth
               />
-              <label
-                htmlFor="adresse"
-                className={
-                  focused.adresse || formdata1.adresse ? "focused" : ""
-                }
-              >
-                Adresse
-              </label>
-            </div>
-
-            <div className="input_container_adoption2">
-              <label
-                htmlFor="logement"
-                className={
-                  focused.logement || formdata1.logement ? "focused" : ""
-                }
-              >
-                Type de logement
-              </label>
-              <select
-                id="infos_form2"
+              <TextField
+                required
                 name="logement"
                 value={formdata1.logement}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("logement")}
                 onBlur={() => handleBlur1("logement")}
+                select
+                label="Type de logement"
+                fullWidth
+              >
+                <MenuItem value="appartement">Appartement</MenuItem>
+                <MenuItem value="maison">Maison</MenuItem>
+              </TextField>
+              <TextField
                 required
-              >
-                <option value="selectionner">Sélectionner</option>
-                <option value="appartement">Appartement</option>
-                <option value="maison">Maison</option>
-              </select>
-            </div>
-
-            <div className="input_container_adoption2">
-              <label
-                htmlFor="acces"
-                className={focused.acces || formdata1.acces ? "focused" : ""}
-              >
-                Accès extérieur
-              </label>
-              <select
-                id="infos_form2"
                 name="acces"
                 value={formdata1.acces}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("acces")}
                 onBlur={() => handleBlur1("acces")}
+                select
+                label="Accès extérieur"
+                fullWidth
+              >
+                <MenuItem value="jardin">Jardin</MenuItem>
+                <MenuItem value="terrasse">Terrasse</MenuItem>
+                <MenuItem value="aucun">Aucun</MenuItem>
+              </TextField>
+              <TextField
                 required
-              >
-                <option value="selectionner">Sélectionner</option>
-                <option value="jardin">Jardin</option>
-                <option value="terrasse">Terrasse</option>
-                <option value="balcon">Balcon</option>
-                <option value="aucun">Aucun</option>
-              </select>
-            </div>
-
-            <div className="input_container_adoption2">
-              <label
-                htmlFor="enfants"
-                className={
-                  focused.enfants || formdata1.enfants ? "focused" : ""
-                }
-              >
-                Avez-vous des enfants ?
-              </label>
-              <select
-                id="infos_form2"
                 name="enfants"
                 value={formdata1.enfants}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("enfants")}
                 onBlur={() => handleBlur1("enfants")}
-                required
+                select
+                label="Avez-vous des enfants ?"
+                fullWidth
               >
-                <option value="selectionner">Sélectionner</option>
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-              </select>
-            </div>
+                <MenuItem value="oui">Oui</MenuItem>
+                <MenuItem value="non">Non</MenuItem>
+              </TextField>
 
-            <div className="input_container_adoption2">
-              <label
-                htmlFor="animaux"
-                className={
-                  focused.animaux || formdata1.animaux ? "focused" : ""
-                }
-              >
-                Avez-vous des animaux ?
-              </label>
-              <select
+
+              <TextField
+                required
                 id="infos_form2"
                 name="animaux"
                 value={formdata1.animaux}
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("animaux")}
                 onBlur={() => handleBlur1("animaux")}
-                required
+                label="Avez-vous des animaux ?"
+                fullWidth
+                select
               >
-                <option value="selectionner">Sélectionner</option>
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-              </select>
-            </div>
-
-            <div className="input_container_adoption2">
-              <input
+                <MenuItem value="oui">Oui</MenuItem>
+                <MenuItem value="non">Non</MenuItem>
+              </TextField>
+              <TextField
                 type="text"
                 id="animal2"
                 name="animal2"
@@ -431,22 +423,30 @@ const Adoption = () => {
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("animal2")}
                 onBlur={() => handleBlur1("animal2")}
+                label="Type d'animaux ?"
+                variant="outlined"
               />
-              <label
-                htmlFor="animal2"
-                className={
-                  focused.animal2 || formdata1.animal2 ? "focused" : ""
-                }
-              >
-                Type animaux ?
-              </label>
-            </div>
+            </Box>
+          </fieldset>
 
-            <button className="button_envoie" type="submit">
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              m: 3,
+            }}
+          >
+            <Button
+              type="submit"
+              variant="contained"
+              endIcon={<SendIcon />}
+              sx={{ backgroundColor: '#778d45', '&:hover': { backgroundColor: '#66753a' } }}
+            >
               Envoyer
-            </button>
-          </form>
-        </fieldset>
+            </Button>
+          </Box>
+        </form>
       </div>
     </div>
   );

@@ -13,13 +13,13 @@
   gap: 3rem;
   border-radius: 30px;
   padding: 2rem;
-  height: 50rem;
+  height: 100%;
   margin-bottom: 2rem;
   padding-top: 5rem;
 }
 
 fieldset {
-  border: 2px solid var(--primary-color);
+  border: 3px solid var(--primary-color);
   padding: 2.5rem 0.5rem;
 }
 
@@ -261,14 +261,14 @@ legend {
   padding-top: 5rem;
 }
 
-.input_container_adoption2 {
+/* .input_container_adoption2 {
   position: relative;
   margin-bottom: 2rem;
   color: var(--primary-color);
   font-size: 1.5rem;
-}
+} */
 
-.logement-selector {
+/* .logement-selector {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -279,9 +279,9 @@ legend {
   margin-bottom: 5px;
   font-size: 1.5rem;
   color: var(--primary-color);
-}
+} */
 
-#infos_form2 {
+/* #infos_form2 {
   width: 100%;
   padding: 10px;
   border: 2px solid var(--primary-color);
@@ -292,7 +292,7 @@ legend {
 
 #buton_form2:hover {
   border-color: var(--primary-color);
-}
+} */
 
 .buton_form2 {
   margin-top: -0.5rem;
@@ -375,7 +375,7 @@ legend {
   }
 }
 
-/* input radio en coeur */
+/******************************INPUT RADIO COEUR**************************************************/
 /* Cacher les inputs radio */
 .love-heart:before,
 input[type="radio"] {
