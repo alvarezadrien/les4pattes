@@ -121,7 +121,32 @@ const Inscription = () => {
                 <form onSubmit={handleSubmit}>
                     <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image" />
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, width: '50ch' }}>
+                    <Box sx={{
+                        '& .MuiTextField-root': {
+                            m: 1,
+                            width: '50ch',
+                            maxWidth: '500px',
+                            display: 'flex',
+                            margin: '0 auto 1rem auto',
+                        },
+                        '& .MuiInputLabel-root': {
+                            color: 'black',
+                            '&.Mui-focused': {
+                                color: '#778d45',
+                            },
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                borderColor: 'black',
+                            },
+                            '&:hover fieldset': {
+                                borderColor: '#778d45',
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#778d45',
+                            },
+                        },
+                    }}>
                         <TextField
                             required
                             type="text"

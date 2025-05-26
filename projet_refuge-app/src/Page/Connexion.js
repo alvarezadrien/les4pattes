@@ -28,7 +28,32 @@ const Connexion = () => {
           <div className="container_form_login_connexion">
             <form>
 
-              <Box sx={{ display: 'flex', flexDirection: 'column', width: '40ch', margin: '0 auto', marginTop: '20px', m: 1 }}>
+              <Box sx={{
+                '& .MuiTextField-root': {
+                  m: 1,
+                  width: '30ch',
+                  maxWidth: '500px',
+                  display: 'flex',
+                  margin: '0 auto 1rem auto',
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'black',
+                  '&.Mui-focused': {
+                    color: '#778d45',
+                  },
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'black',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#778d45',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#778d45',
+                  },
+                },
+              }}>
                 <TextField
                   id="email"
                   label="Email"

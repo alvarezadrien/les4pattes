@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import '../Motpasse_oublie.css';
 
+//Import material-ui
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
 const Motpasse_oublie = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
