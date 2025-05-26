@@ -20,7 +20,7 @@ const Carte_carrousel = () => {
         { name: "Dora", age: "2 Ans 1/2", race: "Berger Allemand", Sexe: "Femelle stérilisé", imgSrc: "/img/img_galeriechien/chien_berger_1.3.jpg" },
         { name: "Casper", age: "2 Ans", race: "Européen", Sexe: "Femelle stérilisé", imgSrc: "/img/img_galeriechat/chat_blanc_1.3.jpg" },
         { name: "Rocky", age: "5 Ans", race: "Inconnu", Sexe: "Mâle stérilisé", imgSrc: "/img/img_galeriechien/chien_mali_1.1.jpg" },
-        { name: "Nala", age: "8 Mois", race: "ecaille de tortue", Sexe: "Femelle stérilisé", imgSrc: "/img/img_galeriechat/nala_1.1.jpg" },
+        { name: "Nala", age: "1 An", race: "ecaille de tortue", Sexe: "Femelle stérilisé", imgSrc: "/img/img_galeriechat/nala_1.1.jpg" },
         { name: "Buddy", age: "1 An", race: "Lorem", Sexe: "Mâle", imgSrc: "/img/img_galeriechien/chien_iron_1.1.jpg" }
     ];
 
