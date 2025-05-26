@@ -21,7 +21,7 @@
   width: 50vw;
   border-radius: 30px;
   padding: 2rem;
-  height: 100vh;
+  height: 85vh;
   margin-bottom: 2rem;
 }
 
@@ -37,33 +37,6 @@
   position: absolute;
   margin-left: 5%;
   top: 0;
-}
-
-input:focus + label,
-input:not(:placeholder-shown) + label,
-textarea:not(:placeholder-shown) + label,
-.focused + label {
-  top: 0;
-  font-size: 1.5rem;
-}
-
-label {
-  position: absolute;
-  transform: translateY(-50%);
-  margin-left: 5rem;
-}
-
-input {
-  display: block;
-  margin: 0 auto;
-  width: 30vw;
-  padding: 0.8rem 0.5rem;
-  font-size: 1rem;
-  border: 2px solid var(--primary-color);
-  border-radius: 4px;
-  outline: none;
-  box-sizing: border-box;
-  transition: 0.3s;
 }
 
 .password-container {

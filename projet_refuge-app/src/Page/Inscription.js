@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import '../Inscription.css';
 
+// Import de material-ui
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 const Inscription = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -54,6 +67,9 @@ const Inscription = () => {
         setShowPassword(!showPassword);
     };
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => event.preventDefault();
+
     // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -103,10 +119,11 @@ const Inscription = () => {
             <h1 className='h1_inscription'>Vos données personnelles</h1>
             <div className='container_form_inscription'>
                 <form onSubmit={handleSubmit}>
-                    {/* Champ Nom */}
                     <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image" />
-                    <div className="input_container_inscri">
-                        <input
+
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, width: '50ch' }}>
+                        <TextField
+                            required
                             type="text"
                             id="name"
                             name="name"
@@ -114,45 +131,36 @@ const Inscription = () => {
                             onChange={handleChange}
                             onFocus={() => handleFocus("name")}
                             onBlur={() => handleBlur("name")}
-                            required
+                            variant='outlined'
+                            label="Nom"
                         />
-                        <label htmlFor="name" className={focused.name || formData.name ? 'focused' : ''}>
-                            Nom
-                        </label>
-                    </div>
 
-                    {/* Champ Prénom */}
-                    <div className="input_container_inscri">
-                        <input
-                            type="text"
-                            id="prenom"
-                            name="prenom"
+                        <TextField
+                            required
+                            type='text'
+                            name='prenom'
                             value={formData.prenom}
                             onChange={handleChange}
                             onFocus={() => handleFocus("prenom")}
                             onBlur={() => handleBlur("prenom")}
-                            required
+                            label="Prénom"
+                            variant='outlined'
                         />
-                        <label htmlFor="prenom" className={focused.prenom || formData.prenom ? 'focused' : ''}>
-                            Prénom
-                        </label>
-                    </div>
 
-                    <div className="input_container_inscri">
-                        <input
+                        <TextField
+                            required
                             type="date"
                             id="dob"
                             name="dob"
                             value={formData.dob}
                             onChange={handleChange}
-                            required
+                            fullWidth
+                            variant='outlined'
+                            label="Date"
                         />
-                        <label htmlFor="dob">Date de naissance</label>
-                    </div>
 
-                    {/* Champ Adresse */}
-                    <div className="input_container_inscri">
-                        <input
+                        <TextField
+                            required
                             type="text"
                             id="adresse"
                             name="adresse"
@@ -160,16 +168,12 @@ const Inscription = () => {
                             onChange={handleChange}
                             onFocus={() => handleFocus("adresse")}
                             onBlur={() => handleBlur("adresse")}
-                            required
+                            variant='outlined'
+                            label="Adresse"
                         />
-                        <label htmlFor="adresse" className={focused.adresse || formData.adresse ? 'focused' : ''}>
-                            Adresse
-                        </label>
-                    </div>
 
-                    {/* Champ Téléphone */}
-                    <div className="input_container_inscri">
-                        <input
+                        <TextField
+                            required
                             type="tel"
                             id="telephone"
                             name="telephone"
@@ -178,17 +182,13 @@ const Inscription = () => {
                             onFocus={() => handleFocus("telephone")}
                             onBlur={() => handleBlur("telephone")}
                             pattern="^[0-9]{10}$"
-                            title="Veuillez entrer un numéro de téléphone de 10 chiffres."
-                            required
+                            placeholder="Veuillez entrer un numéro de téléphone de 10 chiffres."
+                            label="Téléphone"
+                            variant='outlined'
                         />
-                        <label htmlFor="telephone" className={focused.telephone || formData.telephone ? 'focused' : ''}>
-                            Téléphone
-                        </label>
-                    </div>
 
-                    {/* Champ Email */}
-                    <div className="input_container_inscri">
-                        <input
+                        <TextField
+                            required
                             type="email"
                             id="email"
                             name="email"
@@ -196,39 +196,31 @@ const Inscription = () => {
                             onChange={handleChange}
                             onFocus={() => handleFocus("email")}
                             onBlur={() => handleBlur("email")}
-                            required
+                            label="Email"
+                            variant='outlined'
                         />
-                        <label htmlFor="email" className={focused.email || formData.email ? 'focused' : ''}>
-                            Email
-                        </label>
-                    </div>
 
-                    {/* Champ Mot de passe */}
-                    <div className="input_container_inscri">
-                        <label htmlFor="password">Mot de passe</label>
-                        <div className="password_container">
-                            <input
-                                type={showPassword ? 'text' : 'password'}
+                        <FormControl variant="outlined">
+                            <InputLabel htmlFor="password">Mot de passe</InputLabel>
+                            <OutlinedInput
                                 id="password"
-                                placeholder="Entrez votre mot de passe"
-                                value={formData.password}
-                                onChange={handleChange}
-                            // required
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder='Entrez votre mot de passe'
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Mot de passe"
                             />
-                            <button
-                                type="button"
-                                className="toggle_password"
-                                onClick={togglePasswordVisibility}
-                            >
-                                {showPassword ? (
-                                    <img src="/img/affiche.png" alt="Afficher" width={25} className='img_affiche' />
-                                ) : (
-                                    <img src="/img/cacher.png" alt="Cacher" width={25} className='img_cacher' />
-                                )}
-                            </button>
-                        </div>
-                    </div>
-
+                        </FormControl>
+                    </Box>
                     {/* Affichage des messages d'erreur */}
                     {errorMessage && (
                         <div className="error-message">
@@ -236,9 +228,21 @@ const Inscription = () => {
                         </div>
                     )}
 
-                    <button className="button_envoyer_inscri" type="submit">
-                        Confirmer
-                    </button>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            className="btn-login"
+                            sx={{
+                                backgroundColor: '#778d45',
+                                '&:hover': {
+                                    backgroundColor: '#5f7036', // une teinte plus foncée au survol (optionnel)
+                                }
+                            }}
+                        >
+                            Confirmer
+                        </Button>
+                    </Box>
                 </form>
             </div>
         </div>
