@@ -4,14 +4,6 @@
   margin-top: 7rem;
 }
 
-.img_cat_form img {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  left: -9rem;
-  top: -7.1rem;
-}
-
 .container_form_inscription {
   display: flex;
   justify-content: center;
@@ -44,7 +36,7 @@
   width: 100%;
 }
 
-.password_container input {
+.password-container input {
   width: 100%;
   padding-right: 35px;
   box-sizing: border-box;
@@ -65,19 +57,6 @@
   text-decoration: underline;
 }
 
-.input_conditions {
-  position: relative;
-  top: 3.5rem;
-}
-
-.input_conditions input {
-  width: 40px;
-}
-
-.input_conditions label {
-  display: flex;
-}
-
 .button_envoyer_inscri {
   display: block;
   margin: 0 auto;
@@ -86,19 +65,13 @@
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
   border-radius: 4px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
   background-color: var(--tertiary-color);
-  font-size: 1.5rem;
 }
 
 .error-message {
   color: red;
-}
-
-.input_with_image {
-  display: flex;
-  align-items: center;
 }
 
 .cat_image {

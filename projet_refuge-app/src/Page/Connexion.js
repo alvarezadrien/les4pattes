@@ -61,7 +61,13 @@ const Connexion = () => {
                   placeholder='Entrez votre email'
                   sx={{ mb: 2 }}
                 />
-                <FormControl variant="outlined">
+                <FormControl variant="outlined" sx={{
+                  m: 1,
+                  width: '30ch',
+                  maxWidth: '500px',
+                  display: 'flex',
+                  margin: '0 auto 1rem auto',
+                }}>
                   <InputLabel htmlFor="password">Mot de passe</InputLabel>
                   <OutlinedInput
                     id="password"
@@ -81,6 +87,7 @@ const Connexion = () => {
                     label="Mot de passe"
                   />
                 </FormControl>
+
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                 <Button

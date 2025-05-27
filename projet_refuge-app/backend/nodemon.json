@@ -1,0 +1,21 @@
+{
+  "watch": [
+    "src/**/*.js",
+    "src/**/*.json",
+    "src/**/*.env"
+  ],
+  "ext": "js,json,env",
+  "ignore": [
+    "node_modules",
+    "*.test.js",
+    "*.spec.js"
+  ],
+  "verbose": true,
+  "delay": "1000",
+  "legacy-watch": true,
+  "watchOptions": {
+    "followSymlinks": false,
+    "usePolling": true,
+    "interval": 1000
+  }
+}

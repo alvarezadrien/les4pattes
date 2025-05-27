@@ -29,24 +29,6 @@
   margin-bottom: 15px;
 }
 
-.container_form_login label {
-  display: block;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-left: 22.5%;
-  font-size: 1.5rem;
-  padding-bottom: 3.5rem;
-}
-
-.container_form_login input {
-  width: 90%;
-  padding: 10px;
-  border: 2px solid var(--primary-color);
-  border-radius: 4px;
-  font-size: 16px;
-  margin-top: 1.5rem;
-}
-
 .btn-login {
   width: 70%;
   padding: 10px;

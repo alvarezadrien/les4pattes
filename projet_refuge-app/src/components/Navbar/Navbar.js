@@ -53,7 +53,7 @@ function Navbar() {
       <div className="navbar_logo">
         <a href="/">
           <img
-            src="/img/les 4 pattes logo.png"
+            src="/img/logo_site.svg"
             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
             width={130}
           // height={130}

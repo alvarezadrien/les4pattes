@@ -33,9 +33,8 @@ const Inscription = () => {
     });
 
     const [showPassword, setShowPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(""); // Ajout de l'état pour l'erreur
+    const [errorMessage, setErrorMessage] = useState("");
 
-    // Gestion des changements de champs
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -44,7 +43,6 @@ const Inscription = () => {
         });
     };
 
-    // Gestion du focus des champs
     const handleFocus = (field) => {
         setFocused({
             ...focused,
@@ -52,7 +50,6 @@ const Inscription = () => {
         });
     };
 
-    // Gestion du blur (perte de focus) des champs
     const handleBlur = (field) => {
         if (!formData[field]) {
             setFocused({
@@ -62,7 +59,6 @@ const Inscription = () => {
         }
     };
 
-    // Afficher ou cacher le mot de passe
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -70,11 +66,8 @@ const Inscription = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => event.preventDefault();
 
-    // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // Réinitialiser l'erreur avant l'envoi
         setErrorMessage("");
 
         try {
@@ -90,11 +83,8 @@ const Inscription = () => {
 
             if (response.ok) {
                 console.log("Données enregistrées:", result);
-                // Rediriger l'utilisateur ou afficher un message de succès
-                // window.location.href = "/connexion"; ou quelque chose de similaire
             } else {
                 console.error("Erreur lors de l'inscription:", result.message);
-                // Afficher un message d'erreur si l'email est déjà utilisé
                 setErrorMessage(result.message || "Erreur lors de l'inscription");
             }
         } catch (error) {
@@ -102,7 +92,6 @@ const Inscription = () => {
             setErrorMessage("Erreur lors de l'inscription, veuillez réessayer.");
         }
 
-        // Réinitialiser le formulaire après soumission
         setFormData({
             name: "",
             prenom: "",
@@ -124,7 +113,12 @@ const Inscription = () => {
                     <Box sx={{
                         '& .MuiTextField-root': {
                             m: 1,
-                            width: '50ch',
+                            width: {
+                                xs: '90%',
+                                sm: '80%',
+                                md: '60%',
+                                lg: '50ch',
+                            },
                             maxWidth: '500px',
                             display: 'flex',
                             margin: '0 auto 1rem auto',
@@ -147,6 +141,7 @@ const Inscription = () => {
                             },
                         },
                     }}>
+
                         <TextField
                             required
                             type="text"
@@ -182,6 +177,7 @@ const Inscription = () => {
                             fullWidth
                             variant='outlined'
                             label="Date"
+                            InputLabelProps={{ shrink: true }}
                         />
 
                         <TextField
@@ -225,7 +221,18 @@ const Inscription = () => {
                             variant='outlined'
                         />
 
-                        <FormControl variant="outlined">
+                        <FormControl variant="outlined" sx={{
+                            m: 1,
+                            width: {
+                                xs: '90%',
+                                sm: '80%',
+                                md: '60%',
+                                lg: '50ch',
+                            },
+                            maxWidth: '500px',
+                            display: 'flex',
+                            margin: '0 auto 1rem auto',
+                        }}>
                             <InputLabel htmlFor="password">Mot de passe</InputLabel>
                             <OutlinedInput
                                 id="password"
@@ -245,8 +252,9 @@ const Inscription = () => {
                                 label="Mot de passe"
                             />
                         </FormControl>
+
                     </Box>
-                    {/* Affichage des messages d'erreur */}
+
                     {errorMessage && (
                         <div className="error-message">
                             <p>{errorMessage}</p>
@@ -261,7 +269,7 @@ const Inscription = () => {
                             sx={{
                                 backgroundColor: '#778d45',
                                 '&:hover': {
-                                    backgroundColor: '#5f7036', // une teinte plus foncée au survol (optionnel)
+                                    backgroundColor: '#5f7036',
                                 }
                             }}
                         >

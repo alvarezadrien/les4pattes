@@ -11,7 +11,7 @@ const Footer = () => {
           <Link to="/"> {/* Utilisez Link pour la navigation */}
             <img
               className="logo_site_footer"
-              src="/img/les 4 pattes logo.png"
+              src="/img/logo_site.svg"
               alt="Logo site"
             />
           </Link>

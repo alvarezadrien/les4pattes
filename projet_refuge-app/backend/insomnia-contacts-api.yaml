@@ -1,0 +1,625 @@
+type: spec.insomnia.rest/5.0
+name: Contacts API 1.0.0
+meta:
+  id: wrk_12e7df5233084df6829e8cda465a0af8
+  created: 1745504510163
+  modified: 1745504510163
+collection:
+  - name: Contacts
+    meta:
+      id: fld_01ff98f240954ac3a6dd57dc7978c785
+      created: 1745504537207
+      modified: 1745504537207
+      sortKey: -1745504537207
+    children:
+      - url: http://localhost:3000/api/contacts
+        name: /contacts
+        meta:
+          id: req_a580a312033c44eaafcc3f3b1e60c3b5
+          created: 1745504698776
+          modified: 1745596857929
+          isPrivate: false
+          sortKey: -1745521535824
+        method: GET
+        parameters:
+          - id: pair_d705103ad4594cbca3223c57f4d01f22
+            name: search
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/contacts
+        name: /contacts
+        meta:
+          id: req_ea5b9caffc2b47a084b6dad81aeef1de
+          created: 1745521535724
+          modified: 1745596156692
+          isPrivate: false
+          sortKey: -1745521535724
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: name
+              value: fdsf
+              id: pair_4e2c196aeeb64f74a9a758fbb5bd18a7
+            - id: pair_e0d109bb83eb4ef69846a13a85f33c24
+              name: email
+              value: test@test.com
+              disabled: false
+            - id: pair_b6cf1de6011a4e76b8ac0899ee859646
+              name: phone
+              value: "0467989898"
+              disabled: false
+            - id: pair_671f50d5251a4fcdbfacbbbedd5aff02
+              name: avatar
+              disabled: false
+              type: file
+              fileName: C:\Users\steve\Documents\Projects\konfer\trainings\node\training-node-express-advanced\docs\swagger.json
+            - id: pair_657de6e165e64ba4806a7abc3539257e
+              name: owner
+              value: 680a8529845ba67ce9525442
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/contacts
+        name: /contacts/:id
+        meta:
+          id: req_40a72c86d7db4a78b2bd950c257810e9
+          created: 1745596834294
+          modified: 1745596859314
+          isPrivate: false
+          sortKey: -1745521535774
+        method: GET
+        parameters:
+          - id: pair_d705103ad4594cbca3223c57f4d01f22
+            name: search
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/contacts/680baffac95c9d64cf9986da
+        name: /contacts/:id
+        meta:
+          id: req_3db5e2956d2d4f53a92f3be9e08a9c31
+          created: 1745596867796
+          modified: 1745596983290
+          isPrivate: false
+          sortKey: -1745513168049.5
+        method: PUT
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: name
+              value: fdsf
+              id: pair_4e2c196aeeb64f74a9a758fbb5bd18a7
+            - id: pair_e0d109bb83eb4ef69846a13a85f33c24
+              name: email
+              value: test@test.com
+              disabled: false
+            - id: pair_b6cf1de6011a4e76b8ac0899ee859646
+              name: phone
+              value: "0467989898"
+              disabled: false
+            - id: pair_671f50d5251a4fcdbfacbbbedd5aff02
+              name: avatar
+              disabled: false
+              type: file
+              fileName: C:\Users\steve\Documents\Projects\konfer\trainings\node\training-node-express-advanced\docs\swagger.json
+            - id: pair_657de6e165e64ba4806a7abc3539257e
+              name: owner
+              value: 680a8529845ba67ce9525442
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/contacts/680baffac95c9d64cf9986da
+        name: /contacts/:id
+        meta:
+          id: req_34693836cafa4ca8aae569d669e628ba
+          created: 1745596880001
+          modified: 1745597122155
+          isPrivate: false
+          sortKey: -1745508984212.25
+        method: DELETE
+        body:
+          mimeType: multipart/form-data
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Users
+    meta:
+      id: fld_2f22178ca2474d5a8e8f410f2f814181
+      created: 1745504544325
+      modified: 1745504544325
+      sortKey: -1745504544325
+    children:
+      - url: http://localhost:3000/api/users
+        name: /users
+        meta:
+          id: req_858912526a70412fb4c1060a9afc4ae2
+          created: 1745504779900
+          modified: 1745598005042
+          isPrivate: false
+          sortKey: -1745504800375
+        method: GET
+        parameters:
+          - id: pair_ce709ca48ec04174ae610eeb338c00fe
+            name: search
+            value: az
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/users/67ff71f7b8f2cbb063ebb6bb
+        name: /users/:id
+        meta:
+          id: req_6fa569564abc40d5b543dca4938a4048
+          created: 1745598037244
+          modified: 1745598055451
+          isPrivate: false
+          sortKey: -1745504696802
+        method: GET
+        parameters:
+          - id: pair_ce709ca48ec04174ae610eeb338c00fe
+            name: search
+            value: az
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/users/67ff71f7b8f2cbb063ebb6bb
+        name: /users/:id
+        meta:
+          id: req_e1cecbf496cf49c28e7fab1ba7f2cd8f
+          created: 1745598195044
+          modified: 1745598241826
+          isPrivate: false
+          sortKey: -1745504645015.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "azerdfdssdsqdsqdqdfstyui@konfer.be",
+            	"password": "12345678"
+            }
+        parameters:
+          - id: pair_ce709ca48ec04174ae610eeb338c00fe
+            name: search
+            value: az
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/users/67ff71f7b8f2cbb063ebb6bb
+        name: /users/:id
+        meta:
+          id: req_4eb3c368e94345f1beebdb8160929547
+          created: 1745598256030
+          modified: 1745598262203
+          isPrivate: false
+          sortKey: -1745504644915.5
+        method: DELETE
+        parameters:
+          - id: pair_ce709ca48ec04174ae610eeb338c00fe
+            name: search
+            value: az
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODBiYWU1ZWM3YmMxM2UzZTMwNmI0OGUiLCJpYXQiOjE3NDU1OTU5OTgsImV4cCI6MTc0NTY4MjM5OH0.K1DjAp9TE7A74-HaSlQOQ93sJd7_Hc4t7MgSM2F97KA
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Auth
+    meta:
+      id: fld_c00106f3e69441b1b0fa9a91c9236709
+      created: 1745504551322
+      modified: 1745504551322
+      sortKey: -1745504551322
+    children:
+      - url: http://localhost:3000/api/auth/register
+        name: /register
+        meta:
+          id: req_e6bfad034e364fe0b5176479b979138d
+          created: 1745504560243
+          modified: 1745595997876
+          isPrivate: false
+          sortKey: -1745504593229
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "azerdfdsfstyui@konfer.be",
+            	"password": "12345678"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: basic
+          useISO88591: false
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api/auth/login
+        name: /login
+        meta:
+          id: req_01dea2b349f6452483e2faaa69257639
+          created: 1745504574464
+          modified: 1745601118014
+          isPrivate: false
+          sortKey: -1745504593129
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "azerdfdsfstyui@konfer.be",
+            	"password": "12345678"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_75db7cb82e7ac2209c51ffd6e467a9ab5bf99327
+    created: 1745504513007
+    modified: 1745504513007
+environments:
+  name: Base Environment
+  meta:
+    id: env_75db7cb82e7ac2209c51ffd6e467a9ab5bf99327
+    created: 1745504513005
+    modified: 1745504513005
+    isPrivate: false
+spec:
+  contents:
+    openapi: 3.0.0
+    info:
+      title: Contacts API
+      version: 1.0.0
+      description: API documentation for the Contacts management system
+      contact:
+        name: API Support
+        email: support@example.com
+    servers:
+      - url: http://localhost:3000
+        description: Development server
+    components:
+      schemas:
+        Contact:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The contact ID
+            name:
+              type: string
+              description: The contact name
+            email:
+              type: string
+              format: email
+              description: The contact email
+            phone:
+              type: string
+              description: The contact phone number
+    paths:
+      /api/contacts:
+        get:
+          operationId: getContacts
+          summary: Get all contacts
+          description: Retrieve a list of contacts with optional filtering and pagination
+          tags:
+            - Contacts
+          parameters:
+            - in: query
+              name: page
+              schema:
+                type: integer
+                default: 1
+              description: Page number for pagination
+            - in: query
+              name: limit
+              schema:
+                type: integer
+                default: 10
+              description: Number of items per page
+          responses:
+            "200":
+              description: List of contacts retrieved successfully
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Contact"
+                      pagination:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          limit:
+                            type: integer
+            "500":
+              description: Internal server error
+        post:
+          operationId: createContact
+          summary: Create a new contact
+          description: Create a new contact in the system
+          tags:
+            - Contacts
+          requestBody:
+            required: true
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The contact's name
+                    email:
+                      type: string
+                      format: email
+                      description: The contact's email
+                    phone:
+                      type: string
+                      description: The contact's phone number
+                    avatar:
+                      type: string
+                      format: binary
+                      description: The contact's avatar image
+          responses:
+            "201":
+              description: Contact created successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Contact"
+            "400":
+              description: Invalid input data
+            "401":
+              description: Unauthorized - Authentication required
+            "403":
+              description: Forbidden - Insufficient permissions
+            "500":
+              description: Internal server error
+      "/api/contacts/{id}":
+        get:
+          operationId: getContactById
+          summary: Get a contact by ID
+          description: Retrieve a specific contact by its ID
+          tags:
+            - Contacts
+          parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                type: string
+              description: Contact ID
+          responses:
+            "200":
+              description: Contact retrieved successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Contact"
+            "404":
+              description: Contact not found
+            "500":
+              description: Internal server error
+        put:
+          operationId: updateContact
+          summary: Update a contact
+          description: Update an existing contact
+          tags:
+            - Contacts
+          parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                type: string
+              description: Contact ID
+          requestBody:
+            required: true
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The contact's name
+                    email:
+                      type: string
+                      format: email
+                      description: The contact's email
+                    phone:
+                      type: string
+                      description: The contact's phone number
+                    avatar:
+                      type: string
+                      format: binary
+                      description: The contact's avatar image
+          responses:
+            "200":
+              description: Contact updated successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Contact"
+            "400":
+              description: Invalid input data
+            "401":
+              description: Unauthorized - Authentication required
+            "403":
+              description: Forbidden - Insufficient permissions
+            "404":
+              description: Contact not found
+            "500":
+              description: Internal server error
+        delete:
+          operationId: deleteContact
+          summary: Delete a contact
+          description: Delete an existing contact
+          tags:
+            - Contacts
+          parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                type: string
+              description: Contact ID
+          responses:
+            "204":
+              description: Contact deleted successfully
+            "401":
+              description: Unauthorized - Authentication required
+            "403":
+              description: Forbidden - Insufficient permissions
+            "404":
+              description: Contact not found
+            "500":
+              description: Internal server error
+    tags:
+      - name: Contacts
+        description: API endpoints for managing contacts
+  meta:
+    id: spc_87d69cf4663b48e781dac3d728eac4ed
+    created: 1745504510164
+    modified: 1745504510165

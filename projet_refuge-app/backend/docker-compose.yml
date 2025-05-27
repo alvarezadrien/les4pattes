@@ -1,0 +1,32 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js:ro
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassw0rd
+      - MONGO_INITDB_DATABASE=training-node-mongodb
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www/html:delegated
+      - /var/www/html/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - MONGO_USERNAME=app-user
+      - MONGO_PASSWORD=app-passw0rd
+      - MONGO_DATABASE=training-node-mongodb
+      - MONGO_URI=mongodb://app-user:app-passw0rd@mongodb:27017/training-node-mongodb
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data: 
