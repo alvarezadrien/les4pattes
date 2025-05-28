@@ -1,0 +1,55 @@
+2025-05-28T09:54:54.796Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:54:54.814Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 09:54:54 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-05-28T09:55:29.475Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:55:29.479Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 09:55:29 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T09:55:41.536Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:55:41.540Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 09:55:41 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T09:55:52.739Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:55:52.755Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 09:55:52 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T09:57:01.156Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:57:01.173Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 09:57:01 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T09:57:08.503Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:57:08.507Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 09:57:08 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T10:01:02.869Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:02.885Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 10:01:02 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T10:01:03.903Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:03.907Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 10:01:03 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T10:01:04.848Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:04.852Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 10:01:04 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-05-28T10:01:07.472Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:07.476Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 10:01:07 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"
+2025-05-28T10:01:08.427Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:08.430Z [info] ::ffff:172.20.0.1 - - [Wed, 28 May 2025 10:01:08 GMT] "GET /api/animals HTTP/1.1" 500 35 "-" "insomnia/11.1.0"

@@ -3,10 +3,9 @@ import { config } from './api/config/env.config.js';
 import { connect } from './api/config/database.config.js';
 import Logger from './api/config/logger.config.js';
 
-const [major, minor] = process.versions.node.split('.').map( parseFloat );
+const [major, minor] = process.versions.node.split('.').map(parseFloat);
 
-if(major < 20  || major === 20 && minor <= 0)
-{
+if (major < 20 || major === 20 && minor <= 0) {
   Logger.error('--- The node version of the server is too low for modern node programming');
   process.exit(1);
 }

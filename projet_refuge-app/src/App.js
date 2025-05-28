@@ -35,7 +35,7 @@ import Carousel_swiper from './Page/Carrousel_swiper';
 
 const App = () => {
   // Vérifie si la page actuelle est une des pages à exclure (Connexion, Inscription, Mot de passe oublié)
-  const noNavbarFooter = ["/Connexion", "/Inscription", "/Mot de passe oublié"].includes(window.location.pathname);
+  const noNavbarFooter = ["/Connexion", "/Inscription", "/Motpasse_oublie"].includes(window.location.pathname);
 
   return (
     <Router>

@@ -12,7 +12,7 @@ collection:
       modified: 1745504537207
       sortKey: -1745504537207
     children:
-      - url: http://localhost:3000/api/contacts
+      - url: http://localhost:4000/api/contacts
         name: /contacts
         meta:
           id: req_a580a312033c44eaafcc3f3b1e60c3b5
@@ -39,7 +39,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/contacts
+      - url: http://localhost:4000/api/contacts
         name: /contacts
         meta:
           id: req_ea5b9caffc2b47a084b6dad81aeef1de
@@ -87,7 +87,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/contacts
+      - url: http://localhost:4000/api/contacts
         name: /contacts/:id
         meta:
           id: req_40a72c86d7db4a78b2bd950c257810e9
@@ -114,7 +114,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/contacts/680baffac95c9d64cf9986da
+      - url: http://localhost:4000/api/contacts/680baffac95c9d64cf9986da
         name: /contacts/:id
         meta:
           id: req_3db5e2956d2d4f53a92f3be9e08a9c31
@@ -162,7 +162,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/contacts/680baffac95c9d64cf9986da
+      - url: http://localhost:4000/api/contacts/680baffac95c9d64cf9986da
         name: /contacts/:id
         meta:
           id: req_34693836cafa4ca8aae569d669e628ba
@@ -196,7 +196,7 @@ collection:
       modified: 1745504544325
       sortKey: -1745504544325
     children:
-      - url: http://localhost:3000/api/users
+      - url: http://localhost:4000/api/users
         name: /users
         meta:
           id: req_858912526a70412fb4c1060a9afc4ae2
@@ -224,7 +224,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/users/67ff71f7b8f2cbb063ebb6bb
+      - url: http://localhost:4000/api/users/67ff71f7b8f2cbb063ebb6bb
         name: /users/:id
         meta:
           id: req_6fa569564abc40d5b543dca4938a4048
@@ -252,7 +252,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/users/67ff71f7b8f2cbb063ebb6bb
+      - url: http://localhost:4000/api/users/67ff71f7b8f2cbb063ebb6bb
         name: /users/:id
         meta:
           id: req_e1cecbf496cf49c28e7fab1ba7f2cd8f
@@ -289,7 +289,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/users/67ff71f7b8f2cbb063ebb6bb
+      - url: http://localhost:4000/api/users/67ff71f7b8f2cbb063ebb6bb
         name: /users/:id
         meta:
           id: req_4eb3c368e94345f1beebdb8160929547
@@ -324,7 +324,7 @@ collection:
       modified: 1745504551322
       sortKey: -1745504551322
     children:
-      - url: http://localhost:3000/api/auth/register
+      - url: http://localhost:4000/api/auth/register
         name: /register
         meta:
           id: req_e6bfad034e364fe0b5176479b979138d
@@ -357,7 +357,7 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:3000/api/auth/login
+      - url: http://localhost:4000/api/auth/login
         name: /login
         meta:
           id: req_01dea2b349f6452483e2faaa69257639
@@ -410,7 +410,7 @@ spec:
         name: API Support
         email: support@example.com
     servers:
-      - url: http://localhost:3000
+      - url: http://localhost:4000
         description: Development server
     components:
       schemas:

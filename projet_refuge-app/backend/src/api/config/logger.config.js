@@ -6,7 +6,7 @@ import SlackHook from 'winston-slack-webhook-transport';
 
 import { format } from 'winston';
 
-const formater = format.printf(( { level, message, timestamp } ) => {
+const formater = format.printf(({ level, message, timestamp }) => {
   return `${timestamp} [${level}] ${message}`;
 });
 
@@ -79,7 +79,7 @@ const configuration = {
         webhookUrl: config.slackWebhookUrl,
         username: 'Karpbot',
         iconEmoji: '🥷',
-      }), 
+      }),
     ],
     stream: [
       new winston.transports.Console({
@@ -121,7 +121,7 @@ export class Logger {
   writeStream() {
     return morgan(this.token, {
       stream: {
-        write:(message) => {
+        write: (message) => {
           this.logger.log('info', message.substring(0, message.lastIndexOf('\n')));
         }
       }

@@ -8,8 +8,9 @@ import headers from './headers.config.js';
 import hpp from 'hpp';
 
 import { contactRouter } from '../../resources/contact/contact.routes.js';
-import { authRouter } from '../../auth/auth.routes.js';
+import { authRouter } from '../../auth/auth.routes.js';  // auth routes modifiées ici
 import { userRouter } from '../../resources/user/user.routes.js';
+import { animalRouter } from '../../resources/animals/animals.routes.js';
 
 import ErrorCatcher from '../middlewares/errors.middleware.js';
 import Logger from './logger.config.js';
@@ -30,9 +31,12 @@ app.use(express.static('public'));
 
 app.use(compression());
 
-app.use('/api/auth', authRouter);
+// Auth routes sur /connexion au lieu de /api/auth
+app.use('/api/connexion', authRouter);
+
 app.use('/api/users', userRouter);
 app.use('/api/contacts', contactRouter);
+app.use('/api/animals', animalRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(ErrorCatcher);

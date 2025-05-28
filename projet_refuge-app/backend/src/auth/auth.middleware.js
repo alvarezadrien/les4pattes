@@ -4,15 +4,17 @@ import AuthService from './auth.service.js';
 
 export const authenticate = async (req, res, next) => {
   try {
-    // const token = req.cookies.token;
+    // Récupération du token dans le header Authorization : "Bearer <token>"
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
       throw new UnauthorizedError('Token is required');
     }
 
+    // Vérification du token
     const decoded = AuthService.verifyToken(token);
 
+    // Recherche utilisateur
     const user = await User.findById(decoded._id);
 
     if (!user) {

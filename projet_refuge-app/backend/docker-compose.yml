@@ -7,14 +7,14 @@ services:
       - mongodb_data:/data/db
       - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js:ro
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=rootpassw0rd
+      - MONGO_INITDB_ROOT_USERNAME=adrien
+      - MONGO_INITDB_ROOT_PASSWORD=12345678
       - MONGO_INITDB_DATABASE=training-node-mongodb
 
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "4000:3000"
     volumes:
       - ./:/var/www/html:delegated
       - /var/www/html/node_modules
@@ -24,9 +24,23 @@ services:
       - MONGO_USERNAME=app-user
       - MONGO_PASSWORD=app-passw0rd
       - MONGO_DATABASE=training-node-mongodb
-      - MONGO_URI=mongodb://app-user:app-passw0rd@mongodb:27017/training-node-mongodb
+      - MONGO_URI=${MONGO_URI}
+    depends_on:
+      - mongodb
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: adrien
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 12345678
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_AUTH_DATABASE: admin
     depends_on:
       - mongodb
 
 volumes:
-  mongodb_data: 
+  mongodb_data:

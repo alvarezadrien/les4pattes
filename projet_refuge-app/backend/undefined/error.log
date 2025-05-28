@@ -1,0 +1,44 @@
+2025-05-28T09:54:54.796Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:55:29.476Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:55:41.536Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:55:52.739Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:57:01.156Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T09:57:08.503Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:02.869Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:03.903Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:04.848Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:07.472Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-28T10:01:08.427Z [error] [ReferenceError] mongoose is not defined 
+ReferenceError: mongoose is not defined
+    at getAnimals (file:///var/www/html/src/resources/animals/animals.controller.js:39:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
