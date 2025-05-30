@@ -106,3 +106,61 @@
   padding: 0.8rem;
   width: 75%;
 }
+
+@media (max-width: 480px) {
+  /* .page_compagnons {
+    padding: 1rem 0;
+    margin-top: 5rem;
+  } */
+
+  .h1_compagnons {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .container_compagnons {
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 100%;
+    align-items: center;
+  }
+
+  .animal_group_compagnons {
+    gap: 4rem;
+  }
+
+  .item_flip-card {
+    width: 90vw;
+    max-width: 18rem;
+    height: 16rem;
+  }
+
+  .flip-card-front img {
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .flip-card-front h3 {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
+
+  .flip-card-front span {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  .flip-card-back {
+    padding: 1rem;
+    bottom: 2rem;
+    width: fit-content;
+  }
+
+  .animal-description {
+    font-size: 1rem;
+    width: 90%;
+    padding: 0.5rem;
+  }
+}
