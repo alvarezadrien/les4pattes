@@ -23,7 +23,7 @@ import Cruaute from './components/Pages/Cruauté/Cruaute';
 import Compagnons_adopter from './components/Pages/Adoptés/Compagnons_adopter';
 import Mon_compte from './components/Pages/Profil/Compte/Mon_compte';
 import Accueil_animaux from './components/Pages/Accueil/Accueil_animaux';
-import Sensibilisation from './components/Sensibilisation/Sensibilisation';
+import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation';
 import Adhesions from './components/Pages/Adhésions/Adhesions';
 
 // Code réutilisable
