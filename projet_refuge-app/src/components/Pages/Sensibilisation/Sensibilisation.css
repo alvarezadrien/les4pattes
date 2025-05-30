@@ -1,0 +1,514 @@
+.container_sensibilisation1 {
+  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 33rem;
+  min-width: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+}
+
+.h1_sensi1 {
+  color: var(--tertiary-color);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding-top: 1.7rem;
+}
+
+.div_container_sensi1 {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 1rem;
+  width: 70vw;
+  margin: 0 auto;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.div_container_sensi1 img {
+  border-radius: 15px;
+  width: 310px;
+  height: 310px;
+  object-fit: cover;
+}
+
+.text_sensi1 {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 68%;
+  padding: 4px;
+}
+
+.text_sensi1 h2 {
+  font-size: 1.4rem;
+  width: 40rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  justify-self: center;
+}
+
+.text_sensi1 p {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: justify;
+  padding: 7px;
+}
+
+.container_sensi_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+  justify-items: center;
+  margin-bottom: 2rem;
+}
+
+.grid_item_sensi img {
+  width: 330px;
+  height: 330px;
+  object-fit: cover;
+}
+
+.grid_item_sensi {
+  background-color: rgba(255, 255, 255, 0.714);
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.grid_item_sensi1 {
+  background-color: #b0c4b1;
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.grid_item_sensi2 {
+  background-color: #778da9;
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.grid_item_sensi3 {
+  background-color: #9d8189;
+  width: 330px;
+  height: 330px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container_sensi_grid h3 {
+  text-align: center;
+  color: var(--tertiary-color);
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.container_sensi_grid p {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--tertiary-color);
+  font-size: 18px;
+}
+
+.container_sensi2 {
+  background-color: var(--secondary-color);
+  width: 60vw;
+  margin: 0 auto;
+  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.text_sensi2 h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.text_sensi2 p {
+  text-align: justify;
+  width: 40rem;
+  margin: 0 auto;
+  font-size: 16px;
+}
+
+.text_sensi2 {
+  margin-bottom: 1.5rem;
+}
+
+.img_sensi2 img {
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.img_sensi2 {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.img_sensi2 p {
+  text-align: justify;
+  width: 23rem;
+  margin-top: 1rem;
+  font-size: 18px;
+}
+
+@media (max-width: 650px) {
+  .container_sensibilisation1 {
+    height: auto;
+    margin-top: 3rem;
+    padding-bottom: 0.5rem;
+    justify-self: center;
+    align-content: center;
+  }
+
+  .h1_sensi1 {
+    font-size: 1.5rem;
+    padding-top: 6rem;
+  }
+
+  .div_container_sensi1 {
+    width: 90vw;
+    padding: 0.5rem;
+  }
+
+  .div_container_sensi1 img {
+    width: 100%;
+  }
+
+  .text_sensi1 {
+    width: 100%;
+    padding: 2px;
+    text-align: center;
+  }
+
+  .text_sensi1 h2 {
+    font-size: 1.25rem;
+    width: 100%;
+  }
+
+  .text_sensi1 p {
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  .container_sensi_grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .grid_item_sensi,
+  .grid_item_sensi1,
+  .grid_item_sensi2,
+  .grid_item_sensi3 {
+    width: 85vw;
+    height: auto;
+    justify-self: center;
+    align-content: center;
+  }
+
+  .grid_item_sensi img {
+    width: 85vw;
+    object-fit: cover;
+    height: 300px;
+  }
+
+  .container_sensi2 {
+    width: 90vw;
+    padding: 0.5rem;
+  }
+
+  .text_sensi2 h3 {
+    font-size: 1.2rem;
+  }
+
+  .text_sensi2 p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .img_sensi2 p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .img_sensi2 img {
+    width: 85vw;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+}
+
+@media (min-width: 650px) and (max-width: 768px) {
+  .container_sensibilisation1 {
+    height: auto;
+    margin-top: 3rem;
+    padding-bottom: 0.5rem;
+    justify-self: center;
+    align-content: center;
+  }
+
+  .h1_sensi1 {
+    font-size: 1.5rem;
+    padding-top: 6rem;
+  }
+
+  .div_container_sensi1 {
+    width: 90vw;
+    padding: 0.5rem;
+  }
+
+  .div_container_sensi1 img {
+    width: 100%;
+  }
+
+  .text_sensi1 {
+    width: 100%;
+    padding: 2px;
+    text-align: center;
+  }
+
+  .text_sensi1 h2 {
+    font-size: 1.5rem;
+    width: 100%;
+  }
+
+  .text_sensi1 p {
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  .container_sensi_grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-self: center;
+  }
+
+  .grid_item_sensi,
+  .grid_item_sensi1,
+  .grid_item_sensi2,
+  .grid_item_sensi3 {
+    height: auto;
+    width: 40vw;
+  }
+
+  .grid_item_sensi img {
+    object-fit: cover;
+    width: 40vw;
+  }
+
+  .container_sensi2 {
+    width: 90vw;
+    padding: 0.5rem;
+  }
+
+  .text_sensi2 h3 {
+    font-size: 1.2rem;
+  }
+
+  .text_sensi2 p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .img_sensi2 p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .img_sensi2 img {
+    width: 85vw;
+    height: 320px;
+    border-radius: 20px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container_sensibilisation1 {
+    height: auto;
+    margin-top: 3rem;
+    padding-bottom: 0.5rem;
+    justify-self: center;
+    align-content: center;
+  }
+
+  .h1_sensi1 {
+    font-size: 2.5rem;
+    padding-top: 6rem;
+  }
+
+  .div_container_sensi1 {
+    width: 80vw;
+    padding: 0.5rem;
+  }
+
+  .div_container_sensi1 img {
+    width: 100%;
+    height: 250px;
+  }
+
+  .text_sensi1 {
+    width: 100%;
+    padding: 2px;
+    text-align: center;
+  }
+
+  .text_sensi1 h2 {
+    font-size: 1.35rem;
+    width: 100%;
+  }
+
+  .text_sensi1 p {
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  .container_sensi_grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-self: center;
+  }
+
+  .grid_item_sensi,
+  .grid_item_sensi1,
+  .grid_item_sensi2,
+  .grid_item_sensi3 {
+    height: auto;
+    width: 40vw;
+  }
+
+  .grid_item_sensi img {
+    object-fit: cover;
+    width: 40vw;
+  }
+
+  .container_sensi2 {
+    width: 90vw;
+    padding: 0.5rem;
+  }
+
+  .text_sensi2 h3 {
+    font-size: 1.2rem;
+  }
+
+  .text_sensi2 p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .img_sensi2 p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .img_sensi2 img {
+    width: 85vw;
+    height: 320px;
+    border-radius: 20px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .container_sensibilisation1 {
+    height: auto;
+    margin-top: 3rem;
+    padding-bottom: 0.5rem;
+    justify-self: center;
+    align-content: center;
+  }
+
+  .h1_sensi1 {
+    font-size: 2.5rem;
+    padding-top: 6rem;
+  }
+
+  .div_container_sensi1 {
+    width: 60vw;
+    padding: 0.5rem;
+  }
+
+  .div_container_sensi1 img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+  }
+
+  .text_sensi1 {
+    width: 100%;
+    padding: 2px;
+    text-align: center;
+  }
+
+  .text_sensi1 h2 {
+    font-size: 1.7rem;
+    width: 100%;
+  }
+
+  .text_sensi1 p {
+    font-size: 17px;
+    padding: 5px;
+  }
+
+  .container_sensi_grid {
+    gap: 2rem;
+    justify-self: center;
+  }
+
+  .grid_item_sensi,
+  .grid_item_sensi1,
+  .grid_item_sensi2,
+  .grid_item_sensi3 {
+    width: 25vw;
+    height: auto;
+  }
+
+  .grid_item_sensi img {
+    object-fit: cover;
+    width: 25vw;
+  }
+
+  .container_sensi2 {
+    width: 70vw;
+    padding: 0.5rem;
+  }
+
+  .text_sensi2 h3 {
+    font-size: 1.5rem;
+  }
+
+  .text_sensi2 p {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .img_sensi2 p {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .img_sensi2 img {
+    width: 58vw;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+}

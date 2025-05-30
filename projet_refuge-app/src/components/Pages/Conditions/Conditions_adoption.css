@@ -1,0 +1,405 @@
+.img_conditions {
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 2rem;
+}
+
+.img_conditions img {
+  display: flex;
+  margin: 0 auto;
+  width: 600px;
+  height: 350px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: contain;
+}
+
+.h1_adopt {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.paragraphe_adopt1 {
+  font-size: 1.7rem;
+  text-align: justify;
+  display: flex;
+  margin: 0 auto;
+  width: 61rem;
+}
+
+.h4_moyen_adopt {
+  font-size: 1.5rem;
+  font-style: italic;
+  width: 50rem;
+  margin-left: 5rem;
+  margin-top: 4rem;
+}
+
+.ul_moyen_adopt {
+  margin-left: 10rem;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  margin-top: 3rem;
+}
+
+.ul_moyen_adopt a {
+  color: var(--primary-color);
+}
+
+.ul_moyen_adopt:hover a {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.img_adopt1 {
+  display: flex;
+  float: right;
+  position: relative;
+  right: 9%;
+  top: -12rem;
+}
+
+.img_adopt1 img {
+  width: 500px;
+  height: 330px;
+  border-radius: 40%;
+  border: 2px dashed var(--primary-color);
+}
+
+.div_respecter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+h5 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  margin-top: -0.3rem;
+  text-align: center;
+}
+
+.ul_respecter {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ul_respecter li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.ul_respecter li::before {
+  content: "!";
+  color: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.div_frais {
+  max-width: 600px;
+  padding: 20px;
+  margin-left: 11rem;
+  background-color: var(--secondary-color);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 6rem;
+}
+
+.div_frais h5 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.div_frais ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.div_frais li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.ul_frais li::before {
+  content: "*";
+  color: green;
+  left: 0;
+  top: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.img_adopt2 {
+  position: relative;
+  top: -16rem;
+  display: flex;
+  float: right;
+  margin-right: 10rem;
+}
+
+.img_adopt2 img {
+  width: 400px;
+  border-radius: 10px;
+  transform: rotate(15deg);
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 2px 5px var(--quaternary-color);
+}
+
+.img_adopt2:hover img {
+  transform: perspective(10px);
+  transition: all 1.5s;
+  border-radius: 100%;
+}
+
+.frais_comprend {
+  background-color: var(--secondary-color);
+  width: 50vw;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24%;
+  position: relative;
+  top: -10rem;
+}
+.h3_comprend {
+  font-size: 2rem;
+  margin-top: -0.5rem;
+}
+.frais_comprend ul {
+  list-style: circle;
+}
+.frais_comprend ul li {
+  font-size: 1.4rem;
+}
+
+.souhait_adopter {
+  font-size: 2rem;
+  text-align: center;
+  margin-top: -6rem;
+  margin-bottom: 3rem;
+  text-decoration: underline;
+  text-underline-offset: 11px;
+}
+
+.div_container_chien_chat_souhait {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+.container_souhait1,
+.container_souhait2 {
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.img_souhait1 img,
+.img_souhait2 img {
+  width: 450px;
+  height: 230px;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.img_souhait1:hover,
+.img_souhait2:hover {
+  transform: scale(0.9);
+  transition: all 0.8s;
+}
+
+.h4_souhait {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* paragraphe de souhait */
+.para_souhait1 {
+  font-size: 1.3rem;
+  text-align: center;
+  width: 25rem;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 2.5rem;
+}
+
+.button_souhait {
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+  border-radius: 70%;
+  border: none;
+  font-size: 1.7rem;
+  padding: 0.5rem;
+  width: 11.5rem;
+  height: 3.5rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+@media (max-width: 481px) {
+  .img_conditions {
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+    padding: 2rem;
+  }
+
+  .img_conditions img {
+    width: 100%;
+    height: auto;
+  }
+
+  .h1_adopt {
+    font-size: 2rem;
+  }
+
+  .paragraphe_adopt1 {
+    font-size: 17px;
+    width: 90%;
+  }
+
+  .h4_moyen_adopt {
+    font-size: 1.3rem;
+    width: 95%;
+    margin-left: 1rem;
+    margin-top: 2rem;
+  }
+
+  .ul_moyen_adopt {
+    margin-left: 2em;
+    font-size: 1rem;
+    margin-top: 2rem;
+  }
+
+  .img_adopt1 {
+    float: none;
+    position: static;
+    margin: 0 auto;
+  }
+
+  .img_adopt1 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .div_respecter {
+    max-width: 90%;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+  }
+
+  .ul_respecter li {
+    font-size: 0.9rem;
+  }
+
+  .div_frais {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+  }
+
+  .div_frais h5 {
+    font-size: 1.2rem;
+  }
+
+  .div_frais li {
+    font-size: 0.9rem;
+  }
+
+  .img_adopt2 {
+    float: none;
+    position: static;
+    margin: 0 auto;
+    top: 0;
+  }
+
+  .img_adopt2 img {
+    width: 95%;
+    transform: none;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .h3_comprend {
+    font-size: 1.4rem;
+    width: 95vw;
+    text-align: center;
+  }
+
+  .frais_comprend {
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+    top: 2rem;
+    padding: 1.5rem;
+  }
+
+  .frais_comprend ul li {
+    font-size: 1rem;
+  }
+
+  .souhait_adopter {
+    font-size: 1.5rem;
+    margin-top: -1.5rem;
+  }
+
+  .div_container_chien_chat_souhait {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container_souhait1,
+  .container_souhait2 {
+    width: 90%;
+    margin-bottom: 2rem;
+  }
+
+  .img_souhait1 img,
+  .img_souhait2 img {
+    width: 85vw;
+    height: auto;
+  }
+
+  .h4_souhait {
+    font-size: 1.4rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .para_souhait1 {
+    font-size: 1rem;
+    width: 90%;
+  }
+
+  .button_souhait {
+    font-size: 1.2rem;
+    width: 9rem;
+    height: 3rem;
+  }
+}

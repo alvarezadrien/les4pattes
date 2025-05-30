@@ -1,0 +1,18 @@
+.back-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #819d3e;
+  color: var(--tertiary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: var(--primary-color);
+}

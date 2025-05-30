@@ -1,0 +1,520 @@
+.container_img {
+  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 30rem;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-top: 25rem;
+}
+
+.h1_titre {
+  color: var(--tertiary-color);
+  margin-top: -20rem;
+  font-size: 4rem;
+  margin-left: 20rem;
+  padding-top: 4rem;
+}
+
+#content {
+  font-size: 2.5rem;
+  margin-left: 15rem;
+  color: var(--tertiary-color);
+  display: flex;
+  border-right: 2px solid var(--quaternary-color);
+  overflow: hidden;
+  max-width: 600px;
+  animation: blink-cursor 0.9s steps(2, start) infinite;
+  white-space: normal;
+  min-height: 9rem;
+}
+
+@keyframes blink-cursor {
+  from {
+    border-right-color: transparent;
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+
+.circle_img0 {
+  margin-top: -7.5rem;
+  margin-right: 2rem;
+}
+
+.circle_img1 img {
+  position: relative;
+  border-radius: 50%;
+  float: right;
+  margin-right: 5rem;
+  margin-top: -10rem;
+  width: 360px;
+  height: 350px;
+  transition: 5s linear;
+  object-fit: cover;
+}
+
+.circle_img2 img {
+  border-radius: 50%;
+  float: right;
+  margin-right: -3rem;
+  margin-top: -10rem;
+}
+
+.circle_img3 img {
+  /* border-radius: 50%; */
+  float: right;
+  margin-right: -18rem;
+  margin-top: 4rem;
+  width: auto;
+}
+
+.button_propos {
+  background: #778d4572;
+  position: relative;
+  transition: 0.5s ease;
+  cursor: pointer;
+  width: 12rem;
+  height: 3rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 40rem;
+  margin-top: 13rem;
+  font-size: 1.5rem;
+  color: var(--tertiary-color);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button_propos::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: #778d45;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.button_propos:hover {
+  color: #fff;
+  transition: 0.5s;
+}
+
+.button_propos:hover::before {
+  width: 100%;
+}
+
+.button_propos::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /*  depart background changement ici */
+  left: 0;
+  height: 0;
+  width: 100%;
+  background-color: #778d45;
+  transition: height 0.6s ease;
+  z-index: -3;
+}
+
+.button_propos:hover::after {
+  height: 100%;
+  transition-delay: 0.4s;
+}
+
+.container_choix {
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15rem;
+  height: 30rem;
+}
+
+.container_choix1,
+.container_choix2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container_choix img {
+  margin-top: 5rem;
+  object-fit: cover;
+  box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button_choix_chiens,
+.button_choix_chats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 1.8rem;
+  border-radius: 50px;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.button_choix_chiens:hover,
+.button_choix_chats:hover {
+  background-color: var(--senary-color);
+  color: var(--tertiary-color);
+}
+
+.leur_maison {
+  position: relative;
+  top: 5rem;
+  padding-bottom: 15rem;
+}
+
+.span_maison {
+  position: relative;
+  color: var(--primary-color);
+  font-size: 4rem;
+  top: -3rem;
+  left: 10rem;
+}
+
+.leur_maison img {
+  position: relative;
+  float: right;
+  margin-right: 18rem;
+  margin-top: -11.5rem;
+}
+
+.nombre {
+  color: var(--primary-color);
+  font-size: 4rem;
+  margin-left: 40rem;
+}
+
+.titre_carte {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.container_carte {
+  margin-top: -3.5rem;
+}
+
+.home_propos h2 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.paragraphe_home_propos {
+  margin-left: 10rem;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+}
+
+.home_propos_img img {
+  width: 400px;
+  height: 400px;
+  border-radius: 100%;
+  float: right;
+  position: relative;
+  top: -15rem;
+  margin-right: 15rem;
+}
+
+.home_propos button {
+  background: #778d4572;
+  border: none;
+  width: 12rem;
+  height: 2.5rem;
+  font-size: 1.6rem;
+  position: relative;
+  margin-top: 5rem;
+  left: 35rem;
+  transition: 0.5s ease;
+  cursor: pointer;
+  overflow: hidden;
+  color: var(--tertiary-color);
+  z-index: 1;
+}
+
+.home_propos button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: #778d45;
+  transition: 1s ease;
+  z-index: 2;
+}
+.home_propos button:hover {
+  color: #fff;
+  transition: 0.5s;
+}
+
+.home_propos button:hover::before {
+  width: 100%;
+}
+.home_propos button::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /*  depart background changement ici */
+  left: 0;
+  height: 0;
+  width: 100%;
+  background-color: #778d45;
+  transition: height 0.6s ease;
+  z-index: -3;
+}
+.home_propos button:hover::after {
+  height: 100%;
+  transition-delay: 0.4s;
+}
+
+.div_soins {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_aides_soins {
+  display: flex;
+  background-color: var(--secondary-color);
+  height: 30rem;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+.h2_titre_soins {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.icon_ensemble {
+  display: flex;
+  justify-content: center;
+  gap: 20rem;
+  flex-wrap: wrap;
+}
+
+.icon_soins1,
+.icon_soins2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box_soins1,
+.box_soins2 {
+  padding: 1rem;
+  border-radius: 35px;
+  width: 25rem;
+  background-color: var(--tertiary-color);
+  box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+}
+
+.icon_soins1 img,
+.icon_soins2 img {
+  width: 200px;
+  height: 200px;
+}
+
+.icon_soins1 h3,
+.icon_soins2 h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.icon_soins1 button,
+.icon_soins2 button {
+  margin-top: 0.5rem;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 50px;
+  width: 7rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  color: var(--tertiary-color);
+  cursor: pointer;
+}
+
+.icon_soins1 button:hover,
+.icon_soins2 button:hover {
+  background-color: var(--senary-color);
+}
+
+.icon_soins1 button a,
+.icon_soins2 button a {
+  text-decoration: none;
+  color: var(--tertiary-color);
+}
+
+@media screen and (max-width: 480px) {
+  .container_img {
+    height: 45rem;
+  }
+
+  .h1_titre {
+    margin-left: 0;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  #content {
+    font-size: 1.3rem;
+    margin-left: 2rem;
+    width: 18rem;
+  }
+
+  .circle_img0 {
+    display: flex;
+    margin-top: 9rem;
+    flex-wrap: wrap;
+  }
+
+  .circle_img1 img {
+    left: 3.5rem;
+    width: 200px;
+    height: 200px;
+    display: block;
+  }
+
+  .circle_img2 img {
+    margin-top: -2.5rem;
+    margin-left: 0.8rem;
+    width: 140px;
+    height: 140px;
+  }
+
+  .circle_img3 img {
+    width: 140px;
+    margin-right: 0;
+    margin-left: 2.5rem;
+    margin-top: 0;
+    height: 140px;
+  }
+
+  .button_propos {
+    font-size: 1.3rem;
+    margin: 0;
+    position: relative;
+    left: 20%;
+    top: 2rem;
+  }
+
+  .container_choix {
+    display: block;
+    height: 45rem;
+  }
+
+  .container_choix img {
+    width: 200px;
+    height: 200px;
+    margin-left: 3rem;
+  }
+
+  .button_choix_chiens,
+  .button_choix_chats {
+    display: flex;
+  }
+
+  .span_maison {
+    font-size: 1.8rem;
+    margin-left: -9.5rem;
+  }
+
+  .nombre {
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+
+  .leur_maison img {
+    margin-right: 0;
+    margin-top: -3rem;
+    width: 150px;
+    height: 150px;
+  }
+
+  .titre_carte {
+    font-size: 1.5rem;
+  }
+
+  .titre_carte img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .home_propos h2 {
+    font-size: 1.5rem;
+  }
+
+  .home_propos img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .paragraphe_home_propos {
+    font-size: 1.5rem;
+    margin: 0 auto;
+    text-align: center;
+    width: 95vw;
+  }
+
+  .home_propos_img img {
+    width: 250px;
+    height: 250px;
+    margin: 0;
+    margin-top: 18rem;
+    margin-right: 2.5rem;
+  }
+
+  .home_propos button {
+    margin-left: -31.5rem;
+    margin-top: 21rem;
+  }
+
+  .box_soins1,
+  .box_soins2 {
+    width: 85vw;
+    margin: 1rem auto;
+  }
+
+  .container_aides_soins {
+    height: 100%;
+    margin-top: -5rem;
+  }
+
+  .container_aides_soins h2 {
+    font-size: 2rem;
+  }
+
+  .container_aides_soins h3 {
+    font-size: 1.5rem;
+  }
+
+  .h2_titre_soins img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .icon_soins1 img,
+  .icon_soins2 img {
+    width: 170px;
+    height: 170px;
+  }
+
+  .icon_ensemble {
+    display: block;
+  }
+}
