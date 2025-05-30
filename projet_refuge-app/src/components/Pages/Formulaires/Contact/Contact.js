@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "./Contact.css";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import emailjs from "emailjs-com";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
@@ -80,7 +78,7 @@ const Contact = () => {
         <div className={`popupenvoie ${popupEnvoieClass}`}>
           <div className="popupenvoie__content">
             <img
-              src="/img/vert_pop.png"
+              src="/img/fleur_pop.png"
               alt="Image florale"
               className="popupenvoie__image"
             />

@@ -137,6 +137,95 @@ textarea {
 }
 
 /* Responsive Design */
+/* Popup d'envoie */
+.popupenvoie {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popupenvoie__content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  width: 30%;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  animation: fadeInScale 0.4s ease;
+  position: relative;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.popupenvoie__image {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  animation: rotateImage 3s linear infinite;
+}
+
+@keyframes rotateImage {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.popupenvoie__title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.popupenvoie__description {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.popupenvoie__buttons .popupenvoie__button {
+  background-color: #778d45;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.popupenvoie__buttons .popupenvoie__button:hover {
+  background-color: #5a6b35;
+}
+
+.popuppenvoie-success .popupenvoie__content {
+  border-top: 5px solid #4caf50;
+}
+
+.popuppenvoie-erreur .popupenvoie__content {
+  border-top: 5px solid #f44336;
+}
+
+/* --- Responsive de ton fichier existant --- */
 @media (max-width: 480px) {
   .container_page_contact {
     width: 90vw;
@@ -183,7 +272,33 @@ textarea {
     height: 180px;
     border-radius: 10px;
   }
+
+  /* === AJOUT RESPONSIVE POPUP === */
+  .popupenvoie__content {
+    width: 80vw;
+    padding: 1.5rem;
+  }
+
+  .popupenvoie__title {
+    font-size: 1.5rem;
+  }
+
+  .popupenvoie__description {
+    font-size: 1rem;
+  }
+
+  .popupenvoie__buttons .popupenvoie__button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .popupenvoie__image {
+    width: 60px;
+    height: 60px;
+  }
 }
+
 @media (min-width: 481px) and (max-width: 768px) {
   .container_page_contact {
     width: 80vw;
@@ -230,6 +345,7 @@ textarea {
     border-radius: 14px;
   }
 }
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .container_page_contact {
     width: 65vw;
@@ -275,6 +391,7 @@ textarea {
     border-radius: 16px;
   }
 }
+
 @media (min-width: 1025px) and (max-width: 1280px) {
   .container_page_contact {
     width: 55vw;
@@ -320,6 +437,7 @@ textarea {
     border-radius: 18px;
   }
 }
+
 @media (min-width: 1281px) and (max-width: 1440px) {
   .container_page_contact {
     width: 50vw;
