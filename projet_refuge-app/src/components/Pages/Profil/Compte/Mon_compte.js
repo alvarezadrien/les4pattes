@@ -1,104 +1,151 @@
-import React, { useState } from 'react';
-import './Mon_compte.css';
+import React, { useState } from "react";
+import "./Mon_compte.css";
+
+// Tableau simple avec les chemins des avatars
+const avatarOptions = [
+  "/img/Avatar/avatar_chat1.jpg",
+  "/img/Avatar/avatar_chat2.jpg",
+  "/img/Avatar/avatar_chat3.jpg",
+  "/img/Avatar/avatar_chat4.jpg",
+  "/img/Avatar/avatar_chien1.jpg",
+  "/img/Avatar/avatar_chien2.jpg",
+  "/img/Avatar/avatar_chien3.jpg",
+  "/img/Avatar/avatar_chien4.jpg",
+];
 
 const MonCompte = () => {
-    const [isFirstClick, setIsFirstClick] = useState(true);
+  const [avatar, setAvatar] = useState("/img/avatar.png");
+  const [showPopup, setShowPopup] = useState(false);
 
-    const [image1Src, setImage1Src] = useState("/img/Magazine1.jpg");
-    const [image2Src, setImage2Src] = useState("/img/Magazine2.jpg");
+  const handleAvatarClick = () => {
+    setShowPopup(true);
+  };
 
-    const [image1Style, setImage1Style] = useState({
-        width: '150px',
-        transform: 'scale(1.2)',
-        order: 1
-    });
+  const handleAvatarSelect = (img) => {
+    setAvatar(img);
+    setShowPopup(false);
+  };
 
-    const [image2Style, setImage2Style] = useState({
-        width: '100px',
-        transform: 'scale(0.8)',
-        order: 2
-    });
-
-    const changeImage = () => {
-        if (isFirstClick) {
-            setImage1Src("/img/Magazine2.jpg");
-            setImage2Src("/img/Magazine1.jpg");
-
-            setImage1Style({
-                width: '100px',
-                transform: 'scale(0.8)',
-                order: 2
-            });
-
-            setImage2Style({
-                width: '150px',
-                transform: 'scale(1.2)',
-                order: 1
-            });
-        } else {
-            setImage1Src("/img/Magazine1.jpg");
-            setImage2Src("/img/Magazine2.jpg");
-
-            setImage1Style({
-                width: '150px',
-                transform: 'scale(1.2)',
-                order: 1
-            });
-
-            setImage2Style({
-                width: '100px',
-                transform: 'scale(0.8)',
-                order: 2
-            });
-        }
-
-        setIsFirstClick(!isFirstClick);
-    };
-
-    return (
-        <div className="page">
-            <div className="circle_compte">
-                <h4>Mon compte</h4>
-                <span className="span1">Angelika Panczuk</span>
+  return (
+    <>
+      <div className="mon-compte-container">
+        <div className="compte-background">
+          <div className="compte-left">
+            <div className="user-info">
+              <img
+                src={avatar}
+                alt="Avatar"
+                className="user-avatar clickable"
+                onClick={handleAvatarClick}
+              />
+              <div className="user-names">
+                <span className="user-nom">Angelika</span>
+                <span className="user-prenom">Panczuk</span>
+              </div>
             </div>
 
-            <ul className="ul_compte">
-                <li>
-                    <img src="/img/ressources.png" alt="Image 1" /> Gérer les données personnelles
-                </li>
-                <li>
-                    <img src="/img/accueil (1).png" alt="Image 2" /> Adresse de livraison
-                </li>
-                <li>
-                    <img src="/img/mot-de-passe (1).png" alt="Image 3" /> Modifier votre mot de passe
-                </li>
-                <li>
-                    <img src="/img/deconnexion (1).png" alt="Image 4" /> Déconnexion
-                </li>
-            </ul>
+            <div className="intro-texte">
+              Bienvenue sur votre espace personnel dédié à la gestion de votre
+              compte dans notre refuge pour chiens et chats.
+            </div>
+          </div>
+          <div className="compte-right">
+            <div className="compte-options-grid">
+              <div className="compte-option">
+                <ul className="ul_compte">
+                  <li>
+                    <img src="/img/ressources.png" alt="Image 1" /> Gérer les
+                    données personnelles
+                  </li>
+                  <li>
+                    <img src="/img/accueil (1).png" alt="Image 2" /> Adresse de
+                    livraison
+                  </li>
+                  <li>
+                    <img src="/img/mot-de-passe (1).png" alt="Image 3" />{" "}
+                    Modifier votre mot de passe
+                  </li>
+                  <li>
+                    <img src="/img/deconnexion (1).png" alt="Image 4" />{" "}
+                    Déconnexion
+                  </li>
+                </ul>
+              </div>
 
-            <div className="container_magazine">
-                <span className="span2">Jy ai droit</span>
-
-                <div className="container_img_magazine">
-                    <img
-                        className="magazine1"
-                        src={image1Src}
-                        style={image1Style}
-                        onClick={changeImage}
-                        alt="Magazine 1"
-                    />
-                    <img
-                        className="magazine2"
-                        src={image2Src}
-                        style={image2Style}
-                        onClick={changeImage}
-                        alt="Magazine 2"
-                    />
+              <div className="compte-option">
+                <div className="option-content">
+                  <img
+                    src="/img/magazine.png"
+                    alt="Statistiques"
+                    className="option-img"
+                  />
+                  <span>Notre magazine</span>
                 </div>
+              </div>
+
+              <div className="compte-option">
+                <div className="option-content">
+                  <img
+                    src="/img/orders.png"
+                    alt="Commandes"
+                    className="option-img"
+                  />
+                  <span>Mes commandes</span>
+                </div>
+              </div>
+
+              <div className="compte-option">
+                <div className="option-content">
+                  <img
+                    src="/img/support.png"
+                    alt="Support"
+                    className="option-img"
+                  />
+                  <span>Support</span>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
+
+        {showPopup && (
+          <div className="avatar-popup">
+            <div className="popup-content">
+              <h3>Choisissez votre avatar</h3>
+              <div className="avatar-options">
+                {avatarOptions.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`avatar-${index}`}
+                    onClick={() => handleAvatarSelect(img)}
+                    className="avatar-option"
+                  />
+                ))}
+              </div>
+              <div className="popup-buttons">
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="close-btn"
+                >
+                  Fermer
+                </button>
+                <button
+                  onClick={() => {
+                    alert("Avatar enregistré !");
+                    setShowPopup(false);
+                  }}
+                  className="close-btn"
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default MonCompte;
