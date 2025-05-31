@@ -258,106 +258,123 @@ h5 {
   margin: 0 auto;
   margin-bottom: 1rem;
 }
-@media (max-width: 481px) {
+
+/* Responsive */
+@media (max-width: 480px) {
   .img_conditions {
-    margin-top: 6rem;
     margin-bottom: 1rem;
-    padding: 2rem;
+    padding: 1rem;
+    background-size: cover;
   }
 
   .img_conditions img {
-    width: 100%;
-    height: auto;
+    width: 90vw;
+    height: 180px;
+    border-radius: 50%;
   }
 
   .h1_adopt {
     font-size: 2rem;
+    padding: 0 0.5rem;
   }
 
   .paragraphe_adopt1 {
-    font-size: 17px;
-    width: 90%;
+    font-size: 1rem;
+    width: 95vw;
+    margin: 0 auto;
+    padding: 0 0.5rem;
   }
 
   .h4_moyen_adopt {
-    font-size: 1.3rem;
-    width: 95%;
+    font-size: 1.1rem;
+    width: 90vw;
     margin-left: 1rem;
     margin-top: 2rem;
   }
 
   .ul_moyen_adopt {
-    margin-left: 2em;
+    margin-left: 1rem;
+    margin-bottom: 2rem;
     font-size: 1rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   .img_adopt1 {
     float: none;
-    position: static;
-    margin: 0 auto;
+    right: 0;
+    top: 0;
+    justify-content: center;
+    margin: 1rem auto;
+    display: flex;
   }
 
   .img_adopt1 img {
-    width: 100%;
-    height: auto;
+    width: 90vw;
+    height: 180px;
+    border-radius: 40%;
   }
 
   .div_respecter {
-    max-width: 90%;
-    padding: 1rem;
-    margin-top: 1rem;
+    max-width: 95vw;
+    padding: 0.5rem;
+    border-radius: 15px;
   }
 
   h5 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 
   .ul_respecter li {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    padding-left: 20px;
   }
 
   .div_frais {
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3rem;
+    max-width: 95vw;
+    padding: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 2rem;
+    border-radius: 10px;
   }
 
   .div_frais h5 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 
   .div_frais li {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .img_adopt2 {
     float: none;
-    position: static;
-    margin: 0 auto;
+    margin-right: 0;
     top: 0;
+    justify-content: center;
+    margin: 1rem auto;
+    display: flex;
   }
 
   .img_adopt2 img {
-    width: 95%;
+    width: 80vw;
+    min-width: 0;
+    border-radius: 10px;
     transform: none;
-    height: auto;
-    margin: 0 auto;
-  }
-
-  .h3_comprend {
-    font-size: 1.4rem;
-    width: 95vw;
-    text-align: center;
   }
 
   .frais_comprend {
-    width: 80%;
+    width: 95vw;
     height: auto;
-    margin: 0 auto;
-    top: 2rem;
-    padding: 1.5rem;
+    margin: 1rem auto;
+    top: 0;
+    padding: 1rem 0.5rem;
+  }
+
+  .h3_comprend {
+    font-size: 1.2rem;
+    margin-top: 0;
   }
 
   .frais_comprend ul li {
@@ -365,41 +382,51 @@ h5 {
   }
 
   .souhait_adopter {
-    font-size: 1.5rem;
-    margin-top: -1.5rem;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    text-underline-offset: 5px;
   }
 
   .div_container_chien_chat_souhait {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1rem;
+    gap: 1.5rem;
   }
 
   .container_souhait1,
   .container_souhait2 {
-    width: 90%;
-    margin-bottom: 2rem;
+    width: 95vw;
+    margin-bottom: 1rem;
+    height: auto;
   }
 
   .img_souhait1 img,
   .img_souhait2 img {
-    width: 85vw;
-    height: auto;
+    width: 90vw;
+    height: 120px;
+    padding: 0.2rem;
+    border-radius: 10px;
   }
 
   .h4_souhait {
-    font-size: 1.4rem;
-    width: 100%;
-    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
   }
 
   .para_souhait1 {
     font-size: 1rem;
-    width: 90%;
+    width: 90vw;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
   }
 
   .button_souhait {
-    font-size: 1.2rem;
-    width: 9rem;
-    height: 3rem;
+    font-size: 1.1rem;
+    width: 90vw;
+    height: 2.5rem;
+    border-radius: 20px;
+    padding: 0.2rem;
   }
 }
