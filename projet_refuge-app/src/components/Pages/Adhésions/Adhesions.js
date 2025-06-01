@@ -25,12 +25,14 @@ const Adhesions = () => {
             </div>
             <h2 className='h2_adhesions'>Explorez nos différentes options de soutien</h2>
 
-            <ul className='ul_adhesions'>
-                <li>La cotisation en tant que membres adhérent : 15€</li>
-                <li>La cotisation en tant que membre sympathisant : 25€</li>
-                <li>La cotisation en tant que membre protecteur : 60€</li>
-                <li>La cotisation en tant que membre à vie : 250€ (à ne payer qu'une seule fois)</li>
-            </ul>
+            <div className='ul_container_adhesions'>
+                <ul className='ul_adhesions'>
+                    <li>La cotisation en tant que membres adhérent : 15€</li>
+                    <li>La cotisation en tant que membre sympathisant : 25€</li>
+                    <li>La cotisation en tant que membre protecteur : 60€</li>
+                    <li>La cotisation en tant que membre à vie : 250€ (à ne payer qu'une seule fois)</li>
+                </ul>
+            </div>
 
             <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image_paiement" />
 

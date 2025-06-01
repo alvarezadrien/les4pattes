@@ -203,11 +203,18 @@
     margin-bottom: 1rem;
   }
 
+  .ul_container_adhesions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    justify-self: center;
+  }
+
   .ul_adhesions li {
     display: flex;
     font-size: 1rem;
     line-height: 1.4rem;
-    width: 22rem;
+    width: 15rem;
     justify-content: center;
     justify-self: center;
     text-align: center;
@@ -233,6 +240,7 @@
   .ul_bank li {
     font-size: 0.9rem;
     padding-left: 1rem;
+    text-align: center;
   }
 
   .div_para_adhesions {
@@ -250,5 +258,128 @@
 
   .cat_image_paiement {
     display: none;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .container_img_adhesions {
+    margin-top: 3rem;
+    height: 22rem;
+    padding: 1rem;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+    background-position: center;
+  }
+
+  .div_img_adhesions1 {
+    padding-top: 1.5rem;
+  }
+
+  .div_img_adhesions1 img {
+    width: 320px;
+    height: 160px;
+    border-radius: 30%;
+    margin-top: 2rem;
+  }
+
+  .div_img_adhesions2 {
+    float: none;
+    margin-right: 0;
+    bottom: 4rem;
+    justify-content: center;
+    left: 0;
+  }
+
+  .div_img_adhesions2 img {
+    position: relative;
+    left: -20%;
+    top: -20px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .div_para_adhesions1 {
+    margin-top: -4rem;
+    margin-left: 2rem;
+  }
+
+  .h1_adhesions {
+    font-size: 2.3rem;
+    text-align: center;
+    margin-top: -1.5rem;
+  }
+
+  .para_adhesions1 {
+    font-size: 1.2rem;
+    width: 70vw;
+    right: 0;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+  }
+
+  .h2_adhesions {
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    text-align: center;
+    width: 22rem;
+  }
+
+  .ul_adhesions {
+    margin-left: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .ul_adhesions li {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    width: 18rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .container_paiement {
+    width: 80vw;
+    height: auto;
+    margin-top: 3rem;
+    padding: 1rem;
+  }
+
+  .h5_adhesions {
+    font-size: 1.3rem;
+    padding-top: 0.7rem;
+    text-align: center;
+  }
+
+  .span_bank {
+    font-size: 1.1rem;
+  }
+
+  .ul_bank li {
+    font-size: 1rem;
+    padding-left: 1.2rem;
+    text-align: center;
+  }
+
+  .div_para_adhesions {
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .para_adhesions2,
+  .para_adhesions3 {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    margin: 0 auto 1rem auto;
+    width: 90%;
+  }
+
+  .cat_image_paiement {
+    width: 150px;
+    height: 170px;
+    margin-left: 8rem;
+    position: absolute;
+    margin-top: 0;
+    display: block;
   }
 }
