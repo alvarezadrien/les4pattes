@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // pour la redirection
+import { useNavigate } from 'react-router-dom';
 import './Connexion.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -27,7 +27,7 @@ const Connexion = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', { // adapte ton URL
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -40,10 +40,17 @@ const Connexion = () => {
         return;
       }
 
-      // Connexion réussie : on peut sauvegarder les infos utilisateur (ex: userId)
-      // Ici on stocke dans localStorage pour simplifier
-      localStorage.setItem('userId', data.userId);
-      localStorage.setItem('userEmail', email);
+      // Créer un objet utilisateur complet
+      const user = {
+        userId: data.userId,
+        email: email,
+        nom: data.nom || 'Nom',
+        prenom: data.prenom || 'Prénom',
+        avatar: data.avatar || '/img/avatar.png',
+      };
+
+      // Enregistre-le dans le localStorage
+      localStorage.setItem('user', JSON.stringify(user));
 
       // Redirection vers la page compte
       navigate('/Mon compte');
@@ -59,8 +66,13 @@ const Connexion = () => {
         <div className="container_form_login_connexion">
           <form onSubmit={handleSubmit}>
             <Box sx={{
-              '& .MuiTextField-root': { m: 1, width: '30ch', maxWidth: '500px', display: 'flex', margin: '0 auto 1rem auto' },
-              '& .MuiInputLabel-root': { color: 'black', '&.Mui-focused': { color: '#778d45' } },
+              '& .MuiTextField-root': {
+                m: 1, width: '30ch', maxWidth: '500px',
+                display: 'flex', margin: '0 auto 1rem auto'
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', '&.Mui-focused': { color: '#778d45' }
+              },
               '& .MuiOutlinedInput-root': {
                 '& fieldset': { borderColor: 'black' },
                 '&:hover fieldset': { borderColor: '#778d45' },
@@ -76,7 +88,13 @@ const Connexion = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <FormControl variant="outlined" sx={{ m: 1, width: '30ch', maxWidth: '500px', display: 'flex', margin: '0 auto 1rem auto' }}>
+              <FormControl
+                variant="outlined"
+                sx={{
+                  m: 1, width: '30ch', maxWidth: '500px',
+                  display: 'flex', margin: '0 auto 1rem auto'
+                }}
+              >
                 <InputLabel htmlFor="password">Mot de passe</InputLabel>
                 <OutlinedInput
                   id="password"

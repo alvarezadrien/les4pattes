@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     telephone: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
+    avatar: { type: String, default: "/img/avatar.png" }  // Ajout du champ avatar
 });
 
 userSchema.pre('save', async function (next) {
