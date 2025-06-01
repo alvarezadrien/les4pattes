@@ -98,3 +98,346 @@
   margin-top: -5rem;
   margin-bottom: 3rem;
 }
+
+@media (max-width: 480px) {
+  .animal-details-container {
+    flex-direction: column;
+    width: 85vw;
+    height: auto;
+    padding: 10px;
+    margin: 2rem auto;
+  }
+
+  .image-section {
+    margin-right: 0;
+    top: 5rem;
+    margin-bottom: 5rem;
+  }
+
+  .main-image {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 8px;
+  }
+
+  .small-images {
+    gap: 3px;
+  }
+
+  .small-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .info-section {
+    align-items: center;
+    padding: 0 5px;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .info-section p,
+  .div_p_infos p {
+    font-size: 1rem;
+    bottom: 0;
+  }
+
+  .arrival_date {
+    bottom: 0;
+  }
+
+  .paragraphe_description_infos {
+    width: 100%;
+    font-size: 1rem;
+    top: 0;
+  }
+
+  .h3_plus_animaux {
+    font-size: 1.3rem;
+  }
+
+  .carrousel_vue {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .animal-details-container {
+    flex-direction: column;
+    width: 90vw;
+    height: auto;
+    padding: 15px;
+    margin: 4rem auto;
+  }
+
+  .image-section {
+    margin-right: 0;
+    top: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  .main-image {
+    width: 220px;
+    height: 220px;
+    margin-bottom: 8px;
+  }
+
+  .small-images {
+    gap: 4px;
+  }
+
+  .small-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .info-section {
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .info-section h2 {
+    font-size: 2rem;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .info-section p,
+  .div_p_infos p {
+    font-size: 1.1rem;
+    bottom: 0;
+  }
+
+  .arrival_date {
+    bottom: 0;
+  }
+
+  .paragraphe_description_infos {
+    width: 95%;
+    font-size: 1.1rem;
+    top: 0;
+  }
+
+  .h3_plus_animaux {
+    font-size: 1.7rem;
+  }
+
+  .carrousel_vue {
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .animal-details-container {
+    flex-direction: row;
+    width: 85vw;
+    height: auto;
+    padding: 18px;
+    margin: 6rem auto;
+  }
+
+  .image-section {
+    margin-right: 15px;
+    top: 3.5rem;
+    margin-bottom: 0;
+  }
+
+  .main-image {
+    width: 260px;
+    height: 260px;
+    margin-bottom: 9px;
+  }
+
+  .small-images {
+    gap: 4px;
+  }
+
+  .small-image {
+    width: 85px;
+    height: 85px;
+  }
+
+  .info-section {
+    align-items: flex-start;
+    padding: 0 12px;
+  }
+
+  .info-section h2 {
+    font-size: 2.2rem;
+    bottom: 1rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+
+  .info-section p,
+  .div_p_infos p {
+    font-size: 1.15rem;
+    bottom: 0.5rem;
+    width: 21rem;
+  }
+
+  .arrival_date {
+    bottom: 0.5rem;
+  }
+
+  .paragraphe_description_infos {
+    width: 90%;
+    font-size: 1.15rem;
+    top: 0.3rem;
+  }
+
+  .h3_plus_animaux {
+    font-size: 2rem;
+  }
+
+  .carrousel_vue {
+    margin-top: -3rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .animal-details-container {
+    flex-direction: row;
+    width: 75vw;
+    height: auto;
+    padding: 20px;
+    margin: 7rem auto;
+  }
+
+  .image-section {
+    margin-right: 18px;
+    top: 3rem;
+    margin-bottom: 0;
+  }
+
+  .main-image {
+    width: 280px;
+    height: 280px;
+    margin-bottom: 10px;
+  }
+
+  .small-images {
+    gap: 6px;
+  }
+
+  .small-image {
+    width: 95px;
+    height: 95px;
+  }
+
+  .info-section {
+    align-items: flex-start;
+    padding: 0 15px;
+  }
+
+  .info-section h2 {
+    font-size: 2.3rem;
+    bottom: 1.2rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+
+  .info-section p,
+  .div_p_infos p {
+    font-size: 1.2rem;
+    bottom: 0.7rem;
+    width: 23rem;
+  }
+
+  .arrival_date {
+    bottom: 0.7rem;
+  }
+
+  .paragraphe_description_infos {
+    width: 92%;
+    font-size: 1.18rem;
+    top: 0.4rem;
+  }
+
+  .h3_plus_animaux {
+    font-size: 2.1rem;
+  }
+
+  .carrousel_vue {
+    margin-top: -3.5rem;
+    margin-bottom: 2.7rem;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .animal-details-container {
+    flex-direction: row;
+    width: 65vw;
+    height: auto;
+    padding: 22px;
+    margin: 8rem auto;
+  }
+
+  .image-section {
+    margin-right: 22px;
+    top: 2.5rem;
+    margin-bottom: 0;
+  }
+
+  .main-image {
+    width: 320px;
+    height: 320px;
+    margin-bottom: 12px;
+  }
+
+  .small-images {
+    gap: 8px;
+  }
+
+  .small-image {
+    width: 110px;
+    height: 110px;
+  }
+
+  .info-section {
+    align-items: flex-start;
+    padding: 0 18px;
+  }
+
+  .info-section h2 {
+    font-size: 2.5rem;
+    bottom: 1.5rem;
+    margin: 0 auto;
+    margin-top: 2.2rem;
+  }
+
+  .info-section p,
+  .div_p_infos p {
+    font-size: 1.25rem;
+    bottom: 1rem;
+    width: 25rem;
+  }
+
+  .arrival_date {
+    bottom: 1rem;
+  }
+
+  .paragraphe_description_infos {
+    width: 94%;
+    font-size: 1.22rem;
+    top: 0.5rem;
+  }
+
+  .h3_plus_animaux {
+    font-size: 2.2rem;
+  }
+
+  .carrousel_vue {
+    margin-top: -4rem;
+    margin-bottom: 3rem;
+  }
+}
