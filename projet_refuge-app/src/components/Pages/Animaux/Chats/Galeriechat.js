@@ -2,7 +2,6 @@ import React from 'react';
 import Filtre from '../../../Widgets/Filtres/Filtre';
 import './Galeriechat.css';
 import Fichegalerie from '../Fiche/Fiche_galeriechat';
-import Pagination from '../../../Widgets/Pagination/Pagination';
 
 const Galeriechat = () => {
     const totalPages = 5; // Nombre total de pages
@@ -29,7 +28,6 @@ const Galeriechat = () => {
 
             <Filtre />
             <Fichegalerie />
-            <Pagination totalPages={totalPages} />
         </div>
     );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import './Galeriechien.css';
 import Fichegalerie from '../Fiche/Fiche_galeriechien';
 import Filtre from '../../../Widgets/Filtres/Filtre';
-import Pagination from '../../../Widgets/Pagination/Pagination';
 
 const Galeriechien = () => {
     const totalPages = 5;
@@ -31,7 +30,6 @@ const Galeriechien = () => {
 
             <Fichegalerie />
 
-            <Pagination totalPages={totalPages} />
         </div>
     );
 };
