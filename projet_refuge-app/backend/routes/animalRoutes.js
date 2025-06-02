@@ -2,10 +2,23 @@ const express = require('express');
 const router = express.Router();
 const Animal = require('../models/Animals');
 
-// GET tous les animaux
+// GET tous les animaux avec filtres possibles (espece, sexe, taille)
 router.get('/', async (req, res) => {
     try {
-        const animaux = await Animal.find();
+        const { espece, sexe, taille } = req.query;
+        let filter = {};
+
+        if (espece) {
+            filter.espece = espece;
+        }
+        if (sexe) {
+            filter.sexe = sexe;
+        }
+        if (taille) {
+            filter.taille = taille;  // Assure-toi que "taille" est bien dans le modèle
+        }
+
+        const animaux = await Animal.find(filter);
         res.json(animaux);
     } catch (err) {
         res.status(500).json({ message: err.message });

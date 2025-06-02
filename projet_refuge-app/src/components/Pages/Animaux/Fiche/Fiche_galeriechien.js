@@ -51,7 +51,7 @@ const Fiche_galeriechien = () => {
                 <div className="animal_group_chien">
                     {currentDogs.map((dog, index) => (
                         <div className="item" key={`dog-${startIndex + index}`}>
-                            <img src={dog.image} alt={`Photo de ${dog.name}`} />
+                            <img src={dog.image} alt={`Photo de ${dog.nom}`} />
                             <div className="item_info">
                                 <h3>{dog.nom}</h3>
                                 <p className="age">Âge: {dog.age}</p>

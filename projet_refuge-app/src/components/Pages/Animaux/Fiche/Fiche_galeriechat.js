@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Filtres from "../../../Widgets/Filtres/Filtre";
 
 const ITEMS_PER_PAGE = 12;
 
 const Fichegalerie = () => {
   const navigate = useNavigate();
+
+  // États des données & UI
   const [cats, setCats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/animaux")
+  // États des filtres (sexe, taille)
+  const [sexeFilter, setSexeFilter] = useState("");
+  const [tailleFilter, setTailleFilter] = useState("");
+
+  // Fonction pour fetch les chats filtrés depuis l'API
+  const fetchCats = () => {
+    setLoading(true);
+    setError(null);
+
+    // Construire les query params selon filtres
+    const params = new URLSearchParams();
+    params.append("espece", "Chat"); // On veut que les chats
+
+    if (sexeFilter) params.append("sexe", sexeFilter);
+    if (tailleFilter) params.append("taille", tailleFilter);
+
+    fetch(`http://localhost:5000/api/animaux?${params.toString()}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Erreur HTTP: ${res.status}`);
@@ -19,28 +37,29 @@ const Fichegalerie = () => {
         return res.json();
       })
       .then((data) => {
-        // Filtrer uniquement les chats
-        const onlyCats = data.filter((animal) => animal.espece === "Chat");
-        setCats(onlyCats);
+        setCats(data);
         setLoading(false);
+        setCurrentPage(1); // Reset page quand filtre change
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
+  };
+
+  // Fetch au chargement et à chaque changement de filtres
+  useEffect(() => {
+    fetchCats();
+  }, [sexeFilter, tailleFilter]);
 
   if (loading) return <p>Chargement des chats...</p>;
   if (error) return <p>Erreur : {error}</p>;
 
-  // Calcul du nombre total de pages
+  // Pagination
   const totalPages = Math.ceil(cats.length / ITEMS_PER_PAGE);
-
-  // Calcul des éléments à afficher sur la page courante
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentCats = cats.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  // Gestion du clic sur une page
   const goToPage = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
     setCurrentPage(pageNumber);
@@ -48,6 +67,14 @@ const Fichegalerie = () => {
 
   return (
     <div className="page-container">
+      {/* Composant Filtres, on passe les états et setters */}
+      <Filtres
+        sexe={sexeFilter}
+        setSexe={setSexeFilter}
+        taille={tailleFilter}
+        setTaille={setTailleFilter}
+      />
+
       <section className="container_appercu">
         <div className="animal_group_chat">
           {currentCats.map((cat, index) => (
@@ -60,7 +87,7 @@ const Fichegalerie = () => {
                 <span>Sexe: {cat.sexe}</span> <br />
                 <button
                   type="button"
-                  onClick={() => navigate(`/Ficheperso_animal`)}
+                  onClick={() => navigate(`/Ficheperso_animal/${cat._id}`)}
                 >
                   Détails
                 </button>

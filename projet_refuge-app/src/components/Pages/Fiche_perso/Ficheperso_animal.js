@@ -1,89 +1,121 @@
-import React, { useState } from 'react';
-import './Ficheperso_animal.css';
-import Carte_carrousel from '../../Widgets/Carrousel/Carte_carrousel';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "./Ficheperso_animal.css";
+import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
 
+const Ficheperso_animal = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [animal, setAnimal] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [mainImg, setMainImg] = useState(null);
 
-const AnimalDetails = () => {
-  const animals = [
-    {
-      name: "Oreo",
-      race: "Européen",
-      age: "1 An 1/2",
-      size: "Normal",
-      arrivalDate: "2024-06-15",
-      description: "Oreo est un chien très énergique, toujours prêt à jouer. Oreo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.Diablo est un chien très énergique, toujours prêt à jouer.",
-      mainImg: "/img/img_galeriechat/oreo_1.1.jpg",
-      smallImgs: ["./img/img_galeriechat/oreo_1.1.jpg", "./img/img_galeriechat/oreo_1.2.jpg", "./img/img_galeriechat/oreo_1.3.jpg"]
-    },
-    {
-      name: "Bella",
-      race: "Bulldog",
-      age: "3 ans",
-      size: "Petit",
-      arrivalDate: "2021-08-22",
-      description: "Bella est calme et affectueuse. Elle adore les câlins.",
-      mainImg: "/img/chien2.jpg",
-      smallImgs: ["https://picsum.photos/200", "https://picsum.photos/200"]
-    },
-    {
-      name: "Max",
-      race: "Beagle",
-      age: "1 an",
-      size: "Petit",
-      arrivalDate: "2023-01-10",
-      description: "Max est un chiot très curieux et sociable.",
-      mainImg: "/img/chien3.jpg",
-      smallImgs: ["https://picsum.photos/200", "https://picsum.photos/200"]
+  useEffect(() => {
+    setLoading(true);
+    fetch(`http://localhost:5000/api/animaux/${id}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Animal non trouvé");
+        return res.json();
+      })
+      .then((data) => {
+        setAnimal(data);
+        const images = data.images && data.images.length > 0 ? [...data.images] : [];
+        const fallbackImg = data.image;
+
+        const thumbnails = images.slice(0, 2);
+
+        if (fallbackImg && !thumbnails.includes(fallbackImg)) {
+          thumbnails.push(fallbackImg);
+        }
+
+        setMainImg(thumbnails[0] || null);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) return <p>Chargement de l'animal...</p>;
+
+  if (error || !animal) {
+    return (
+      <div className="animal-details-container">
+        <p>{error || "Aucun animal sélectionné."}</p>
+        <button onClick={() => navigate(-1)}>Retour</button>
+      </div>
+    );
+  }
+
+  // Reconstituer les thumbnails comme dans useEffect
+  const thumbnails = (() => {
+    const images = animal.images && animal.images.length > 0 ? [...animal.images] : [];
+    const fallbackImg = animal.image;
+    const thumbs = images.slice(0, 2);
+    if (fallbackImg && !thumbs.includes(fallbackImg)) {
+      thumbs.push(fallbackImg);
     }
-  ];
+    return thumbs;
+  })();
 
-  const [selectedAnimal, setSelectedAnimal] = useState(animals[0]);
-
-  const handleImageClick = (image) => {
-    setSelectedAnimal((prev) => ({ ...prev, mainImg: image }));
-  };
+  const handleImageClick = (img) => setMainImg(img);
 
   return (
     <div>
       <div className="animal-details-container">
         <div className="image-section">
-          <img
-            className="main-image"
-            src={selectedAnimal.mainImg}
-            alt={`Photo de ${selectedAnimal.name}`}
-          />
+          {mainImg ? (
+            <img className="main-image" src={mainImg} alt={`Photo de ${animal.nom}`} />
+          ) : (
+            <p>Aucune image disponible</p>
+          )}
+
           <div className="small-images">
-            {selectedAnimal.smallImgs.map((img, index) => (
+            {thumbnails.map((img, idx) => (
               <img
-                key={index}
-                className="small-image"
+                key={idx}
+                className={`small-image${img === mainImg ? " selected" : ""}`}
                 src={img}
-                alt={`Image ${index + 1}`}
+                alt={`Miniature ${idx + 1}`}
                 onClick={() => handleImageClick(img)}
+                style={{ cursor: "pointer" }}
               />
+            ))}
+            {/* Si moins de 3 images malgré tout, compléter avec des divs vides */}
+            {Array.from({ length: 3 - thumbnails.length }).map((_, idx) => (
+              <div key={`empty-${idx}`} className="small-image empty-thumbnail" />
             ))}
           </div>
         </div>
+
         <div className="info-section">
-          <h2>{selectedAnimal.name}</h2>
-          <div className='div_p_infos'>
-            <p><strong>Race :</strong> {selectedAnimal.race}</p>
-            <p><strong>Âge :</strong> {selectedAnimal.age}</p>
-            <p><strong>Taille :</strong> {selectedAnimal.size}</p>
+          <h2>{animal.nom}</h2>
+          <div className="div_p_infos">
+            <p><strong>Race :</strong> {animal.race}</p>
+            <p><strong>Âge :</strong> {animal.age}</p>
+            <p><strong>Taille :</strong> {animal.taille || "N/A"}</p>
           </div>
           <br />
-          <p className='arrival_date'><strong>Date d'arrivée :</strong> {selectedAnimal.arrivalDate}</p>
+          <p className="arrival_date">
+            <strong>Date d'arrivée :</strong> {animal.dateArrivee || "N/A"}
+          </p>
           <br />
-          <p className='paragraphe_description_infos'>{selectedAnimal.description}</p>
+          <p className="paragraphe_description_infos">{animal.description}</p>
         </div>
       </div>
-      <div className='carrousel_vue'>
-        <h3 className='h3_plus_animaux'> <img src="/img/pattes.png" alt="" width={40} height={40} /> Plus d'animaux  <img src="/img/pattes.png" alt="" width={40} height={40} /></h3>
+
+      <div className="carrousel_vue">
+        <h3 className="h3_plus_animaux">
+          <img src="/img/pattes.png" alt="" width={40} height={40} />
+          Plus d'animaux
+          <img src="/img/pattes.png" alt="" width={40} height={40} />
+        </h3>
         <Carte_carrousel />
       </div>
-
     </div>
   );
 };
 
-export default AnimalDetails;
+export default Ficheperso_animal;

@@ -60,7 +60,7 @@ const App = () => {
           <Route path="/Galeriechien" element={<Galeriechien />} />
           <Route path="/Galeriechat" element={<Galeriechat />} />
           <Route path="/Nos partenaires" element={<Partenaires />} />
-          <Route path="/Ficheperso_animal" element={<Ficheperso_animal />} />
+          <Route path="/Ficheperso_animal/:id" element={<Ficheperso_animal />} />
           <Route path="/Animalitem" element={<Animalitem />} />
           <Route path="/Notre équipe" element={<Equipe />} />
           <Route path="/Contact" element={<Contact />} />

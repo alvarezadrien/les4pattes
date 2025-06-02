@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Carte_carrousel.css";
 
 const Carte_carrousel = () => {
     const [animaux, setAnimaux] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsPerPage = 3;
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:5000/api/animaux")
             .then((response) => response.json())
             .then((data) => {
-                setAnimaux(data); // On stocke tous les animaux (chiens + chats)
+                setAnimaux(data);
             })
             .catch((error) => {
                 console.error("Erreur lors de la récupération des animaux :", error);
@@ -66,12 +67,12 @@ const Carte_carrousel = () => {
                                 <p>Âge : {animal.age}</p>
                                 <p>Race : {animal.race}</p>
                                 <p>Sexe : {animal.sexe}</p>
-                                <Link
-                                    to={`../../Pages/Fiche_perso/Ficheperso_animal.js`}
-                                    className="details-button"
+                                <button
+                                    type="button"
+                                    onClick={() => navigate(`/Ficheperso_animal/${animal._id}`)}
                                 >
                                     Détails
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     ))}
