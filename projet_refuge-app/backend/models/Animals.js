@@ -8,12 +8,13 @@ const animalSchema = new mongoose.Schema({
     sexe: { type: String, enum: ["Mâle", "Femelle", "Inconnu"], default: "Inconnu" },
     taille: { type: String, enum: ['petit', 'moyen', 'grand'], default: 'moyen' },
     description: { type: String, default: "" },
-    dateArrivee: { type: Date, default: Date.now }, // Date d'arrivée de l'animal
+    descriptionAdoption: { type: String, default: "" },  // <-- Nouveau champ ajouté ici
+    dateArrivee: { type: Date, default: Date.now },
     adopte: { type: Boolean, default: false },
-    image: { type: String, default: "" },    // Image principale
-    image2: { type: String, default: "" },   // Image secondaire 1
-    image3: { type: String, default: "" },   // Image secondaire 2
-    images: { type: [String], default: [] } // Tableau d'images supplémentaires (optionnel)
+    image: { type: String, default: "" },
+    image2: { type: String, default: "" },
+    image3: { type: String, default: "" },
+    images: { type: [String], default: [] }
 }, {
     timestamps: true
 });

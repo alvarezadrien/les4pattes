@@ -14,45 +14,42 @@ const Fiche_galeriechien = () => {
     const [taille, setTaille] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/animaux")
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`Erreur HTTP: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((data) => {
-                const chiens = data.filter((animal) => animal.espece === "Chien");
-                setDogs(chiens);
+        const fetchDogsAdopted = async () => {
+            try {
+                const res = await fetch("http://localhost:5000/api/animaux?espece=Chien&adopte=true");
+                if (!res.ok) throw new Error(`Erreur HTTP: ${res.status}`);
+                const data = await res.json();
+
+                const chiensAdoptes = Array.isArray(data) ? data : (data.animaux || []);
+                setDogs(chiensAdoptes);
                 setLoading(false);
-            })
-            .catch((err) => {
+            } catch (err) {
                 setError(err.message);
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchDogsAdopted();
     }, []);
 
-    // Remettre la page à 1 quand on change un filtre
     useEffect(() => {
         setCurrentPage(1);
     }, [sexe, taille]);
 
-    if (loading) return <p>Chargement des chiens...</p>;
+    if (loading) return <p>Chargement des chiens adoptés...</p>;
     if (error) return <p>Erreur : {error}</p>;
+    if (!dogs.length) return <p>Aucun chien adopté pour l’instant.</p>;
 
-    // Filtrage
     const filteredDogs = dogs.filter((dog) => {
         const matchSexe = sexe ? dog.sexe === sexe : true;
         const matchTaille = taille ? dog.taille === taille : true;
         return matchSexe && matchTaille;
     });
 
-    // Pagination
     const totalPages = Math.ceil(filteredDogs.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const currentDogs = filteredDogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-    // Fonction pour changer de page
     const goToPage = (pageNumber) => {
         if (pageNumber < 1 || pageNumber > totalPages) return;
         setCurrentPage(pageNumber);
@@ -60,15 +57,13 @@ const Fiche_galeriechien = () => {
 
     return (
         <div className="page-container">
-            {/* Filtres */}
             <Filtre sexe={sexe} setSexe={setSexe} taille={taille} setTaille={setTaille} />
 
-            {/* Galerie */}
             <section className="container_appercu">
                 <div className="animal_group_chien">
                     {currentDogs.map((dog, index) => (
                         <div className="item" key={`dog-${startIndex + index}`}>
-                            <img src={dog.image} alt={`Photo de ${dog.nom}`} />
+                            <img src={dog.image || "/img/chien_default.jpg"} alt={`Photo de ${dog.nom}`} />
                             <div className="item_info">
                                 <h3>{dog.nom}</h3>
                                 <p className="age">Âge: {dog.age}</p>
@@ -86,7 +81,6 @@ const Fiche_galeriechien = () => {
                 </div>
             </section>
 
-            {/* Pagination */}
             <div className="pagination">
                 <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
                     Précédent

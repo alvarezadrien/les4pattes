@@ -1,39 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Compagnons_adopter.css';
 
 const Compagnons_adopter = () => {
-    const animaux = [
-        { nom: "Diablo", sexe: "Mâle", age: "3 ans", description: "Depuis son adoption, Diablo a trouvé sa place dans une famille aimante. Il s'adapte bien à son nouveau foyer et aime passer du temps à jouer avec ses jouets. C'est un chat calme et affectueux, toujours prêt pour une caresse.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Félix", sexe: "Mâle", age: "4 ans", description: "Félix est un chat tranquille qui aime les longues siestes au soleil. Il s'entend bien avec d'autres animaux et est très affectueux.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Diablo", sexe: "Mâle", age: "3 ans", description: "Depuis son adoption, Diablo a trouvé sa place dans une famille aimante. Il s'adapte bien à son nouveau foyer et aime passer du temps à jouer avec ses jouets. C'est un chat calme et affectueux, toujours prêt pour une caresse.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Félix", sexe: "Mâle", age: "4 ans", description: "Félix est un chat tranquille qui aime les longues siestes au soleil. Il s'entend bien avec d'autres animaux et est très affectueux.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Diablo", sexe: "Mâle", age: "3 ans", description: "Depuis son adoption, Diablo a trouvé sa place dans une famille aimante. Il s'adapte bien à son nouveau foyer et aime passer du temps à jouer avec ses jouets. C'est un chat calme et affectueux, toujours prêt pour une caresse.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Félix", sexe: "Mâle", age: "4 ans", description: "Félix est un chat tranquille qui aime les longues siestes au soleil. Il s'entend bien avec d'autres animaux et est très affectueux.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" },
-        { nom: "Minette", sexe: "Femelle", age: "2 ans", description: "Minette adore grimper partout et explorer son environnement. Elle est pleine d'énergie et adore interagir avec les gens, surtout quand il s'agit de jouer.", image: "/img/chat_galeriefiche.jpg" }
-    ];
+    const [animaux, setAnimaux] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const renderCard = (animal) => (
-        <div className="item_flip-card" key={animal.nom}>
+    useEffect(() => {
+        const fetchAnimaux = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await fetch("http://localhost:5000/api/animaux?adopte=true");
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP : ${response.status}`);
+                }
+                const data = await response.json();
+                if (Array.isArray(data)) {
+                    setAnimaux(data);
+                } else if (data.animaux && Array.isArray(data.animaux)) {
+                    setAnimaux(data.animaux);
+                } else {
+                    setAnimaux([]);
+                    setError("Structure de données inattendue.");
+                }
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAnimaux();
+    }, []);
+
+    if (loading) return <p>Chargement des compagnons adoptés...</p>;
+    if (error) return <p>Erreur : {error}</p>;
+    if (!animaux.length) return <p>Aucun compagnon adopté pour l’instant.</p>;
+
+    const renderCard = (animal, index) => (
+        <div className="item_flip-card" key={animal._id || index}>
             <div className="flip-card-inner">
                 <div className="flip-card-front">
-                    <img src={animal.image} alt={`Photo de ${animal.nom}`} />
+                    <img src={animal.image || "/img/chat_galeriefiche.jpg"} alt={`Photo de ${animal.nom}`} />
                     <h3>{animal.nom}</h3>
                 </div>
                 <div className="flip-card-back">
-                    <p className="animal-description">
-                        {animal.description}
-                    </p>
+                    {animal.descriptionAdoption && animal.descriptionAdoption.trim() !== "" ? (
+                        <p className="animal-description">{animal.descriptionAdoption}</p>
+                    ) : (
+                        <p className="animal-description"></p> // Rien d'affiché si pas de descriptionAdoption
+                    )}
                 </div>
             </div>
         </div>
@@ -41,12 +58,15 @@ const Compagnons_adopter = () => {
 
     return (
         <div className="page_compagnons">
-            {/* Titre centré */}
-            <h1 className="h1_compagnons"><img src="/img/pattes.png" alt="" width={40} height={40} /> Nos compagnons adoptés <img src="/img/pattes.png" alt="" width={40} height={40} /></h1>
+            <h1 className="h1_compagnons">
+                <img src="/img/pattes.png" alt="pattes" width={40} height={40} />
+                Nos compagnons adoptés
+                <img src="/img/pattes.png" alt="pattes" width={40} height={40} />
+            </h1>
 
             <section className="container_compagnons">
                 <div className="animal_group_compagnons">
-                    {animaux.map(renderCard)} {/* Génère les cartes */}
+                    {animaux.map(renderCard)}
                 </div>
             </section>
         </div>

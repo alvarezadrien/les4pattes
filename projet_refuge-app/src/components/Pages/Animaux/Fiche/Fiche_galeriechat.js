@@ -21,6 +21,7 @@ const Fichegalerie = () => {
 
     const params = new URLSearchParams();
     params.append("espece", "Chat");
+    params.append("adopte", "false"); // ✅ Afficher uniquement les chats NON adoptés
     if (sexeFilter) params.append("sexe", sexeFilter);
     if (tailleFilter) params.append("taille", tailleFilter);
 
