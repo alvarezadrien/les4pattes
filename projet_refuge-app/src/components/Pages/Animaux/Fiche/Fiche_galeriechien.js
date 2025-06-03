@@ -1,54 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Filtre from "../../../Widgets/Filtres/Filtre";
+import Filtres from "../../../Widgets/Filtres/Filtre";
 
 const ITEMS_PER_PAGE = 12;
 
 const Fiche_galeriechien = () => {
     const navigate = useNavigate();
+
     const [dogs, setDogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [sexe, setSexe] = useState("");
-    const [taille, setTaille] = useState("");
 
-    useEffect(() => {
-        const fetchDogsAdopted = async () => {
-            try {
-                const res = await fetch("http://localhost:5000/api/animaux?espece=Chien&adopte=true");
-                if (!res.ok) throw new Error(`Erreur HTTP: ${res.status}`);
-                const data = await res.json();
+    const [sexeFilter, setSexeFilter] = useState("");
+    const [tailleFilter, setTailleFilter] = useState("");
 
-                const chiensAdoptes = Array.isArray(data) ? data : (data.animaux || []);
-                setDogs(chiensAdoptes);
-                setLoading(false);
-            } catch (err) {
+    const fetchDogs = () => {
+        setLoading(true);
+        setError(null);
+
+        const params = new URLSearchParams();
+        params.append("espece", "Chien");
+        params.append("adopte", "false"); // ✅ Afficher uniquement les chiens NON adoptés
+        if (sexeFilter) params.append("sexe", sexeFilter);
+        if (tailleFilter) params.append("taille", tailleFilter);
+
+        fetch(`http://localhost:5000/api/animaux?${params.toString()}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Erreur HTTP: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setDogs(data);
+                setCurrentPage(1); // Reset page on filter change
+            })
+            .catch((err) => {
                 setError(err.message);
+            })
+            .finally(() => {
                 setLoading(false);
-            }
-        };
-
-        fetchDogsAdopted();
-    }, []);
+            });
+    };
 
     useEffect(() => {
-        setCurrentPage(1);
-    }, [sexe, taille]);
+        fetchDogs();
+    }, [sexeFilter, tailleFilter]);
 
-    if (loading) return <p>Chargement des chiens adoptés...</p>;
+    if (loading) return <p>Chargement des chiens...</p>;
     if (error) return <p>Erreur : {error}</p>;
-    if (!dogs.length) return <p>Aucun chien adopté pour l’instant.</p>;
 
-    const filteredDogs = dogs.filter((dog) => {
-        const matchSexe = sexe ? dog.sexe === sexe : true;
-        const matchTaille = taille ? dog.taille === taille : true;
-        return matchSexe && matchTaille;
-    });
-
-    const totalPages = Math.ceil(filteredDogs.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(dogs.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const currentDogs = filteredDogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const currentDogs = dogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     const goToPage = (pageNumber) => {
         if (pageNumber < 1 || pageNumber > totalPages) return;
@@ -57,13 +62,18 @@ const Fiche_galeriechien = () => {
 
     return (
         <div className="page-container">
-            <Filtre sexe={sexe} setSexe={setSexe} taille={taille} setTaille={setTaille} />
+            <Filtres
+                sexe={sexeFilter}
+                setSexe={setSexeFilter}
+                taille={tailleFilter}
+                setTaille={setTailleFilter}
+            />
 
             <section className="container_appercu">
-                <div className="animal_group_chien">
+                <div className="animal_group_chat">
                     {currentDogs.map((dog, index) => (
                         <div className="item" key={`dog-${startIndex + index}`}>
-                            <img src={dog.image || "/img/chien_default.jpg"} alt={`Photo de ${dog.nom}`} />
+                            <img src={dog.image} alt={`Photo de ${dog.nom}`} />
                             <div className="item_info">
                                 <h3>{dog.nom}</h3>
                                 <p className="age">Âge: {dog.age}</p>

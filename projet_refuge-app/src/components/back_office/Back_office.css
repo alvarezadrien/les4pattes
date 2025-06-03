@@ -1,0 +1,134 @@
+/* Back_office.css */
+
+.back-office {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  background-color: #f7f7f7;
+  color: #333;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 7rem;
+}
+
+.h1_office {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.section {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+.form-animal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.form-animal label {
+  font-weight: bold;
+}
+
+.form-animal input,
+.form-animal select,
+.form-animal textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-animal button {
+  padding: 0.6rem 1rem;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.form-animal button:hover {
+  background-color: #219150;
+}
+
+.animal-card,
+.user-card,
+.comment-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.animal-card strong {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.animal-card textarea {
+  width: 100%;
+  min-height: 60px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  resize: vertical;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.buttons button {
+  background-color: #3498db;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buttons button:hover {
+  background-color: #2980b9;
+}
+
+.comment-card,
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-card button,
+.user-card button {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment-card button:hover,
+.user-card button:hover {
+  background-color: #c0392b;
+}

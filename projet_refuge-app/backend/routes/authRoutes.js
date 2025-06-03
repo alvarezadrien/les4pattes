@@ -69,11 +69,24 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// Route pour récupérer tous les utilisateurs sans mot de passe
 router.get('/users', async (req, res) => {
     try {
-        // On récupère tous les utilisateurs, mais sans le champ password
         const users = await User.find().select('-password');
         res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+});
+
+// Route pour supprimer un utilisateur par son ID
+router.delete('/users/:id', async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        if (!deletedUser) {
+            return res.status(404).json({ message: "Utilisateur non trouvé." });
+        }
+        res.status(200).json({ message: "Utilisateur supprimé avec succès." });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }

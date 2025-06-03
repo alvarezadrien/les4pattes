@@ -34,6 +34,7 @@ import Filtre from './components/Widgets/Filtres/Filtre';
 import Pagination from './components/Widgets/Pagination/Pagination';
 import Carte_carrousel from './components/Widgets/Carrousel/Carte_carrousel';
 import Scroll_button from './components/Widgets/Scroll_button/Scroll_button';
+import Back_office from './components/back_office/Back_office';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -54,6 +55,7 @@ const App = () => {
     <Router>
       <Layout>
         <Routes>
+          <Route path='/Back_office' element={<Back_office />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/Apropos" element={<Apropos />} />
