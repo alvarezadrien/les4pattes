@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Filtre from "../../../Widgets/Filtres/Filtre";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -9,6 +10,8 @@ const Fiche_galeriechien = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [sexe, setSexe] = useState("");
+    const [taille, setTaille] = useState("");
 
     useEffect(() => {
         fetch("http://localhost:5000/api/animaux")
@@ -29,15 +32,25 @@ const Fiche_galeriechien = () => {
             });
     }, []);
 
+    // Remettre la page à 1 quand on change un filtre
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [sexe, taille]);
+
     if (loading) return <p>Chargement des chiens...</p>;
     if (error) return <p>Erreur : {error}</p>;
 
-    // Pagination : calcul nombre total de pages
-    const totalPages = Math.ceil(dogs.length / ITEMS_PER_PAGE);
+    // Filtrage
+    const filteredDogs = dogs.filter((dog) => {
+        const matchSexe = sexe ? dog.sexe === sexe : true;
+        const matchTaille = taille ? dog.taille === taille : true;
+        return matchSexe && matchTaille;
+    });
 
-    // Calcul des chiens à afficher sur la page courante
+    // Pagination
+    const totalPages = Math.ceil(filteredDogs.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const currentDogs = dogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const currentDogs = filteredDogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     // Fonction pour changer de page
     const goToPage = (pageNumber) => {
@@ -47,6 +60,10 @@ const Fiche_galeriechien = () => {
 
     return (
         <div className="page-container">
+            {/* Filtres */}
+            <Filtre sexe={sexe} setSexe={setSexe} taille={taille} setTaille={setTaille} />
+
+            {/* Galerie */}
             <section className="container_appercu">
                 <div className="animal_group_chien">
                     {currentDogs.map((dog, index) => (

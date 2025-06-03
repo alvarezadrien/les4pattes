@@ -1,12 +1,16 @@
 import React from 'react';
 import './Filtre.css';
 
-const Filtre = ({ sexe, setSexe, taille, setTaille }) => {
+const Filtre = ({ sexe, setSexe, taille, setTaille, disableTaille = false }) => {
     return (
         <div className="filtre">
             <ul className="ul_filtre">
                 <li>
-                    <select value={taille} onChange={(e) => setTaille(e.target.value)}>
+                    <select
+                        value={taille}
+                        onChange={(e) => setTaille(e.target.value)}
+                        disabled={disableTaille}  // <-- désactive le filtre taille si true
+                    >
                         <option value="">Taille</option>
                         <option value="petit">Petite</option>
                         <option value="moyen">Moyenne</option>
@@ -15,7 +19,10 @@ const Filtre = ({ sexe, setSexe, taille, setTaille }) => {
                 </li>
 
                 <li>
-                    <select value={sexe} onChange={(e) => setSexe(e.target.value)}>
+                    <select
+                        value={sexe}
+                        onChange={(e) => setSexe(e.target.value)}
+                    >
                         <option value="">Sexe</option>
                         <option value="Mâle">Mâle</option>
                         <option value="Femelle">Femelle</option>

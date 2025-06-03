@@ -26,7 +26,6 @@ const Galeriechat = () => {
                 </div>
             </div>
 
-            <Filtre />
             <Fichegalerie />
         </div>
     );

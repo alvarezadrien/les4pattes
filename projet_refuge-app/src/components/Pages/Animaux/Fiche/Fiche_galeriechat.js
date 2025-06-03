@@ -7,25 +7,20 @@ const ITEMS_PER_PAGE = 12;
 const Fichegalerie = () => {
   const navigate = useNavigate();
 
-  // États des données & UI
   const [cats, setCats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // États des filtres (sexe, taille)
   const [sexeFilter, setSexeFilter] = useState("");
   const [tailleFilter, setTailleFilter] = useState("");
 
-  // Fonction pour fetch les chats filtrés depuis l'API
   const fetchCats = () => {
     setLoading(true);
     setError(null);
 
-    // Construire les query params selon filtres
     const params = new URLSearchParams();
-    params.append("espece", "Chat"); // On veut que les chats
-
+    params.append("espece", "Chat");
     if (sexeFilter) params.append("sexe", sexeFilter);
     if (tailleFilter) params.append("taille", tailleFilter);
 
@@ -38,16 +33,16 @@ const Fichegalerie = () => {
       })
       .then((data) => {
         setCats(data);
-        setLoading(false);
-        setCurrentPage(1); // Reset page quand filtre change
+        setCurrentPage(1); // Reset page on filter change
       })
       .catch((err) => {
         setError(err.message);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
 
-  // Fetch au chargement et à chaque changement de filtres
   useEffect(() => {
     fetchCats();
   }, [sexeFilter, tailleFilter]);
@@ -55,7 +50,6 @@ const Fichegalerie = () => {
   if (loading) return <p>Chargement des chats...</p>;
   if (error) return <p>Erreur : {error}</p>;
 
-  // Pagination
   const totalPages = Math.ceil(cats.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentCats = cats.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -67,12 +61,12 @@ const Fichegalerie = () => {
 
   return (
     <div className="page-container">
-      {/* Composant Filtres, on passe les états et setters */}
       <Filtres
         sexe={sexeFilter}
         setSexe={setSexeFilter}
         taille={tailleFilter}
         setTaille={setTailleFilter}
+        disableTaille={true}
       />
 
       <section className="container_appercu">
@@ -97,7 +91,6 @@ const Fichegalerie = () => {
         </div>
       </section>
 
-      {/* Pagination */}
       <div className="pagination">
         <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
           Précédent

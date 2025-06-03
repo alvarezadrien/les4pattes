@@ -26,8 +26,6 @@ const Galeriechien = () => {
                 </div>
             </div>
 
-            <Filtre />
-
             <Fichegalerie />
 
         </div>
