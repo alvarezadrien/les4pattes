@@ -30,6 +30,11 @@ function Back_office() {
     comments: false,
   });
 
+  // États pour la pop-up de confirmation
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupAction, setPopupAction] = useState(null); // Fonction à exécuter si confirmé
+
   const apiUrl = "http://localhost:5000/api/animaux";
   const usersApiUrl = "http://localhost:5000/api/auth/users";
 
@@ -80,10 +85,36 @@ function Back_office() {
       .catch((err) => console.error("Erreur ajout animal:", err));
   };
 
-  const handleDeleteAnimal = (id) => {
-    fetch(`${apiUrl}/${id}`, { method: "DELETE" })
-      .then(() => setAnimals(animals.filter((a) => a._id !== id)))
-      .catch((err) => console.error("Erreur suppression animal:", err));
+  // Fonctions de suppression avec confirmation
+  const confirmDeleteAnimal = (id) => {
+    setPopupMessage("Voulez-vous vraiment supprimer cet animal ?");
+    setPopupAction(() => () => { // Utilisation d'une fonction pour définir l'action
+      fetch(`${apiUrl}/${id}`, { method: "DELETE" })
+        .then(() => setAnimals(animals.filter((a) => a._id !== id)))
+        .catch((err) => console.error("Erreur suppression animal:", err));
+      setShowPopup(false); // Fermer la pop-up après confirmation
+    });
+    setShowPopup(true);
+  };
+
+  const confirmDeleteUser = (id) => {
+    setPopupMessage("Voulez-vous vraiment supprimer cet utilisateur ?");
+    setPopupAction(() => () => {
+      fetch(`${usersApiUrl}/${id}`, { method: "DELETE" })
+        .then(() => setUsers(users.filter((u) => u._id !== id)))
+        .catch((err) => console.error("Erreur suppression utilisateur:", err));
+      setShowPopup(false);
+    });
+    setShowPopup(true);
+  };
+
+  const confirmDeleteComment = (id) => {
+    setPopupMessage("Voulez-vous vraiment supprimer ce commentaire ?");
+    setPopupAction(() => () => {
+      setComments(comments.filter((c) => c.id !== id));
+      setShowPopup(false);
+    });
+    setShowPopup(true);
   };
 
   const handleToggleAdoption = (id, currentStatus) => {
@@ -116,16 +147,6 @@ function Back_office() {
       .catch((err) => console.error("Erreur mise à jour description:", err));
   };
 
-  const handleDeleteUser = (id) => {
-    fetch(`${usersApiUrl}/${id}`, { method: "DELETE" })
-      .then(() => setUsers(users.filter((u) => u._id !== id)))
-      .catch((err) => console.error("Erreur suppression utilisateur:", err));
-  };
-
-  const handleDeleteComment = (id) => {
-    setComments(comments.filter((c) => c.id !== id));
-  };
-
   const toggleAccordion = (section) => {
     setOpenAccordion((prev) => ({
       ...prev,
@@ -133,7 +154,6 @@ function Back_office() {
     }));
   };
 
-  // Nouvelle fonction pour gérer la sélection de fichier et mettre à jour le champ image correspondant
   const handleImageChange = (e, field) => {
     const file = e.target.files[0];
     if (file) {
@@ -142,11 +162,9 @@ function Back_office() {
     }
   };
 
-  // State pour l'édition d'un animal
   const [editAnimalId, setEditAnimalId] = useState(null);
   const [editAnimalData, setEditAnimalData] = useState({});
 
-  // Fonction pour démarrer l'édition
   const handleEditAnimal = (animal) => {
     setEditAnimalId(animal._id);
     setEditAnimalData({
@@ -162,13 +180,11 @@ function Back_office() {
     });
   };
 
-  // Fonction pour annuler l'édition
   const handleCancelEdit = () => {
     setEditAnimalId(null);
     setEditAnimalData({});
   };
 
-  // Fonction pour sauvegarder les modifications
   const handleSaveEditAnimal = (id) => {
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
@@ -184,10 +200,33 @@ function Back_office() {
       .catch((err) => console.error("Erreur modification animal:", err));
   };
 
+  const handlePopupConfirm = () => {
+    if (popupAction) {
+      popupAction(); // Exécuter l'action de suppression
+    }
+  };
+
+  const handlePopupCancel = () => {
+    setShowPopup(false); // Simplement fermer la pop-up
+    setPopupAction(null); // Réinitialiser l'action
+  };
 
   return (
     <div className="back-office">
       <h1 className="h1_office">Back Office - Gestion du Refuge</h1>
+
+      {/* Pop-up de confirmation */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <p>{popupMessage}</p>
+            <div className="popup-buttons">
+              <button onClick={handlePopupConfirm} className="btn_confirm">Confirmer</button>
+              <button onClick={handlePopupCancel} className="btn_cancel">Annuler</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="section">
         <h2>Ajouter un animal</h2>
@@ -459,7 +498,7 @@ function Back_office() {
                         Modifier
                       </button>
                       <button
-                        onClick={() => handleDeleteAnimal(a._id)}
+                        onClick={() => confirmDeleteAnimal(a._id)}
                         className="btn_delete"
                       >
                         Supprimer
@@ -483,7 +522,7 @@ function Back_office() {
             {users.map((u) => (
               <div key={u._id} className="user-card">
                 <strong>{u.username}</strong> ({u.email})
-                <button onClick={() => handleDeleteUser(u._id)} className="btn_delete">
+                <button onClick={() => confirmDeleteUser(u._id)} className="btn_delete"> {/* Appel de la fonction de confirmation */}
                   Supprimer
                 </button>
               </div>
@@ -502,7 +541,7 @@ function Back_office() {
             {comments.map((c) => (
               <div key={c.id} className="comment-card">
                 <p>{c.text}</p>
-                <button onClick={() => handleDeleteComment(c.id)} className="btn_delete">
+                <button onClick={() => confirmDeleteComment(c.id)} className="btn_delete"> {/* Appel de la fonction de confirmation */}
                   Supprimer
                 </button>
               </div>
