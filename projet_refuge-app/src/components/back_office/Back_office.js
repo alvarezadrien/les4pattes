@@ -85,7 +85,7 @@ function Back_office() {
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ adopted: !currentStatus }),
+      body: JSON.stringify({ adopte: !currentStatus }),
     })
       .then((res) => res.json())
       .then((updatedAnimal) => {
@@ -253,10 +253,17 @@ function Back_office() {
         {animals.length === 0 && <p>Aucun animal enregistré.</p>}
         {animals.map((a) => (
           <div key={a._id} className="animal-card">
-            <strong>{a.nom || a.name}</strong> ({a.type})<br />
+            <strong>{a.nom}</strong><br />
             Race : {a.race} <br />
             Âge : {a.age} ans - Sexe : {a.sexe} - Taille : {a.taille} <br />
-            Statut : {a.adopted ? "Adopté" : "Disponible"}
+            Statut : {a.adopte ? "Adopté" : "Disponible"}
+            <br />
+            <label>Date d'arrivée</label>
+            <p>
+              {a.dateArrivee
+                ? new Date(a.dateArrivee).toLocaleDateString()
+                : "-"}
+            </p>
             <br />
             <label>Description</label>
             <textarea
@@ -266,17 +273,11 @@ function Back_office() {
             />
             <label>Description Adoption</label>
             <p>{a.descriptionAdoption || "-"}</p>
-            <label>Date d'arrivée</label>
-            <p>
-              {a.dateArrivee
-                ? new Date(a.dateArrivee).toLocaleDateString()
-                : "-"}
-            </p>
             <div className="buttons">
               <button
-                onClick={() => handleToggleAdoption(a._id, a.adopted)}
+                onClick={() => handleToggleAdoption(a._id, a.adopte)}
               >
-                {a.adopted ? "Annuler adoption" : "Marquer comme adopté"}
+                {a.adopte ? "Annuler adoption" : "Marquer comme adopté"}
               </button>
               <button onClick={() => handleDeleteAnimal(a._id)}>
                 Supprimer

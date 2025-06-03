@@ -15,8 +15,8 @@ app.use(cors());
 app.use(express.json()); // Pour lire les JSON envoyés dans les requêtes
 
 // Routes
-app.use('/api/animaux', animalRoutes); // Ne pas toucher comme demandé
-app.use('/api/auth', authRoutes);      // Authentification
+app.use('/api/animaux', animalRoutes);
+app.use('/api/auth', authRoutes);
 
 // Connexion MongoDB
 mongoose.connect(process.env.MONGO_URI, {
