@@ -40,19 +40,15 @@ const Connexion = () => {
         return;
       }
 
-      // Créer un objet utilisateur complet
       const user = {
-        userId: data.userId,
-        email: email,
-        nom: data.nom || 'Nom',
-        prenom: data.prenom || 'Prénom',
-        avatar: data.avatar || '/img/avatar.png',
+        userId: data.user.id,  // C’est bien user.id qui est renvoyé par le backend
+        email: data.user.email,
+        nom: data.user.nom,
+        prenom: data.user.prenom,
       };
 
-      // Enregistre-le dans le localStorage
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Redirection vers la page compte
       navigate('/Mon compte');
     } catch (err) {
       setError('Erreur réseau');

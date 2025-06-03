@@ -61,9 +61,28 @@ router.post('/login', async (req, res) => {
                 id: user._id,
                 nom: user.nom,
                 prenom: user.prenom,
-                email: user.email
+                email: user.email,
+                avatar: user.avatar || '' // avatar vide par défaut
             }
         });
+    } catch (error) {
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+});
+
+// Route pour mettre à jour l'avatar de l'utilisateur
+router.put('/users/:id/avatar', async (req, res) => {
+    const userId = req.params.id;
+    const { avatar } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "Utilisateur non trouvé." });
+
+        user.avatar = avatar;
+        await user.save();
+
+        res.json({ message: "Avatar mis à jour avec succès", avatar: user.avatar });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }

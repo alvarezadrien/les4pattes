@@ -9,11 +9,11 @@ function Back_office() {
     { id: 2, text: "Adoption facile." },
   ]);
   const [newAnimal, setNewAnimal] = useState({
-    name: "",
-    type: "chien",
+    nom: "",
+    espece: "Chien",
     race: "",
     age: "",
-    sexe: "mâle",
+    sexe: "Mâle",
     taille: "moyen",
     description: "",
     descriptionAdoption: "",
@@ -40,7 +40,7 @@ function Back_office() {
   }, []);
 
   const handleAddAnimal = () => {
-    if (!newAnimal.name || !newAnimal.type || !newAnimal.age) return;
+    if (!newAnimal.nom || !newAnimal.espece || !newAnimal.age) return;
 
     const animalToSend = {
       ...newAnimal,
@@ -56,11 +56,11 @@ function Back_office() {
       .then((newAddedAnimal) => {
         setAnimals([...animals, newAddedAnimal]);
         setNewAnimal({
-          name: "",
-          type: "chien",
+          nom: "",
+          espece: "Chien",
           race: "",
           age: "",
-          sexe: "mâle",
+          sexe: "Mâle",
           taille: "moyen",
           description: "",
           descriptionAdoption: "",
@@ -80,7 +80,6 @@ function Back_office() {
       .catch((err) => console.error("Erreur suppression animal:", err));
   };
 
-  // Ici, on gère le toggle d'adoption : si adopté, on peut annuler et vice-versa
   const handleToggleAdoption = (id, currentStatus) => {
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
@@ -136,21 +135,21 @@ function Back_office() {
         >
           <label>Nom</label>
           <input
-            value={newAnimal.name}
+            value={newAnimal.nom}
             onChange={(e) =>
-              setNewAnimal({ ...newAnimal, name: e.target.value })
+              setNewAnimal({ ...newAnimal, nom: e.target.value })
             }
           />
 
-          <label>Type</label>
+          <label>Espèce</label>
           <select
-            value={newAnimal.type}
+            value={newAnimal.espece}
             onChange={(e) =>
-              setNewAnimal({ ...newAnimal, type: e.target.value })
+              setNewAnimal({ ...newAnimal, espece: e.target.value })
             }
           >
-            <option value="chien">Chien</option>
-            <option value="chat">Chat</option>
+            <option value="Chien">Chien</option>
+            <option value="Chat">Chat</option>
           </select>
 
           <label>Race</label>
@@ -177,9 +176,9 @@ function Back_office() {
               setNewAnimal({ ...newAnimal, sexe: e.target.value })
             }
           >
-            <option value="mâle">Mâle</option>
-            <option value="femelle">Femelle</option>
-            <option value="inconnu">Inconnu</option>
+            <option value="Mâle">Mâle</option>
+            <option value="Femelle">Femelle</option>
+            <option value="Inconnu">Inconnu</option>
           </select>
 
           <label>Taille</label>

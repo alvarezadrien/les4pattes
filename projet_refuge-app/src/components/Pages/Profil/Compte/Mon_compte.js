@@ -13,28 +13,72 @@ const avatarOptions = [
 ];
 
 const MonCompte = () => {
-  // Récupération des données user depuis localStorage
-  const storedUser = JSON.parse(localStorage.getItem("user")) || {
+  const defaultUser = {
     nom: "Nom",
     prenom: "Prénom",
-    avatar: "/img/avatar.png"
+    avatar: "",
+    id: null,
   };
 
-  const [avatar, setAvatar] = useState(storedUser.avatar || "/img/avatar.png");
-  const [showPopup, setShowPopup] = useState(false);
-  const [userNom, setUserNom] = useState(storedUser.nom);
-  const [userPrenom, setUserPrenom] = useState(storedUser.prenom);
+  const initialUser = JSON.parse(localStorage.getItem("user")) || defaultUser;
 
-  // Choix d'un avatar
-  const handleAvatarSelect = (img) => {
+  const [avatar, setAvatar] = useState(initialUser.avatar || "/img/avatar.png");
+  const [showPopup, setShowPopup] = useState(false);
+  const [userNom, setUserNom] = useState(initialUser.nom);
+  const [userPrenom, setUserPrenom] = useState(initialUser.prenom);
+  const [userId, setUserId] = useState(initialUser.id);
+
+  const handleAvatarSelect = async (img) => {
     setAvatar(img);
     setShowPopup(false);
 
-    const updatedUser = { ...storedUser, avatar: img };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      try {
+        const url = `/api/auth/users/${storedUser.id}/avatar`; // route PUT dédiée avatar
+        const response = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ avatar: img }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Erreur brute du serveur :", errorText);
+          alert("Erreur lors de la sauvegarde de l'avatar sur le serveur.");
+          return;
+        }
+
+        const data = await response.json();
+
+        // Mets à jour le localStorage avec l'avatar reçu en réponse (au cas où le backend modifie l'URL)
+        const updatedUser = { ...storedUser, avatar: data.avatar || img };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setAvatar(updatedUser.avatar);
+
+        alert("Avatar mis à jour avec succès !");
+      } catch (error) {
+        console.error("Erreur JS :", error);
+        alert("Erreur lors de la sauvegarde de l'avatar sur le serveur.");
+      }
+    }
   };
 
-  // Gestion des options
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("user"));
+    if (!stored) {
+      window.location.href = "/connexion";
+    } else {
+      setUserNom(stored.nom);
+      setUserPrenom(stored.prenom);
+      setUserId(stored.id);
+      setAvatar(stored.avatar || "/img/avatar.png");
+    }
+  }, []);
+
   const handleOptionClick = (option) => {
     switch (option) {
       case "donnees":
@@ -69,12 +113,15 @@ const MonCompte = () => {
               onClick={() => setShowPopup(true)}
             />
             <div className="user-names">
-              <span className="user-fullname">{userPrenom} {userNom}</span>
+              <span className="user-fullname">
+                {userPrenom} {userNom}
+              </span>
             </div>
           </div>
 
           <div className="intro-texte">
-            Bienvenue sur votre espace personnel dédié à la gestion de votre compte dans notre refuge pour chiens et chats.
+            Bienvenue sur votre espace personnel dédié à la gestion de votre
+            compte dans notre refuge pour chiens et chats.
           </div>
         </div>
 
@@ -83,37 +130,53 @@ const MonCompte = () => {
             <div className="compte-option">
               <ul className="ul_compte">
                 <li onClick={() => handleOptionClick("donnees")}>
-                  <img src="/img/ressources.png" alt="Données personnelles" /> Gérer les données personnelles
+                  <img src="/img/ressources.png" alt="Données personnelles" />{" "}
+                  Gérer les données personnelles
                 </li>
                 <li onClick={() => handleOptionClick("adresse")}>
-                  <img src="/img/accueil (1).png" alt="Adresse" /> Adresse de livraison
+                  <img src="/img/accueil (1).png" alt="Adresse" /> Adresse de
+                  livraison
                 </li>
                 <li onClick={() => handleOptionClick("motdepasse")}>
-                  <img src="/img/mot-de-passe (1).png" alt="Mot de passe" /> Modifier votre mot de passe
+                  <img src="/img/mot-de-passe (1).png" alt="Mot de passe" />{" "}
+                  Modifier votre mot de passe
                 </li>
                 <li onClick={() => handleOptionClick("deconnexion")}>
-                  <img src="/img/deconnexion (1).png" alt="Déconnexion" /> Déconnexion
+                  <img src="/img/deconnexion (1).png" alt="Déconnexion" />{" "}
+                  Déconnexion
                 </li>
               </ul>
             </div>
 
             <div className="compte-option">
               <div className="option-content">
-                <img src="/img/magazine.png" alt="Magazine" className="option-img" />
+                <img
+                  src="/img/magazine.png"
+                  alt="Magazine"
+                  className="option-img"
+                />
                 <span>Notre magazine</span>
               </div>
             </div>
 
             <div className="compte-option">
               <div className="option-content">
-                <img src="/img/orders.png" alt="Commandes" className="option-img" />
+                <img
+                  src="/img/orders.png"
+                  alt="Commandes"
+                  className="option-img"
+                />
                 <span>Mes commandes</span>
               </div>
             </div>
 
             <div className="compte-option">
               <div className="option-content">
-                <img src="/img/support.png" alt="Support" className="option-img" />
+                <img
+                  src="/img/support.png"
+                  alt="Support"
+                  className="option-img"
+                />
                 <span>Support</span>
               </div>
             </div>
