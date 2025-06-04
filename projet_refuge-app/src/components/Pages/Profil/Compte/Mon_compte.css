@@ -788,3 +788,400 @@
     gap: 2.3rem;
   }
 }
+
+/* --- NOUVEAUX STYLES POUR LE BOUTON DE TÉLÉVERSEMENT ET LES MESSAGES --- */
+
+.upload-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee; /* Ligne de séparation légère */
+  text-align: center;
+}
+
+.upload-section h4 {
+  color: var(
+    --primary-color,
+    #444
+  ); /* Utilise ta couleur primaire ou un gris foncé */
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.custom-file-upload-button {
+  display: inline-block;
+  background-color: var(
+    --primary-color,
+    #d1b980
+  ); /* Couleur bouton basée sur ton thème */
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 0.8rem; /* Bords légèrement arrondis */
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Légère ombre pour donner du relief */
+  text-transform: uppercase; /* Texte en majuscules pour un look plus prononcé */
+  letter-spacing: 0.05em; /* Espacement des lettres */
+}
+
+.custom-file-upload-button:hover {
+  background-color: #bfa570; /* Teinte plus foncée au survol */
+  transform: translateY(-3px); /* Petit effet de soulèvement */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+}
+
+.custom-file-upload-button:active {
+  transform: translateY(0); /* Retour à la position normale au clic */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Effet d'enfoncement */
+}
+
+.selected-file-name {
+  display: block; /* Prend une nouvelle ligne */
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: #777;
+  font-style: italic;
+  white-space: nowrap; /* Empêche le retour à la ligne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+  max-width: 90%; /* Limite la largeur pour éviter les débordements */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.success-message {
+  color: #28a745; /* Vert pour le succès */
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  color: #dc3545; /* Rouge pour l'erreur */
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Ajustement des boutons du popup pour qu'ils s'intègrent mieux */
+.popup-buttons {
+  margin-top: 2rem; /* Plus d'espace au-dessus */
+}
+
+.save-btn,
+.close-btn {
+  padding: 0.8rem 1.8rem; /* Rendre les boutons plus grands */
+  border-radius: 0.8rem; /* Unifier les bords arrondis */
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.close-btn {
+  background-color: #e0d39f; /* Couleur basée sur ton thème pour "Fermer" */
+  color: var(--primary-color);
+}
+
+.close-btn:hover {
+  background-color: #cbb986;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Début de ton CSS existant */
+/* ... (tout ton CSS existant que tu m'as donné) ... */
+
+/* --- NOUVEAUX STYLES POUR LE BOUTON DE TÉLÉVERSEMENT ET LES MESSAGES --- */
+
+.upload-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee; /* Ligne de séparation légère */
+  text-align: center;
+}
+
+.upload-section h4 {
+  color: var(
+    --primary-color,
+    #444
+  ); /* Utilise ta couleur primaire ou un gris foncé */
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.custom-file-upload-button {
+  display: inline-block;
+  background-color: var(
+    --primary-color,
+    #d1b980
+  ); /* Couleur bouton basée sur ton thème */
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 0.8rem; /* Bords légèrement arrondis */
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Légère ombre pour donner du relief */
+  text-transform: uppercase; /* Texte en majuscules pour un look plus prononcé */
+  letter-spacing: 0.05em; /* Espacement des lettres */
+}
+
+.custom-file-upload-button:hover {
+  background-color: #bfa570; /* Teinte plus foncée au survol */
+  transform: translateY(-3px); /* Petit effet de soulèvement */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+}
+
+.custom-file-upload-button:active {
+  transform: translateY(0); /* Retour à la position normale au clic */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Effet d'enfoncement */
+}
+
+.selected-file-name {
+  display: block; /* Prend une nouvelle ligne */
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: #777;
+  font-style: italic;
+  white-space: nowrap; /* Empêche le retour à la ligne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+  max-width: 90%; /* Limite la largeur pour éviter les débordements */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.success-message {
+  color: #28a745; /* Vert pour le succès */
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  color: #dc3545; /* Rouge pour l'erreur */
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Ajustement des boutons du popup pour qu'ils s'intègrent mieux */
+.popup-buttons {
+  margin-top: 2rem; /* Plus d'espace au-dessus */
+}
+
+.save-btn,
+.close-btn {
+  padding: 0.8rem 1.8rem; /* Rendre les boutons plus grands */
+  border-radius: 0.8rem; /* Unifier les bords arrondis */
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.close-btn {
+  background-color: #e0d39f; /* Couleur basée sur ton thème pour "Fermer" */
+  color: var(--primary-color);
+}
+
+.close-btn:hover {
+  background-color: #cbb986;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* --- NOUVEAUX STYLES POUR LES POPUPS DE FORMULAIRE --- */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Plus élevé que l'avatar popup */
+  animation: fadeIn 0.3s ease-out;
+}
+
+.popup-modal {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.popup-header h3 {
+  margin: 0;
+  color: var(--primary-color, #444);
+  font-size: 1.8rem;
+}
+
+.close-popup-btn {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.close-popup-btn:hover {
+  color: #777;
+}
+
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.8rem;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color, #555);
+  font-size: 1.1rem;
+}
+
+.form-group input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0d39f; /* Bordure basée sur ton thème */
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fffaf0; /* Un léger fond crème */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color, #d1b980); /* Bordure accentuée au focus */
+  box-shadow: 0 0 0 3px rgba(209, 185, 128, 0.2); /* Ombre de focus légère */
+  outline: none;
+}
+
+.submit-btn {
+  background-color: var(--primary-color, #d1b980);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+  background-color: #bfa570;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Styles responsive pour les popups */
+@media (max-width: 480px) {
+  .popup-modal {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .popup-header h3 {
+    font-size: 1.5rem;
+  }
+  .close-popup-btn {
+    font-size: 2rem;
+  }
+  .form-group label {
+    font-size: 1rem;
+  }
+  .form-group input {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  .submit-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-modal {
+    padding: 2rem;
+    width: 90%;
+  }
+  .popup-header h3 {
+    font-size: 1.6rem;
+  }
+}

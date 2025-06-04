@@ -1,3 +1,5 @@
+// middleware/auth.js
+
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
@@ -9,7 +11,7 @@ const authMiddleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.userId = decoded.userId;
+        req.user = { id: decoded.userId }; // <-- MODIFICATION ICI : Créer un objet 'user' avec 'id'
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Token invalide' });

@@ -18,10 +18,10 @@ function Back_office() {
     description: "",
     descriptionAdoption: "",
     dateArrivee: "",
-    image: "",
-    image2: "",
-    image3: "",
-    images: [],
+    image: "", // Primaire
+    image2: "", // Secondaire
+    image3: "", // Tertiaire
+    images: [], // Pour le stockage des chemins en BDD (tableau)
   });
 
   const [openAccordion, setOpenAccordion] = useState({
@@ -34,6 +34,9 @@ function Back_office() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupAction, setPopupAction] = useState(null); // Fonction à exécuter si confirmé
+
+  // New state for search term
+  const [searchTerm, setSearchTerm] = useState("");
 
   const apiUrl = "http://localhost:5000/api/animaux";
   const usersApiUrl = "http://localhost:5000/api/auth/users";
@@ -49,6 +52,11 @@ function Back_office() {
       .then((data) => setUsers(data))
       .catch((err) => console.error("Erreur chargement utilisateurs:", err));
   }, []);
+
+  // Filter animals based on search term
+  const filteredAnimals = animals.filter((animal) =>
+    animal.nom.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleAddAnimal = () => {
     if (!newAnimal.nom || !newAnimal.espece || !newAnimal.age) return;
@@ -147,6 +155,22 @@ function Back_office() {
       .catch((err) => console.error("Erreur mise à jour description:", err));
   };
 
+  // New handler for descriptionAdoption
+  const handleUpdateDescriptionAdoption = (id, descriptionAdoption) => {
+    fetch(`${apiUrl}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ descriptionAdoption }),
+    })
+      .then((res) => res.json())
+      .then(() =>
+        setAnimals(
+          animals.map((a) => (a._id === id ? { ...a, descriptionAdoption } : a))
+        )
+      )
+      .catch((err) => console.error("Erreur mise à jour description d'adoption:", err));
+  };
+
   const toggleAccordion = (section) => {
     setOpenAccordion((prev) => ({
       ...prev,
@@ -154,11 +178,12 @@ function Back_office() {
     }));
   };
 
-  const handleImageChange = (e, field) => {
+  // Updated handleImageChange to accept a state setter function
+  const handleImageChange = (e, field, setter) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setNewAnimal((prev) => ({ ...prev, [field]: imageUrl }));
+      setter((prev) => ({ ...prev, [field]: imageUrl }));
     }
   };
 
@@ -167,6 +192,7 @@ function Back_office() {
 
   const handleEditAnimal = (animal) => {
     setEditAnimalId(animal._id);
+    // Initialise editAnimalData avec les valeurs existantes, y compris les images
     setEditAnimalData({
       nom: animal.nom || "",
       espece: animal.espece || "Chien",
@@ -177,6 +203,11 @@ function Back_office() {
       description: animal.description || "",
       descriptionAdoption: animal.descriptionAdoption || "",
       dateArrivee: animal.dateArrivee ? animal.dateArrivee.slice(0, 10) : "",
+      // Assurez-vous que les champs image sont initialisés avec les images existantes
+      image: animal.images && animal.images[0] ? animal.images[0] : "",
+      image2: animal.images && animal.images[1] ? animal.images[1] : "",
+      image3: animal.images && animal.images[2] ? animal.images[2] : "",
+      images: animal.images || [], // Copie du tableau d'images existant
     });
   };
 
@@ -186,10 +217,27 @@ function Back_office() {
   };
 
   const handleSaveEditAnimal = (id) => {
+    // Reconstruire le tableau 'images' à partir des champs individuels (image, image2, image3)
+    const updatedImages = [
+      editAnimalData.image,
+      editAnimalData.image2,
+      editAnimalData.image3,
+    ].filter(Boolean); // Filtrer les valeurs vides/nulles
+
+    const animalToUpdate = {
+      ...editAnimalData,
+      images: updatedImages, // Mettre à jour le tableau d'images
+    };
+    // Supprimer les champs individuels pour éviter les doublons ou erreurs côté backend si non nécessaires
+    delete animalToUpdate.image;
+    delete animalToUpdate.image2;
+    delete animalToUpdate.image3;
+
+
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editAnimalData),
+      body: JSON.stringify(animalToUpdate),
     })
       .then((res) => res.json())
       .then((updatedAnimal) => {
@@ -209,6 +257,17 @@ function Back_office() {
   const handlePopupCancel = () => {
     setShowPopup(false); // Simplement fermer la pop-up
     setPopupAction(null); // Réinitialiser l'action
+  };
+
+  // Helper function to get base file name
+  const getFileName = (url) => {
+    if (!url) return "";
+    try {
+      const parts = url.split('/');
+      return parts[parts.length - 1];
+    } catch (e) {
+      return url; // Fallback if URL parsing fails
+    }
   };
 
   return (
@@ -316,41 +375,71 @@ function Back_office() {
             }
           />
 
-          <label>Date d'arrivée</label>
+          <label htmlFor="newAnimalDateArrivee">Date d'arrivée</label>
           <input
+            id="newAnimalDateArrivee" // Added ID for specific styling
             type="date"
             value={newAnimal.dateArrivee}
             onChange={(e) =>
               setNewAnimal({ ...newAnimal, dateArrivee: e.target.value })
             }
+            className="date-input" // Added class for styling
           />
 
-          <label>Image 1</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageChange(e, "image")}
-          />
+          {/* Styled file inputs for NEW animal */}
+          <div className="file-input-wrapper">
+            <label htmlFor="image1" className="file-input-label">
+              Choisir Image 1
+            </label>
+            <input
+              id="image1"
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "image", setNewAnimal)}
+              className="hidden-file-input"
+            />
+            {newAnimal.image && (
+              <span className="file-name">{getFileName(newAnimal.image)}</span>
+            )}
+          </div>
           {newAnimal.image && (
             <img src={newAnimal.image} alt="Preview" style={{ maxWidth: "150px", marginTop: "5px" }} />
           )}
 
-          <label>Image 2</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageChange(e, "image2")}
-          />
+          <div className="file-input-wrapper">
+            <label htmlFor="image2" className="file-input-label">
+              Choisir Image 2
+            </label>
+            <input
+              id="image2"
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "image2", setNewAnimal)}
+              className="hidden-file-input"
+            />
+            {newAnimal.image2 && (
+              <span className="file-name">{getFileName(newAnimal.image2)}</span>
+            )}
+          </div>
           {newAnimal.image2 && (
             <img src={newAnimal.image2} alt="Preview" style={{ maxWidth: "150px", marginTop: "5px" }} />
           )}
 
-          <label>Image 3</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageChange(e, "image3")}
-          />
+          <div className="file-input-wrapper">
+            <label htmlFor="image3" className="file-input-label">
+              Choisir Image 3
+            </label>
+            <input
+              id="image3"
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e, "image3", setNewAnimal)}
+              className="hidden-file-input"
+            />
+            {newAnimal.image3 && (
+              <span className="file-name">{getFileName(newAnimal.image3)}</span>
+            )}
+          </div>
           {newAnimal.image3 && (
             <img src={newAnimal.image3} alt="Preview" style={{ maxWidth: "150px", marginTop: "5px" }} />
           )}
@@ -365,11 +454,23 @@ function Back_office() {
         </h2>
         {openAccordion.animals && (
           <>
-            {animals.length === 0 && <p>Aucun animal enregistré.</p>}
-            {animals.map((a) => (
+            {/* Search input for animals */}
+            <div className="search-bar">
+              <input
+                type="text"
+                placeholder="Rechercher par le nom d'animal..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+            </div>
+
+            {filteredAnimals.length === 0 && <p>Aucun animal trouvé.</p>}
+            {filteredAnimals.map((a) => (
               <div key={a._id} className="animal-card">
                 {editAnimalId === a._id ? (
-                  <>
+                  // Edit Form for Animal
+                  <div className="edit-animal-form">
                     <label>Nom</label>
                     <input
                       value={editAnimalData.nom}
@@ -446,14 +547,99 @@ function Back_office() {
                       }
                     />
 
-                    <label>Date d'arrivée</label>
+                    <label htmlFor="editAnimalDateArrivee">Date d'arrivée</label>
                     <input
+                      id="editAnimalDateArrivee" // Added ID for specific styling
                       type="date"
                       value={editAnimalData.dateArrivee}
                       onChange={(e) =>
                         setEditAnimalData({ ...editAnimalData, dateArrivee: e.target.value })
                       }
+                      className="date-input" // Added class for styling
                     />
+
+                    {/* Image modification fields */}
+                    <div className="image-edit-section">
+                      <h4>Modifier les images :</h4>
+                      <div className="file-input-wrapper">
+                        <label htmlFor="editImage1" className="file-input-label">
+                          Image 1
+                        </label>
+                        <input
+                          id="editImage1"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageChange(e, "image", setEditAnimalData)}
+                          className="hidden-file-input"
+                        />
+                        {editAnimalData.image && (
+                          <span className="file-name">{getFileName(editAnimalData.image)}</span>
+                        )}
+                      </div>
+                      {editAnimalData.image && (
+                        <img src={editAnimalData.image} alt="Preview 1" className="image-preview-edit" />
+                      )}
+                      <button
+                        type="button"
+                        className="btn_clear_image"
+                        onClick={() => setEditAnimalData(prev => ({ ...prev, image: "" }))}
+                      >
+                        Supprimer Image 1
+                      </button>
+
+                      <div className="file-input-wrapper">
+                        <label htmlFor="editImage2" className="file-input-label">
+                          Image 2
+                        </label>
+                        <input
+                          id="editImage2"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageChange(e, "image2", setEditAnimalData)}
+                          className="hidden-file-input"
+                        />
+                        {editAnimalData.image2 && (
+                          <span className="file-name">{getFileName(editAnimalData.image2)}</span>
+                        )}
+                      </div>
+                      {editAnimalData.image2 && (
+                        <img src={editAnimalData.image2} alt="Preview 2" className="image-preview-edit" />
+                      )}
+                      <button
+                        type="button"
+                        className="btn_clear_image"
+                        onClick={() => setEditAnimalData(prev => ({ ...prev, image2: "" }))}
+                      >
+                        Supprimer Image 2
+                      </button>
+
+                      <div className="file-input-wrapper">
+                        <label htmlFor="editImage3" className="file-input-label">
+                          Image 3
+                        </label>
+                        <input
+                          id="editImage3"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageChange(e, "image3", setEditAnimalData)}
+                          className="hidden-file-input"
+                        />
+                        {editAnimalData.image3 && (
+                          <span className="file-name">{getFileName(editAnimalData.image3)}</span>
+                        )}
+                      </div>
+                      {editAnimalData.image3 && (
+                        <img src={editAnimalData.image3} alt="Preview 3" className="image-preview-edit" />
+                      )}
+                      <button
+                        type="button"
+                        className="btn_clear_image"
+                        onClick={() => setEditAnimalData(prev => ({ ...prev, image3: "" }))}
+                      >
+                        Supprimer Image 3
+                      </button>
+                    </div> {/* End image-edit-section */}
+
 
                     <div className="buttons">
                       <button onClick={() => handleSaveEditAnimal(a._id)} className="btn_save">
@@ -463,26 +649,64 @@ function Back_office() {
                         Annuler
                       </button>
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  <>
-                    <strong>{a.nom}</strong><br />
-                    Race : {a.race} <br />
-                    Âge : {a.age} ans - Sexe : {a.sexe} - Taille : {a.taille} <br />
-                    Statut : {a.adopte ? "Adopté" : "Disponible"}
-                    <br />
-                    <label>Date d'arrivée</label>
+                  // Display Mode for Animal
+                  <div className="animal-display-info">
+                    <h3>{a.nom}</h3>
                     <p>
+                      <span className="info-label">Espèce :</span> {a.espece}
+                    </p>
+                    <p>
+                      <span className="info-label">Race :</span> {a.race}
+                    </p>
+                    <p>
+                      <span className="info-label">Âge :</span> {a.age} ans
+                    </p>
+                    <p>
+                      <span className="info-label">Sexe :</span> {a.sexe}
+                    </p>
+                    <p>
+                      <span className="info-label">Taille :</span> {a.taille}
+                    </p>
+                    <p>
+                      <span className="info-label">Statut :</span>{" "}
+                      <span className={`status-${a.adopte ? "adopted" : "available"}`}>
+                        {a.adopte ? "Adopté" : "Disponible"}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="info-label">Date d'arrivée :</span>{" "}
                       {a.dateArrivee
-                        ? new Date(a.dateArrivee).toLocaleDateString()
+                        ? new Date(a.dateArrivee).toLocaleDateString("fr-FR")
                         : "-"}
                     </p>
-                    <br />
-                    <label>Description</label>
-                    <textarea
-                      value={a.description || ""}
-                      onChange={(e) => handleUpdateDescription(a._id, e.target.value)}
-                    />
+                    <div className="description-section">
+                      <span className="info-label">Description :</span>
+                      <textarea
+                        value={a.description || ""}
+                        onChange={(e) => handleUpdateDescription(a._id, e.target.value)}
+                        placeholder="Ajouter une description..."
+                      />
+                    </div>
+                    <div className="description-section">
+                      <span className="info-label">Description Adoption :</span>
+                      <textarea
+                        value={a.descriptionAdoption || ""}
+                        onChange={(e) => handleUpdateDescriptionAdoption(a._id, e.target.value)}
+                        placeholder="Ajouter une description pour l'adoption..."
+                      />
+                    </div>
+
+                    <div className="animal-images-preview">
+                      {a.images && a.images.length > 0 ? (
+                        a.images.map((image, index) => (
+                          <img key={index} src={image} alt={`${a.nom} image ${index + 1}`} />
+                        ))
+                      ) : (
+                        <p className="no-images">Aucune image disponible</p>
+                      )}
+                    </div>
 
                     <div className="buttons">
                       <button
@@ -504,7 +728,7 @@ function Back_office() {
                         Supprimer
                       </button>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             ))}

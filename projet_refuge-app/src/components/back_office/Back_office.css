@@ -5,7 +5,6 @@
   padding: 2rem;
   background-color: #ebeaea;
   color: #333;
-  max-width: 1000px;
   margin: 0 auto;
   margin-top: 7rem;
 }
@@ -18,6 +17,8 @@
   padding: 6px;
   width: fit-content;
   justify-self: center;
+  margin-left: auto; /* Center the element */
+  margin-right: auto; /* Center the element */
 }
 
 .section {
@@ -41,6 +42,7 @@
 
 .form-animal label {
   font-weight: bold;
+  margin-top: 0.5rem; /* Add some space above labels */
 }
 
 .form-animal input,
@@ -63,6 +65,7 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s ease;
+  margin-top: 1rem; /* Space above the submit button */
 }
 
 .form-animal button:hover {
@@ -84,20 +87,34 @@
   color: #2c3e50;
 }
 
-.animal-card textarea {
-  width: 90%;
-  min-height: 60px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem;
-  resize: none;
+/* Updated Styles for ALL Textareas */
+textarea {
+  padding: 0.8rem; /* Slightly more padding */
+  border: 1px solid #c0c0c0; /* Softer border color */
+  border-radius: 8px; /* More rounded corners */
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px; /* Increased minimum height for more space */
+  resize: vertical; /* Allow only vertical resizing */
+  background-color: #fcfcfc; /* Very light background */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3498db; /* Blue border on focus */
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.4); /* Subtle blue glow on focus */
+  background-color: #ffffff; /* White background on focus */
 }
 
 .buttons {
   display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
   gap: 0.5rem;
+  margin-top: 1rem; /* Space above action buttons */
+  justify-content: flex-end; /* Align buttons to the right */
 }
 
 .buttons button {
@@ -218,4 +235,554 @@ button.btn_delete {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* --- Styles for File Inputs --- */
+
+.file-input-wrapper {
+  display: flex; /* Aligns the label and file name */
+  align-items: center; /* Vertically centers them */
+  gap: 10px; /* Space between the button and file name */
+  margin-top: 1rem;
+}
+
+.hidden-file-input {
+  /* Hide the actual file input */
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input-label {
+  display: inline-block;
+  background-color: #3498db; /* A pleasant blue, matching other buttons */
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.file-input-label:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+}
+
+.file-name {
+  font-size: 0.9em;
+  color: #555;
+  white-space: nowrap; /* Prevent text wrapping for long file names */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for long file names */
+  max-width: calc(100% - 150px); /* Adjust max-width based on label width */
+}
+
+/* Style for accordion headers */
+.accordion-header {
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover {
+  background-color: #e7e6e6;
+}
+
+/* --- Styles for Edit Animal Form --- */
+.edit-animal-form {
+  background-color: #e8f4f8; /* A light, calming blue to indicate edit mode */
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #aed6f1; /* A slightly darker blue border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem; /* Slightly reduced gap for a more compact form */
+}
+
+.edit-animal-form label {
+  font-weight: bold;
+  color: #2c3e50; /* Darker text for labels */
+  margin-top: 0.7rem; /* More space above labels */
+  margin-bottom: 0.2rem; /* Less space below labels to keep them close to inputs */
+  display: block; /* Ensure label takes full width */
+}
+
+/* Specific styling for inputs/selects/textareas within edit form */
+.edit-animal-form input,
+.edit-animal-form select,
+.edit-animal-form textarea {
+  padding: 0.7rem; /* Slightly more padding for easier interaction */
+  border: 1px solid #95a5a6; /* A neutral gray border */
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff; /* White background for inputs */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-animal-form input:focus,
+.edit-animal-form select:focus,
+.edit-animal-form textarea:focus {
+  outline: none;
+  border-color: #3498db; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Blue glow on focus */
+}
+
+.edit-animal-form textarea {
+  min-height: 80px; /* Slightly taller text areas */
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.edit-animal-form .buttons {
+  margin-top: 1.5rem; /* More space above the action buttons in edit mode */
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.edit-animal-form .btn_save {
+  background-color: #27ae60; /* Green for save */
+}
+
+.edit-animal-form .btn_save:hover {
+  background-color: #219150;
+}
+
+.edit-animal-form .btn_cancel {
+  background-color: #e74c3c; /* Red for cancel */
+}
+
+.edit-animal-form .btn_cancel:hover {
+  background-color: #c0392b;
+}
+
+/* --- New Styles for Animal Display Info --- */
+.animal-display-info h3 {
+  color: #2c3e50; /* Darker title for the animal name */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #3498db; /* Blue underline */
+  padding-bottom: 0.5rem;
+  display: inline-block; /* To make border-bottom fit content */
+}
+
+.animal-display-info p {
+  margin-bottom: 0.5rem; /* Spacing between info lines */
+  line-height: 1.4;
+  color: #555;
+}
+
+.animal-display-info .info-label {
+  font-weight: bold;
+  color: #34495e; /* Slightly darker label color */
+  margin-right: 0.5rem; /* Space between label and value */
+  min-width: 120px; /* Ensure labels align */
+  display: inline-block;
+}
+
+.animal-display-info .description-section {
+  margin-top: 1rem;
+}
+
+.animal-display-info .description-section .info-label {
+  display: block; /* Label on its own line for description */
+  margin-bottom: 0.5rem;
+}
+
+/* Specific styling for textareas in display mode (editable) */
+.animal-display-info .description-section textarea {
+  background-color: #f8f8f8; /* Lighter background for description textarea */
+  border: 1px solid #ccc;
+  padding: 0.7rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  width: calc(100% - 1.4rem); /* Account for padding */
+  box-sizing: border-box;
+  min-height: 100px; /* Taller by default for descriptions */
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.animal-display-info .status-adopted {
+  color: #e74c3c; /* Red for adopted */
+  font-weight: bold;
+}
+
+.animal-display-info .status-available {
+  color: #27ae60; /* Green for available */
+  font-weight: bold;
+}
+
+.animal-display-info .animal-images-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1.5rem;
+  border-top: 1px dashed #ccc; /* Separator for images */
+  padding-top: 1rem;
+}
+
+.animal-display-info .animal-images-preview img {
+  width: 100px; /* Fixed width for image previews */
+  height: 100px; /* Fixed height for image previews */
+  object-fit: cover; /* Cover the area, crop if necessary */
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.animal-display-info .no-images {
+  font-style: italic;
+  color: #777;
+  text-align: center;
+  width: 100%;
+}
+
+/* --- Styles for Date Input --- */
+.date-input {
+  /* Resetting default browser styles for date input */
+  -webkit-appearance: none; /* For Chrome, Safari, Edge */
+  -moz-appearance: none; /* For Firefox */
+  appearance: none; /* Standard property */
+
+  /* Apply consistent form styling */
+  padding: 0.7rem;
+  border: 1px solid #95a5a6;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color: #333; /* Ensure text color is readable */
+
+  /* Add padding-right to make space for custom icon/clear default arrow */
+  padding-right: 2.5rem; /* Adjust as needed based on your icon size */
+
+  /* Position for custom icon (if you want one, otherwise browser default will show) */
+  position: relative;
+}
+
+/* On focus */
+.date-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* For custom calendar icon (optional, and may not work on all browsers due to shadow DOM) */
+/* This aims to remove the default calendar icon. You might need to add a custom background-image for a universal icon. */
+.date-input::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0); /* Make default icon transparent */
+  opacity: 0; /* Hide the default icon */
+  display: block; /* Ensure it takes up space */
+  width: 100%; /* Make it clickable across the input */
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent; /* Ensure no background interferes */
+  cursor: pointer;
+}
+
+/* Fallback/custom icon for date input. You might use a Font Awesome icon or an SVG. */
+/* Example using a basic calendar icon. You can replace this with a better SVG or FontAwesome. */
+.date-input {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%233498db"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center; /* Position the icon */
+  background-size: 1.2rem; /* Size the icon */
+}
+
+/* For Firefox, which uses a different pseudo-element */
+.date-input::-moz-calendar-picker-indicator {
+  /* Styles for Firefox picker indicator */
+  color: transparent; /* Make default icon transparent */
+  background-color: transparent; /* Ensure no background interferes */
+  cursor: pointer;
+}
+
+/* New Styles for Image Edit Section */
+.image-edit-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #aed6f1; /* Lighter dashed line for separation */
+}
+
+.image-edit-section h4 {
+  color: #3498db;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.image-edit-section .file-input-wrapper {
+  margin-top: 0.8rem; /* Closer to the title */
+  margin-bottom: 0.5rem; /* Space before preview */
+}
+
+.image-preview-edit {
+  max-width: 150px;
+  height: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem; /* Space before clear button */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn_clear_image {
+  background-color: #f39c12; /* Orange for clear image button */
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: 0.5rem; /* Space from file input */
+  margin-bottom: 1rem; /* Space between clear buttons */
+  display: block; /* Each button on its own line */
+}
+
+.btn_clear_image:hover {
+  background-color: #e67e22;
+}
+/* Back_office.css */
+
+.back-office {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  background-color: #ebeaea;
+  color: #333;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 7rem;
+}
+
+.h1_office {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  border: 3px solid #3498db;
+  padding: 6px;
+  width: fit-content;
+  justify-self: center;
+  margin-left: auto; /* Center the element */
+  margin-right: auto; /* Center the element */
+}
+
+.section {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+.form-animal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.form-animal label {
+  font-weight: bold;
+  margin-top: 0.5rem; /* Add some space above labels */
+}
+
+.form-animal input,
+.form-animal select,
+.form-animal textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-animal button {
+  padding: 0.6rem 1rem;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem; /* Space above the submit button */
+}
+
+.form-animal button:hover {
+  background-color: #219150;
+}
+
+.animal-card,
+.user-card,
+.comment-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.animal-card strong {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Updated Styles for ALL Textareas */
+textarea {
+  padding: 0.8rem; /* Slightly more padding */
+  border: 1px solid #c0c0c0; /* Softer border color */
+  border-radius: 8px; /* More rounded corners */
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px; /* Increased minimum height for more space */
+  resize: vertical; /* Allow only vertical resizing */
+  background-color: #fcfcfc; /* Very light background */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3498db; /* Blue border on focus */
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.4); /* Subtle blue glow on focus */
+  background-color: #ffffff; /* White background on focus */
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  gap: 0.5rem;
+  margin-top: 1rem; /* Space above action buttons */
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.buttons button {
+  background-color: #3498db;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buttons button:hover {
+  background-color: #2980b9;
+}
+
+.comment-card,
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-card button,
+.user-card button {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment-card button:hover,
+.user-card button:hover {
+  background-color: #c0392b;
+}
+
+button.btn_delete {
+  background-color: #e74c3c;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  transform: translateY(-20px);
+  animation: fadeInPop 0.3s ease-out forwards;
+}
+
+.popup-content p {
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  color: #333;
+  line-height: 1.5;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.popup-buttons button {
+  padding: 12px 25px;
+}
+
+.search-bar {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 25px; /* Rounded corners for a modern look */
+  font-size: 1.1rem;
+  width: 70%;
+  max-width: 400px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+  background-color: #ffffff;
 }

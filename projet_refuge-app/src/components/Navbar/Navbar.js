@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; // Importe useAuth
 
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
   const [showPopup, setShowPopup] = useState(null);
+  const { user } = useAuth(); // Récupère l'objet user du contexte d'authentification
+
+  // Détermine si l'utilisateur est connecté en vérifiant si l'objet user existe
+  const isAuthenticated = !!user;
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
@@ -40,25 +46,24 @@ function Navbar() {
     {
       title: "Membres",
       propositions: [
-        { text: "Notre équipe", link: "/notre équipe" },
-        { text: "Adhésions", link: "/adhésions" },
+        { text: "Notre équipe", link: "/Notre équipe" },
+        { text: "Adhésions", link: "/Adhésions" },
         { text: "Nos partenaires", link: "/Nos partenaires" }
       ]
     },
-    { title: "Contact", link: "/contact" }
+    { title: "Contact", link: "/Contact" }
   ];
 
   return (
     <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
       <div className="navbar_logo">
-        <a href="/">
+        <Link to="/">
           <img
             src="/img/logo_site.svg"
             alt="C'est le logo du refuge, il y a le nom du refuge et un chien et un chat collé ensemble en dessous"
             width={130}
-          // height={130}
           />
-        </a>
+        </Link>
       </div>
 
       <ul className="navbar_links">
@@ -69,23 +74,23 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
-            <a
+            <Link
               className={`navbar_link ${showPopup === index ? "active" : ""}`}
-              href={option.link || "#"}
+              to={option.link || "#"}
             >
               {option.title}
-            </a>
+            </Link>
             {showPopup === index && option.propositions && (
               <div className="popup">
                 {option.propositions.map((prop, i) => (
-                  <a
+                  <Link
                     key={i}
-                    href={prop.link}
+                    to={prop.link}
                     className="popup_item"
                     onClick={() => handleClickProposition(prop.text)}
                   >
                     {prop.text}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -93,23 +98,24 @@ function Navbar() {
         ))}
 
         <li className="navbar_item icon_navbar">
-          <a className="navbar_link" href="/Adhésions">
+          <Link className="navbar_link" to="/Adhésions">
             <img
               src="/img/coeur_dons_modif3.png"
               alt="C'est l'icon pour faire un don en forme de coeur"
               width={45}
             />
-          </a>
+          </Link>
         </li>
 
         <li className="navbar_item icon_navbar icon_profil">
-          <a className="navbar_link" href="/Connexion">
+          {/* LOGIQUE CLÉ : Utilise 'isAuthenticated' basé sur la présence de 'user' */}
+          <Link className="navbar_link" to={isAuthenticated ? "/Mon compte" : "/Connexion"}>
             <img
               src="/img/svg_profil.svg"
               alt="C'est l'icon de connexion avec un petit profil"
               width={50}
             />
-          </a>
+          </Link>
         </li>
       </ul>
 

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../../../context/AuthContext';
+import api from '../../../../services/api';
+
 import "./Mon_compte.css";
+// Importation des nouveaux composants de popup
+import DataFormPopup from './Popup/DataFormPopup';
+import AddressFormPopup from './Popup/AdressFormPopup';
+import PasswordFormPopup from './Popup/PasswordFormPopup';
+
 
 const avatarOptions = [
   "/img/Avatar/avatar_chat1.jpg",
@@ -12,94 +21,138 @@ const avatarOptions = [
   "/img/Avatar/avatar_chien4.jpg",
 ];
 
-const MonCompte = () => {
-  const defaultUser = {
-    nom: "Nom",
-    prenom: "Prénom",
-    avatar: "",
-    id: null,
-  };
+const Mon_compte = () => {
+  const { user, logout, loading, updateAvatar } = useAuth();
+  const navigate = useNavigate();
 
-  const initialUser = JSON.parse(localStorage.getItem("user")) || defaultUser;
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [showAvatarPopup, setShowAvatarPopup] = useState(false); // Renommé pour plus de clarté
+  const [showDataPopup, setShowDataPopup] = useState(false); // État pour le popup données
+  const [showAddressPopup, setShowAddressPopup] = useState(false); // État pour le popup adresse
+  const [showPasswordPopup, setShowPasswordPopup] = useState(false); // État pour le popup mot de passe
 
-  const [avatar, setAvatar] = useState(initialUser.avatar || "/img/avatar.png");
-  const [showPopup, setShowPopup] = useState(false);
-  const [userNom, setUserNom] = useState(initialUser.nom);
-  const [userPrenom, setUserPrenom] = useState(initialUser.prenom);
-  const [userId, setUserId] = useState(initialUser.id);
-
-  const handleAvatarSelect = async (img) => {
-    setAvatar(img);
-    setShowPopup(false);
-
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      try {
-        const url = `/api/auth/users/${storedUser.id}/avatar`; // route PUT dédiée avatar
-        const response = await fetch(url, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ avatar: img }),
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Erreur brute du serveur :", errorText);
-          alert("Erreur lors de la sauvegarde de l'avatar sur le serveur.");
-          return;
-        }
-
-        const data = await response.json();
-
-        // Mets à jour le localStorage avec l'avatar reçu en réponse (au cas où le backend modifie l'URL)
-        const updatedUser = { ...storedUser, avatar: data.avatar || img };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setAvatar(updatedUser.avatar);
-
-        alert("Avatar mis à jour avec succès !");
-      } catch (error) {
-        console.error("Erreur JS :", error);
-        alert("Erreur lors de la sauvegarde de l'avatar sur le serveur.");
-      }
-    }
-  };
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("user"));
-    if (!stored) {
-      window.location.href = "/connexion";
-    } else {
-      setUserNom(stored.nom);
-      setUserPrenom(stored.prenom);
-      setUserId(stored.id);
-      setAvatar(stored.avatar || "/img/avatar.png");
+    if (!loading && !user) {
+      navigate('/connexion');
     }
-  }, []);
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return <div className="mon-compte-container">Chargement du profil...</div>;
+  }
+
+  if (!user) {
+    return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
+  }
+
+  const handleLogout = () => {
+    logout();
+    navigate('/connexion');
+  };
+
+  // --- LOGIQUE POUR LE TÉLÉVERSEMENT D'AVATAR (FICHIER) ---
+  const handleAvatarUpload = async (file) => {
+    if (!file) {
+      setError('Veuillez sélectionner un fichier à téléverser.');
+      return;
+    }
+
+    setMessage('Téléchargement de l\'avatar en cours...');
+    setError('');
+    setShowAvatarPopup(false); // Ferme la popup après la sélection
+
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    try {
+      const response = await api.post('/auth/profile/avatar', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setMessage(response.data.msg);
+      updateAvatar(response.data.avatarUrl);
+      setAvatarFile(null);
+      const fileInput = document.getElementById('avatar-upload-input');
+      if (fileInput) fileInput.value = '';
+
+    } catch (err) {
+      console.error("Erreur lors du téléversement de l'avatar:", err);
+      setError(err.response?.data?.msg || "Erreur lors du téléversement de l'avatar.");
+      setMessage('');
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      handleAvatarUpload(file);
+    }
+  };
+
+  // --- LOGIQUE POUR LA SÉLECTION D'AVATAR PRÉDÉFINI ---
+  const handleAvatarSelect = async (imgUrl) => {
+    setShowAvatarPopup(false);
+    setMessage('Mise à jour de l\'avatar en cours...');
+    setError('');
+
+    try {
+      const response = await api.put('/auth/profile/avatar-url', { avatarUrl: imgUrl });
+
+      setMessage(response.data.msg);
+      updateAvatar(response.data.avatarUrl);
+
+    } catch (error) {
+      console.error("Erreur lors de la sélection de l'avatar prédéfini:", error);
+      setError(error.response?.data?.msg || "Erreur lors de la mise à jour de l'avatar.");
+      setMessage('');
+    }
+  };
+
+  // Fonction de rappel pour les popups de formulaire après une mise à jour réussie
+  const handleFormUpdateSuccess = () => {
+    // Tu peux choisir de fermer tous les popups ou de laisser l'utilisateur le faire
+    setShowDataPopup(false);
+    setShowAddressPopup(false);
+    setShowPasswordPopup(false);
+    // Ici tu peux aussi mettre un message de succès global si tu veux
+    setMessage("Vos informations ont été mises à jour avec succès !");
+    setTimeout(() => setMessage(''), 3000); // Efface le message après 3 secondes
+  };
+
 
   const handleOptionClick = (option) => {
+    // Réinitialise les messages avant d'ouvrir un nouveau popup
+    setMessage('');
+    setError('');
+
     switch (option) {
       case "donnees":
-        alert("Ici tu peux ajouter la gestion des données personnelles");
+        setShowDataPopup(true);
         break;
       case "adresse":
-        alert("Ici tu peux ajouter la gestion de l'adresse de livraison");
+        setShowAddressPopup(true);
         break;
       case "motdepasse":
-        alert("Ici tu peux ajouter la modification du mot de passe");
+        setShowPasswordPopup(true);
         break;
       case "deconnexion":
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        alert("Déconnecté !");
-        window.location.href = "/connexion";
+        handleLogout();
         break;
       default:
         break;
     }
   };
+
+  const displayAvatarUrl = user.avatarUrl
+    ? user.avatarUrl.startsWith('/uploads/')
+      ? `http://localhost:5000${user.avatarUrl}`
+      : user.avatarUrl
+    : '/uploads/default_avatar.png';
 
   return (
     <div className="mon-compte-container">
@@ -107,14 +160,14 @@ const MonCompte = () => {
         <div className="compte-left">
           <div className="user-info">
             <img
-              src={avatar}
+              src={displayAvatarUrl}
               alt="Avatar"
               className="user-avatar clickable"
-              onClick={() => setShowPopup(true)}
+              onClick={() => setShowAvatarPopup(true)}
             />
             <div className="user-names">
               <span className="user-fullname">
-                {userPrenom} {userNom}
+                {user.prenom} {user.nom}
               </span>
             </div>
           </div>
@@ -184,7 +237,8 @@ const MonCompte = () => {
         </div>
       </div>
 
-      {showPopup && (
+      {/* Popup pour la sélection d'avatar (prédéfini ou téléversement) */}
+      {showAvatarPopup && (
         <div className="avatar-popup">
           <div className="popup-content">
             <h3>Choisissez votre avatar</h3>
@@ -199,16 +253,56 @@ const MonCompte = () => {
                 />
               ))}
             </div>
+
+            <div className="upload-section">
+              <h4>Ou téléchargez une image personnalisée :</h4>
+              <label htmlFor="avatar-upload-input" className="custom-file-upload-button">
+                Choisir un fichier
+              </label>
+              <input
+                type="file"
+                id="avatar-upload-input"
+                accept="image/jpeg,image/png,image/gif"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              {avatarFile && <span className="selected-file-name">{avatarFile.name}</span>}
+            </div>
+
+            {message && <p className="success-message">{message}</p>}
+            {error && <p className="error-message">{error}</p>}
+
             <div className="popup-buttons">
-              <button onClick={() => setShowPopup(false)} className="close-btn">
+              <button onClick={() => setShowAvatarPopup(false)} className="close-btn">
                 Fermer
               </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Popups de formulaire conditionnels */}
+      {showDataPopup && (
+        <DataFormPopup
+          onClose={() => setShowDataPopup(false)}
+          user={user}
+          onUpdateSuccess={handleFormUpdateSuccess}
+        />
+      )}
+      {showAddressPopup && (
+        <AddressFormPopup
+          onClose={() => setShowAddressPopup(false)}
+          user={user}
+          onUpdateSuccess={handleFormUpdateSuccess}
+        />
+      )}
+      {showPasswordPopup && (
+        <PasswordFormPopup
+          onClose={() => setShowPasswordPopup(false)}
+        />
+      )}
     </div>
   );
 };
 
-export default MonCompte;
+export default Mon_compte;
