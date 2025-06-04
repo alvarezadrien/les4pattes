@@ -8,6 +8,7 @@ import "./Mon_compte.css";
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
+import CommentFormPopup from './Popup/CommentFormPopup'; // Importation du nouveau composant de popup
 
 
 const avatarOptions = [
@@ -32,6 +33,7 @@ const Mon_compte = () => {
   const [showDataPopup, setShowDataPopup] = useState(false); // État pour le popup données
   const [showAddressPopup, setShowAddressPopup] = useState(false); // État pour le popup adresse
   const [showPasswordPopup, setShowPasswordPopup] = useState(false); // État pour le popup mot de passe
+  const [showCommentPopup, setShowCommentPopup] = useState(false); // État pour le popup commentaire
 
 
   useEffect(() => {
@@ -119,6 +121,7 @@ const Mon_compte = () => {
     setShowDataPopup(false);
     setShowAddressPopup(false);
     setShowPasswordPopup(false);
+    setShowCommentPopup(false); // Ferme le popup de commentaire aussi
     // Ici tu peux aussi mettre un message de succès global si tu veux
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000); // Efface le message après 3 secondes
@@ -142,6 +145,9 @@ const Mon_compte = () => {
         break;
       case "deconnexion":
         handleLogout();
+        break;
+      case "commentaires": // Nouvelle option pour les commentaires
+        setShowCommentPopup(true);
         break;
       default:
         break;
@@ -214,12 +220,12 @@ const Mon_compte = () => {
 
             <div className="compte-option">
               <div className="option-content">
-                <img
-                  src="/img/orders.png"
-                  alt="Commandes"
-                  className="option-img"
-                />
-                <span>Mes commandes</span>
+                <button
+                  className="comment-button"
+                  onClick={() => handleOptionClick("commentaires")}
+                >
+                  Laisser un commentaire
+                </button>
               </div>
             </div>
 
@@ -299,6 +305,13 @@ const Mon_compte = () => {
       {showPasswordPopup && (
         <PasswordFormPopup
           onClose={() => setShowPasswordPopup(false)}
+        />
+      )}
+      {/* Nouveau popup pour les commentaires */}
+      {showCommentPopup && (
+        <CommentFormPopup
+          onClose={() => setShowCommentPopup(false)}
+          onCommentSubmitSuccess={handleFormUpdateSuccess} // Utilisez la même fonction de succès si vous voulez
         />
       )}
     </div>

@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+.avis-section {
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  padding: 80px 20px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.avis-titre {
+  font-size: 2.8rem;
+  margin-bottom: 50px;
+  color: #2b2d42;
+  font-weight: 600;
+  position: relative;
+}
+
+.avis-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.avis-carte {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  max-width: 340px;
+  flex: 1 1 280px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.avis-carte:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.avis-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.avis-avatar {
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #8ec5fc, #e0c3fc);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.avis-nom {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2b2d42;
+}
+
+.avis-commentaire {
+  font-style: italic;
+  color: #3a3a3a;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.avis-stars .star {
+  font-size: 1.4rem;
+  color: #d3d3d3;
+  transition: color 0.3s;
+}
+
+.avis-stars .filled {
+  color: #ffc107;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

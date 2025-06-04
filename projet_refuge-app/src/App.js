@@ -41,6 +41,7 @@ import Pagination from './components/Widgets/Pagination/Pagination';
 import Carte_carrousel from './components/Widgets/Carrousel/Carte_carrousel'; // Est déjà dans les routes
 import Scroll_button from './components/Widgets/Scroll_button/Scroll_button';
 import Back_office from './components/back_office/Back_office';
+import CommentCards from './components/Pages/Avis/Avis';
 
 
 const Layout = ({ children }) => {
