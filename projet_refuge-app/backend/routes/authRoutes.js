@@ -145,8 +145,6 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
     }
 });
 
-
-
 router.get('/users', async (req, res) => { // Cette route devrait être protégée pour les administrateurs
     try {
         const users = await User.find().select('-password');

@@ -17,39 +17,37 @@ export const AuthProvider = ({ children }) => {
         const loadUserFromToken = async () => {
             const token = localStorage.getItem('token');
             if (token) {
+                // Si un token existe, on tente de récupérer le profil de l'utilisateur
                 try {
+                    // Axios est déjà configuré dans 'api.js' pour ajouter le token automatiquement
                     const response = await api.get('/auth/profile');
-                    // *** VÉRIFIE ICI : Assure-toi que response.data inclut avatarUrl ***
-                    // Exemple: response.data pourrait ressembler à { id: '...', email: '...', avatarUrl: '...' }
+                    // Assure-toi que la réponse contient les bonnes données utilisateur
                     setUser(response.data);
                 } catch (error) {
                     console.error('Erreur lors du chargement du profil utilisateur:', error);
-                    localStorage.removeItem('token');
+                    localStorage.removeItem('token'); // Token invalide ou expiré, on le supprime
                     setUser(null);
                 }
             }
-            setLoading(false);
+            setLoading(false); // Le chargement initial est terminé
         };
 
         loadUserFromToken();
-    }, []);
+    }, []); // Le tableau vide assure que cela ne s'exécute qu'une seule fois
 
     // Fonction de connexion
     const login = async (email, password) => {
         try {
             const response = await api.post('/auth/login', { email, password });
-            const { token, user: userData } = response.data;
-            // *** VÉRIFIE ICI : Assure-toi que userData contient avatarUrl ***
-            localStorage.setItem('token', token);
-            setUser(userData);
+            const { token, user: userData } = response.data; // Récupère le token et les données user
+            localStorage.setItem('token', token); // Stocke le token
+            setUser(userData); // Met à jour l'état de l'utilisateur
             return { success: true };
         } catch (error) {
             console.error('Échec de la connexion:', error.response?.data?.message || error.message);
             return { success: false, message: error.response?.data?.message || 'Erreur de connexion' };
         }
     };
-
-    // ... (le reste de ton AuthContext.js reste inchangé) ...
 
     // Fonction d'inscription
     const signup = async (userData) => {
@@ -69,7 +67,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     // La fonction pour mettre à jour l'avatar côté frontend après un upload réussi
-    // Cette fonction est utilisée par Mon_compte par exemple, si tu y gères l'upload d'avatar
     const updateAvatar = (newAvatarUrl) => {
         setUser(prevUser => ({
             ...prevUser,
@@ -77,22 +74,24 @@ export const AuthProvider = ({ children }) => {
         }));
     };
 
+    // La valeur qui sera fournie à tous les composants qui utilisent ce contexte
     const authContextValue = {
         user,
         loading,
         login,
         signup,
         logout,
-        updateAvatar,
+        updateAvatar, // Ajoute cette fonction pour mettre à jour l'avatar
     };
 
     return (
         <AuthContext.Provider value={authContextValue}>
-            {!loading && children}
+            {!loading && children} {/* Affiche les enfants seulement après le chargement initial */}
         </AuthContext.Provider>
     );
 };
 
+// Hook personnalisé pour utiliser le contexte d'authentification facilement
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
