@@ -8,7 +8,7 @@ import "./Mon_compte.css";
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
-import CommentFormPopup from './Popup/CommentFormPopup'; // Importation du nouveau composant de popup
+import CommentFormPopup from './Popup/CommentFormPopup';
 
 
 const avatarOptions = [
@@ -311,7 +311,9 @@ const Mon_compte = () => {
       {showCommentPopup && (
         <CommentFormPopup
           onClose={() => setShowCommentPopup(false)}
-          onCommentSubmitSuccess={handleFormUpdateSuccess} // Utilisez la même fonction de succès si vous voulez
+          onCommentSubmitSuccess={handleFormUpdateSuccess}
+          // Passer l'utilisateur au CommentFormPopup si des infos user spécifiques sont nécessaires
+          user={user} // <<< Ajout de la prop user ici
         />
       )}
     </div>

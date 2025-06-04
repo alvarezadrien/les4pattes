@@ -9,23 +9,26 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     // État pour stocker l'utilisateur (null si déconnecté)
     const [user, setUser] = useState(null);
+    // État pour stocker le token. Initialisé à partir du localStorage.
+    const [token, setToken] = useState(localStorage.getItem('token') || null); // <<< AJOUT DU TOKEN DANS L'ÉTAT
     // État pour indiquer si le chargement initial est terminé (par exemple, pour vérifier le token au démarrage)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fonction exécutée une seule fois au montage du composant
         const loadUserFromToken = async () => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                // Si un token existe, on tente de récupérer le profil de l'utilisateur
+            // Le token est déjà dans l'état 'token', mais on peut aussi le re-vérifier avec localStorage
+            const storedToken = localStorage.getItem('token');
+            if (storedToken) {
+                // Axios est déjà configuré dans 'api.js' pour ajouter le token automatiquement
+                // Donc pas besoin de le passer manuellement ici si l'intercepteur est en place.
                 try {
-                    // Axios est déjà configuré dans 'api.js' pour ajouter le token automatiquement
                     const response = await api.get('/auth/profile');
-                    // Assure-toi que la réponse contient les bonnes données utilisateur
                     setUser(response.data);
+                    setToken(storedToken); // Assure que le state 'token' est synchronisé
                 } catch (error) {
                     console.error('Erreur lors du chargement du profil utilisateur:', error);
                     localStorage.removeItem('token'); // Token invalide ou expiré, on le supprime
+                    setToken(null); // Réinitialise le token dans l'état
                     setUser(null);
                 }
             }
@@ -39,8 +42,9 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const response = await api.post('/auth/login', { email, password });
-            const { token, user: userData } = response.data; // Récupère le token et les données user
-            localStorage.setItem('token', token); // Stocke le token
+            const { token: receivedToken, user: userData } = response.data; // Récupère le token et les données user
+            localStorage.setItem('token', receivedToken); // Stocke le token dans localStorage
+            setToken(receivedToken); // Met à jour l'état du token
             setUser(userData); // Met à jour l'état de l'utilisateur
             return { success: true };
         } catch (error) {
@@ -62,7 +66,8 @@ export const AuthProvider = ({ children }) => {
 
     // Fonction de déconnexion
     const logout = () => {
-        localStorage.removeItem('token'); // Supprime le token
+        localStorage.removeItem('token'); // Supprime le token du localStorage
+        setToken(null); // Réinitialise l'état du token
         setUser(null); // Réinitialise l'état de l'utilisateur
     };
 
@@ -77,11 +82,12 @@ export const AuthProvider = ({ children }) => {
     // La valeur qui sera fournie à tous les composants qui utilisent ce contexte
     const authContextValue = {
         user,
+        token, // <<< EXPOSE LE TOKEN ICI !
         loading,
         login,
         signup,
         logout,
-        updateAvatar, // Ajoute cette fonction pour mettre à jour l'avatar
+        updateAvatar,
     };
 
     return (

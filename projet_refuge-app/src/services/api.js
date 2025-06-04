@@ -1,20 +1,16 @@
 // src/services/api.js
 import axios from 'axios';
 
-// Configure l'instance Axios
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // Assure-toi que cette URL correspond à l'adresse de ton backend
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    baseURL: 'http://localhost:5000/api', // <<< C'EST ÇA QU'IL FAUT ! PAS DE '/api' ICI !
 });
 
-// Intercepteur de requête : ajoute le token JWT à chaque requête
+// Intercepteur pour ajouter le token à chaque requête sortante
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token'); // Récupère le token du localStorage
+        const token = localStorage.getItem('token');
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`; // Ajoute le token à l'en-tête Authorization
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
@@ -23,18 +19,15 @@ api.interceptors.request.use(
     }
 );
 
-// Intercepteur de réponse : gère les erreurs de réponse
+// Optionnel: Intercepteur pour gérer les erreurs 401 globalement
 api.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     (error) => {
-        // Exemple de gestion d'erreur : si le token est invalide (401), déconnecte l'utilisateur
         if (error.response && error.response.status === 401) {
-            console.error('Token invalide ou expiré. Déconnexion...');
-            localStorage.removeItem('token');
-            // Optionnel: rediriger l'utilisateur vers la page de connexion
-            // window.location.href = '/connexion';
+            // Optionnel: Rediriger vers la page de connexion ou déconnecter l'utilisateur
+            // console.log("Token invalide ou expiré. Déconnexion automatique.");
+            // localStorage.removeItem('token');
+            // window.location.href = '/connexion'; // Redirige vers la page de connexion
         }
         return Promise.reject(error);
     }

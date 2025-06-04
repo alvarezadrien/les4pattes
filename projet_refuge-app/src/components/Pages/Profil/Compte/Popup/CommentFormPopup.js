@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import api from '../../../../../services/api';
+import { useAuth } from '../../../../../context/AuthContext';
 
 const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
     const [commentText, setCommentText] = useState('');
-    const [rating, setRating] = useState(0); // La note par défaut est 0
+    const [rating, setRating] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+
+    const { token } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,22 +23,67 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
         }
 
         try {
-            // Exemple d'appel API pour soumettre un commentaire
-            // Vous devrez ajuster l'URL et les données envoyées selon votre backend
-            const response = await api.post('/api/comments', {
-                comment: commentText,
-                rating: rating,
-                // Vous pouvez ajouter d'autres champs si nécessaire (ex: orderId)
+            if (!token) {
+                setError("Vous devez être connecté pour laisser un commentaire.");
+                setLoading(false);
+                return;
+            }
+
+            // MODIFICATION CLÉ ICI : UTILISATION DE L'URL COMPLÈTE DU BACKEND POUR LE TEST
+            // REMPLACE 'http://localhost:5000' PAR L'ADRESSE RÉELLE DE TON SERVEUR BACKEND
+            const response = await fetch('http://localhost:5000/api/comments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    commentText: commentText,
+                    rating: rating,
+                }),
             });
+
+            if (!response.ok) {
+                let errorMessage = `Erreur du serveur (Statut: ${response.status}).`;
+                const contentType = response.headers.get('content-type');
+
+                if (contentType && contentType.includes('application/json')) {
+                    try {
+                        const errorData = await response.json();
+                        errorMessage = errorData.msg || errorData.message || errorMessage;
+                    } catch (jsonParseError) {
+                        errorMessage = `Erreur: Réponse JSON malformée du serveur (Statut: ${response.status}).`;
+                    }
+                } else {
+                    const textResponse = await response.text();
+                    if (textResponse.startsWith('<!DOCTYPE html>')) {
+                        errorMessage = "Le serveur a renvoyé une page HTML inattendue au lieu de JSON. Vérifiez l'URL de l'API ou le routage côté serveur.";
+                    } else if (textResponse) {
+                        errorMessage = textResponse;
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+
+            const successContentType = response.headers.get('content-type');
+            if (successContentType && successContentType.includes('application/json')) {
+                await response.json();
+            } else {
+                console.log("Commentaire soumis avec succès, mais la réponse du serveur n'était pas JSON.");
+            }
 
             setSuccess('Commentaire soumis avec succès !');
             setCommentText('');
-            setRating(0); // Réinitialise la note après soumission
-            onCommentSubmitSuccess(); // Appelle la fonction de succès parent
-            setTimeout(onClose, 1500); // Ferme le popup après un court délai
+            setRating(0);
+            onCommentSubmitSuccess();
+            setTimeout(onClose, 1500);
         } catch (err) {
             console.error("Erreur lors de la soumission du commentaire:", err);
-            setError(err.response?.data?.msg || "Erreur lors de la soumission du commentaire.");
+            if (err.message.includes("autorisée") || err.message.includes("401")) {
+                setError("Session expirée ou non autorisée. Veuillez vous reconnecter.");
+            } else {
+                setError(err.message || "Une erreur inattendue est survenue lors de la soumission du commentaire.");
+            }
         } finally {
             setLoading(false);
         }

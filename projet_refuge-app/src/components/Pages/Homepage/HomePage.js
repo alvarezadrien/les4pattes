@@ -4,7 +4,6 @@ import Animalitem from "../../Widgets/Animal_item/Animalitem";
 import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
 import Avis from "../Avis/Avis";
 import "./HomePage.css";
-import CommentCards from "../Avis/Avis";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -197,7 +196,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <CommentCards />
+      <Avis /> {/* <<< Utilisation de Avis directement */}
     </div>
   );
 };

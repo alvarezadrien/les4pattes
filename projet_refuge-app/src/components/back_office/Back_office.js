@@ -4,10 +4,7 @@ import "./Back_office.css";
 function Back_office() {
   const [animals, setAnimals] = useState([]);
   const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([
-    { id: 1, text: "Très bon refuge !" },
-    { id: 2, text: "Adoption facile." },
-  ]);
+  const [comments, setComments] = useState([]); // Initialize as empty array
   const [newAnimal, setNewAnimal] = useState({
     nom: "",
     espece: "Chien",
@@ -40,6 +37,7 @@ function Back_office() {
 
   const apiUrl = "http://localhost:5000/api/animaux";
   const usersApiUrl = "http://localhost:5000/api/auth/users";
+  const commentsApiUrl = "http://localhost:5000/api/comments"; // New API endpoint for comments
 
   useEffect(() => {
     fetch(apiUrl)
@@ -51,6 +49,12 @@ function Back_office() {
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error("Erreur chargement utilisateurs:", err));
+
+    // Fetch comments from API
+    fetch(commentsApiUrl)
+      .then((res) => res.json())
+      .then((data) => setComments(data))
+      .catch((err) => console.error("Erreur chargement commentaires:", err));
   }, []);
 
   // Filter animals based on search term
@@ -63,7 +67,9 @@ function Back_office() {
 
     const animalToSend = {
       ...newAnimal,
-      images: [newAnimal.image, newAnimal.image2, newAnimal.image3].filter(Boolean),
+      images: [newAnimal.image, newAnimal.image2, newAnimal.image3].filter(
+        Boolean
+      ),
     };
 
     fetch(apiUrl, {
@@ -96,7 +102,8 @@ function Back_office() {
   // Fonctions de suppression avec confirmation
   const confirmDeleteAnimal = (id) => {
     setPopupMessage("Voulez-vous vraiment supprimer cet animal ?");
-    setPopupAction(() => () => { // Utilisation d'une fonction pour définir l'action
+    setPopupAction(() => () => {
+      // Utilisation d'une fonction pour définir l'action
       fetch(`${apiUrl}/${id}`, { method: "DELETE" })
         .then(() => setAnimals(animals.filter((a) => a._id !== id)))
         .catch((err) => console.error("Erreur suppression animal:", err));
@@ -119,7 +126,9 @@ function Back_office() {
   const confirmDeleteComment = (id) => {
     setPopupMessage("Voulez-vous vraiment supprimer ce commentaire ?");
     setPopupAction(() => () => {
-      setComments(comments.filter((c) => c.id !== id));
+      fetch(`${commentsApiUrl}/${id}`, { method: "DELETE" })
+        .then(() => setComments(comments.filter((c) => c._id !== id)))
+        .catch((err) => console.error("Erreur suppression commentaire:", err));
       setShowPopup(false);
     });
     setShowPopup(true);
@@ -133,9 +142,7 @@ function Back_office() {
     })
       .then((res) => res.json())
       .then((updatedAnimal) => {
-        setAnimals(
-          animals.map((a) => (a._id === id ? updatedAnimal : a))
-        );
+        setAnimals(animals.map((a) => (a._id === id ? updatedAnimal : a)));
       })
       .catch((err) => console.error("Erreur mise à jour adoption:", err));
   };
@@ -168,7 +175,9 @@ function Back_office() {
           animals.map((a) => (a._id === id ? { ...a, descriptionAdoption } : a))
         )
       )
-      .catch((err) => console.error("Erreur mise à jour description d'adoption:", err));
+      .catch((err) =>
+        console.error("Erreur mise à jour description d'adoption:", err)
+      );
   };
 
   const toggleAccordion = (section) => {
@@ -233,7 +242,6 @@ function Back_office() {
     delete animalToUpdate.image2;
     delete animalToUpdate.image3;
 
-
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -263,7 +271,7 @@ function Back_office() {
   const getFileName = (url) => {
     if (!url) return "";
     try {
-      const parts = url.split('/');
+      const parts = url.split("/");
       return parts[parts.length - 1];
     } catch (e) {
       return url; // Fallback if URL parsing fails
@@ -280,8 +288,12 @@ function Back_office() {
           <div className="popup-content">
             <p>{popupMessage}</p>
             <div className="popup-buttons">
-              <button onClick={handlePopupConfirm} className="btn_confirm">Confirmer</button>
-              <button onClick={handlePopupCancel} className="btn_cancel">Annuler</button>
+              <button onClick={handlePopupConfirm} className="btn_confirm">
+                Confirmer
+              </button>
+              <button onClick={handlePopupCancel} className="btn_cancel">
+                Annuler
+              </button>
             </div>
           </div>
         </div>
@@ -403,7 +415,11 @@ function Back_office() {
             )}
           </div>
           {newAnimal.image && (
-            <img src={newAnimal.image} alt="Preview" style={{ maxWidth: "150px", marginTop: "5px" }} />
+            <img
+              src={newAnimal.image}
+              alt="Preview"
+              style={{ maxWidth: "150px", marginTop: "5px" }}
+            />
           )}
 
           <div className="file-input-wrapper">
@@ -418,11 +434,17 @@ function Back_office() {
               className="hidden-file-input"
             />
             {newAnimal.image2 && (
-              <span className="file-name">{getFileName(newAnimal.image2)}</span>
+              <span className="file-name">
+                {getFileName(newAnimal.image2)}
+              </span>
             )}
           </div>
           {newAnimal.image2 && (
-            <img src={newAnimal.image2} alt="Preview" style={{ maxWidth: "150px", marginTop: "5px" }} />
+            <img
+              src={newAnimal.image2}
+              alt="Preview"
+              style={{ maxWidth: "150px", marginTop: "5px" }}
+            />
           )}
 
           <div className="file-input-wrapper">
@@ -437,11 +459,17 @@ function Back_office() {
               className="hidden-file-input"
             />
             {newAnimal.image3 && (
-              <span className="file-name">{getFileName(newAnimal.image3)}</span>
+              <span className="file-name">
+                {getFileName(newAnimal.image3)}
+              </span>
             )}
           </div>
           {newAnimal.image3 && (
-            <img src={newAnimal.image3} alt="Preview" style={{ maxWidth: "150px", marginTop: "5px" }} />
+            <img
+              src={newAnimal.image3}
+              alt="Preview"
+              style={{ maxWidth: "150px", marginTop: "5px" }}
+            />
           )}
 
           <button type="submit">Ajouter</button>
@@ -577,12 +605,16 @@ function Back_office() {
                         )}
                       </div>
                       {editAnimalData.image && (
-                        <img src={editAnimalData.image} alt="Preview 1" className="image-preview-edit" />
+                        <img
+                          src={editAnimalData.image}
+                          alt="Preview 1"
+                          className="image-preview-edit"
+                        />
                       )}
                       <button
                         type="button"
                         className="btn_clear_image"
-                        onClick={() => setEditAnimalData(prev => ({ ...prev, image: "" }))}
+                        onClick={() => setEditAnimalData((prev) => ({ ...prev, image: "" }))}
                       >
                         Supprimer Image 1
                       </button>
@@ -603,12 +635,16 @@ function Back_office() {
                         )}
                       </div>
                       {editAnimalData.image2 && (
-                        <img src={editAnimalData.image2} alt="Preview 2" className="image-preview-edit" />
+                        <img
+                          src={editAnimalData.image2}
+                          alt="Preview 2"
+                          className="image-preview-edit"
+                        />
                       )}
                       <button
                         type="button"
                         className="btn_clear_image"
-                        onClick={() => setEditAnimalData(prev => ({ ...prev, image2: "" }))}
+                        onClick={() => setEditAnimalData((prev) => ({ ...prev, image2: "" }))}
                       >
                         Supprimer Image 2
                       </button>
@@ -629,12 +665,16 @@ function Back_office() {
                         )}
                       </div>
                       {editAnimalData.image3 && (
-                        <img src={editAnimalData.image3} alt="Preview 3" className="image-preview-edit" />
+                        <img
+                          src={editAnimalData.image3}
+                          alt="Preview 3"
+                          className="image-preview-edit"
+                        />
                       )}
                       <button
                         type="button"
                         className="btn_clear_image"
-                        onClick={() => setEditAnimalData(prev => ({ ...prev, image3: "" }))}
+                        onClick={() => setEditAnimalData((prev) => ({ ...prev, image3: "" }))}
                       >
                         Supprimer Image 3
                       </button>
@@ -746,7 +786,9 @@ function Back_office() {
             {users.map((u) => (
               <div key={u._id} className="user-card">
                 <strong>{u.username}</strong> ({u.email})
-                <button onClick={() => confirmDeleteUser(u._id)} className="btn_delete"> {/* Appel de la fonction de confirmation */}
+                <button onClick={() => confirmDeleteUser(u._id)} className="btn_delete">
+                  {" "}
+                  {/* Appel de la fonction de confirmation */}
                   Supprimer
                 </button>
               </div>
@@ -763,9 +805,11 @@ function Back_office() {
           <>
             {comments.length === 0 && <p>Aucun commentaire.</p>}
             {comments.map((c) => (
-              <div key={c.id} className="comment-card">
+              <div key={c._id} className="comment-card">
                 <p>{c.text}</p>
-                <button onClick={() => confirmDeleteComment(c.id)} className="btn_delete"> {/* Appel de la fonction de confirmation */}
+                <button onClick={() => confirmDeleteComment(c._id)} className="btn_delete">
+                  {" "}
+                  {/* Appel de la fonction de confirmation */}
                   Supprimer
                 </button>
               </div>

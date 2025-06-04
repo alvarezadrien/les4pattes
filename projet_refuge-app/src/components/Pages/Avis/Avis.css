@@ -1,99 +1,338 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+/* src/Components/Avis/Avis.css */
 
+/* Section Générale des Avis */
 .avis-section {
-  background: linear-gradient(to right, #e0eafc, #cfdef3);
-  padding: 80px 20px;
+  padding: 60px 0; /* Padding réduit */
+  background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+  color: #333;
   text-align: center;
-  font-family: "Inter", sans-serif;
-}
-
-.avis-titre {
-  font-size: 2.8rem;
-  margin-bottom: 50px;
-  color: #2b2d42;
-  font-weight: 600;
+  overflow: hidden;
   position: relative;
 }
 
-.avis-container {
+/* Titre Accrocheur */
+.avis-title {
+  font-size: 2.5em; /* Taille du titre réduite */
+  color: #5d6d5d;
+  margin-bottom: 40px; /* Marge réduite */
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* Espacement réduit */
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-shadow: 20px 20px 9px rgba(0, 0, 0, 0.3);
   flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-.avis-carte {
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-  padding: 30px;
-  max-width: 340px;
-  flex: 1 1 280px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  animation: fadeInUp 0.8s ease forwards;
-  opacity: 0;
+.slick-prev:before,
+.slick-next:before {
+  color: #5f6f5f !important;
+  font-size: 35px !important;
 }
 
-.avis-carte:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+.avis-title img {
+  width: 40px; /* Pattes plus petites */
+  height: 40px;
+  filter: drop-shadow(0 4px 8px rgba(93, 109, 93, 0.3)); /* Ombre plus légère */
+  animation: bounce 1.8s infinite ease-in-out; /* Animation plus rapide */
 }
 
-.avis-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.avis-avatar {
-  width: 55px;
-  height: 55px;
-  background: linear-gradient(135deg, #8ec5fc, #e0c3fc);
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.6rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.avis-nom {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #2b2d42;
-}
-
-.avis-commentaire {
-  font-style: italic;
-  color: #3a3a3a;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.avis-stars .star {
-  font-size: 1.4rem;
-  color: #d3d3d3;
-  transition: color 0.3s;
-}
-
-.avis-stars .filled {
-  color: #ffc107;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
+@keyframes bounce {
+  0%,
+  100% {
     transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Bond moins haut */
+  }
+}
+
+/* Conteneur de la liste des avis (maintenant géré par react-slick) */
+.avis-list {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px; /* Padding latéral pour les flèches */
+}
+
+/* Wrapper pour chaque carte d'avis à l'intérieur du carrousel */
+.avis-item-wrapper {
+  padding: 0 15px; /* Espacement réduit entre les cartes */
+  box-sizing: border-box;
+}
+
+/* Chaque Carte d'Avis - Taille Réduite */
+.avis-item {
+  background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
+  border-radius: 15px; /* Rayon des bords légèrement réduit */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* Ombre plus légère */
+  padding: 25px; /* Rembourrage interne réduit */
+  width: 100%;
+  max-width: none;
+  text-align: left;
+  /* Transition plus subtile pour l'effet de survol */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition plus rapide et standard */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px; /* Hauteur minimale réduite */
+  position: relative;
+  border: 1px solid #e0e0e0; /* Bordure plus fine et discrète */
+  overflow: hidden;
+  z-index: 1;
+}
+
+.avis-item::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* Position ajustée */
+  right: -10px; /* Position ajustée */
+  width: 50px; /* Taille de l'éclat réduite */
+  height: 50px; /* Taille de l'éclat réduite */
+  background: #e6b88b;
+  border-radius: 50%;
+  filter: blur(10px); /* Flou plus léger */
+  opacity: 0.2; /* Opacité réduite */
+  z-index: 0;
+}
+
+.avis-item:hover {
+  /* Transform pour un effet de survol contenu et subtil */
+  transform: translateY(-5px); /* Seul un léger mouvement vers le haut */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Ombre modérée au survol */
+  border-color: #a08c7e;
+  z-index: 2; /* Garde la carte survolée au-dessus */
+}
+
+/* Texte du Commentaire */
+.avis-text {
+  font-size: 1em; /* Taille du texte légèrement réduite */
+  line-height: 1.5;
+  margin-bottom: 15px; /* Marge réduite */
+  color: #444;
+  font-style: italic;
+  quotes: "“" "”";
+  position: relative;
+  z-index: 1;
+}
+
+.avis-text::before {
+  content: open-quote;
+  font-size: 1.6em; /* Guillemets plus petits */
+  color: #5d6d5d;
+  margin-right: 5px;
+  vertical-align: -0.2em;
+  font-family: "Georgia", serif;
+}
+
+.avis-text::after {
+  content: close-quote;
+  font-size: 1.6em;
+  color: #5d6d5d;
+  margin-left: 5px;
+  vertical-align: -0.2em;
+  font-family: "Georgia", serif;
+}
+
+/* Section des Étoiles */
+.avis-rating {
+  margin-top: 10px; /* Marge réduite */
+  margin-bottom: 10px; /* Marge réduite */
+  display: flex;
+  justify-content: center;
+}
+
+.avis-rating .star {
+  font-size: 1.8em; /* Taille des étoiles réduite */
+  color: #dcdcdc;
+  margin: 0 2px;
+  transition: color 0.3s ease-in-out;
+}
+
+.avis-rating .star.filled {
+  color: #d4ac0d;
+  text-shadow: 0 0 10px rgba(212, 172, 13, 0.5); /* Effet lumineux plus léger */
+}
+
+/* Nom de l'Auteur */
+.avis-author {
+  font-size: 0.95em; /* Taille du nom de l'auteur réduite */
+  font-weight: 700;
+  color: #7b6859;
+  text-align: right;
+  margin-top: auto;
+  position: relative;
+  padding-top: 10px;
+}
+
+/* Ligne décorative sous le nom de l'auteur */
+.avis-author::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px; /* Ligne plus courte */
+  height: 2px; /* Plus fine */
+  background: linear-gradient(to right, #d4ac0d, #a08c7e);
+  border-radius: 5px;
+}
+
+/* Styles pour les messages d'état */
+.avis-container {
+  text-align: center;
+  padding: 40px 20px; /* Padding réduit */
+  font-size: 1.2em; /* Taille ajustée */
+  color: #555;
+  font-weight: 600;
+}
+
+.avis-container.error-message {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.avis-container.no-comments {
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Styles des flèches et des points de navigation de react-slick */
+.slick-prev:before,
+.slick-next:before {
+  color: #a08c7e;
+  font-size: 30px; /* Taille des flèches réduite */
+}
+
+.slick-prev {
+  left: -30px; /* Position ajustée */
+  z-index: 10;
+}
+
+.slick-next {
+  right: -30px; /* Position ajustée */
+  z-index: 10;
+}
+
+.slick-dots li button:before {
+  font-size: 10px; /* Taille des points réduite */
+  color: #d4ac0d;
+  opacity: 0.75;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #5d6d5d;
+  opacity: 1;
+}
+
+.slick-dots {
+  bottom: -30px; /* Position ajustée */
+}
+
+/* Media Queries pour la Responsivité */
+@media (max-width: 1024px) {
+  .avis-list {
+    padding: 0 30px;
+  }
+  .avis-title {
+    font-size: 2.2em;
+  }
+  .avis-item-wrapper {
+    padding: 0 10px; /* Espacement réduit pour les tablettes */
+  }
+  .avis-item {
+    min-height: 180px; /* Hauteur ajustée */
+    padding: 20px; /* Padding ajusté */
+  }
+  .avis-text {
+    font-size: 0.95em;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 25px;
+  }
+  .slick-prev {
+    left: -20px;
+  }
+  .slick-next {
+    right: -20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .avis-list {
+    padding: 0 15px;
+  }
+  .avis-title {
+    font-size: 1.8em;
+    gap: 10px;
+  }
+  .avis-title img {
+    width: 35px;
+    height: 35px;
+  }
+  .avis-item-wrapper {
+    padding: 0 8px; /* Espacement ajusté */
+  }
+  .avis-item {
+    padding: 18px;
+    min-height: unset;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 25px;
+  }
+  .slick-prev {
+    left: -20px;
+  }
+  .slick-next {
+    right: -20px;
+  }
+  .slick-prev,
+  .slick-next {
+    top: 45%;
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .avis-list {
+    padding: 0 10px;
+  }
+  .avis-title {
+    font-size: 1.5em;
+    gap: 8px;
+  }
+  .avis-title img {
+    width: 28px;
+    height: 28px;
+  }
+  .avis-item-wrapper {
+    padding: 0 5px; /* Espacement ajusté */
+  }
+  .avis-item {
+    padding: 15px;
+  }
+  .avis-text {
+    font-size: 0.9em;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 20px;
+  }
+  .slick-prev {
+    left: -10px;
+  }
+  .slick-next {
+    right: -10px;
+  }
+  .slick-prev,
+  .slick-next {
+    top: 48%;
+    transform: translateY(-50%);
+  }
+  .slick-dots {
+    bottom: -25px;
   }
 }
