@@ -4,7 +4,7 @@ import "./Back_office.css";
 function Back_office() {
   const [animals, setAnimals] = useState([]);
   const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([]); // Initialize as empty array
+  const [comments, setComments] = useState([]);
   const [newAnimal, setNewAnimal] = useState({
     nom: "",
     espece: "Chien",
@@ -39,6 +39,20 @@ function Back_office() {
   const usersApiUrl = "http://localhost:5000/api/auth/users";
   const commentsApiUrl = "http://localhost:5000/api/comments"; // New API endpoint for comments
 
+  // Fonction pour récupérer les commentaires, peut être appelée après une suppression
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(commentsApiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setComments(data);
+    } catch (err) {
+      console.error("Erreur chargement commentaires:", err);
+    }
+  };
+
   useEffect(() => {
     fetch(apiUrl)
       .then((res) => res.json())
@@ -50,12 +64,9 @@ function Back_office() {
       .then((data) => setUsers(data))
       .catch((err) => console.error("Erreur chargement utilisateurs:", err));
 
-    // Fetch comments from API
-    fetch(commentsApiUrl)
-      .then((res) => res.json())
-      .then((data) => setComments(data))
-      .catch((err) => console.error("Erreur chargement commentaires:", err));
-  }, []);
+    // Initial fetch for comments
+    fetchComments();
+  }, []); // Empty dependency array means this runs once on component mount
 
   // Filter animals based on search term
   const filteredAnimals = animals.filter((animal) =>
@@ -123,16 +134,45 @@ function Back_office() {
     setShowPopup(true);
   };
 
+  // Fonction de confirmation pour la suppression d'un commentaire
   const confirmDeleteComment = (id) => {
     setPopupMessage("Voulez-vous vraiment supprimer ce commentaire ?");
-    setPopupAction(() => () => {
-      fetch(`${commentsApiUrl}/${id}`, { method: "DELETE" })
-        .then(() => setComments(comments.filter((c) => c._id !== id)))
-        .catch((err) => console.error("Erreur suppression commentaire:", err));
-      setShowPopup(false);
+    setPopupAction(() => async () => {
+      try {
+        // IMPORTANT: Récupération du token depuis localStorage
+        const token = localStorage.getItem('token');
+
+        // Vérifiez si le token existe avant d'envoyer la requête
+        if (!token) {
+          throw new Error("Token d'authentification manquant. Veuillez vous reconnecter.");
+        }
+
+        const response = await fetch(`${commentsApiUrl}/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            // Utilisez l'en-tête 'Authorization' avec 'Bearer' comme attendu par le middleware
+            'Authorization': `Bearer ${token}` // <-- C'est le changement clé ici !
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.msg || `Erreur HTTP! statut: ${response.status}`);
+        }
+
+        // Si la suppression est réussie côté serveur, mettez à jour l'état local
+        setComments(comments.filter((c) => c._id !== id));
+        setShowPopup(false);
+      } catch (err) {
+        console.error("Erreur suppression commentaire:", err);
+        alert(`Échec de la suppression du commentaire: ${err.message}`); // Afficher une alerte utilisateur
+        setShowPopup(false);
+      }
     });
     setShowPopup(true);
   };
+
 
   const handleToggleAdoption = (id, currentStatus) => {
     fetch(`${apiUrl}/${id}`, {
@@ -806,12 +846,24 @@ function Back_office() {
             {comments.length === 0 && <p>Aucun commentaire.</p>}
             {comments.map((c) => (
               <div key={c._id} className="comment-card">
-                <p>{c.text}</p>
-                <button onClick={() => confirmDeleteComment(c._id)} className="btn_delete">
-                  {" "}
-                  {/* Appel de la fonction de confirmation */}
-                  Supprimer
-                </button>
+                <p>
+                  <span className="comment-user">
+                    {c.username || "Utilisateur Inconnu"}
+                  </span>{" "}
+                  a dit : "{c.commentText}" (Note: {c.rating}/5)
+                </p>
+                <p className="comment-date">
+                  Publié le :{" "}
+                  {new Date(c.createdAt).toLocaleDateString("fr-FR")} à{" "}
+                  {new Date(c.createdAt).toLocaleTimeString("fr-FR")}
+                </p>
+                <div className="comment-actions">
+                  {/* Bouton de modification de commentaire (optionnel, si tu veux permettre l'édition) */}
+                  {/* <button className="btn_edit">Modifier</button> */}
+                  <button onClick={() => confirmDeleteComment(c._id)} className="btn_delete">
+                    Supprimer
+                  </button>
+                </div>
               </div>
             ))}
           </>
