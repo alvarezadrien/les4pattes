@@ -31,6 +31,7 @@ import Mon_compte from './components/Pages/Profil/Compte/Mon_compte'; // La page
 import Accueil_animaux from './components/Pages/Accueil/Accueil_animaux';
 import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation';
 import Adhesions from './components/Pages/Adhésions/Adhesions';
+import './components/Pages/Gestion_adoption/Gestion_adoption'
 
 // Code réutilisable (Widgets) - non modifiés ici
 import BackButton from './components/Widgets/Back_button/Back_button';
@@ -42,6 +43,7 @@ import Carte_carrousel from './components/Widgets/Carrousel/Carte_carrousel'; //
 import Scroll_button from './components/Widgets/Scroll_button/Scroll_button';
 import Back_office from './components/back_office/Back_office';
 import CommentCards from './components/Pages/Avis/Avis';
+import GestionAdoption from './components/Pages/Gestion_adoption/Gestion_adoption';
 
 
 const Layout = ({ children }) => {
@@ -87,6 +89,10 @@ const App = () => {
             <Route path="/Témoin de cruauté ?" element={<Cruaute />} />
             <Route path="/Carte" element={<Carte_carrousel />} />
             <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
+            <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
+            <Route path="/Sensibilisation" element={<Sensibilisation />} />
+            <Route path="/Adhésions" element={<Adhesions />} />
+            <Route path='/gestion_adoption' element={<GestionAdoption />} />
 
             {/* NOUVEAU : La route /Mon compte est maintenant protégée */}
             <Route
@@ -97,10 +103,6 @@ const App = () => {
                 </PrivateRoute>
               }
             />
-
-            <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
-            <Route path="/Sensibilisation" element={<Sensibilisation />} />
-            <Route path="/Adhésions" element={<Adhesions />} />
           </Routes>
           <Scroll_button />
         </Layout>

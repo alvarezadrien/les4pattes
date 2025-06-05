@@ -25,7 +25,7 @@ const Filtre = ({ sexe, setSexe, taille, setTaille, disableTaille = false }) => 
     return (
         <div className="filtre-container">
             <button className="open-filters-button" onClick={() => setShowPopup(true)}>
-                Ouvrir les Filtres
+                Nouvelle recherche
             </button>
 
             {showPopup && (
@@ -99,10 +99,10 @@ const Filtre = ({ sexe, setSexe, taille, setTaille, disableTaille = false }) => 
                         </ul>
                         <div className="popup-actions">
                             <button className="appliquer-filtre" onClick={handleApplyFilters}>
-                                Appliquer les filtres
+                                Appliquer la recherche
                             </button>
                             <button className="reset-filters-button" onClick={handleResetFilters}>
-                                Réinitialiser les filtres
+                                Réinitialiser la recherche
                             </button>
                             <button className="close-popup-button" onClick={() => setShowPopup(false)}>
                                 Fermer

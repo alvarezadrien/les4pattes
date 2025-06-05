@@ -1,0 +1,209 @@
+/* AdoptionRequests.css */
+
+.adoption-requests-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+  margin-top: 6rem;
+  color: #333;
+}
+
+h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Summary Cards */
+.requests-summary {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  min-width: 180px;
+  flex: 1;
+  transition: transform 0.2s ease-in-out;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card h3 {
+  margin-top: 0;
+  color: #555;
+  font-size: 1.1em;
+}
+
+.summary-card p {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin: 10px 0 0;
+}
+
+.summary-card.pending p {
+  color: #f39c12; /* Orange */
+}
+.summary-card.in-review p {
+  color: #3498db; /* Blue */
+}
+.summary-card.approved p {
+  color: #27ae60; /* Green */
+}
+.summary-card.rejected p {
+  color: #e74c3c; /* Red */
+}
+
+/* Table Styling */
+.adoption-requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden; /* Ensures rounded corners apply to content */
+}
+
+.adoption-requests-table th,
+.adoption-requests-table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.adoption-requests-table th {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.adoption-requests-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.adoption-requests-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.85em;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.status-badge.pending {
+  background-color: #f39c12; /* Orange */
+}
+
+.status-badge.in-review {
+  background-color: #3498db; /* Blue */
+}
+
+.status-badge.approved {
+  background-color: #27ae60; /* Green */
+}
+
+.status-badge.rejected {
+  background-color: #e74c3c; /* Red */
+}
+
+/* Select dropdown for status change */
+.adoption-requests-table select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.adoption-requests-table select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .adoption-requests-table,
+  .requests-summary {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .adoption-requests-table thead {
+    display: none; /* Hide header on small screens */
+  }
+
+  .adoption-requests-table tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .adoption-requests-table td {
+    display: block;
+    text-align: right;
+    border: none;
+    position: relative;
+    padding-left: 50%; /* Space for the label */
+    word-wrap: break-word;
+  }
+
+  .adoption-requests-table td::before {
+    content: attr(data-label); /* Use data-label for content */
+    position: absolute;
+    left: 10px;
+    width: calc(50% - 20px);
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+  }
+
+  /* Add data-label to your <td> elements in JSX for responsive table */
+  .adoption-requests-table td:nth-of-type(1):before {
+    content: "ID:";
+  }
+  .adoption-requests-table td:nth-of-type(2):before {
+    content: "Demandeur:";
+  }
+  .adoption-requests-table td:nth-of-type(3):before {
+    content: "Animal:";
+  }
+  .adoption-requests-table td:nth-of-type(4):before {
+    content: "Statut:";
+  }
+  .adoption-requests-table td:nth-of-type(5):before {
+    content: "Date:";
+  }
+  .adoption-requests-table td:nth-of-type(6):before {
+    content: "Notes:";
+  }
+  .adoption-requests-table td:nth-of-type(7):before {
+    content: "Actions:";
+  }
+}

@@ -8,13 +8,24 @@ const animalSchema = new mongoose.Schema({
     sexe: { type: String, enum: ["Mâle", "Femelle", "Inconnu"], default: "Inconnu" },
     taille: { type: String, enum: ['petit', 'moyen', 'grand'], default: 'moyen' },
     description: { type: String, default: "" },
-    descriptionAdoption: { type: String, default: "" },  // <-- Nouveau champ ajouté ici
+    descriptionAdoption: { type: String, default: "" },
     dateArrivee: { type: Date, default: Date.now },
     adopte: { type: Boolean, default: false },
     image: { type: String, default: "" },
     image2: { type: String, default: "" },
     image3: { type: String, default: "" },
-    images: { type: [String], default: [] }
+    images: { type: [String], default: [] },
+    // --- Nouveaux champs pour les filtres ---
+    comportement: {
+        type: [String], // Permet de stocker plusieurs comportements (ex: ['calme', 'affectueux'])
+        enum: ['calme', 'actif', 'affectueux', 'independant', 'sociable', 'joueur', 'curieux', 'calin'],
+        default: []
+    },
+    ententeAvec: {
+        type: [String], // Permet de stocker plusieurs ententes (ex: ['enfants', 'chiens'])
+        enum: ['enfants', 'chiens', 'chats', 'familles'], // 'familles' si c'est une catégorie d'entente
+        default: []
+    }
 }, {
     timestamps: true
 });

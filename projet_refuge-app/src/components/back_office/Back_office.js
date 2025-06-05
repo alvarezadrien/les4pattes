@@ -19,12 +19,18 @@ function Back_office() {
     image2: "", // Secondaire
     image3: "", // Tertiaire
     images: [], // Pour le stockage des chemins en BDD (tableau)
+    comportement: [], // Nouveau champ: tableau vide par défaut
+    ententeAvec: [], // Nouveau champ: tableau vide par défaut
   });
 
   const [openAccordion, setOpenAccordion] = useState({
     animals: true,
     users: false,
     comments: false,
+    newAnimalComportement: false, // New accordion for new animal behavior
+    newAnimalEntente: false,     // New accordion for new animal compatibility
+    editAnimalComportement: false, // New accordion for edit animal behavior
+    editAnimalEntente: false,     // New accordion for edit animal compatibility
   });
 
   // États pour la pop-up de confirmation
@@ -105,6 +111,8 @@ function Back_office() {
           image2: "",
           image3: "",
           images: [],
+          comportement: [], // Réinitialiser le comportement
+          ententeAvec: [], // Réinitialiser l'entente
         });
       })
       .catch((err) => console.error("Erreur ajout animal:", err));
@@ -140,11 +148,13 @@ function Back_office() {
     setPopupAction(() => async () => {
       try {
         // IMPORTANT: Récupération du token depuis localStorage
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
 
         // Vérifiez si le token existe avant d'envoyer la requête
         if (!token) {
-          throw new Error("Token d'authentification manquant. Veuillez vous reconnecter.");
+          throw new Error(
+            "Token d'authentification manquant. Veuillez vous reconnecter."
+          );
         }
 
         const response = await fetch(`${commentsApiUrl}/${id}`, {
@@ -152,13 +162,15 @@ function Back_office() {
           headers: {
             "Content-Type": "application/json",
             // Utilisez l'en-tête 'Authorization' avec 'Bearer' comme attendu par le middleware
-            'Authorization': `Bearer ${token}` // <-- C'est le changement clé ici !
+            Authorization: `Bearer ${token}`, // <-- C'est le changement clé ici !
           },
         });
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.msg || `Erreur HTTP! statut: ${response.status}`);
+          throw new Error(
+            errorData.msg || `Erreur HTTP! statut: ${response.status}`
+          );
         }
 
         // Si la suppression est réussie côté serveur, mettez à jour l'état local
@@ -172,7 +184,6 @@ function Back_office() {
     });
     setShowPopup(true);
   };
-
 
   const handleToggleAdoption = (id, currentStatus) => {
     fetch(`${apiUrl}/${id}`, {
@@ -212,7 +223,9 @@ function Back_office() {
       .then((res) => res.json())
       .then(() =>
         setAnimals(
-          animals.map((a) => (a._id === id ? { ...a, descriptionAdoption } : a))
+          animals.map((a) =>
+            a._id === id ? { ...a, descriptionAdoption } : a
+          )
         )
       )
       .catch((err) =>
@@ -257,6 +270,8 @@ function Back_office() {
       image2: animal.images && animal.images[1] ? animal.images[1] : "",
       image3: animal.images && animal.images[2] ? animal.images[2] : "",
       images: animal.images || [], // Copie du tableau d'images existant
+      comportement: animal.comportement || [], // Initialiser le comportement
+      ententeAvec: animal.ententeAvec || [], // Initialiser l'entente
     });
   };
 
@@ -316,6 +331,44 @@ function Back_office() {
     } catch (e) {
       return url; // Fallback if URL parsing fails
     }
+  };
+
+  // Options pour les select 'comportement' et 'ententeAvec'
+  const comportementOptions = [
+    "calme",
+    "actif",
+    "affectueux",
+    "independant",
+    "sociable",
+    "joueur",
+    "curieux",
+    "calin",
+  ];
+
+  const ententeAvecOptions = ["enfants", "chiens", "chats", "familles"];
+
+  // Handle multi-select change for NEW animal form
+  const handleMultiSelectChange = (e, field) => {
+    const { options } = e.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setNewAnimal({ ...newAnimal, [field]: value });
+  };
+
+  // Handle multi-select change for EDIT animal form
+  const handleEditMultiSelectChange = (e, field) => {
+    const { options } = e.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setEditAnimalData({ ...editAnimalData, [field]: value });
   };
 
   return (
@@ -407,6 +460,56 @@ function Back_office() {
             <option value="moyen">Moyen</option>
             <option value="grand">Grand</option>
           </select>
+
+          {/* NOUVEAUX CHAMPS ACCORDION : COMPORTEMENT ET ENTENTE AVEC */}
+          <h3
+            onClick={() => toggleAccordion("newAnimalComportement")}
+            className="accordion-header"
+          >
+            Comportement(s) {openAccordion.newAnimalComportement ? "▲" : "▼"}
+          </h3>
+          {openAccordion.newAnimalComportement && (
+            <div className="accordion-content">
+              <label>Sélectionner un ou plusieurs comportements</label>
+              <select
+                multiple // Permet la sélection multiple
+                value={newAnimal.comportement}
+                onChange={(e) => handleMultiSelectChange(e, "comportement")}
+                size={Math.min(comportementOptions.length, 5)} // Adjust size for better visibility
+              >
+                {comportementOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <h3
+            onClick={() => toggleAccordion("newAnimalEntente")}
+            className="accordion-header"
+          >
+            Entente(s) avec {openAccordion.newAnimalEntente ? "▲" : "▼"}
+          </h3>
+          {openAccordion.newAnimalEntente && (
+            <div className="accordion-content">
+              <label>Sélectionner un ou plusieurs types d'entente</label>
+              <select
+                multiple // Permet la sélection multiple
+                value={newAnimal.ententeAvec}
+                onChange={(e) => handleMultiSelectChange(e, "ententeAvec")}
+                size={Math.min(ententeAvecOptions.length, 5)} // Adjust size for better visibility
+              >
+                {ententeAvecOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {/* FIN NOUVEAUX CHAMPS ACCORDION */}
 
           <label>Description</label>
           <textarea
@@ -599,6 +702,56 @@ function Back_office() {
                       <option value="grand">Grand</option>
                     </select>
 
+                    {/* CHAMPS DE MODIFICATION ACCORDION : COMPORTEMENT ET ENTENTE AVEC */}
+                    <h3
+                      onClick={() => toggleAccordion("editAnimalComportement")}
+                      className="accordion-header"
+                    >
+                      Comportement(s) {openAccordion.editAnimalComportement ? "▲" : "▼"}
+                    </h3>
+                    {openAccordion.editAnimalComportement && (
+                      <div className="accordion-content">
+                        <label>Sélectionner un ou plusieurs comportements</label>
+                        <select
+                          multiple
+                          value={editAnimalData.comportement}
+                          onChange={(e) => handleEditMultiSelectChange(e, "comportement")}
+                          size={Math.min(comportementOptions.length, 5)}
+                        >
+                          {comportementOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+
+                    <h3
+                      onClick={() => toggleAccordion("editAnimalEntente")}
+                      className="accordion-header"
+                    >
+                      Entente(s) avec {openAccordion.editAnimalEntente ? "▲" : "▼"}
+                    </h3>
+                    {openAccordion.editAnimalEntente && (
+                      <div className="accordion-content">
+                        <label>Sélectionner un ou plusieurs types d'entente</label>
+                        <select
+                          multiple
+                          value={editAnimalData.ententeAvec}
+                          onChange={(e) => handleEditMultiSelectChange(e, "ententeAvec")}
+                          size={Math.min(ententeAvecOptions.length, 5)}
+                        >
+                          {ententeAvecOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+                    {/* FIN CHAMPS DE MODIFICATION ACCORDION */}
+
                     <label>Description</label>
                     <textarea
                       value={editAnimalData.description}
@@ -720,7 +873,6 @@ function Back_office() {
                       </button>
                     </div> {/* End image-edit-section */}
 
-
                     <div className="buttons">
                       <button onClick={() => handleSaveEditAnimal(a._id)} className="btn_save">
                         Sauvegarder
@@ -749,6 +901,20 @@ function Back_office() {
                     <p>
                       <span className="info-label">Taille :</span> {a.taille}
                     </p>
+                    {/* Affichage des nouveaux champs */}
+                    <p>
+                      <span className="info-label">Comportement(s) :</span>{" "}
+                      {a.comportement && a.comportement.length > 0
+                        ? a.comportement.join(", ")
+                        : "Non spécifié"}
+                    </p>
+                    <p>
+                      <span className="info-label">Entente(s) avec :</span>{" "}
+                      {a.ententeAvec && a.ententeAvec.length > 0
+                        ? a.ententeAvec.join(", ")
+                        : "Non spécifié"}
+                    </p>
+                    {/* Fin affichage nouveaux champs */}
                     <p>
                       <span className="info-label">Statut :</span>{" "}
                       <span className={`status-${a.adopte ? "adopted" : "available"}`}>
@@ -774,26 +940,35 @@ function Back_office() {
                       <textarea
                         value={a.descriptionAdoption || ""}
                         onChange={(e) => handleUpdateDescriptionAdoption(a._id, e.target.value)}
-                        placeholder="Ajouter une description pour l'adoption..."
+                        placeholder="Ajouter une description d'adoption..."
                       />
                     </div>
 
-                    <div className="animal-images-preview">
-                      {a.images && a.images.length > 0 ? (
-                        a.images.map((image, index) => (
-                          <img key={index} src={image} alt={`${a.nom} image ${index + 1}`} />
-                        ))
-                      ) : (
-                        <p className="no-images">Aucune image disponible</p>
+                    <div className="image-display-section">
+                      {a.images && a.images.length > 0 && (
+                        <>
+                          <h4>Images :</h4>
+                          <div className="image-previews">
+                            {a.images.map((img, index) => (
+                              <img
+                                key={index}
+                                src={img}
+                                alt={`Animal ${a.nom} - ${index + 1}`}
+                                className="animal-image-preview"
+                              />
+                            ))}
+                          </div>
+                        </>
                       )}
                     </div>
 
                     <div className="buttons">
                       <button
                         onClick={() => handleToggleAdoption(a._id, a.adopte)}
-                        className="btn_adopt"
+                        className={`btn_toggle_adoption ${a.adopte ? "btn_available" : "btn_adopted"
+                          }`}
                       >
-                        {a.adopte ? "Annuler adoption" : "Marquer comme adopté"}
+                        Marquer comme {a.adopte ? "Disponible" : "Adopté"}
                       </button>
                       <button
                         onClick={() => handleEditAnimal(a)}
@@ -816,57 +991,65 @@ function Back_office() {
         )}
       </section>
 
+      {/* Accordion for Users */}
       <section className="section accordion-section">
         <h2 onClick={() => toggleAccordion("users")} className="accordion-header">
           Utilisateurs enregistrés {openAccordion.users ? "▲" : "▼"}
         </h2>
         {openAccordion.users && (
-          <>
-            {users.length === 0 && <p>Aucun utilisateur enregistré.</p>}
-            {users.map((u) => (
-              <div key={u._id} className="user-card">
-                <strong>{u.username}</strong> ({u.email})
-                <button onClick={() => confirmDeleteUser(u._id)} className="btn_delete">
-                  {" "}
-                  {/* Appel de la fonction de confirmation */}
+          <div className="accordion-content">
+            {users.length === 0 && <p>Aucun utilisateur trouvé.</p>}
+            {users.map((user) => (
+              <div key={user._id} className="user-card">
+                <h3>{user.email}</h3>
+                <p>
+                  <span className="info-label">Rôle :</span> {user.role}
+                </p>
+                <button
+                  onClick={() => confirmDeleteUser(user._id)}
+                  className="btn_delete"
+                >
                   Supprimer
                 </button>
               </div>
             ))}
-          </>
+          </div>
         )}
       </section>
 
+      {/* Accordion for Comments */}
       <section className="section accordion-section">
         <h2 onClick={() => toggleAccordion("comments")} className="accordion-header">
           Commentaires {openAccordion.comments ? "▲" : "▼"}
         </h2>
         {openAccordion.comments && (
-          <>
-            {comments.length === 0 && <p>Aucun commentaire.</p>}
-            {comments.map((c) => (
-              <div key={c._id} className="comment-card">
+          <div className="accordion-content">
+            {comments.length === 0 && <p>Aucun commentaire trouvé.</p>}
+            {comments.map((comment) => (
+              <div key={comment._id} className="comment-card">
                 <p>
-                  <span className="comment-user">
-                    {c.username || "Utilisateur Inconnu"}
-                  </span>{" "}
-                  a dit : "{c.commentText}" (Note: {c.rating}/5)
+                  <span className="info-label">De :</span> {comment.name}
                 </p>
-                <p className="comment-date">
-                  Publié le :{" "}
-                  {new Date(c.createdAt).toLocaleDateString("fr-FR")} à{" "}
-                  {new Date(c.createdAt).toLocaleTimeString("fr-FR")}
+                <p>
+                  <span className="info-label">Email :</span> {comment.email}
                 </p>
-                <div className="comment-actions">
-                  {/* Bouton de modification de commentaire (optionnel, si tu veux permettre l'édition) */}
-                  {/* <button className="btn_edit">Modifier</button> */}
-                  <button onClick={() => confirmDeleteComment(c._id)} className="btn_delete">
-                    Supprimer
-                  </button>
-                </div>
+                <p>
+                  <span className="info-label">Message :</span>{" "}
+                  {comment.message}
+                </p>
+                <p>
+                  <span className="info-label">Reçu le :</span>{" "}
+                  {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
+                </p>
+                <button
+                  onClick={() => confirmDeleteComment(comment._id)}
+                  className="btn_delete"
+                >
+                  Supprimer
+                </button>
               </div>
             ))}
-          </>
+          </div>
         )}
       </section>
     </div>
