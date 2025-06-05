@@ -9,7 +9,13 @@ const userSchema = new mongoose.Schema({
     telephone: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
-    avatar: { type: String, default: "/img/avatar.png" }  // Ajout du champ avatar
+    avatar: { type: String, default: "/img/avatar.png" },
+    // --- CHAMP AJOUTÉ POUR LE RÔLE ---
+    role: {
+        type: String,
+        enum: ['user', 'admin'], // 'user' pour les utilisateurs standards, 'admin' pour les administrateurs
+        default: 'user' //user par défaut
+    }
 });
 
 userSchema.pre('save', async function (next) {
