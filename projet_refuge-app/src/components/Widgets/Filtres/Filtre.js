@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import './Filtre.css';
+import './Filtre.css'; // Assurez-vous que ce fichier CSS existe
 
-const Filtre = ({ sexe, setSexe, taille, setTaille, disableTaille = false }) => {
-    const [dureeRefuge, setDureeRefuge] = useState('');
-    const [comportement, setComportement] = useState('');
-    const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
-
-    const handleApplyFilters = () => {
-        // Ici, tu déclencherais la logique pour appliquer les filtres,
-        // comme une recherche ou un fetch de données.
-        setShowPopup(false); // Ferme le popup après l'application des filtres
-    };
+const Filtre = ({
+    sexe, setSexe,
+    taille, setTaille,
+    dureeRefuge, setDureeRefuge,
+    comportement, setComportement,
+    entente, setEntente,
+    disableTaille = false // Prop pour désactiver le filtre taille si nécessaire
+}) => {
+    const [showPopup, setShowPopup] = useState(false); // État pour contrôler la visibilité de la popup
 
     const handleResetFilters = () => {
-        // Réinitialise tous les états des filtres à leurs valeurs initiales
+        // Réinitialise tous les états des filtres à leurs valeurs initiales (chaîne vide)
         setSexe('');
         setTaille('');
         setDureeRefuge('');
         setComportement('');
-        setShowPopup(false); // Ferme le popup après réinitialisation
-        // Tu devrais aussi déclencher ici une nouvelle recherche avec les filtres vides
+        setEntente('');
+        setShowPopup(false); // Ferme la popup après la réinitialisation
     };
 
     return (
@@ -58,7 +57,10 @@ const Filtre = ({ sexe, setSexe, taille, setTaille, disableTaille = false }) => 
                             </li>
 
                             <li>
-                                <select>
+                                <select
+                                    value={entente}
+                                    onChange={(e) => setEntente(e.target.value)}
+                                >
                                     <option value="">Entente avec</option>
                                     <option value="enfants">Enfants</option>
                                     <option value="chiens">Chiens</option>
@@ -98,9 +100,6 @@ const Filtre = ({ sexe, setSexe, taille, setTaille, disableTaille = false }) => 
                             </li>
                         </ul>
                         <div className="popup-actions">
-                            <button className="appliquer-filtre" onClick={handleApplyFilters}>
-                                Appliquer la recherche
-                            </button>
                             <button className="reset-filters-button" onClick={handleResetFilters}>
                                 Réinitialiser la recherche
                             </button>

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Animal = require('../models/Animals');
+const Animal = require('../models/Animals'); // Assurez-vous que ce chemin vers votre modèle est correct
 
-// GET tous les animaux avec filtres possibles (espece, sexe, taille, adopte)
+// GET tous les animaux avec filtres possibles (espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge)
 router.get('/', async (req, res) => {
     try {
-        const { espece, sexe, taille, adopte } = req.query;
-        let filter = {};
+        const { espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge } = req.query;
+        let filter = {}; // Objet qui contiendra les conditions de filtrage pour Mongoose
 
         if (espece) {
             filter.espece = espece;
@@ -17,14 +17,55 @@ router.get('/', async (req, res) => {
         if (taille) {
             filter.taille = taille;
         }
-        if (adopte !== undefined) {  // Filtrer sur adoption
-            filter.adopte = adopte === 'true'; // conversion string -> bool
+        if (adopte !== undefined) {
+            filter.adopte = adopte === 'true'; // Convertir la chaîne "true"/"false" en booléen
         }
 
-        const animaux = await Animal.find(filter);
-        res.json(animaux);
+        // --- Ajout des filtres spécifiques aux tableaux (comportement, ententeAvec) ---
+        // Utilise l'opérateur $in pour trouver les documents où le tableau contient la valeur spécifiée
+        if (comportement) {
+            filter.comportement = { $in: [comportement] };
+        }
+        if (ententeAvec) {
+            filter.ententeAvec = { $in: [ententeAvec] };
+        }
+
+        // --- Logique pour le filtre dureeRefuge (basée sur dateArrivee) ---
+        if (dureeRefuge) {
+            const now = new Date();
+            let dateThresholdMin, dateThresholdMax;
+
+            switch (dureeRefuge) {
+                case '-1mois': // Moins d'un mois au refuge
+                    dateThresholdMin = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                    filter.dateArrivee = { $gte: dateThresholdMin };
+                    break;
+                case '1-3mois': // Entre 1 et 3 mois au refuge
+                    dateThresholdMax = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                    dateThresholdMin = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+                    filter.dateArrivee = { $lte: dateThresholdMax, $gte: dateThresholdMin };
+                    break;
+                case '3-6mois': // Entre 3 et 6 mois au refuge
+                    dateThresholdMax = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+                    dateThresholdMin = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+                    filter.dateArrivee = { $lte: dateThresholdMax, $gte: dateThresholdMin };
+                    break;
+                case '+6mois': // Plus de 6 mois au refuge
+                    dateThresholdMax = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+                    filter.dateArrivee = { $lte: dateThresholdMax };
+                    break;
+                default:
+                    // Ne rien faire si la valeur de dureeRefuge n'est pas reconnue
+                    break;
+            }
+        }
+        // --- Fin de la logique dureeRefuge ---
+
+        const animaux = await Animal.find(filter); // Exécute la requête Mongoose avec les filtres
+        res.json(animaux); // Renvoie les animaux filtrés
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error("Erreur lors de la récupération des animaux :", err);
+        res.status(500).json({ message: "Erreur serveur lors de la récupération des animaux.", error: err.message });
     }
 });
 
@@ -54,6 +95,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updated) return res.status(404).json({ message: "Animal non trouvé pour mise à jour" });
         res.json(updated);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -63,11 +105,12 @@ router.put('/:id', async (req, res) => {
 // DELETE un animal
 router.delete('/:id', async (req, res) => {
     try {
-        await Animal.findByIdAndDelete(req.params.id);
+        const result = await Animal.findByIdAndDelete(req.params.id);
+        if (!result) return res.status(404).json({ message: "Animal non trouvé pour suppression" });
         res.json({ message: 'Animal supprimé' });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
 
-module.exports = router;
+module.exports = router;    

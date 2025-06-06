@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+// fontSize est importé mais non utilisé directement, je le laisse si vous en avez l'usage ailleurs
 import { fontSize } from "@mui/system";
 
 const Adoption = () => {
@@ -20,7 +21,15 @@ const Adoption = () => {
     prenom: "",
     email: "",
     telephone: "",
-    animal: "",
+    // Valeurs par défaut pour les infos de l'animal
+    animal: "", // sera défini par les radios (chat/chien)
+    animalNom: "Buddy", // Exemple : Nom de l'animal
+    animalEspece: "Chien", // Exemple : Espèce de l'animal
+    animalRace: "Labrador", // Exemple : Race de l'animal
+    animalAge: "2 ans", // Exemple : Âge de l'animal
+    animalSexe: "Mâle", // Exemple : Sexe de l'animal
+    animalDescription:
+      "Buddy est un labrador affectueux et joueur. Il aime les longues promenades et s'entend bien avec les enfants.", // Exemple : Description de l'animal
     adresse: "",
     anniv_adopt: "",
     logement: "",
@@ -28,6 +37,8 @@ const Adoption = () => {
     enfants: "",
     animaux: "",
     animal2: "",
+    experienceAnimaux: "", // Nouveau champ
+    heuresConsacrees: "", // Nouveau champ
     message: "",
   });
 
@@ -45,6 +56,8 @@ const Adoption = () => {
     enfants: false,
     animaux: false,
     animal2: false,
+    experienceAnimaux: false, // Nouveau champ
+    heuresConsacrees: false, // Nouveau champ
   });
 
   const handleChange1 = (event) => {
@@ -97,6 +110,13 @@ const Adoption = () => {
             email: "",
             telephone: "",
             animal: "",
+            animalNom: "Buddy", // Garder les exemples d'infos animal ou les réinitialiser si besoin
+            animalEspece: "Chien",
+            animalRace: "Labrador",
+            animalAge: "2 ans",
+            animalSexe: "Mâle",
+            animalDescription:
+              "Buddy est un labrador affectueux et joueur. Il aime les longues promenades et s'entend bien avec les enfants.",
             adresse: "",
             anniv_adopt: "",
             logement: "",
@@ -104,6 +124,8 @@ const Adoption = () => {
             enfants: "",
             animaux: "",
             animal2: "",
+            experienceAnimaux: "", // Réinitialiser
+            heuresConsacrees: "", // Réinitialiser
             message: "",
           });
           setFocused({
@@ -120,11 +142,15 @@ const Adoption = () => {
             enfants: false,
             animaux: false,
             animal2: false,
+            experienceAnimaux: false, // Réinitialiser
+            heuresConsacrees: false, // Réinitialiser
           });
         },
         (error) => {
           console.log("Erreur lors de l'envoi de l'e-mail:", error);
-          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
+          setStatusMessage(
+            "Erreur lors de l'envoi du message. Veuillez réessayer."
+          );
           setPopupClass("error");
           setShowPopup(true);
           setTimeout(() => setShowPopup(false), 5000);
@@ -141,7 +167,7 @@ const Adoption = () => {
       <div className="formulaire1">
         <form onSubmit={handlesubmit1}>
           <fieldset>
-            <legend>Information sur l'animal</legend>
+            <legend>Informations sur l'animal</legend>
             <Box
               sx={{
                 display: "flex",
@@ -152,15 +178,157 @@ const Adoption = () => {
                   m: 2,
                   width: "60ch",
                   fontSize: "1.2rem",
-                  // Texte de l'input noir
                   input: {
                     color: "black",
                   },
-                  // Label noir par défaut
                   label: {
                     color: "black",
                   },
-                  // Quand l'input est focus, label et bordure en #778d45
+                  "& label.Mui-focused": {
+                    color: "#778d45",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "black",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#778d45",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#778d45",
+                    },
+                  },
+                },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              {/* Informations de l'animal - Exemples prédéfinis */}
+              <TextField
+                id="animalNom"
+                name="animalNom"
+                label="Nom de l'animal"
+                value={formdata1.animalNom}
+                InputProps={{
+                  readOnly: true, // Rendre le champ non modifiable
+                }}
+                variant="outlined"
+              />
+              <TextField
+                id="animalEspece"
+                name="animalEspece"
+                label="Espèce"
+                value={formdata1.animalEspece}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+              />
+              <TextField
+                id="animalRace"
+                name="animalRace"
+                label="Race"
+                value={formdata1.animalRace}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+              />
+              <TextField
+                id="animalAge"
+                name="animalAge"
+                label="Âge"
+                value={formdata1.animalAge}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+              />
+              <TextField
+                id="animalSexe"
+                name="animalSexe"
+                label="Sexe"
+                value={formdata1.animalSexe}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+              />
+              <TextField
+                id="animalDescription"
+                name="animalDescription"
+                label="Description"
+                value={formdata1.animalDescription}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+                multiline
+                rows={4}
+              />
+            </Box>
+            <div className="love-group">
+              <div className="love">
+                <span className="label">Chats</span>
+                <input
+                  id="switch1"
+                  type="radio"
+                  name="animal"
+                  value="chat"
+                  checked={formdata1.animal === "chat"}
+                  onChange={handleChange1}
+                  onFocus={() => handleFocus1("animal")}
+                  onBlur={() => handleBlur1("animal")}
+                  required
+                />
+                <label className="love-heart" htmlFor="switch1">
+                  <i className="left"></i>
+                  <i className="right"></i>
+                  <i className="bottom"></i>
+                  <div className="round"></div>
+                </label>
+              </div>
+              <div className="love">
+                <span className="label">Chiens</span>
+                <input
+                  id="switch2"
+                  type="radio"
+                  name="animal"
+                  value="chien"
+                  checked={formdata1.animal === "chien"}
+                  onChange={handleChange1}
+                  onFocus={() => handleFocus1("animal")}
+                  onBlur={() => handleBlur1("animal")}
+                  required
+                />
+                <label className="love-heart" htmlFor="switch2">
+                  <i className="left"></i>
+                  <i className="right"></i>
+                  <i className="bottom"></i>
+                  <div className="round"></div>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Vos informations</legend>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                "& .MuiTextField-root": {
+                  m: 2,
+                  width: "60ch",
+                  fontSize: "1.2rem",
+                  input: {
+                    color: "black",
+                  },
+                  label: {
+                    color: "black",
+                  },
                   "& label.Mui-focused": {
                     color: "#778d45",
                   },
@@ -230,105 +398,6 @@ const Adoption = () => {
               />
               <TextField
                 required
-                id="message"
-                name="message"
-                label="Message"
-                value={formdata1.message}
-                onChange={handleChange1}
-                onFocus={() => handleFocus1("message")}
-                onBlur={() => handleBlur1("message")}
-                variant="outlined"
-                multiline
-                rows={4}
-                autoComplete="off"
-              />
-            </Box>
-
-            <div className="love-group">
-              <div className="love">
-                <span className="label">Chats</span>
-                <input
-                  id="switch1"
-                  type="radio"
-                  name="animal"
-                  value="chat"
-                  checked={formdata1.animal === "chat"}
-                  onChange={handleChange1}
-                  onFocus={() => handleFocus1("animal")}
-                  onBlur={() => handleBlur1("animal")}
-                  required
-                />
-                <label className="love-heart" htmlFor="switch1">
-                  <i className="left"></i>
-                  <i className="right"></i>
-                  <i className="bottom"></i>
-                  <div className="round"></div>
-                </label>
-              </div>
-              <div className="love">
-                <span className="label">Chiens</span>
-                <input
-                  id="switch2"
-                  type="radio"
-                  name="animal"
-                  value="chien"
-                  checked={formdata1.animal === "chien"}
-                  onChange={handleChange1}
-                  onFocus={() => handleFocus1("animal")}
-                  onBlur={() => handleBlur1("animal")}
-                  required
-                />
-                <label className="love-heart" htmlFor="switch2">
-                  <i className="left"></i>
-                  <i className="right"></i>
-                  <i className="bottom"></i>
-                  <div className="round"></div>
-                </label>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Information sur l'adoptant</legend>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                "& .MuiTextField-root": {
-                  m: 2,
-                  width: "60ch",
-                  fontSize: "1.2rem",
-                  // Texte de l'input noir
-                  input: {
-                    color: "black",
-                  },
-                  // Label noir par défaut
-                  label: {
-                    color: "black",
-                  },
-                  // Quand l'input est focus, label et bordure en #778d45
-                  "& label.Mui-focused": {
-                    color: "#778d45",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "black",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "#778d45",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#778d45",
-                    },
-                  },
-                },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
                 type="date"
                 id="anniv_adopt"
                 name="anniv_adopt"
@@ -340,6 +409,9 @@ const Adoption = () => {
                 required
                 fullWidth
                 variant="outlined"
+                InputLabelProps={{
+                  shrink: true, // Permet au label de ne pas chevaucher la valeur
+                }}
               />
               <TextField
                 required
@@ -398,8 +470,6 @@ const Adoption = () => {
                 <MenuItem value="oui">Oui</MenuItem>
                 <MenuItem value="non">Non</MenuItem>
               </TextField>
-
-
               <TextField
                 required
                 id="infos_form2"
@@ -408,7 +478,7 @@ const Adoption = () => {
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("animaux")}
                 onBlur={() => handleBlur1("animaux")}
-                label="Avez-vous des animaux ?"
+                label="Possédez-vous déjà des animaux ?"
                 fullWidth
                 select
               >
@@ -423,17 +493,68 @@ const Adoption = () => {
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("animal2")}
                 onBlur={() => handleBlur1("animal2")}
-                label="Type d'animaux ?"
+                label="Si oui, quels types d'animaux ?"
                 variant="outlined"
+              // Ce champ n'est pas "required" car il dépend de la réponse précédente
+              />
+
+              {/* Nouveau champ: Expérience avec les animaux */}
+              <TextField
+                required
+                name="experienceAnimaux"
+                value={formdata1.experienceAnimaux}
+                onChange={handleChange1}
+                onFocus={() => handleFocus1("experienceAnimaux")}
+                onBlur={() => handleBlur1("experienceAnimaux")}
+                select
+                label="Avez-vous de l'expérience avec les animaux ?"
+                fullWidth
+              >
+                <MenuItem value="oui_beaucoup">Oui, beaucoup</MenuItem>
+                <MenuItem value="oui_un_peu">Oui, un peu</MenuItem>
+                <MenuItem value="non">Non</MenuItem>
+              </TextField>
+
+              {/* Nouveau champ: Heures consacrées à l'animal */}
+              <TextField
+                required
+                name="heuresConsacrees"
+                value={formdata1.heuresConsacrees}
+                onChange={handleChange1}
+                onFocus={() => handleFocus1("heuresConsacrees")}
+                onBlur={() => handleBlur1("heuresConsacrees")}
+                select
+                label="Combien d'heures par jour pourriez-vous consacrer à l'animal ?"
+                fullWidth
+              >
+                <MenuItem value="moins_2h">Moins de 2 heures</MenuItem>
+                <MenuItem value="2_4h">2 à 4 heures</MenuItem>
+                <MenuItem value="4_6h">4 à 6 heures</MenuItem>
+                <MenuItem value="plus_6h">Plus de 6 heures</MenuItem>
+              </TextField>
+
+              <TextField
+                required
+                id="message"
+                name="message"
+                label="Pourquoi souhaitez-vous adopter cet animal ? (Message)"
+                value={formdata1.message}
+                onChange={handleChange1}
+                onFocus={() => handleFocus1("message")}
+                onBlur={() => handleBlur1("message")}
+                variant="outlined"
+                multiline
+                rows={4}
+                autoComplete="off"
               />
             </Box>
           </fieldset>
 
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               m: 3,
             }}
           >
@@ -441,9 +562,12 @@ const Adoption = () => {
               type="submit"
               variant="contained"
               endIcon={<SendIcon />}
-              sx={{ backgroundColor: '#778d45', '&:hover': { backgroundColor: '#66753a' } }}
+              sx={{
+                backgroundColor: "#778d45",
+                "&:hover": { backgroundColor: "#66753a" },
+              }}
             >
-              Envoyer
+              Envoyer la demande
             </Button>
           </Box>
         </form>
