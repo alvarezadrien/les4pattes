@@ -31,7 +31,7 @@ function Navbar() {
     {
       title: "Animaux",
       propositions: [
-        { text: "Témoin de cruauté animale ?", link: "/Témoin de cruauté ?" },
+        { text: "Témoin de cruauté animale ?", link: "/Témoin de cruauté" },
         { text: "Nos compagnons adoptés", link: "/Nos compagnons adoptés" },
         { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" }
       ]

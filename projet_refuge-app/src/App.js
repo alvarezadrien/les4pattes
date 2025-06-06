@@ -69,8 +69,8 @@ const App = () => {
       <AuthProvider>
         <Layout>
           <Routes>
-            <Route path='/Back_office' element={<Back_office />} />
             <Route path="/" element={<HomePage />} />
+            <Route path='/Back_office' element={<Back_office />} />
             <Route path="/HomePage" element={<HomePage />} />
             <Route path="/Apropos" element={<Apropos />} />
             <Route path="/Galeriechien" element={<Galeriechien />} />
@@ -86,7 +86,7 @@ const App = () => {
             <Route path="/Formulaire d'adoption" element={<Adoption />} />
             <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
             <Route path="/Ce qu'il faut savoir" element={<Savoir />} />
-            <Route path="/Témoin de cruauté ?" element={<Cruaute />} />
+            <Route path="/Témoin de cruauté" element={<Cruaute />} />
             <Route path="/Carte" element={<Carte_carrousel />} />
             <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
             <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
