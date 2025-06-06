@@ -9,6 +9,7 @@ import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
 import CommentFormPopup from './Popup/CommentFormPopup';
+import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
 
 
 const avatarOptions = [
@@ -34,6 +35,7 @@ const Mon_compte = () => {
   const [showAddressPopup, setShowAddressPopup] = useState(false); // État pour le popup adresse
   const [showPasswordPopup, setShowPasswordPopup] = useState(false); // État pour le popup mot de passe
   const [showCommentPopup, setShowCommentPopup] = useState(false); // État pour le popup commentaire
+  const [showAdoptionPopup, setShowAdoptionPopup] = useState(false); // État pour le popup adoption
 
 
   useEffect(() => {
@@ -122,6 +124,7 @@ const Mon_compte = () => {
     setShowAddressPopup(false);
     setShowPasswordPopup(false);
     setShowCommentPopup(false); // Ferme le popup de commentaire aussi
+    setShowAdoptionPopup(false); // Ferme le popup d'adoption aussi
     // Ici tu peux aussi mettre un message de succès global si tu veux
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000); // Efface le message après 3 secondes
@@ -148,6 +151,9 @@ const Mon_compte = () => {
         break;
       case "commentaires": // Nouvelle option pour les commentaires
         setShowCommentPopup(true);
+        break;
+      case "adoption": // Ajout de l'option pour le popup d'adoption
+        setShowAdoptionPopup(true);
         break;
       default:
         break;
@@ -231,12 +237,12 @@ const Mon_compte = () => {
 
             <div className="compte-option">
               <div className="option-content">
-                <img
-                  src="/img/support.png"
-                  alt="Support"
-                  className="option-img"
-                />
-                <span>Support</span>
+                <button
+                  className="adoption-button"
+                  onClick={() => handleOptionClick("adoption")}
+                >
+                  Mes demandes d'adoption
+                </button>
               </div>
             </div>
           </div>
@@ -314,6 +320,13 @@ const Mon_compte = () => {
           onCommentSubmitSuccess={handleFormUpdateSuccess}
           // Passer l'utilisateur au CommentFormPopup si des infos user spécifiques sont nécessaires
           user={user} // <<< Ajout de la prop user ici
+        />
+      )}
+      {/* Popup pour les demandes d'adoption */}
+      {showAdoptionPopup && (
+        <DemandeAdoptionPopup
+          onClose={() => setShowAdoptionPopup(false)}
+          user={user} // Passez l'utilisateur si nécessaire pour le popup d'adoption
         />
       )}
     </div>

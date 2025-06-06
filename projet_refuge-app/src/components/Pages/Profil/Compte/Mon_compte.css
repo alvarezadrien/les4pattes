@@ -159,7 +159,8 @@
 }
 
 /* Nouveau style pour le bouton de commentaire */
-.comment-button {
+.comment-button,
+.adoption-button {
   background-color: var(--primary-color, #d1b980);
   color: white;
   padding: 0.6rem 1.2rem;
@@ -172,7 +173,8 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.comment-button:hover {
+.comment-button:hover,
+.adoption-button:hover {
   background-color: #bfa570;
   transform: translateY(-2px);
 }
