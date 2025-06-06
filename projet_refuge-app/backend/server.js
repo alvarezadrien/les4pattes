@@ -8,7 +8,8 @@ const path = require('path');
 // Import des routes
 const animalRoutes = require('./routes/animalRoutes');
 const authRoutes = require('./routes/authRoutes');
-const commentRoutes = require('./routes/commentRoutes'); // <<< NOUVEL IMPORT
+const commentRoutes = require('./routes/commentRoutes');
+const adoptionRoutes = require('./routes/adoptionRoutes'); // <<< NOUVEL IMPORT : Routes pour les formulaires d'adoption
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,12 +18,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Servir les fichiers statiques du dossier 'uploads'
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Utilisation des routes
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/comments', commentRoutes); // <<< NOUVELLE ROUTE
+app.use('/api/comments', commentRoutes);
+app.use('/api/adoptions', adoptionRoutes); // <<< NOUVELLE ROUTE : Assurez-vous que vous avez un fichier adoptionRoutes.js
 
 // Connexion MongoDB
 mongoose.connect(process.env.MONGO_URI, {
