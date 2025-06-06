@@ -505,3 +505,162 @@ input[type="radio"]:checked + .love-heart .bottom {
   margin-bottom: 3rem;
   font-weight: bold;
 }
+
+/* Adoption.css */
+
+/* Styles pour la section d'authentification */
+.auth-section-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Espace entre la section d'auth et le formulaire */
+}
+
+.auth-forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*********** SECTION CONNEXION   ******************/
+/* Adoption.css */
+
+.auth-section-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.auth-section-container .MuiBox-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border: 2px solid #778d45;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.auth-section-container .MuiTypography-h5 {
+  color: #778d45;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.auth-section-container .MuiTypography-body1 {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.auth-forms {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-forms .MuiTextField-root {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.auth-forms .MuiTextField-root label {
+  color: #555;
+}
+
+.auth-forms .MuiTextField-root label.Mui-focused {
+  color: #778d45;
+}
+
+.auth-forms .MuiOutlinedInput-root fieldset {
+  border-color: #bbb;
+}
+
+.auth-forms .MuiOutlinedInput-root:hover fieldset {
+  border-color: #778d45;
+}
+
+.auth-forms .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #778d45;
+  border-width: 2px;
+}
+
+.auth-forms .MuiOutlinedInput-input {
+  color: #333;
+}
+
+.auth-forms .MuiButton-root {
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-transform: none;
+}
+
+.auth-forms .MuiButton-contained {
+  background-color: #778d45;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.auth-forms .MuiButton-contained:hover {
+  background-color: #66753a;
+}
+
+.auth-forms .MuiButton-text {
+  color: #778d45;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.auth-forms .MuiButton-text:hover {
+  background-color: rgba(119, 141, 69, 0.1);
+}
+
+.auth-section-container .MuiAlert-root {
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.auth-section-container .MuiAlert-message {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.auth-section-container .MuiAlertTitle-root {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.popup-status {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  min-width: 250px;
+}
+
+.popup-status.success {
+  background-color: #4caf50;
+}
+
+.popup-status.error {
+  background-color: #f44336;
+}

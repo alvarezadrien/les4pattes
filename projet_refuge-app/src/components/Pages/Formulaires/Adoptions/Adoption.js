@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// Adoption.js
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./Adoption.css";
 import emailjs from "emailjs-com";
 
@@ -8,28 +10,37 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
-// fontSize est importé mais non utilisé directement, je le laisse si vous en avez l'usage ailleurs
-import { fontSize } from "@mui/system";
+import Typography from "@mui/material/Typography"; // Ajout de Typography pour les titres et textes
+import Alert from "@mui/material/Alert"; // Ajout d'Alert pour les messages importants
+import AlertTitle from "@mui/material/AlertTitle"; // Ajout d'AlertTitle pour les titres d'alertes
 
 const Adoption = () => {
+  const location = useLocation();
+  const { animalData } = location.state || {};
+
   const [statusMessage, setStatusMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [popupClass, setPopupClass] = useState("");
 
+  // Nouveaux états pour la gestion de l'authentification
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simule l'état de connexion
+  const [showRegister, setShowRegister] = useState(false); // Gère l'affichage du formulaire d'inscription
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authConfirmPassword, setAuthConfirmPassword] = useState(""); // Pour l'inscription
+
   const [formdata1, setFormData] = useState({
     name: "",
     prenom: "",
-    email: "",
+    email: "", // Cet email sera pré-rempli si l'utilisateur est connecté
     telephone: "",
-    // Valeurs par défaut pour les infos de l'animal
-    animal: "", // sera défini par les radios (chat/chien)
-    animalNom: "Buddy", // Exemple : Nom de l'animal
-    animalEspece: "Chien", // Exemple : Espèce de l'animal
-    animalRace: "Labrador", // Exemple : Race de l'animal
-    animalAge: "2 ans", // Exemple : Âge de l'animal
-    animalSexe: "Mâle", // Exemple : Sexe de l'animal
-    animalDescription:
-      "Buddy est un labrador affectueux et joueur. Il aime les longues promenades et s'entend bien avec les enfants.", // Exemple : Description de l'animal
+    animal: animalData?.espece === "chat" ? "chat" : animalData?.espece === "chien" ? "chien" : "",
+    animalNom: animalData?.nom || "",
+    animalEspece: animalData?.espece || "",
+    animalRace: animalData?.race || "",
+    animalAge: animalData?.age ? `${animalData.age} ans` : "",
+    animalSexe: animalData?.sexe || "",
+    animalDescription: animalData?.description || "",
     adresse: "",
     anniv_adopt: "",
     logement: "",
@@ -37,10 +48,36 @@ const Adoption = () => {
     enfants: "",
     animaux: "",
     animal2: "",
-    experienceAnimaux: "", // Nouveau champ
-    heuresConsacrees: "", // Nouveau champ
+    experienceAnimaux: "",
+    heuresConsacrees: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (animalData) {
+      setFormData((prevData) => ({
+        ...prevData,
+        animal: animalData.espece === "chat" ? "chat" : animalData.espece === "chien" ? "chien" : "",
+        animalNom: animalData.nom || "",
+        animalEspece: animalData.espece || "",
+        animalRace: animalData.race || "",
+        animalAge: animalData.age ? `${animalData.age} ans` : "",
+        animalSexe: animalData.sexe || "",
+        animalDescription: animalData.description || "",
+      }));
+    }
+  }, [animalData]);
+
+  // Pré-remplir l'email du formulaire d'adoption si l'utilisateur est "connecté"
+  useEffect(() => {
+    if (isLoggedIn && authEmail) {
+      setFormData((prevData) => ({
+        ...prevData,
+        email: authEmail,
+      }));
+    }
+  }, [isLoggedIn, authEmail]);
+
 
   const [focused, setFocused] = useState({
     name: false,
@@ -56,8 +93,8 @@ const Adoption = () => {
     enfants: false,
     animaux: false,
     animal2: false,
-    experienceAnimaux: false, // Nouveau champ
-    heuresConsacrees: false, // Nouveau champ
+    experienceAnimaux: false,
+    heuresConsacrees: false,
   });
 
   const handleChange1 = (event) => {
@@ -84,8 +121,64 @@ const Adoption = () => {
     }
   };
 
+  // Simule la connexion
+  const handleLogin = (event) => {
+    event.preventDefault();
+    // Ici, vous intégreriez votre logique de connexion réelle (API, Firebase, etc.)
+    // Pour cet exemple, on simule une connexion réussie
+    if (authEmail && authPassword) {
+      console.log("Tentative de connexion avec:", authEmail, authPassword);
+      setIsLoggedIn(true);
+      setStatusMessage("Connexion réussie ! Vous pouvez maintenant compléter le formulaire.");
+      setPopupClass("success");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000);
+    } else {
+      setStatusMessage("Veuillez entrer votre email et mot de passe.");
+      setPopupClass("error");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000);
+    }
+  };
+
+  // Simule l'inscription
+  const handleRegister = (event) => {
+    event.preventDefault();
+    // Ici, vous intégreriez votre logique d'inscription réelle
+    if (authPassword !== authConfirmPassword) {
+      setStatusMessage("Les mots de passe ne correspondent pas.");
+      setPopupClass("error");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000);
+      return;
+    }
+    if (authEmail && authPassword) {
+      console.log("Tentative d'inscription avec:", authEmail, authPassword);
+      // Simule une inscription réussie puis connexion
+      setIsLoggedIn(true);
+      setStatusMessage("Inscription réussie et connexion automatique ! Vous pouvez maintenant compléter le formulaire.");
+      setPopupClass("success");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000);
+      setShowRegister(false); // Revenir au formulaire de connexion (ou directement le formulaire d'adoption)
+    } else {
+      setStatusMessage("Veuillez remplir tous les champs.");
+      setPopupClass("error");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000);
+    }
+  };
+
   const handlesubmit1 = (event) => {
     event.preventDefault();
+    if (!isLoggedIn) {
+      setStatusMessage("Veuillez vous connecter ou créer un compte pour envoyer votre demande.");
+      setPopupClass("error");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 5000);
+      return; // Empêche l'envoi si non connecté
+    }
+
     const emailParams = { ...formdata1 };
 
     emailjs
@@ -103,20 +196,18 @@ const Adoption = () => {
           setShowPopup(true);
           setTimeout(() => setShowPopup(false), 5000);
 
-          // Réinitialiser le formulaire
           setFormData({
             name: "",
             prenom: "",
-            email: "",
+            email: authEmail, // Conserver l'email de l'utilisateur connecté
             telephone: "",
-            animal: "",
-            animalNom: "Buddy", // Garder les exemples d'infos animal ou les réinitialiser si besoin
-            animalEspece: "Chien",
-            animalRace: "Labrador",
-            animalAge: "2 ans",
-            animalSexe: "Mâle",
-            animalDescription:
-              "Buddy est un labrador affectueux et joueur. Il aime les longues promenades et s'entend bien avec les enfants.",
+            animal: animalData?.espece === "chat" ? "chat" : animalData?.espece === "chien" ? "chien" : "",
+            animalNom: animalData?.nom || "",
+            animalEspece: animalData?.espece || "",
+            animalRace: animalData?.race || "",
+            animalAge: animalData?.age ? `${animalData.age} ans` : "",
+            animalSexe: animalData?.sexe || "",
+            animalDescription: animalData?.description || "",
             adresse: "",
             anniv_adopt: "",
             logement: "",
@@ -124,8 +215,8 @@ const Adoption = () => {
             enfants: "",
             animaux: "",
             animal2: "",
-            experienceAnimaux: "", // Réinitialiser
-            heuresConsacrees: "", // Réinitialiser
+            experienceAnimaux: "",
+            heuresConsacrees: "",
             message: "",
           });
           setFocused({
@@ -142,8 +233,8 @@ const Adoption = () => {
             enfants: false,
             animaux: false,
             animal2: false,
-            experienceAnimaux: false, // Réinitialiser
-            heuresConsacrees: false, // Réinitialiser
+            experienceAnimaux: false,
+            heuresConsacrees: false,
           });
         },
         (error) => {
@@ -164,6 +255,192 @@ const Adoption = () => {
         <div className={`popup-status ${popupClass}`}>{statusMessage}</div>
       )}
       <h2 className="h2_1">Formulaire d'adoption</h2>
+
+      <div className="auth-section-container">
+        <Box
+          sx={{
+            p: 3,
+            border: "1px solid #778d45",
+            borderRadius: "8px",
+            mb: 4,
+            width: "fit-content",
+            margin: "20px auto",
+            backgroundColor: "white",
+            boxShadow: "0px 0px 15px rgba(0,0,0,0.1)",
+          }}
+        >
+          <Typography variant="h5" component="h3" gutterBottom align="center" sx={{ color: "#778d45", mb: 2 }}>
+            Pour adopter, vous devez avoir un compte.
+          </Typography>
+
+          {!isLoggedIn && (
+            <Alert severity="info" sx={{ mb: 3 }}>
+              <AlertTitle>Information importante pour votre demande d'adoption</AlertTitle>
+              Afin de traiter votre demande et d'assurer un suivi personnalisé, il est **nécessaire de vous connecter ou de créer un compte**. Cela nous permet de conserver vos informations en toute sécurité et de faciliter la communication avec vous.
+            </Alert>
+          )}
+
+
+          {!isLoggedIn ? (
+            <div className="auth-forms">
+              {showRegister ? (
+                // Formulaire d'inscription
+                <form onSubmit={handleRegister}>
+                  <Typography variant="body1" align="center" sx={{ mb: 2 }}>
+                    **Créez votre compte en quelques secondes :**
+                  </Typography>
+                  <TextField
+                    required
+                    label="Votre adresse email"
+                    type="email"
+                    value={authEmail}
+                    onChange={(e) => setAuthEmail(e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    sx={{
+                      "& label.Mui-focused": { color: "#778d45" },
+                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
+                    }}
+                  />
+                  <TextField
+                    required
+                    label="Choisissez un mot de passe"
+                    type="password"
+                    value={authPassword}
+                    onChange={(e) => setAuthPassword(e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    sx={{
+                      "& label.Mui-focused": { color: "#778d45" },
+                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
+                    }}
+                  />
+                  <TextField
+                    required
+                    label="Confirmez votre mot de passe"
+                    type="password"
+                    value={authConfirmPassword}
+                    onChange={(e) => setAuthConfirmPassword(e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    sx={{
+                      "& label.Mui-focused": { color: "#778d45" },
+                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      mt: 2,
+                      mb: 1,
+                      backgroundColor: "#778d45",
+                      "&:hover": { backgroundColor: "#66753a" },
+                    }}
+                  >
+                    S'inscrire et commencer ma demande
+                  </Button>
+                  <Button
+                    onClick={() => setShowRegister(false)}
+                    fullWidth
+                    sx={{
+                      color: "#778d45",
+                      "&:hover": { backgroundColor: "rgba(119, 141, 69, 0.1)" },
+                    }}
+                  >
+                    J'ai déjà un compte
+                  </Button>
+                </form>
+              ) : (
+                // Formulaire de connexion
+                <form onSubmit={handleLogin}>
+                  <Typography variant="body1" align="center" sx={{ mb: 2 }}>
+                    **Connectez-vous pour continuer votre demande :**
+                  </Typography>
+                  <TextField
+                    required
+                    label="Votre adresse email"
+                    type="email"
+                    value={authEmail}
+                    onChange={(e) => setAuthEmail(e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    sx={{
+                      "& label.Mui-focused": { color: "#778d45" },
+                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
+                    }}
+                  />
+                  <TextField
+                    required
+                    label="Votre mot de passe"
+                    type="password"
+                    value={authPassword}
+                    onChange={(e) => setAuthPassword(e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    sx={{
+                      "& label.Mui-focused": { color: "#778d45" },
+                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      mt: 2,
+                      mb: 1,
+                      backgroundColor: "#778d45",
+                      "&:hover": { backgroundColor: "#66753a" },
+                    }}
+                  >
+                    Me connecter
+                  </Button>
+                  <Button
+                    onClick={() => setShowRegister(true)}
+                    fullWidth
+                    sx={{
+                      color: "#778d45",
+                      "&:hover": { backgroundColor: "rgba(119, 141, 69, 0.1)" },
+                    }}
+                  >
+                    Pas encore de compte ? S'inscrire
+                  </Button>
+                </form>
+              )}
+            </div>
+          ) : (
+            // Message si l'utilisateur est connecté
+            <Box textAlign="center">
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                Bonjour **{authEmail}** ! Vous êtes bien connecté(e). <br />
+                Vous pouvez maintenant **remplir le formulaire ci-dessous** pour envoyer votre demande d'adoption.
+              </Typography>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  setAuthEmail("");
+                  setAuthPassword("");
+                  setAuthConfirmPassword(""); // Réinitialiser aussi le champ de confirmation
+                  // Réinitialiser l'email du formulaire d'adoption si déconnexion
+                  setFormData((prevData) => ({ ...prevData, email: "" }));
+                  setShowRegister(false); // Revenir par défaut au formulaire de connexion après déconnexion
+                }}
+                sx={{
+                  borderColor: "#778d45",
+                  color: "#778d45",
+                  "&:hover": { backgroundColor: "rgba(119, 141, 69, 0.1)", borderColor: "#66753a" },
+                }}
+              >
+                Se déconnecter
+              </Button>
+            </Box>
+          )}
+        </Box>
+      </div>
+
       <div className="formulaire1">
         <form onSubmit={handlesubmit1}>
           <fieldset>
@@ -203,14 +480,14 @@ const Adoption = () => {
               noValidate
               autoComplete="off"
             >
-              {/* Informations de l'animal - Exemples prédéfinis */}
+              {/* Informations de l'animal - pré-remplies ou vides */}
               <TextField
                 id="animalNom"
                 name="animalNom"
                 label="Nom de l'animal"
                 value={formdata1.animalNom}
                 InputProps={{
-                  readOnly: true, // Rendre le champ non modifiable
+                  readOnly: true,
                 }}
                 variant="outlined"
               />
@@ -395,6 +672,8 @@ const Adoption = () => {
                 onBlur={() => handleBlur1("email")}
                 variant="outlined"
                 autoComplete="off"
+                disabled={isLoggedIn} // Désactiver le champ email si l'utilisateur est connecté
+                helperText={isLoggedIn ? "Votre adresse email est pré-remplie car vous êtes connecté(e)." : "Veuillez vous connecter pour pré-remplir ce champ."}
               />
               <TextField
                 required
@@ -406,11 +685,10 @@ const Adoption = () => {
                 onChange={handleChange1}
                 onFocus={() => handleFocus1("anniv_adopt")}
                 onBlur={() => handleBlur1("anniv_adopt")}
-                required
                 fullWidth
                 variant="outlined"
                 InputLabelProps={{
-                  shrink: true, // Permet au label de ne pas chevaucher la valeur
+                  shrink: true,
                 }}
               />
               <TextField
@@ -495,10 +773,7 @@ const Adoption = () => {
                 onBlur={() => handleBlur1("animal2")}
                 label="Si oui, quels types d'animaux ?"
                 variant="outlined"
-              // Ce champ n'est pas "required" car il dépend de la réponse précédente
               />
-
-              {/* Nouveau champ: Expérience avec les animaux */}
               <TextField
                 required
                 name="experienceAnimaux"
@@ -514,8 +789,6 @@ const Adoption = () => {
                 <MenuItem value="oui_un_peu">Oui, un peu</MenuItem>
                 <MenuItem value="non">Non</MenuItem>
               </TextField>
-
-              {/* Nouveau champ: Heures consacrées à l'animal */}
               <TextField
                 required
                 name="heuresConsacrees"
@@ -566,6 +839,7 @@ const Adoption = () => {
                 backgroundColor: "#778d45",
                 "&:hover": { backgroundColor: "#66753a" },
               }}
+              disabled={!isLoggedIn} // Désactiver le bouton si non connecté
             >
               Envoyer la demande
             </Button>

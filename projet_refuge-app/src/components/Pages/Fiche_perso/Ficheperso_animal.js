@@ -1,3 +1,4 @@
+// Ficheperso_animal.js
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Ficheperso_animal.css";
@@ -67,9 +68,11 @@ const Ficheperso_animal = () => {
 
   const handleImageClick = (img) => setMainImg(img);
 
+  // --- DÉBUT DE LA MODIFICATION ---
   const handleAdoptClick = () => {
-    navigate("/Formulaire d'adoption");
+    navigate("/Formulaire d'adoption", { state: { animalData: animal } });
   };
+  // --- FIN DE LA MODIFICATION ---
 
   return (
     <div>
