@@ -10,6 +10,9 @@ const animalRoutes = require('./routes/animalRoutes');
 const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const adoptionRoutes = require('./routes/adoptionRoutes'); // <<< NOUVEL IMPORT : Routes pour les formulaires d'adoption
+const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +23,7 @@ app.use(express.json());
 
 // Servir les fichiers statiques du dossier 'uploads'
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/adoptionRequests', adoptionRequestRoutes);
 
 // Utilisation des routes
 app.use('/api/animaux', animalRoutes);

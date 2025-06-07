@@ -1,0 +1,124 @@
+/* Styles spécifiques pour le popup multi-panneaux */
+.popup-modal.large-popup {
+  max-width: 95%; /* Ou une valeur fixe comme 1200px */
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto; /* Permet le défilement si le contenu dépasse */
+  display: flex;
+  flex-direction: column; /* Laisse l'en-tête en haut, le contenu en dessous */
+}
+
+.content-grid {
+  display: flex; /* Utilisation de Flexbox pour les colonnes */
+  gap: 20px; /* Espace entre les colonnes */
+  flex-grow: 1; /* Permet à la grille de prendre l'espace disponible */
+  padding-top: 10px; /* Un peu d'espace avec le header */
+  overflow-y: auto; /* Si le contenu des colonnes est trop grand */
+}
+
+.requests-column,
+.details-and-messages-column,
+.news-column {
+  flex: 1; /* Chaque colonne prend une part égale de l'espace */
+  min-width: 280px; /* Largeur minimale pour éviter un écrasement excessif */
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: column; /* Pour organiser le contenu de chaque colonne */
+}
+
+/* Ajustements pour les titres de colonne */
+.requests-column h4,
+.details-and-messages-column h4,
+.news-column h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+/* Style pour l'élément de demande sélectionné dans la liste */
+.request-summary-item.active-request {
+  background-color: #e6f7ff; /* Bleu clair pour l'élément actif */
+  border-color: #91d5ff; /* Bordure plus foncée */
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.request-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* S'assurer que le header prend toute la largeur */
+  margin-bottom: 5px; /* Espace entre le header et la date */
+}
+
+/* Messages d'information */
+.info-message {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.no-selection-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* S'assurer qu'il prend toute la hauteur disponible */
+  text-align: center;
+  color: #888;
+  font-size: 1.1em;
+  padding: 20px;
+}
+
+/* Réinitialiser les marges pour les colonnes pour une meilleure gestion de l'espace */
+.messages-section {
+  flex-grow: 1; /* Permet à la section messages de prendre l'espace restant */
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-list {
+  flex-grow: 1; /* Permet à la liste de messages de s'étendre */
+  min-height: 100px; /* Hauteur minimale si peu de messages */
+}
+
+/* Ajustements si le formulaire de nouvelle demande est toujours visible */
+.new-request-form-section {
+  margin-top: 20px; /* Espace au-dessus du formulaire */
+  padding-top: 20px;
+  border-top: 1px dashed #eee;
+}
+
+/* Ajout d'une scrollbar sur les colonnes si nécessaire */
+.requests-column,
+.details-and-messages-column,
+.news-column {
+  overflow-y: auto; /* Permet le défilement indépendant de chaque colonne */
+  max-height: calc(
+    90vh - 120px
+  ); /* Hauteur max pour le scroll, ajustez selon votre design */
+}
+
+/* Assurez-vous que les styles existants pour .popup-overlay, .popup-header, .close-popup-btn,
+.error-message, .success-message, .status-tag, .animal-info-card, .messages-section, etc.
+sont toujours présents et fonctionnent avec cette nouvelle structure. */
+
+/* Exemple de media query pour les petits écrans (pour rendre ça réactif) */
+@media (max-width: 1024px) {
+  .content-grid {
+    flex-direction: column; /* Les colonnes s'empilent sur les petits écrans */
+  }
+  .requests-column,
+  .details-and-messages-column,
+  .news-column {
+    min-width: unset; /* Supprime la largeur minimale pour s'adapter */
+    max-height: unset; /* Laisse le contenu s'étendre verticalement */
+  }
+}

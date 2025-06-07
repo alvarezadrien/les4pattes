@@ -1,12 +1,18 @@
 /* Back_office.css */
 
 .back-office {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 2rem;
   background-color: #ebeaea;
   color: #333;
   margin: 0 auto;
   margin-top: 7rem;
+}
+
+.back-office img {
+  width: 200px;
+  height: 200px;
+  margin: 0.3rem;
+  object-fit: cover;
 }
 
 .h1_office {
@@ -298,7 +304,6 @@ button.btn_delete {
   background-color: #e7e6e6;
 }
 
-/* --- Styles for Edit Animal Form --- */
 .edit-animal-form {
   background-color: #e8f4f8; /* A light, calming blue to indicate edit mode */
   padding: 1.5rem;
@@ -341,7 +346,7 @@ button.btn_delete {
 }
 
 .edit-animal-form textarea {
-  min-height: 80px; /* Slightly taller text areas */
+  min-height: 20px;
   resize: vertical; /* Allow vertical resizing */
 }
 
@@ -432,8 +437,8 @@ button.btn_delete {
 }
 
 .animal-display-info .animal-images-preview img {
-  width: 100px; /* Fixed width for image previews */
-  height: 100px; /* Fixed height for image previews */
+  width: 10px;
+  height: 10px;
   object-fit: cover; /* Cover the area, crop if necessary */
   border-radius: 4px;
   border: 1px solid #ddd;

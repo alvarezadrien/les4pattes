@@ -1,38 +1,39 @@
-// routes/adoptionRoutes.js
-const express = require('express');
-const router = express.Router();
-const auth = require('../middleware/authMiddleware'); // Votre middleware d'authentification
-// const AdoptionForm = require('../models/AdoptionForm'); // Vous devrez créer ce modèle Mongoose
+const mongoose = require('mongoose');
 
-// Route pour soumettre un formulaire d'adoption
-// Nécessite que l'utilisateur soit authentifié
-router.post('/', auth, async (req, res) => {
-    try {
-        const { motivation, logementType, hasJardin /* ... autres champs */ } = req.body;
-
-        // Récupérer l'ID de l'utilisateur à partir du token (défini par le middleware 'auth')
-        const userId = req.user.id;
-
-        // Valider les données (basique)
-        if (!motivation || !logementType) {
-            return res.status(400).json({ message: 'Veuillez remplir tous les champs obligatoires.' });
-        }
-
-        // Créer une nouvelle entrée de formulaire d'adoption dans la base de données
-        // const newAdoption = new AdoptionForm({
-        //     userId,
-        //     motivation,
-        //     logementType,
-        //     hasJardin,
-        //     // ... sauvegardez tous les champs
-        // });
-        // await newAdoption.save();
-
-        res.status(201).json({ message: 'Formulaire d\'adoption soumis avec succès !', userId });
-    } catch (error) {
-        console.error('Erreur lors de la soumission du formulaire d\'adoption:', error);
-        res.status(500).json({ message: 'Erreur serveur lors de la soumission du formulaire.', error: error.message });
-    }
+const messageSchema = new mongoose.Schema({
+    sender: { type: String, enum: ['user', 'refuge'], required: true },
+    text: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = router;
+const demandeAdoptionSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Assurez-vous que c'est le nom de votre modèle utilisateur
+        required: true,
+    },
+    animal: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Animal', // Assurez-vous que c'est le nom de votre modèle animal
+        required: true,
+    },
+    motivation: { type: String, required: true },
+    logementType: { type: String, required: true },
+    hasJardin: { type: Boolean, default: false },
+    status: {
+        type: String,
+        enum: ['En attente', 'En cours', 'Approuvée', 'Refusée', 'Terminée'],
+        default: 'En attente',
+    },
+    messages: [messageSchema], // Tableau de messages pour le suivi
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+});
+
+// Mettre à jour 'updatedAt' à chaque sauvegarde
+demandeAdoptionSchema.pre('save', function (next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
+module.exports = mongoose.model('DemandeAdoption', demandeAdoptionSchema);

@@ -12,7 +12,9 @@ const Carte_carrousel = () => {
         fetch("http://localhost:5000/api/animaux")
             .then((response) => response.json())
             .then((data) => {
-                setAnimaux(data);
+                // Filtrer les animaux pour n'afficher que ceux qui ne sont pas adoptés
+                const animauxNonAdoptes = data.filter(animal => animal.adopte === false); // Assurez-vous que votre API renvoie cette propriété
+                setAnimaux(animauxNonAdoptes);
             })
             .catch((error) => {
                 console.error("Erreur lors de la récupération des animaux :", error);
@@ -20,6 +22,7 @@ const Carte_carrousel = () => {
     }, []);
 
     const handleNext = () => {
+        // Ajustez la logique pour le cas où il n'y a pas assez d'animaux pour remplir une page complète après le filtrage
         if (currentIndex + itemsPerPage >= animaux.length) {
             setCurrentIndex(0);
         } else {
@@ -28,6 +31,7 @@ const Carte_carrousel = () => {
     };
 
     const handlePrev = () => {
+        // Ajustez la logique pour le cas où il n'y a pas assez d'animaux pour remplir une page complète après le filtrage
         if (currentIndex === 0) {
             setCurrentIndex(Math.max(animaux.length - itemsPerPage, 0));
         } else {
@@ -37,11 +41,14 @@ const Carte_carrousel = () => {
 
     // Défilement automatique
     useEffect(() => {
-        const autoScroll = setInterval(() => {
-            handleNext();
-        }, 3500);
+        // Vérifiez s'il y a des animaux à faire défiler avant de configurer l'intervalle
+        if (animaux.length > 0) {
+            const autoScroll = setInterval(() => {
+                handleNext();
+            }, 3500);
 
-        return () => clearInterval(autoScroll);
+            return () => clearInterval(autoScroll);
+        }
     }, [currentIndex, animaux]);
 
     return (

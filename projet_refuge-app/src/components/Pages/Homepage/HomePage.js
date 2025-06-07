@@ -89,14 +89,14 @@ const HomePage = () => {
       <div className="container_choix">
         <div className="container_choix1">
           <img
-            src="/img/chien img choix.jpeg"
+              src="/img/chien img choix.jpeg"
             alt="image chien"
             width={470}
             height={300}
             onClick={redirectChien}
           />
           <button className="button_choix_chiens" onClick={redirectChien}>
-            Chiens
+            Nos chiens
           </button>
         </div>
         <div className="container_choix2">
@@ -108,7 +108,7 @@ const HomePage = () => {
             onClick={redirectChat}
           />
           <button className="button_choix_chats" onClick={redirectChat}>
-            Chats
+            Nos chats
           </button>
         </div>
       </div>

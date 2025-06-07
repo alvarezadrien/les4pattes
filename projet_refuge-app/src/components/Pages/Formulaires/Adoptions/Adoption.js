@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Adoption.css";
 import emailjs from "emailjs-com";
-import { useAuth } from '../../../../context/AuthContext';
 
 // Import de Material-UI
 import Box from "@mui/material/Box";
@@ -18,32 +17,17 @@ const Adoption = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { animalData } = location.state || {};
-  const { isLoggedIn, userEmail, login, logout } = useAuth(); // Destructure login and logout from context
 
   const [statusMessage, setStatusMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [popupClass, setPopupClass] = useState("");
 
-  const [showRegister, setShowRegister] = useState(false);
-  const [authEmailInput, setAuthEmailInput] = useState("");
-  const [authPassword, setAuthPassword] = useState("");
-  const [authConfirmPassword, setAuthConfirmPassword] = useState("");
-
-  // New state for registration fields
-  const [registerFormData, setRegisterFormData] = useState({
-    nom: "",
-    prenom: "",
-    dateNaissance: "",
-    adresse: "",
-    telephone: "",
-  });
-
   const [formdata1, setFormData] = useState({
     name: "",
     prenom: "",
-    email: "",
+    email: "", // This email field will now always be editable
     telephone: "",
-    animal: animalData?.espece === "chat" ? "chat" : animalData?.espece === "chien" ? "chien" : "",
+    animal: animalData?.espece === "Chat" ? "Chat" : animalData?.espece === "Chien" ? "Chien" : "",
     animalNom: animalData?.nom || "",
     animalEspece: animalData?.espece || "",
     animalRace: animalData?.race || "",
@@ -51,7 +35,7 @@ const Adoption = () => {
     animalSexe: animalData?.sexe || "",
     animalDescription: animalData?.description || "",
     adresse: "",
-    anniv_adopt: "", // This seems to be birth date for the adoptee, not adoption date
+    anniv_adopt: "",
     logement: "",
     acces: "",
     enfants: "",
@@ -66,7 +50,7 @@ const Adoption = () => {
     if (animalData) {
       setFormData((prevData) => ({
         ...prevData,
-        animal: animalData.espece === "chat" ? "chat" : animalData.espece === "chien" ? "chien" : "",
+        animal: animalData.espece === "Chat" ? "Chat" : animalData.espece === "Chien" ? "Chien" : "",
         animalNom: animalData.nom || "",
         animalEspece: animalData.espece || "",
         animalRace: animalData.race || "",
@@ -76,22 +60,6 @@ const Adoption = () => {
       }));
     }
   }, [animalData]);
-
-  useEffect(() => {
-    if (isLoggedIn && userEmail) {
-      setFormData((prevData) => ({
-        ...prevData,
-        email: userEmail,
-      }));
-      setAuthEmailInput(userEmail);
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        email: "",
-      }));
-      setAuthEmailInput("");
-    }
-  }, [isLoggedIn, userEmail]);
 
   const [focused, setFocused] = useState({
     name: false,
@@ -119,14 +87,6 @@ const Adoption = () => {
     });
   };
 
-  const handleRegisterChange = (event) => {
-    const { name, value } = event.target;
-    setRegisterFormData({
-      ...registerFormData,
-      [name]: value,
-    });
-  };
-
   const handleFocus1 = (field) => {
     setFocused({
       ...focused,
@@ -143,124 +103,8 @@ const Adoption = () => {
     }
   };
 
-  // Handle real login
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: authEmailInput, password: authPassword }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        login(data.token, authEmailInput);
-        setStatusMessage("Connexion réussie ! Vous pouvez maintenant compléter le formulaire.");
-        setPopupClass("success");
-        setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 3000);
-        setAuthPassword("");
-      } else {
-        setStatusMessage(data.message || "Erreur de connexion."); // Use data.message from backend
-        setPopupClass("error");
-        setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 3000);
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setStatusMessage("Une erreur s'est produite lors de la connexion.");
-      setPopupClass("error");
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000);
-    }
-  };
-
-  // Handle real registration
-  const handleRegister = async (event) => {
-    event.preventDefault();
-    if (authPassword !== authConfirmPassword) {
-      setStatusMessage("Les mots de passe ne correspondent pas.");
-      setPopupClass("error");
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000);
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: authEmailInput,
-          password: authPassword,
-          nom: registerFormData.nom,
-          prenom: registerFormData.prenom,
-          dateNaissance: registerFormData.dateNaissance,
-          adresse: registerFormData.adresse,
-          telephone: registerFormData.telephone,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Automatically log in after successful registration if desired
-        // Or you can just show a success message and prompt them to log in
-        const loginResponse = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: authEmailInput, password: authPassword }),
-        });
-        const loginData = await loginResponse.json();
-
-        if (loginResponse.ok) {
-          login(loginData.token, authEmailInput);
-          setStatusMessage("Inscription réussie et connexion automatique ! Vous pouvez maintenant compléter le formulaire.");
-          setPopupClass("success");
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 3000);
-          setAuthPassword("");
-          setAuthConfirmPassword("");
-          setShowRegister(false);
-        } else {
-          setStatusMessage("Inscription réussie, mais connexion automatique échouée. Veuillez vous connecter manuellement.");
-          setPopupClass("info");
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000);
-          setShowRegister(false); // Go back to login form
-        }
-
-      } else {
-        setStatusMessage(data.message || "Erreur d'inscription.");
-        setPopupClass("error");
-        setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 3000);
-      }
-    } catch (error) {
-      console.error("Registration error:", error);
-      setStatusMessage("Une erreur s'est produite lors de l'inscription.");
-      setPopupClass("error");
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000);
-    }
-  };
-
   const handlesubmit1 = (event) => {
     event.preventDefault();
-    if (!isLoggedIn) {
-      setStatusMessage("Veuillez vous connecter ou créer un compte pour envoyer votre demande.");
-      setPopupClass("error");
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 5000);
-      return;
-    }
-
     const emailParams = { ...formdata1 };
 
     emailjs
@@ -281,9 +125,9 @@ const Adoption = () => {
           setFormData({
             name: "",
             prenom: "",
-            email: userEmail,
+            email: "",
             telephone: "",
-            animal: animalData?.espece === "chat" ? "chat" : animalData?.espece === "chien" ? "chien" : "",
+            animal: animalData?.espece === "Chat" ? "Chat" : animalData?.espece === "Chien" ? "Chien" : "",
             animalNom: animalData?.nom || "",
             animalEspece: animalData?.espece || "",
             animalRace: animalData?.race || "",
@@ -337,250 +181,6 @@ const Adoption = () => {
         <div className={`popup-status ${popupClass}`}>{statusMessage}</div>
       )}
       <h2 className="h2_1">Formulaire d'adoption</h2>
-
-      <div className="auth-section-container">
-        <Box
-          sx={{
-            p: 3,
-            border: "1px solid #778d45",
-            borderRadius: "8px",
-            mb: 4,
-            width: "fit-content",
-            margin: "20px auto",
-            backgroundColor: "white",
-            boxShadow: "0px 0px 15px rgba(0,0,0,0.1)",
-          }}
-        >
-          <Typography variant="h5" component="h3" gutterBottom align="center" sx={{ color: "#778d45", mb: 2 }}>
-            Pour adopter, vous devez avoir un compte.
-          </Typography>
-
-          {!isLoggedIn && (
-            <Alert severity="info" sx={{ mb: 3 }}>
-              <AlertTitle>Information importante pour votre demande d'adoption</AlertTitle>
-              Afin de traiter votre demande et d'assurer un suivi personnalisé, il est **nécessaire de vous connecter ou de créer un compte**. Cela nous permet de conserver vos informations en toute sécurité et de faciliter la communication avec vous.
-            </Alert>
-          )}
-
-          {!isLoggedIn ? (
-            <div className="auth-forms">
-              {showRegister ? (
-                // Formulaire d'inscription
-                <form onSubmit={handleRegister}>
-                  <Typography variant="body1" align="center" sx={{ mb: 2 }}>
-                    **Créez votre compte en quelques secondes :**
-                  </Typography>
-                  <TextField
-                    required
-                    label="Nom"
-                    name="nom"
-                    value={registerFormData.nom}
-                    onChange={handleRegisterChange}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Prénom"
-                    name="prenom"
-                    value={registerFormData.prenom}
-                    onChange={handleRegisterChange}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Date de naissance"
-                    name="dateNaissance"
-                    type="date"
-                    value={registerFormData.dateNaissance}
-                    onChange={handleRegisterChange}
-                    margin="normal"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Adresse"
-                    name="adresse"
-                    value={registerFormData.adresse}
-                    onChange={handleRegisterChange}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Téléphone"
-                    name="telephone"
-                    value={registerFormData.telephone}
-                    onChange={handleRegisterChange}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Votre adresse email"
-                    type="email"
-                    value={authEmailInput}
-                    onChange={(e) => setAuthEmailInput(e.target.value)}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Choisissez un mot de passe"
-                    type="password"
-                    value={authPassword}
-                    onChange={(e) => setAuthPassword(e.target.value)}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Confirmez votre mot de passe"
-                    type="password"
-                    value={authConfirmPassword}
-                    onChange={(e) => setAuthConfirmPassword(e.target.value)}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      mt: 2,
-                      mb: 1,
-                      backgroundColor: "#778d45",
-                      "&:hover": { backgroundColor: "#66753a" },
-                    }}
-                  >
-                    S'inscrire et commencer ma demande
-                  </Button>
-                  <Button
-                    onClick={() => setShowRegister(false)}
-                    fullWidth
-                    sx={{
-                      color: "#778d45",
-                      "&:hover": { backgroundColor: "rgba(119, 141, 69, 0.1)" },
-                    }}
-                  >
-                    J'ai déjà un compte
-                  </Button>
-                </form>
-              ) : (
-                // Formulaire de connexion
-                <form onSubmit={handleLogin}>
-                  <Typography variant="body1" align="center" sx={{ mb: 2 }}>
-                    **Connectez-vous pour continuer votre demande :**
-                  </Typography>
-                  <TextField
-                    required
-                    label="Votre adresse email"
-                    type="email"
-                    value={authEmailInput}
-                    onChange={(e) => setAuthEmailInput(e.target.value)}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <TextField
-                    required
-                    label="Votre mot de passe"
-                    type="password"
-                    value={authPassword}
-                    onChange={(e) => setAuthPassword(e.target.value)}
-                    margin="normal"
-                    fullWidth
-                    sx={{
-                      "& label.Mui-focused": { color: "#778d45" },
-                      "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "#778d45" }, "&.Mui-focused fieldset": { borderColor: "#778d45" } },
-                    }}
-                  />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      mt: 2,
-                      mb: 1,
-                      backgroundColor: "#778d45",
-                      "&:hover": { backgroundColor: "#66753a" },
-                    }}
-                  >
-                    Me connecter
-                  </Button>
-                  <Button
-                    onClick={() => setShowRegister(true)}
-                    fullWidth
-                    sx={{
-                      color: "#778d45",
-                      "&:hover": { backgroundColor: "rgba(119, 141, 69, 0.1)" },
-                    }}
-                  >
-                    Pas encore de compte ? S'inscrire
-                  </Button>
-                </form>
-              )}
-            </div>
-          ) : (
-            // Message if user is logged in
-            <Box textAlign="center">
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                Bonjour **{userEmail}** ! Vous êtes bien connecté(e). <br />
-                Vous pouvez maintenant **remplir le formulaire ci-dessous** pour envoyer votre demande d'adoption.
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={logout}
-                sx={{
-                  borderColor: "#778d45",
-                  color: "#778d45",
-                  "&:hover": { backgroundColor: "rgba(119, 141, 69, 0.1)", borderColor: "#66753a" },
-                }}
-              >
-                Se déconnecter
-              </Button>
-            </Box>
-          )}
-        </Box>
-      </div>
-
       <div className="formulaire1">
         <form onSubmit={handlesubmit1}>
           <fieldset>
@@ -620,7 +220,6 @@ const Adoption = () => {
               noValidate
               autoComplete="off"
             >
-              {/* Animal Information - pre-filled or empty */}
               <TextField
                 id="animalNom"
                 name="animalNom"
@@ -692,7 +291,7 @@ const Adoption = () => {
                   type="radio"
                   name="animal"
                   value="chat"
-                  checked={formdata1.animal === "chat"}
+                  checked={formdata1.animal === "Chat"}
                   onChange={handleChange1}
                   onFocus={() => handleFocus1("animal")}
                   onBlur={() => handleBlur1("animal")}
@@ -712,11 +311,10 @@ const Adoption = () => {
                   type="radio"
                   name="animal"
                   value="chien"
-                  checked={formdata1.animal === "chien"}
+                  checked={formdata1.animal === "Chien"}
                   onChange={handleChange1}
                   onFocus={() => handleFocus1("animal")}
                   onBlur={() => handleBlur1("animal")}
-                  required
                 />
                 <label className="love-heart" htmlFor="switch2">
                   <i className="left"></i>
@@ -812,8 +410,6 @@ const Adoption = () => {
                 onBlur={() => handleBlur1("email")}
                 variant="outlined"
                 autoComplete="off"
-                disabled={isLoggedIn}
-                helperText={isLoggedIn ? "Votre adresse email est pré-remplie car vous êtes connecté(e)." : "Veuillez vous connecter pour pré-remplir ce champ."}
               />
               <TextField
                 required
@@ -978,7 +574,7 @@ const Adoption = () => {
                 backgroundColor: "#778d45",
                 "&:hover": { backgroundColor: "#66753a" },
               }}
-              disabled={!isLoggedIn}
+            // disabled={!isLoggedIn} // This is no longer needed
             >
               Envoyer la demande
             </Button>
