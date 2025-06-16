@@ -12,11 +12,9 @@ const Fichegalerie = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // États existants pour les filtres
+  // Filtres
   const [sexeFilter, setSexeFilter] = useState("");
   const [tailleFilter, setTailleFilter] = useState("");
-
-  // Nouveaux états pour les filtres ajoutés
   const [dureeRefugeFilter, setDureeRefugeFilter] = useState("");
   const [comportementFilter, setComportementFilter] = useState("");
   const [ententeFilter, setEntenteFilter] = useState("");
@@ -27,40 +25,30 @@ const Fichegalerie = () => {
 
     const params = new URLSearchParams();
     params.append("espece", "Chat");
-    params.append("adopte", "false"); // Afficher uniquement les chats NON adoptés
+    params.append("adopte", "false");
 
-    // Ajout conditionnel des filtres existants
     if (sexeFilter) params.append("sexe", sexeFilter);
     if (tailleFilter) params.append("taille", tailleFilter);
-
-    // Ajout conditionnel des NOUVEAUX filtres aux paramètres de l'URL
     if (dureeRefugeFilter) params.append("dureeRefuge", dureeRefugeFilter);
     if (comportementFilter) params.append("comportement", comportementFilter);
-    if (ententeFilter) params.append("ententeAvec", ententeFilter); // Le nom 'ententeAvec' doit correspondre à votre schéma et route API
+    if (ententeFilter) params.append("ententeAvec", ententeFilter);
 
-    fetch(`http://localhost:5000/api/animaux?${params.toString()}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`)
       .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Erreur HTTP: ${res.status}`);
         return res.json();
       })
       .then((data) => {
         setCats(data);
-        setCurrentPage(1); // Réinitialise la page à la première lors d'un changement de filtre
+        setCurrentPage(1);
       })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   };
 
-  // Le hook useEffect se déclenche à chaque fois qu'un des états de filtre change
   useEffect(() => {
     fetchCats();
-  }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]); // Tous les filtres sont des dépendances
+  }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]);
 
   if (loading) return <p>Chargement des chats...</p>;
   if (error) return <p>Erreur : {error}</p>;
@@ -76,20 +64,18 @@ const Fichegalerie = () => {
 
   return (
     <div className="page-container">
-      {/* Passe TOUS les états des filtres et leurs fonctions de mise à jour au composant Filtres */}
       <Filtres
         sexe={sexeFilter}
         setSexe={setSexeFilter}
         taille={tailleFilter}
         setTaille={setTailleFilter}
-        // Nouveaux filtres passés au composant Filtres
         dureeRefuge={dureeRefugeFilter}
         setDureeRefuge={setDureeRefugeFilter}
         comportement={comportementFilter}
         setComportement={setComportementFilter}
         entente={ententeFilter}
         setEntente={setEntenteFilter}
-        disableTaille={true} // Garde cette prop spécifique aux chats si nécessaire
+        disableTaille={true}
       />
 
       <section className="container_appercu">
@@ -97,7 +83,14 @@ const Fichegalerie = () => {
           {currentCats.length > 0 ? (
             currentCats.map((cat, index) => (
               <div className="item" key={`cat-${startIndex + index}`}>
-                <img src={cat.image} alt={`Photo de ${cat.nom}`} />
+                <img
+                  src={
+                    cat.image
+                      ? `${process.env.REACT_APP_API_URL}${cat.image}`
+                      : "/img/default.jpg"
+                  }
+                  alt={`Photo de ${cat.nom}`}
+                />
                 <div className="item_info">
                   <h3>{cat.nom}</h3>
                   <p className="age">Âge: {cat.age}</p>
