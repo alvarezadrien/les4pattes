@@ -5,7 +5,6 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 
-// Import des routes
 const animalRoutes = require('./routes/animalRoutes');
 const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
@@ -15,7 +14,13 @@ const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middlewares
+// Détecter quelle base utiliser
+const mongoURI =
+    process.env.NODE_ENV === 'production'
+        ? process.env.MONGO_URI
+        : process.env.LOCAL_MONGO_URI;
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -30,7 +35,7 @@ app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 
 // Connexion MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(mongoURI)
     .then(() => {
         console.log('✅ Connexion à MongoDB réussie');
         app.listen(PORT, () => {
@@ -39,5 +44,5 @@ mongoose.connect(process.env.MONGO_URI)
     })
     .catch((err) => {
         console.error('❌ Échec de connexion à MongoDB :', err.message);
-        process.exit(1); // Quitte le processus en cas d’échec
+        process.exit(1);
     });
