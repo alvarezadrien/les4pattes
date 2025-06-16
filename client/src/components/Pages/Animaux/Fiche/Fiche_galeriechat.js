@@ -33,7 +33,7 @@ const Fichegalerie = () => {
     if (comportementFilter) params.append("comportement", comportementFilter);
     if (ententeFilter) params.append("ententeAvec", ententeFilter);
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/animaux`)
       .then((res) => {
         if (!res.ok) throw new Error(`Erreur HTTP: ${res.status}`);
         return res.json();
