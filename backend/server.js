@@ -9,35 +9,35 @@ const path = require('path');
 const animalRoutes = require('./routes/animalRoutes');
 const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
-const adoptionRoutes = require('./routes/adoptionRoutes'); // <<< NOUVEL IMPORT : Routes pour les formulaires d'adoption
+const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
-
-
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Servir les fichiers statiques du dossier 'uploads'
+// Fichiers statiques
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api/adoptionRequests', adoptionRequestRoutes);
 
-// Utilisation des routes
+// Routes
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
-app.use('/api/adoptions', adoptionRoutes); // <<< NOUVELLE ROUTE : Assurez-vous que vous avez un fichier adoptionRoutes.js
+app.use('/api/adoptions', adoptionRoutes);
+app.use('/api/adoptionRequests', adoptionRequestRoutes);
 
 // Connexion MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
-        console.log('✅ MongoDB connecté');
-        app.listen(PORT, () => console.log(`🚀 Serveur lancé sur le port ${PORT}`));
+        console.log('✅ Connexion à MongoDB réussie');
+        app.listen(PORT, () => {
+            console.log(`🚀 Serveur lancé sur le port ${PORT}`);
+        });
     })
-    .catch((err) => console.error('❌ Erreur de connexion MongoDB :', err));
+    .catch((err) => {
+        console.error('❌ Échec de connexion à MongoDB :', err.message);
+        process.exit(1); // Quitte le processus en cas d’échec
+    });
