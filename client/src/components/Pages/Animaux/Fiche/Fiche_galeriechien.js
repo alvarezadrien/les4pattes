@@ -12,7 +12,6 @@ const Fiche_galeriechien = () => {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
 
-    // États pour les filtres, gérés par ce composant parent
     const [sexeFilter, setSexeFilter] = useState("");
     const [tailleFilter, setTailleFilter] = useState("");
     const [dureeRefugeFilter, setDureeRefugeFilter] = useState("");
@@ -25,17 +24,15 @@ const Fiche_galeriechien = () => {
 
         const params = new URLSearchParams();
         params.append("espece", "Chien");
-        params.append("adopte", "false"); // Afficher uniquement les chiens NON adoptés
+        params.append("adopte", "false");
 
-        // Ajout conditionnel des filtres aux paramètres de l'URL
         if (sexeFilter) params.append("sexe", sexeFilter);
         if (tailleFilter) params.append("taille", tailleFilter);
         if (comportementFilter) params.append("comportement", comportementFilter);
-        if (ententeFilter) params.append("ententeAvec", ententeFilter); // Nom du paramètre aligné avec le schéma Mongoose
+        if (ententeFilter) params.append("ententeAvec", ententeFilter);
         if (dureeRefugeFilter) params.append("dureeRefuge", dureeRefugeFilter);
 
-        // Appel à l'API avec les filtres
-        fetch(`http://localhost:5000/api/animaux?${params.toString()}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/animaux`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Erreur HTTP: ${res.status}`);
@@ -44,7 +41,7 @@ const Fiche_galeriechien = () => {
             })
             .then((data) => {
                 setDogs(data);
-                setCurrentPage(1); // Réinitialise la page à la première lors d'un changement de filtre
+                setCurrentPage(1);
             })
             .catch((err) => {
                 setError(err.message);
@@ -54,7 +51,6 @@ const Fiche_galeriechien = () => {
             });
     };
 
-    // Le hook useEffect se déclenche à chaque fois qu'un des états de filtre change
     useEffect(() => {
         fetchDogs();
     }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]);
@@ -73,7 +69,6 @@ const Fiche_galeriechien = () => {
 
     return (
         <div className="page-container">
-            {/* Passe tous les états des filtres et leurs fonctions de mise à jour au composant Filtres */}
             <Filtres
                 sexe={sexeFilter}
                 setSexe={setSexeFilter}
@@ -92,7 +87,14 @@ const Fiche_galeriechien = () => {
                     {currentDogs.length > 0 ? (
                         currentDogs.map((dog, index) => (
                             <div className="item" key={`dog-${startIndex + index}`}>
-                                <img src={dog.image} alt={`Photo de ${dog.nom}`} />
+                                <img
+                                    src={
+                                        dog.image
+                                            ? `${process.env.REACT_APP_API_URL}${dog.image}`
+                                            : "/img/default.jpg"
+                                    }
+                                    alt={`Photo de ${dog.nom}`}
+                                />
                                 <div className="item_info">
                                     <h3>{dog.nom}</h3>
                                     <p className="age">Âge: {dog.age}</p>
