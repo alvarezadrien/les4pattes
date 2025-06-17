@@ -11,7 +11,7 @@ const Compagnons_adopter = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch("http://localhost:5000/api/animaux?adopte=true");
+                const response = await fetch("https://les4pattes-backend.onrender.com/api/animaux?adopte=true");
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP : ${response.status}`);
                 }
@@ -42,14 +42,17 @@ const Compagnons_adopter = () => {
         <div className="item_flip-card" key={animal._id || index}>
             <div className="flip-card-inner">
                 <div className="flip-card-front">
-                    <img src={animal.image || "/img/chat_galeriefiche.jpg"} alt={`Photo de ${animal.nom}`} />
+                    <img
+                        src={animal.images && animal.images[0] ? animal.images[0] : "/img/chat_galeriefiche.jpg"}
+                        alt={`Photo de ${animal.nom}`}
+                    />
                     <h3>{animal.nom}</h3>
                 </div>
                 <div className="flip-card-back">
                     {animal.descriptionAdoption && animal.descriptionAdoption.trim() !== "" ? (
                         <p className="animal-description">{animal.descriptionAdoption}</p>
                     ) : (
-                        <p className="animal-description"></p> // Rien d'affiché si pas de descriptionAdoption
+                        <p className="animal-description">Ce compagnon a trouvé une famille ♥</p>
                     )}
                 </div>
             </div>
