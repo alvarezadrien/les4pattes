@@ -41,9 +41,9 @@ function Back_office() {
   // New state for search term
   const [searchTerm, setSearchTerm] = useState("");
 
-  const apiUrl = "http://localhost:5000/api/animaux";
-  const usersApiUrl = "http://localhost:5000/api/auth/users";
-  const commentsApiUrl = "http://localhost:5000/api/comments"; // New API endpoint for comments
+  const apiUrl = `${process.env.REACT_APP_API_URL}/api/animaux`;
+  const usersApiUrl = `${process.env.REACT_APP_API_URL}/api/auth/users`;
+  const commentsApiUrl = `${process.env.REACT_APP_API_URL}/api/comments`;
 
   // Fonction pour récupérer les commentaires, peut être appelée après une suppression
   const fetchComments = async () => {
