@@ -30,7 +30,6 @@ import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation'
 import Adhesions from './components/Pages/Adhésions/Adhesions';
 import './components/Pages/Gestion_adoption/Gestion_adoption'
 
-// Import composant (widgets)
 import BackButton from './components/Widgets/Back_button/Back_button';
 import Animalitem from './components/Widgets/Animal_item/Animalitem';
 import PopupMenu from './components/Widgets/Popup_menu/PopupMenu';
@@ -41,8 +40,7 @@ import Scroll_button from './components/Widgets/Scroll_button/Scroll_button';
 import Back_office from './components/back_office/Back_office';
 import CommentCards from './components/Pages/Avis/Avis';
 import GestionAdoption from './components/Pages/Gestion_adoption/Gestion_adoption';
-import Loading from './components/Widgets/Loading/Loading.jsx';
-
+import Loading from './components/Widgets/Loading/Loading';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -59,17 +57,25 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  const [siteLoading, setSiteLoading] = useState(true);
+  const [siteReady, setSiteReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setSiteLoading(false);
-    }, 10000);
+    const init = async () => {
+      try {
+        // Appel à une API critique pour vérifier la disponibilité du backend
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
+        if (!res.ok) throw new Error("Erreur API");
+        await res.json();
+        setSiteReady(true);
+      } catch (err) {
+        console.error("Erreur au chargement du site :", err);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    init();
   }, []);
 
-  if (siteLoading) return <Loading />;
+  if (!siteReady) return <Loading />;
 
   return (
     <Router>
@@ -100,7 +106,6 @@ const App = () => {
             <Route path="/Adhésions" element={<Adhesions />} />
             <Route path='/Back_office' element={<Back_office />} />
             <Route path='/gestion_adoption' element={<GestionAdoption />} />
-
             <Route
               path="/Mon compte"
               element={
