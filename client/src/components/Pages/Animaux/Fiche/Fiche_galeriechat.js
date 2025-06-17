@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Filtres from "../../../Widgets/Filtres/Filtre"; // Assurez-vous que ce chemin est correct
+import Filtres from "../../../Widgets/Filtres/Filtre";
+import Loading from "../../../Widgets/Loading/Loading.jsx";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -49,7 +50,7 @@ const Fichegalerie = () => {
     fetchCats();
   }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]);
 
-  if (loading) return <p>Chargement des chats...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Erreur : {error}</p>;
 
   const totalPages = Math.ceil(cats.length / ITEMS_PER_PAGE);
