@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
     avatar: { type: String, default: "/img/avatar.png" },
-    // --- CHAMP AJOUTÉ POUR LE RÔLE ---
     role: {
         type: String,
         enum: ['user', 'admin'], // 'user' pour les utilisateurs standards, 'admin' pour les administrateurs

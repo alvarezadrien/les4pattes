@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Inscription.css';
 
-// Import Material-UI
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -71,7 +70,7 @@ const Inscription = () => {
         setSuccessMessage("");
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/signup', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +104,6 @@ const Inscription = () => {
             <h1 className='h1_inscription'>Vos données personnelles</h1>
             <div className='container_form_inscription'>
                 <form onSubmit={handleSubmit}>
-
                     <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image" />
 
                     <Box sx={{
@@ -140,84 +138,30 @@ const Inscription = () => {
                         },
                     }}>
 
-                        <TextField
-                            required
-                            type="text"
-                            id="nom"
-                            name="nom"
-                            value={formData.nom}
-                            onChange={handleChange}
-                            onFocus={() => handleFocus("nom")}
-                            onBlur={() => handleBlur("nom")}
-                            variant='outlined'
-                            label="Nom"
-                        />
+                        <TextField required type="text" id="nom" name="nom" value={formData.nom}
+                            onChange={handleChange} onFocus={() => handleFocus("nom")} onBlur={() => handleBlur("nom")}
+                            variant='outlined' label="Nom" />
 
-                        <TextField
-                            required
-                            type='text'
-                            name='prenom'
-                            value={formData.prenom}
-                            onChange={handleChange}
-                            onFocus={() => handleFocus("prenom")}
-                            onBlur={() => handleBlur("prenom")}
-                            label="Prénom"
-                            variant='outlined'
-                        />
+                        <TextField required type='text' name='prenom' value={formData.prenom}
+                            onChange={handleChange} onFocus={() => handleFocus("prenom")} onBlur={() => handleBlur("prenom")}
+                            label="Prénom" variant='outlined' />
 
-                        <TextField
-                            required
-                            type="date"
-                            id="dateNaissance"
-                            name="dateNaissance"
-                            value={formData.dateNaissance}
-                            onChange={handleChange}
-                            fullWidth
-                            variant='outlined'
-                            label="Date de naissance"
-                            InputLabelProps={{ shrink: true }}
-                        />
+                        <TextField required type="date" id="dateNaissance" name="dateNaissance"
+                            value={formData.dateNaissance} onChange={handleChange} fullWidth variant='outlined'
+                            label="Date de naissance" InputLabelProps={{ shrink: true }} />
 
-                        <TextField
-                            required
-                            type="text"
-                            id="adresse"
-                            name="adresse"
-                            value={formData.adresse}
-                            onChange={handleChange}
-                            onFocus={() => handleFocus("adresse")}
-                            onBlur={() => handleBlur("adresse")}
-                            variant='outlined'
-                            label="Adresse"
-                        />
+                        <TextField required type="text" id="adresse" name="adresse" value={formData.adresse}
+                            onChange={handleChange} onFocus={() => handleFocus("adresse")} onBlur={() => handleBlur("adresse")}
+                            variant='outlined' label="Adresse" />
 
-                        <TextField
-                            required
-                            type="tel"
-                            id="telephone"
-                            name="telephone"
-                            value={formData.telephone}
-                            onChange={handleChange}
-                            onFocus={() => handleFocus("telephone")}
-                            onBlur={() => handleBlur("telephone")}
-                            pattern="^[0-9]{10}$"
-                            placeholder="Veuillez entrer un numéro de téléphone de 10 chiffres."
-                            label="Téléphone"
-                            variant='outlined'
-                        />
+                        <TextField required type="tel" id="telephone" name="telephone" value={formData.telephone}
+                            onChange={handleChange} onFocus={() => handleFocus("telephone")} onBlur={() => handleBlur("telephone")}
+                            pattern="^[0-9]{10}$" placeholder="Veuillez entrer un numéro de téléphone de 10 chiffres."
+                            label="Téléphone" variant='outlined' />
 
-                        <TextField
-                            required
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            onFocus={() => handleFocus("email")}
-                            onBlur={() => handleBlur("email")}
-                            label="Email"
-                            variant='outlined'
-                        />
+                        <TextField required type="email" id="email" name="email" value={formData.email}
+                            onChange={handleChange} onFocus={() => handleFocus("email")} onBlur={() => handleBlur("email")}
+                            label="Email" variant='outlined' />
 
                         <FormControl variant="outlined" sx={{
                             m: 1,
@@ -253,7 +197,6 @@ const Inscription = () => {
                                 label="Mot de passe"
                             />
                         </FormControl>
-
                     </Box>
 
                     {errorMessage && (
@@ -269,17 +212,12 @@ const Inscription = () => {
                     )}
 
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                        <Button
-                            variant="contained"
-                            type="submit"
-                            className="btn-login"
-                            sx={{
-                                backgroundColor: '#778d45',
-                                '&:hover': {
-                                    backgroundColor: '#5f7036',
-                                }
-                            }}
-                        >
+                        <Button variant="contained" type="submit" className="btn-login" sx={{
+                            backgroundColor: '#778d45',
+                            '&:hover': {
+                                backgroundColor: '#5f7036',
+                            }
+                        }}>
                             Confirmer
                         </Button>
                     </Box>
