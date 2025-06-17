@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -14,7 +13,7 @@ const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Détecter quelle base utiliser
+// Choix de l'URI MongoDB selon l'environnement
 const mongoURI =
     process.env.NODE_ENV === 'production'
         ? process.env.MONGO_URI
@@ -24,10 +23,10 @@ const mongoURI =
 app.use(cors());
 app.use(express.json());
 
-// Fichiers statiques
+// Rendre le dossier uploads public (accès aux images)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Routes
+// Routes API
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
