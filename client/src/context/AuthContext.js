@@ -1,51 +1,42 @@
 // src/context/AuthContext.js
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import api from '../services/api'; // Importe ton instance Axios configurée
+import api from '../services/api'; // api utilise process.env.REACT_APP_API_URL
 
-// Crée le Contexte d'authentification
 const AuthContext = createContext();
 
-// Crée le fournisseur (Provider) de Contexte d'authentification
 export const AuthProvider = ({ children }) => {
-    // État pour stocker l'utilisateur (null si déconnecté)
     const [user, setUser] = useState(null);
-    // État pour stocker le token. Initialisé à partir du localStorage.
-    const [token, setToken] = useState(localStorage.getItem('token') || null); // <<< AJOUT DU TOKEN DANS L'ÉTAT
-    // État pour indiquer si le chargement initial est terminé (par exemple, pour vérifier le token au démarrage)
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const loadUserFromToken = async () => {
-            // Le token est déjà dans l'état 'token', mais on peut aussi le re-vérifier avec localStorage
             const storedToken = localStorage.getItem('token');
             if (storedToken) {
-                // Axios est déjà configuré dans 'api.js' pour ajouter le token automatiquement
-                // Donc pas besoin de le passer manuellement ici si l'intercepteur est en place.
                 try {
-                    const response = await api.get('/auth/profile');
+                    const response = await api.get('/auth/profile'); // >>> Fait appel à REACT_APP_API_URL + /auth/profile
                     setUser(response.data);
-                    setToken(storedToken); // Assure que le state 'token' est synchronisé
+                    setToken(storedToken);
                 } catch (error) {
                     console.error('Erreur lors du chargement du profil utilisateur:', error);
-                    localStorage.removeItem('token'); // Token invalide ou expiré, on le supprime
-                    setToken(null); // Réinitialise le token dans l'état
+                    localStorage.removeItem('token');
+                    setToken(null);
                     setUser(null);
                 }
             }
-            setLoading(false); // Le chargement initial est terminé
+            setLoading(false);
         };
 
         loadUserFromToken();
-    }, []); // Le tableau vide assure que cela ne s'exécute qu'une seule fois
+    }, []);
 
-    // Fonction de connexion
     const login = async (email, password) => {
         try {
             const response = await api.post('/auth/login', { email, password });
-            const { token: receivedToken, user: userData } = response.data; // Récupère le token et les données user
-            localStorage.setItem('token', receivedToken); // Stocke le token dans localStorage
-            setToken(receivedToken); // Met à jour l'état du token
-            setUser(userData); // Met à jour l'état de l'utilisateur
+            const { token: receivedToken, user: userData } = response.data;
+            localStorage.setItem('token', receivedToken);
+            setToken(receivedToken);
+            setUser(userData);
             return { success: true };
         } catch (error) {
             console.error('Échec de la connexion:', error.response?.data?.message || error.message);
@@ -53,7 +44,6 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Fonction d'inscription
     const signup = async (userData) => {
         try {
             const response = await api.post('/auth/signup', userData);
@@ -64,14 +54,12 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Fonction de déconnexion
     const logout = () => {
-        localStorage.removeItem('token'); // Supprime le token du localStorage
-        setToken(null); // Réinitialise l'état du token
-        setUser(null); // Réinitialise l'état de l'utilisateur
+        localStorage.removeItem('token');
+        setToken(null);
+        setUser(null);
     };
 
-    // La fonction pour mettre à jour l'avatar côté frontend après un upload réussi
     const updateAvatar = (newAvatarUrl) => {
         setUser(prevUser => ({
             ...prevUser,
@@ -79,10 +67,9 @@ export const AuthProvider = ({ children }) => {
         }));
     };
 
-    // La valeur qui sera fournie à tous les composants qui utilisent ce contexte
     const authContextValue = {
         user,
-        token, // <<< EXPOSE LE TOKEN ICI !
+        token,
         loading,
         login,
         signup,
@@ -92,12 +79,11 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={authContextValue}>
-            {!loading && children} {/* Affiche les enfants seulement après le chargement initial */}
+            {!loading && children}
         </AuthContext.Provider>
     );
 };
 
-// Hook personnalisé pour utiliser le contexte d'authentification facilement
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
