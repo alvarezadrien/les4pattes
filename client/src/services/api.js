@@ -1,12 +1,12 @@
 // src/services/api.js
 import axios from 'axios';
 
-// Utilise l'URL définie dans .env, sinon celle par défaut en local
+// URL de production uniquement (aucun fallback en local)
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+    baseURL: process.env.REACT_APP_API_URL,
 });
 
-// Intercepteur pour ajouter le token à chaque requête sortante
+// Intercepteur pour ajouter automatiquement le token à chaque requête sortante
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
@@ -20,15 +20,15 @@ api.interceptors.request.use(
     }
 );
 
-// Intercepteur pour gérer les erreurs 401 globalement (optionnel)
+// Intercepteur global pour gérer les erreurs (ex: 401 Unauthorized)
 api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && error.response.status === 401) {
-            // Optionnel : déconnexion automatique ou redirection
+            console.warn('Erreur 401 : accès non autorisé');
+            // Optionnel : déconnecter ou rediriger
             // localStorage.removeItem('token');
             // window.location.href = '/connexion';
-            console.warn('Erreur 401 : accès non autorisé');
         }
         return Promise.reject(error);
     }
