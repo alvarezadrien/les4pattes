@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './Compagnons_adopter.css';
+import Loading from '../../Widgets/Loading/Loading.jsx';
 
 const Compagnons_adopter = () => {
     const [animaux, setAnimaux] = useState([]);
@@ -35,7 +36,7 @@ const Compagnons_adopter = () => {
         fetchAnimaux();
     }, []);
 
-    if (loading) return <p>Chargement des compagnons adoptés...</p>;
+    if (loading) return <Loading />;
     if (error) return <p>Erreur : {error}</p>;
     if (!animaux.length) return <p>Aucun compagnon adopté pour l’instant.</p>;
 

@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-// Importe les nouvelles dépendances d'authentification
-import { AuthProvider } from './context/AuthContext'; // <--- NOUVEAU
-import PrivateRoute from './components/PrivateRoute'; // <--- NOUVEAU
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 
-// Composants de Layout
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 
-// Pages (assure-toi que ces chemins sont corrects par rapport à 'src/')
 import HomePage from './components/Pages/Homepage/HomePage';
 import Apropos from './components/Pages/Propos/Apropos';
 import Galeriechien from './components/Pages/Animaux/Chiens/Galeriechien';
@@ -33,17 +30,18 @@ import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation'
 import Adhesions from './components/Pages/Adhésions/Adhesions';
 import './components/Pages/Gestion_adoption/Gestion_adoption'
 
-// Code réutilisable (Widgets) - non modifiés ici
+// Import composant (widgets)
 import BackButton from './components/Widgets/Back_button/Back_button';
-import Animalitem from './components/Widgets/Animal_item/Animalitem'; // Est déjà dans les routes, pas besoin de l'importer si ce n'est pas un composant direct
+import Animalitem from './components/Widgets/Animal_item/Animalitem';
 import PopupMenu from './components/Widgets/Popup_menu/PopupMenu';
 import Filtre from './components/Widgets/Filtres/Filtre';
 import Pagination from './components/Widgets/Pagination/Pagination';
-import Carte_carrousel from './components/Widgets/Carrousel/Carte_carrousel'; // Est déjà dans les routes
+import Carte_carrousel from './components/Widgets/Carrousel/Carte_carrousel';
 import Scroll_button from './components/Widgets/Scroll_button/Scroll_button';
 import Back_office from './components/back_office/Back_office';
 import CommentCards from './components/Pages/Avis/Avis';
 import GestionAdoption from './components/Pages/Gestion_adoption/Gestion_adoption';
+import Loading from './components/Widgets/Loading/Loading.jsx';
 
 
 const Layout = ({ children }) => {
@@ -61,6 +59,18 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
+  const [siteLoading, setSiteLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSiteLoading(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (siteLoading) return <Loading />;
+
   return (
     <Router>
       <AuthProvider>
@@ -91,7 +101,6 @@ const App = () => {
             <Route path='/Back_office' element={<Back_office />} />
             <Route path='/gestion_adoption' element={<GestionAdoption />} />
 
-            {/* Routes protéger */}
             <Route
               path="/Mon compte"
               element={
