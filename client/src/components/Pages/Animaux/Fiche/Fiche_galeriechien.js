@@ -32,7 +32,7 @@ const Fiche_galeriechien = () => {
         if (ententeFilter) params.append("ententeAvec", ententeFilter);
         if (dureeRefugeFilter) params.append("dureeRefuge", dureeRefugeFilter);
 
-        fetch(`${process.env.REACT_APP_API_URL}/api/animaux`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Erreur HTTP: ${res.status}`);
