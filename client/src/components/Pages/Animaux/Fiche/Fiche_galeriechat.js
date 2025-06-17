@@ -12,7 +12,6 @@ const Fichegalerie = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Filtres
   const [sexeFilter, setSexeFilter] = useState("");
   const [tailleFilter, setTailleFilter] = useState("");
   const [dureeRefugeFilter, setDureeRefugeFilter] = useState("");
@@ -33,7 +32,7 @@ const Fichegalerie = () => {
     if (comportementFilter) params.append("comportement", comportementFilter);
     if (ententeFilter) params.append("ententeAvec", ententeFilter);
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/animaux`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`)
       .then((res) => {
         if (!res.ok) throw new Error(`Erreur HTTP: ${res.status}`);
         return res.json();
