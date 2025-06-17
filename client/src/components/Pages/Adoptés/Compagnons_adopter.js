@@ -11,7 +11,8 @@ const Compagnons_adopter = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch("https://les4pattes-backend.onrender.com/api/animaux?adopte=true");
+                const apiUrl = `${process.env.REACT_APP_API_URL}/api/animaux?adopte=true`;
+                const response = await fetch(apiUrl);
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP : ${response.status}`);
                 }
