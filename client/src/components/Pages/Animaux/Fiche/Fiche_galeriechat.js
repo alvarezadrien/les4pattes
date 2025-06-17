@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Filtres from "../../../Widgets/Filtres/Filtre";
-import Loading from "../../../Widgets/Loading/Loading.jsx";
+import Loading from "../../../Widgets/Loading/Loading"; // ← vérifie le chemin
 
 const ITEMS_PER_PAGE = 12;
 
@@ -50,6 +50,7 @@ const Fichegalerie = () => {
     fetchCats();
   }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]);
 
+  // ===> 🔁 Pendant chargement, ne montre rien d'autre
   if (loading) return <Loading />;
   if (error) return <p>Erreur : {error}</p>;
 
