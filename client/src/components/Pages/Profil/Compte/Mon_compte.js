@@ -4,7 +4,7 @@ import { useAuth } from '../../../../context/AuthContext';
 import api from '../../../../services/api';
 
 import "./Mon_compte.css";
-// Importation des nouveaux composants de popup
+// Import des popup
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
@@ -57,7 +57,6 @@ const Mon_compte = () => {
     navigate('/connexion');
   };
 
-  // --- LOGIQUE POUR LE TÉLÉVERSEMENT D'AVATAR (FICHIER) ---
   const handleAvatarUpload = async (file) => {
     if (!file) {
       setError('Veuillez sélectionner un fichier à téléverser.');
@@ -66,7 +65,7 @@ const Mon_compte = () => {
 
     setMessage('Téléchargement de l\'avatar en cours...');
     setError('');
-    setShowAvatarPopup(false); // Ferme la popup après la sélection
+    setShowAvatarPopup(false);
 
     const formData = new FormData();
     formData.append('avatar', file);

@@ -13,7 +13,6 @@ const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Choix de l'URI MongoDB selon l'environnement
 const mongoURI =
     process.env.NODE_ENV === 'production'
         ? process.env.MONGO_URI

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Assure-toi que Link est importé
+import { useNavigate, Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -12,7 +12,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import './Connexion.css';
-import { useAuth } from '../../../../context/AuthContext'; // <--- TRÈS IMPORTANT : Vérifie ce chemin !
+import { useAuth } from '../../../../context/AuthContext';
 
 const Connexion = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,13 +33,10 @@ const Connexion = () => {
     setSuccessMessage(''); // Réinitialise les messages de succès précédents
 
     try {
-      // Utilise la fonction login du contexte d'authentification
-      // Elle gère déjà l'appel API et le stockage du token
       const result = await login(email, password);
 
       if (result.success) {
         setSuccessMessage('Connexion réussie ! Redirection...');
-        // Redirige l'utilisateur vers la page protégée après un court délai
         setTimeout(() => {
           navigate('/Mon compte'); // Redirige vers la page "Mon compte"
         }, 1500); // Délai de 1.5 seconde avant la redirection
@@ -135,7 +132,6 @@ const Connexion = () => {
             </Box>
           </form>
           <div className="form-links">
-            {/* Utilise Link de react-router-dom pour une navigation SPA */}
             <Link to="/MotpasseOublie">Mot de passe oublié ?</Link>
             <Link to="/Inscription">Inscription</Link>
           </div>
