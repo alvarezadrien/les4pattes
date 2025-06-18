@@ -4,13 +4,47 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   padding: 50px;
   max-width: 750px;
+  max-height: 500px;
   margin: 40px auto;
+  margin-top: 7rem;
   animation: slideInUp 0.8s ease-out;
   position: relative;
   overflow: hidden;
   text-align: center;
   color: #333;
-  font-family: "Quicksand", sans-serif;
+}
+
+.adopt-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: -1.5rem;
+  left: 0;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu a {
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+  background-color: #bc5759;
+  color: white;
 }
 
 @keyframes slideInUp {

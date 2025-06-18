@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Page_404.css";
 
 const Page404 = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <div className="container-404">
       <span className="paw-print">🐾</span>
@@ -21,10 +23,22 @@ const Page404 = () => {
         <a href="/" className="btn btn-primary">
           🏠 Retour à la maison
         </a>
-        <a href="/adopter" className="btn btn-secondary">
+
+        <div
+          className="btn btn-secondary adopt-dropdown"
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
           ❤️ Adoptez un ami
-        </a>
-        <a href="/faire-un-don" className="btn btn-tertiary">
+          {showDropdown && (
+            <div className="dropdown-menu">
+              <a href="/Galeriechien">🐶 Chiens</a>
+              <a href="/Galeriechat">🐱 Chats</a>
+            </div>
+          )}
+        </div>
+
+        <a href="/Adhésions" className="btn btn-tertiary">
           🎁 Faire un don
         </a>
       </div>
