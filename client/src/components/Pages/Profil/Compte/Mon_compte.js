@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
-import api from '../../../../services/api';
+import axios from 'axios';
 
 import "./Mon_compte.css";
-// Import des popup
+
+// Popups
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
 import CommentFormPopup from './Popup/CommentFormPopup';
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
-
 
 const avatarOptions = [
   "/img/Avatar/avatar_chat1.jpg",
@@ -23,6 +23,8 @@ const avatarOptions = [
   "/img/Avatar/avatar_chien4.jpg",
 ];
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Mon_compte = () => {
   const { user, logout, loading, updateAvatar } = useAuth();
   const navigate = useNavigate();
@@ -30,13 +32,12 @@ const Mon_compte = () => {
   const [avatarFile, setAvatarFile] = useState(null);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [showAvatarPopup, setShowAvatarPopup] = useState(false); // Renommé pour plus de clarté
-  const [showDataPopup, setShowDataPopup] = useState(false); // État pour le popup données
-  const [showAddressPopup, setShowAddressPopup] = useState(false); // État pour le popup adresse
-  const [showPasswordPopup, setShowPasswordPopup] = useState(false); // État pour le popup mot de passe
-  const [showCommentPopup, setShowCommentPopup] = useState(false); // État pour le popup commentaire
-  const [showAdoptionPopup, setShowAdoptionPopup] = useState(false); // État pour le popup adoption
-
+  const [showAvatarPopup, setShowAvatarPopup] = useState(false);
+  const [showDataPopup, setShowDataPopup] = useState(false);
+  const [showAddressPopup, setShowAddressPopup] = useState(false);
+  const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+  const [showCommentPopup, setShowCommentPopup] = useState(false);
+  const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -44,13 +45,8 @@ const Mon_compte = () => {
     }
   }, [user, loading, navigate]);
 
-  if (loading) {
-    return <div className="mon-compte-container">Chargement du profil...</div>;
-  }
-
-  if (!user) {
-    return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
-  }
+  if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
+  if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
 
   const handleLogout = () => {
     logout();
@@ -71,11 +67,14 @@ const Mon_compte = () => {
     formData.append('avatar', file);
 
     try {
-      const response = await api.post('/auth/profile/avatar', formData, {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`${API_URL}/api/auth/profile/avatar`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
         },
       });
+
       setMessage(response.data.msg);
       updateAvatar(response.data.avatarUrl);
       setAvatarFile(null);
@@ -97,14 +96,18 @@ const Mon_compte = () => {
     }
   };
 
-  // --- LOGIQUE POUR LA SÉLECTION D'AVATAR PRÉDÉFINI ---
   const handleAvatarSelect = async (imgUrl) => {
     setShowAvatarPopup(false);
     setMessage('Mise à jour de l\'avatar en cours...');
     setError('');
 
     try {
-      const response = await api.put('/auth/profile/avatar-url', { avatarUrl: imgUrl });
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`${API_URL}/api/auth/profile/avatar-url`, { avatarUrl: imgUrl }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       setMessage(response.data.msg);
       updateAvatar(response.data.avatarUrl);
@@ -116,52 +119,39 @@ const Mon_compte = () => {
     }
   };
 
-  // Fonction de rappel pour les popups de formulaire après une mise à jour réussie
   const handleFormUpdateSuccess = () => {
-    // Tu peux choisir de fermer tous les popups ou de laisser l'utilisateur le faire
     setShowDataPopup(false);
     setShowAddressPopup(false);
     setShowPasswordPopup(false);
-    setShowCommentPopup(false); // Ferme le popup de commentaire aussi
-    setShowAdoptionPopup(false); // Ferme le popup d'adoption aussi
-    // Ici tu peux aussi mettre un message de succès global si tu veux
+    setShowCommentPopup(false);
+    setShowAdoptionPopup(false);
     setMessage("Vos informations ont été mises à jour avec succès !");
-    setTimeout(() => setMessage(''), 3000); // Efface le message après 3 secondes
+    setTimeout(() => setMessage(''), 3000);
   };
 
-
   const handleOptionClick = (option) => {
-    // Réinitialise les messages avant d'ouvrir un nouveau popup
     setMessage('');
     setError('');
-
     switch (option) {
       case "donnees":
-        setShowDataPopup(true);
-        break;
+        setShowDataPopup(true); break;
       case "adresse":
-        setShowAddressPopup(true);
-        break;
+        setShowAddressPopup(true); break;
       case "motdepasse":
-        setShowPasswordPopup(true);
-        break;
+        setShowPasswordPopup(true); break;
       case "deconnexion":
-        handleLogout();
-        break;
-      case "commentaires": // Nouvelle option pour les commentaires
-        setShowCommentPopup(true);
-        break;
-      case "adoption": // Ajout de l'option pour le popup d'adoption
-        setShowAdoptionPopup(true);
-        break;
-      default:
-        break;
+        handleLogout(); break;
+      case "commentaires":
+        setShowCommentPopup(true); break;
+      case "adoption":
+        setShowAdoptionPopup(true); break;
+      default: break;
     }
   };
 
   const displayAvatarUrl = user.avatarUrl
     ? user.avatarUrl.startsWith('/uploads/')
-      ? `http://localhost:5000${user.avatarUrl}`
+      ? `${API_URL}${user.avatarUrl}`
       : user.avatarUrl
     : '/uploads/default_avatar.png';
 
@@ -177,12 +167,9 @@ const Mon_compte = () => {
               onClick={() => setShowAvatarPopup(true)}
             />
             <div className="user-names">
-              <span className="user-fullname">
-                {user.prenom} {user.nom}
-              </span>
+              <span className="user-fullname">{user.prenom} {user.nom}</span>
             </div>
           </div>
-
           <div className="intro-texte">
             Bienvenue sur votre espace personnel dédié à la gestion de votre
             compte dans notre refuge pour chiens et chats.
@@ -194,41 +181,30 @@ const Mon_compte = () => {
             <div className="compte-option">
               <ul className="ul_compte">
                 <li onClick={() => handleOptionClick("donnees")}>
-                  <img src="/img/ressources.png" alt="Données personnelles" />{" "}
-                  Gérer les données personnelles
+                  <img src="/img/ressources.png" alt="Données" /> Gérer les données personnelles
                 </li>
                 <li onClick={() => handleOptionClick("adresse")}>
-                  <img src="/img/accueil (1).png" alt="Adresse" /> Adresse de
-                  livraison
+                  <img src="/img/accueil (1).png" alt="Adresse" /> Adresse de livraison
                 </li>
                 <li onClick={() => handleOptionClick("motdepasse")}>
-                  <img src="/img/mot-de-passe (1).png" alt="Mot de passe" />{" "}
-                  Modifier votre mot de passe
+                  <img src="/img/mot-de-passe (1).png" alt="Mot de passe" /> Modifier votre mot de passe
                 </li>
                 <li onClick={() => handleOptionClick("deconnexion")}>
-                  <img src="/img/deconnexion (1).png" alt="Déconnexion" />{" "}
-                  Déconnexion
+                  <img src="/img/deconnexion (1).png" alt="Déconnexion" /> Déconnexion
                 </li>
               </ul>
             </div>
 
             <div className="compte-option">
               <div className="option-content">
-                <img
-                  src="/img/magazine.png"
-                  alt="Magazine"
-                  className="option-img"
-                />
+                <img src="/img/magazine.png" alt="Magazine" className="option-img" />
                 <span>Notre magazine</span>
               </div>
             </div>
 
             <div className="compte-option">
               <div className="option-content">
-                <button
-                  className="comment-button"
-                  onClick={() => handleOptionClick("commentaires")}
-                >
+                <button className="comment-button" onClick={() => handleOptionClick("commentaires")}>
                   Laisser un commentaire
                 </button>
               </div>
@@ -236,10 +212,7 @@ const Mon_compte = () => {
 
             <div className="compte-option">
               <div className="option-content">
-                <button
-                  className="adoption-button"
-                  onClick={() => handleOptionClick("adoption")}
-                >
+                <button className="adoption-button" onClick={() => handleOptionClick("adoption")}>
                   Mes demandes d'adoption
                 </button>
               </div>
@@ -248,7 +221,6 @@ const Mon_compte = () => {
         </div>
       </div>
 
-      {/* Popup pour la sélection d'avatar (prédéfini ou téléversement) */}
       {showAvatarPopup && (
         <div className="avatar-popup">
           <div className="popup-content">
@@ -292,41 +264,20 @@ const Mon_compte = () => {
         </div>
       )}
 
-      {/* Popups de formulaire conditionnels */}
       {showDataPopup && (
-        <DataFormPopup
-          onClose={() => setShowDataPopup(false)}
-          user={user}
-          onUpdateSuccess={handleFormUpdateSuccess}
-        />
+        <DataFormPopup onClose={() => setShowDataPopup(false)} user={user} onUpdateSuccess={handleFormUpdateSuccess} />
       )}
       {showAddressPopup && (
-        <AddressFormPopup
-          onClose={() => setShowAddressPopup(false)}
-          user={user}
-          onUpdateSuccess={handleFormUpdateSuccess}
-        />
+        <AddressFormPopup onClose={() => setShowAddressPopup(false)} user={user} onUpdateSuccess={handleFormUpdateSuccess} />
       )}
       {showPasswordPopup && (
-        <PasswordFormPopup
-          onClose={() => setShowPasswordPopup(false)}
-        />
+        <PasswordFormPopup onClose={() => setShowPasswordPopup(false)} />
       )}
-      {/* Nouveau popup pour les commentaires */}
       {showCommentPopup && (
-        <CommentFormPopup
-          onClose={() => setShowCommentPopup(false)}
-          onCommentSubmitSuccess={handleFormUpdateSuccess}
-          // Passer l'utilisateur au CommentFormPopup si des infos user spécifiques sont nécessaires
-          user={user} // <<< Ajout de la prop user ici
-        />
+        <CommentFormPopup onClose={() => setShowCommentPopup(false)} onCommentSubmitSuccess={handleFormUpdateSuccess} user={user} />
       )}
-      {/* Popup pour les demandes d'adoption */}
       {showAdoptionPopup && (
-        <DemandeAdoptionPopup
-          onClose={() => setShowAdoptionPopup(false)}
-          user={user} // Passez l'utilisateur si nécessaire pour le popup d'adoption
-        />
+        <DemandeAdoptionPopup onClose={() => setShowAdoptionPopup(false)} user={user} />
       )}
     </div>
   );

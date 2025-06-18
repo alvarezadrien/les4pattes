@@ -29,9 +29,7 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
                 return;
             }
 
-            // MODIFICATION CLÉ ICI : UTILISATION DE L'URL COMPLÈTE DU BACKEND POUR LE TEST
-            // REMPLACE 'http://localhost:5000' PAR L'ADRESSE RÉELLE DE TON SERVEUR BACKEND
-            const response = await fetch('http://localhost:5000/api/comments', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,8 +66,6 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
             const successContentType = response.headers.get('content-type');
             if (successContentType && successContentType.includes('application/json')) {
                 await response.json();
-            } else {
-                console.log("Commentaire soumis avec succès, mais la réponse du serveur n'était pas JSON.");
             }
 
             setSuccess('Commentaire soumis avec succès !');

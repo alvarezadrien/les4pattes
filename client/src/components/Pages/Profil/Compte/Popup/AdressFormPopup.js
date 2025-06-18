@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import api from '../../../../../services/api'; // Vérifie ce chemin
 import { useAuth } from '../../../../../context/AuthContext'; // Vérifie ce chemin
 
@@ -26,10 +26,10 @@ const AddressFormPopup = ({ onClose, user, onUpdateSuccess }) => {
         setLoading(true);
 
         try {
-            const response = await api.put('/auth/profile/address', formData);
+            const response = await api.put('/api/auth/profile/address', formData);
             setMessage(response.data.msg || 'Adresse mise à jour avec succès !');
             setError('');
-            updateUserData(response.data.user); // Met à jour l'utilisateur dans le contexte avec la nouvelle adresse
+            updateUserData(response.data.user);
             onUpdateSuccess();
         } catch (err) {
             console.error("Erreur lors de la mise à jour de l'adresse:", err);

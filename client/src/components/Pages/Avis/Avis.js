@@ -1,4 +1,3 @@
-// Avis.js
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import './Avis.css';
@@ -11,7 +10,7 @@ const Avis = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/comments');
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
 
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP: ${response.status}`);

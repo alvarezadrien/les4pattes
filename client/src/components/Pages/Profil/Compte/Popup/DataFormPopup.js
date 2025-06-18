@@ -24,7 +24,7 @@ const DataFormPopup = ({ onClose, user, onUpdateSuccess }) => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/api/profil', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/profil`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,13 +38,13 @@ const DataFormPopup = ({ onClose, user, onUpdateSuccess }) => {
                 throw new Error(data.msg || 'Failed to update data.');
             }
 
-            setMessage(data.msg || 'Data updated successfully!');
+            setMessage(data.msg || 'Données mises à jour avec succès !');
             setError('');
             updateUserData(data.user);
             onUpdateSuccess();
         } catch (err) {
-            console.error("Error updating data:", err);
-            setError(err.message || 'Error updating data.');
+            console.error("Erreur lors de la mise à jour :", err);
+            setError(err.message || 'Erreur lors de la mise à jour.');
             setMessage('');
         } finally {
             setLoading(false);

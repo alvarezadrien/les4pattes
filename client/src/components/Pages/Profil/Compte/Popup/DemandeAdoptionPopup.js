@@ -3,18 +3,19 @@ import { useAuth } from '../../../../../context/AuthContext';
 
 import './DemandeAdoptionPopup.css';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) => {
     const [messageText, setMessageText] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [adoptionRequests, setAdoptionRequests] = useState([]);
-    const [selectedRequest, setSelectedRequest] = useState(null); // Pour afficher les détails d'une demande
-    const [shelterNews, setShelterNews] = useState([]); // État pour les nouvelles du refuge
+    const [selectedRequest, setSelectedRequest] = useState(null);
+    const [shelterNews, setShelterNews] = useState([]);
 
     const { token, user } = useAuth();
 
-    // Effet pour charger les demandes d'adoption et les nouvelles du refuge
     useEffect(() => {
         const fetchData = async () => {
             if (!user || !token) {
@@ -25,8 +26,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
             setError('');
 
             try {
-                // Récupération des demandes d'adoption de l'utilisateur
-                const requestsResponse = await fetch(`http://localhost:5000/api/demandes-adoption/user/${user._id}`, {
+                const requestsResponse = await fetch(`${API_URL}/api/demandes-adoption/user/${user._id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -40,19 +40,11 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                 const requestsData = await requestsResponse.json();
                 setAdoptionRequests(requestsData);
 
-                // --- Simulation de la récupération des nouvelles du refuge ---
-                // En production, vous feriez un appel API réel ici :
-                // const newsResponse = await fetch('http://localhost:5000/api/shelter-news', { headers: { Authorization: `Bearer ${token}` } });
-                // if (!newsResponse.ok) { /* handle error */ }
-                // const newsData = await newsResponse.json();
-                // setShelterNews(newsData);
                 setShelterNews([
                     { id: 1, title: "Journée Portes Ouvertes !", date: "01/06/2025", content: "Venez rencontrer nos adorables pensionnaires ce samedi de 10h à 16h." },
                     { id: 2, title: "Besoin de bénévoles", date: "28/05/2025", content: "Nous recherchons des bénévoles pour les promenades des chiens et le nettoyage des chatteries." },
                     { id: 3, title: "Collecte de dons pour l'hiver", date: "15/05/2025", content: "Nous lançons une collecte de couvertures et de nourriture pour préparer nos animaux à l'hiver." },
                 ]);
-                // --- Fin de la simulation ---
-
             } catch (err) {
                 setError(err.message || "Une erreur inattendue est survenue lors du chargement.");
             } finally {
@@ -61,9 +53,8 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
         };
 
         fetchData();
-    }, [user, token]); // Les dépendances assurent un rechargement si l'utilisateur ou le token changent
+    }, [user, token]);
 
-    // Gérer l'envoi d'une nouvelle demande d'adoption
     const handleSubmitNewRequest = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -83,7 +74,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/demandes-adoption', {
+            const response = await fetch(`${API_URL}/api/demandes-adoption`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +82,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                 },
                 body: JSON.stringify({
                     user: user._id,
-                    animal: animalId, // animalId doit être passé au composant pour créer une demande spécifique
+                    animal: animalId,
                     messages: [
                         {
                             sender: 'user',
@@ -106,13 +97,12 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                 throw new Error(errorData.message || "Erreur lors de l'envoi de la demande.");
             }
 
-            const newRequest = await response.json(); // Le backend doit renvoyer l'objet complet avec l'animal populé
+            const newRequest = await response.json();
             setSuccess("Votre demande d'adoption a été envoyée !");
             setMessageText('');
-            // Ajoute la nouvelle demande à la liste et la sélectionne pour affichage
             setAdoptionRequests([...adoptionRequests, newRequest]);
             setSelectedRequest(newRequest);
-            onAdoptionSubmitSuccess?.(); // Exécute le callback si défini
+            onAdoptionSubmitSuccess?.();
         } catch (err) {
             setError(err.message || "Une erreur inattendue est survenue.");
         } finally {
@@ -120,7 +110,6 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
         }
     };
 
-    // Gérer l'envoi d'un nouveau message dans une demande existante
     const handleSendMessage = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -132,7 +121,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
             return;
         }
         try {
-            const response = await fetch(`http://localhost:5000/api/demandes-adoption/${selectedRequest._id}/message`, {
+            const response = await fetch(`${API_URL}/api/demandes-adoption/${selectedRequest._id}/message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -150,7 +139,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
             const updatedRequest = await response.json();
             setSuccess("Message envoyé !");
             setMessageText('');
-            setSelectedRequest(updatedRequest); // Met à jour la demande sélectionnée avec le nouveau message
+            setSelectedRequest(updatedRequest);
         } catch (err) {
             setError(err.message || "Erreur lors de l'envoi du message.");
         } finally {
@@ -158,7 +147,6 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
         }
     };
 
-    // Affichage de chargement initial
     if (loading && adoptionRequests.length === 0 && shelterNews.length === 0) {
         return (
             <div className="popup-overlay">
@@ -172,7 +160,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
 
     return (
         <div className="popup-overlay">
-            <div className="popup-modal large-popup multi-panel-layout"> {/* Ajout de classes pour le layout */}
+            <div className="popup-modal large-popup multi-panel-layout">
                 <div className="popup-header">
                     <h3>Mon Espace Adoptions</h3>
                     <button className="close-popup-btn" onClick={onClose}>&times;</button>
@@ -182,7 +170,6 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                 {success && <p className="success-message">{success}</p>}
 
                 <div className="content-grid">
-                    {/* Colonne 1 : Mes Demandes d'Adoption */}
                     <div className="requests-column">
                         <h4>Vos demandes d'adoption</h4>
                         {adoptionRequests.length > 0 ? (
@@ -205,7 +192,6 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                             <p>Vous n'avez aucune demande d'adoption en cours.</p>
                         )}
 
-                        {/* Formulaire de nouvelle demande affiché conditionnellement si un animalId est passé */}
                         {animalId && (
                             <div className="new-request-form-section">
                                 <h4>Envoyer une nouvelle demande</h4>
@@ -230,7 +216,6 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                         )}
                     </div>
 
-                    {/* Colonne 2 : Détails de la Demande et Messages */}
                     <div className="details-and-messages-column">
                         {selectedRequest ? (
                             <div className="request-details">
@@ -241,8 +226,8 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                                     <div className="animal-info-card">
                                         <h5>Informations sur l'animal :</h5>
                                         <div className="animal-details-content">
-                                            {selectedRequest.animal.photos && selectedRequest.animal.photos.length > 0 && (
-                                                <img src={`http://localhost:5000${selectedRequest.animal.photos[0]}`} alt={selectedRequest.animal.nom} className="animal-thumb-detail" />
+                                            {selectedRequest.animal.photos?.[0] && (
+                                                <img src={`${API_URL}${selectedRequest.animal.photos[0]}`} alt={selectedRequest.animal.nom} className="animal-thumb-detail" />
                                             )}
                                             <div className="animal-text-info">
                                                 <p><strong>Nom:</strong> {selectedRequest.animal.nom}</p>
@@ -259,7 +244,7 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
 
                                 <div className="messages-section">
                                     <h5>Historique des messages :</h5>
-                                    {selectedRequest.messages && selectedRequest.messages.length > 0 ? (
+                                    {selectedRequest.messages?.length > 0 ? (
                                         <div className="messages-list">
                                             {selectedRequest.messages.map((msg, index) => (
                                                 <div key={index} className={`message-item ${msg.sender}`}>
@@ -293,7 +278,6 @@ const DemandeAdoptionPopup = ({ animalId, onClose, onAdoptionSubmitSuccess }) =>
                         )}
                     </div>
 
-                    {/* Colonne 3 : Actualités du refuge */}
                     <div className="news-column">
                         <h4>Actualités du refuge</h4>
                         {shelterNews.length > 0 ? (

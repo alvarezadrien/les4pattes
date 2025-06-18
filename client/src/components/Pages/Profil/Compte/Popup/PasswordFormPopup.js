@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import api from '../../../../../services/api'; // Vérifie ce chemin
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const PasswordFormPopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
@@ -29,13 +31,19 @@ const PasswordFormPopup = ({ onClose }) => {
         }
 
         try {
-            const response = await api.put('http://localhost:5000/api/auth/profile', {
+            const token = localStorage.getItem('token');
+
+            const response = await axios.put(`${API_URL}/api/auth/profile`, {
                 currentPassword: formData.currentPassword,
                 newPassword: formData.newPassword,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
+
             setMessage(response.data.msg || 'Mot de passe mis à jour avec succès !');
             setError('');
-            // Réinitialiser le formulaire après succès
             setFormData({
                 currentPassword: '',
                 newPassword: '',
