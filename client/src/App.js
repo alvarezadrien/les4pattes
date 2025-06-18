@@ -114,7 +114,6 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Mon_compte />
-                  <Back_office />
                 </PrivateRoute>
               }
             />
