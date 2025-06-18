@@ -108,7 +108,7 @@ const App = () => {
             <Route path="/Adhésions" element={<Adhesions />} />
             <Route path='/Back_office' element={<Back_office />} />
             <Route path='/gestion_adoption' element={<GestionAdoption />} />
-            <Route path='#' element={<Page404 />} />
+            <Route path='*' element={<Page404 />} />
             <Route
               path="/Mon compte"
               element={
