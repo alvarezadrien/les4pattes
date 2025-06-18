@@ -7,10 +7,10 @@ const Adhesions = () => {
 
             <div className='container_img_adhesions'>
                 <div className='div_img_adhesions1'>
-                    <img src="/img/photo_cat_accueil2.jpg" alt="" width={1000} height={400} />
+                    <img src="/img/photo_cat_accueil2.jpg" alt="Chat principal" width={1000} height={400} />
                 </div>
                 <div className='div_img_adhesions2'>
-                    <img src="/img/photo_cat_accueil1.jpg" alt="" width={340} height={340} />
+                    <img src="/img/photo_cat_accueil1.jpg" alt="Petit chat" width={340} height={340} />
                 </div>
                 <div className='div_para_adhesions1'>
                     <h1 className='h1_adhesions'>Adhésions</h1>
@@ -27,23 +27,25 @@ const Adhesions = () => {
 
             <div className='ul_container_adhesions'>
                 <ul className='ul_adhesions'>
-                    <li>La cotisation en tant que membres adhérent : 15€</li>
-                    <li>La cotisation en tant que membre sympathisant : 25€</li>
-                    <li>La cotisation en tant que membre protecteur : 60€</li>
-                    <li>La cotisation en tant que membre à vie : 250€ (à ne payer qu'une seule fois)</li>
+                    <li>La cotisation en tant que membres adhérent : **15€**</li>
+                    <li>La cotisation en tant que membre sympathisant : **25€**</li>
+                    <li>La cotisation en tant que membre protecteur : **60€**</li>
+                    <li>La cotisation en tant que membre à vie : **250€** (à ne payer qu'une seule fois)</li>
                 </ul>
             </div>
 
-            <img src="/img/contact-cat.png" alt="Cat Icon" className="cat_image_paiement" />
-
+            {/* LE CHAT EST MAINTENANT À GAUCHE DU TEXTE DANS CE BLOC */}
             <div className='container_paiement'>
-                <h5 className='h5_adhesions'>Voici notre numéro de compte pour le paiement</h5>
-                <span className='span_bank'>BE 79 1140 2004 0000 3102 8079 8178</span>
+                <img src="/img/contact-cat.png" alt="Icône de chat" className="cat_image_paiement" />
+                <div className='payment_details_wrapper'> {/* Nouveau wrapper pour le texte */}
+                    <h5 className='h5_adhesions'>Voici notre numéro de compte pour le paiement</h5>
+                    <span className='span_bank'>BE 79 1140 2004 0000 3102 8079 8178</span>
 
-                <ul className='ul_bank'>
-                    <li>Vous pouvez payer anonymement</li>
-                    <li>Vous pouvez payer avec votre numéro d'adhérent en communication</li>
-                </ul>
+                    <ul className='ul_bank'>
+                        <li>Vous pouvez payer anonymement</li>
+                        <li>Vous pouvez payer avec votre numéro d'adhérent en communication</li>
+                    </ul>
+                </div>
             </div>
 
             <hr />
@@ -63,10 +65,10 @@ const Adhesions = () => {
 
                 <div className='div_para_adhesions3'>
                     <p className='para_adhesions3'>
-                        En tant que membre, vous recevrez une carte de membre,
-                        symbole de votre engagement envers notre mission !
+                        En tant que membre, vous recevrez une **carte de membre**,
+                        symbole de votre engagement envers notre mission !
                         Mais ce n'est pas tout ! En tant que membre, vous
-                        aurez également accès à notre magazine, une source
+                        aurez également accès à notre **magazine**, une source
                         d'informations précieuse sur les dernières avancées
                         dans nos domaines d'action. Notre revue vous tiendra
                         informé des progrès réalisés, des défis à relever et des

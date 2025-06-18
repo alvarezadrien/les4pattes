@@ -1,385 +1,588 @@
+.page_adhesions {
+  padding-top: 6rem;
+  overflow-x: hidden;
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+}
+
+/* --- Section HAUT (Hero) --- */
 .container_img_adhesions {
   background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
   background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
-  margin-top: 6rem;
-  height: 40rem;
-  border-bottom-right-radius: 30%;
-  border-bottom-left-radius: 30%;
-  flex-wrap: wrap;
+  height: 42rem;
+  border-bottom-right-radius: 18%;
+  border-bottom-left-radius: 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  color: #f8f8f8;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .div_img_adhesions1 {
-  display: flex;
-  justify-content: center;
-  padding-top: 2rem;
+  position: absolute;
+  top: 55%;
+  left: 12%;
+  transform: translateY(-50%) rotate(-5deg);
+  /* z-index: 2; */
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.div_img_adhesions1:hover {
+  transform: translateY(-50%) rotate(-2deg) scale(1.03);
 }
 
 .div_img_adhesions1 img {
-  border-radius: 60%;
+  width: 320px;
+  height: 320px;
   object-fit: cover;
+  display: block;
+  border: 8px solid #f4eaca;
+  border-radius: 50%;
 }
 
 .div_img_adhesions2 {
-  display: flex;
-  float: right;
-  margin-right: 15rem;
-  position: relative;
-  z-index: 1;
-  bottom: 10rem;
+  position: absolute;
+  bottom: 8%;
+  right: 18%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.div_img_adhesions2:hover {
+  transform: scale(1.05);
 }
 
 .div_img_adhesions2 img {
-  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 5px solid #7a916a;
 }
 
 .div_para_adhesions1 {
-  color: var(--tertiary-color);
-  margin-top: -7rem;
-  margin-left: 8rem;
+  position: relative;
+  text-align: center;
+  max-width: 600px;
+  margin-top: -6rem;
+  z-index: 1;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .h1_adhesions {
-  position: relative;
-  font-size: 3rem;
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  color: #f8f8f8;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
 
 .para_adhesions1 {
   font-size: 1.5rem;
-  text-align: center;
-  width: 20rem;
-  margin-top: -1.5rem;
-  position: relative;
-  right: 3.6%;
+  width: auto;
+  margin: 0 auto;
+  color: #f8f8f8;
+  line-height: 1.5;
 }
 
+/* --- Section OPTIONS D'ADHÉSION --- */
 .h2_adhesions {
-  font-size: 2rem;
-  margin-left: 8rem;
+  font-size: 2.8rem;
+  text-align: center;
+  margin: 6rem auto 3rem auto;
+  color: #7a916a;
+  position: relative;
+  padding-bottom: 20px;
+  max-width: 90%;
+  font-weight: 600;
+}
+
+.h2_adhesions::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 6px;
+  background-color: #f4eaca;
+  border-radius: 4px;
+}
+
+.ul_container_adhesions {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  padding: 0 5%;
+  max-width: 1300px;
+  margin: 0 auto 5rem auto;
 }
 
 .ul_adhesions {
-  margin-left: 10rem;
-  margin-bottom: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
 }
 
 .ul_adhesions li {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #eee;
+}
+
+.ul_adhesions li:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+  background-color: #f4eaca;
+  color: #333;
 }
 
 .ul_adhesions li::before {
-  content: "-";
-  color: var(--primary-color);
-  padding-right: 0.5rem;
+  content: "🐾";
+  color: #7a916a;
+  padding-right: 0.8rem;
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
 }
 
+.ul_adhesions li:hover::before {
+  color: #7a916a;
+}
+
+/* --- Section PAIEMENT (Chat à gauche du texte) --- */
 .container_paiement {
-  background-color: var(--secondary-color);
-  display: block;
-  width: 40vw;
-  height: 12rem;
-  margin: 0 auto;
-  margin-bottom: 2rem;
-  border-radius: 30px;
-  margin-top: 8rem;
+  background-color: #7a916a;
+  display: flex; /* Utilise Flexbox */
+  flex-direction: row; /* Alignement en ligne (image à gauche, texte à droite) */
+  align-items: center; /* Centrer verticalement les éléments */
+  justify-content: center; /* Centrer horizontalement le contenu principal */
+  gap: 2rem; /* Espacement entre le chat et le texte */
+  width: 90%;
+  max-width: 800px; /* Augmenté pour mieux accueillir le chat à côté du texte */
+  height: auto;
+  margin: 4rem auto;
+  padding: 2.5rem 3rem; /* Padding ajusté */
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  color: #f8f8f8;
+  text-align: left; /* Texte aligné à gauche dans ce bloc */
+  position: relative;
+}
+
+.cat_image_paiement {
+  width: 150px; /* Taille ajustée pour être à côté du texte */
+  height: 170px;
+  object-fit: contain;
+  flex-shrink: 0; /* Empêche l'image de rétrécir */
+  filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.25));
+}
+
+.payment_details_wrapper {
+  display: flex;
+  flex-direction: column; /* Les éléments de texte restent en colonne */
+  align-items: flex-start; /* Aligner le texte à gauche */
+  flex-grow: 1; /* Permet à ce wrapper de prendre l'espace restant */
 }
 
 .h5_adhesions {
   font-size: 1.8rem;
-  padding-top: 1rem;
+  margin-bottom: 0.8rem; /* Espace réduit */
+  color: #f8f8f8;
+  font-weight: 600;
+  text-align: left; /* Assure l'alignement à gauche */
 }
 
 .span_bank {
-  display: flex;
-  justify-content: center;
-  font-size: 1.4rem;
+  display: block;
+  font-size: 1.8rem; /* Taille du numéro de compte ajustée */
+  font-weight: bold;
+  margin-bottom: 1.2rem; /* Espace ajusté */
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.7rem 1.2rem; /* Padding ajusté */
+  border-radius: 12px;
+  letter-spacing: 1.5px;
+  word-break: break-all;
+  user-select: all;
+  text-align: center; /* Centré pour le numéro de compte */
+}
+
+.ul_bank {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left; /* Aligner les listes à gauche */
 }
 
 .ul_bank li {
   font-size: 1.1rem;
-  padding-left: 1.5rem;
+  line-height: 1.7; /* Hauteur de ligne ajustée */
+  margin-bottom: 0.5rem; /* Espace ajusté */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Aligner les puces à gauche */
 }
 
+.ul_bank li::before {
+  content: "⭐";
+  margin-right: 0.8rem;
+  color: #ffe66d;
+  font-size: 1.2rem;
+}
+
+/* --- Séparateur --- */
+hr {
+  border: none;
+  border-top: 3px dashed #f4eaca;
+  margin: 6rem auto;
+  width: 60%;
+  max-width: 800px;
+}
+
+/* --- Section AVANTAGES (Texte plus petit et div ajustées) --- */
 .div_para_adhesions {
   display: flex;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 5rem auto 7rem auto;
+  padding: 0 5%;
+  max-width: 1200px;
 }
 
-.para_adhesions2 {
-  font-size: 1.5rem;
+.div_para_adhesions2,
+.div_para_adhesions3 {
+  flex: 1;
+  min-width: 320px;
+  max-width: 550px;
+  font-size: 1.1rem;
   text-align: justify;
-  width: 70%;
-  line-height: 2rem;
-  display: flex;
-  margin: 0 auto;
+  line-height: 1.7;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.para_adhesions3 {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  display: flex;
-  margin: 0 auto;
-  width: 70%;
-  text-align: justify;
+.div_para_adhesions2:hover,
+.div_para_adhesions3:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
 }
 
-.cat_image_paiement {
-  width: 220px;
-  height: 250px;
-  margin-left: 18.5rem;
-  position: absolute;
-  margin-top: -0.3rem;
-}
-@media (max-width: 480px) {
+/* --- Responsive Design --- */
+
+/* Mobile devices (max-width: 767px) */
+@media (max-width: 767px) {
+  .page_adhesions {
+    padding-top: 3rem;
+  }
+
   .container_img_adhesions {
-    margin-top: 2rem;
-    height: 100%;
+    height: 28rem;
+    border-bottom-right-radius: 12%;
+    border-bottom-left-radius: 12%;
     padding: 0.5rem;
-    border-bottom-right-radius: 15%;
-    border-bottom-left-radius: 15%;
-    background-position: center;
   }
 
   .div_img_adhesions1 {
-    padding-top: 1rem;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 1rem auto 0.5rem auto;
+    width: 150px;
+    height: 150px;
   }
-
   .div_img_adhesions1 img {
-    width: 270px;
-    height: 120px;
-    border-radius: 0;
-    margin-top: 4rem;
+    width: 150px;
+    height: 150px;
+    border: 4px solid #f4eaca;
   }
 
   .div_img_adhesions2 {
-    float: none;
-    margin-right: 0;
-    bottom: 2rem;
-    justify-content: center;
-    left: 0;
-  }
-
-  .div_img_adhesions2 img {
-    position: relative;
-    left: -37%;
-    top: -25px;
-    width: 85px;
-    height: 85px;
+    display: none;
   }
 
   .div_para_adhesions1 {
-    margin-top: -3rem;
-    margin-left: 1rem;
+    margin-top: 1rem;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.8rem;
   }
 
   .h1_adhesions {
-    font-size: 2rem;
-    text-align: center;
-    margin-top: -2rem;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
   }
 
   .para_adhesions1 {
-    font-size: 1rem;
-    width: 90vw;
-    right: 0;
-    margin: 0 auto;
-    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    max-width: 100%;
   }
 
   .h2_adhesions {
-    display: flex;
-    font-size: 1.2rem;
-    margin-left: 1rem;
-    text-align: center;
-    justify-self: center;
-    width: 18rem;
+    font-size: 1.6rem;
+    margin: 3rem auto 1.5rem auto;
+    width: 90%;
+    padding-bottom: 10px;
   }
-
-  .ul_adhesions {
-    margin-left: 2rem;
-    margin-bottom: 1rem;
+  .h2_adhesions::after {
+    width: 80px;
+    height: 4px;
   }
 
   .ul_container_adhesions {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-    justify-self: center;
+    padding: 0 1rem;
+    gap: 1rem;
+    margin-bottom: 3rem;
   }
-
+  .ul_adhesions {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
   .ul_adhesions li {
-    display: flex;
     font-size: 1rem;
-    line-height: 1.4rem;
-    width: 15rem;
-    justify-content: center;
-    justify-self: center;
-    text-align: center;
+    padding: 1.2rem;
+    min-height: 90px;
+    border-radius: 15px;
+  }
+  .ul_adhesions li::before {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .container_paiement {
-    width: 90vw;
-    height: auto;
-    margin-top: 2rem;
-    padding: 0.5rem;
+    flex-direction: column; /* Repasse en colonne sur mobile */
+    width: 95%;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    border-radius: 15px;
+    gap: 1rem; /* Espacement ajusté */
+    text-align: center; /* Centre le texte sur mobile */
+  }
+
+  .cat_image_paiement {
+    width: 120px;
+    height: 140px;
+    margin-bottom: 0; /* Réinitialise la marge */
+  }
+
+  .payment_details_wrapper {
+    align-items: center; /* Centre le texte verticalement sur mobile */
   }
 
   .h5_adhesions {
-    font-size: 1.1rem;
-    padding-top: 0.5rem;
-    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    text-align: center; /* Centre le titre sur mobile */
   }
 
   .span_bank {
-    font-size: 1rem;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
   }
 
   .ul_bank li {
     font-size: 0.9rem;
-    padding-left: 1rem;
-    text-align: center;
+    margin-bottom: 0.4rem;
+    justify-content: center; /* Centre les puces et texte sur mobile */
+  }
+  .ul_bank li::before {
+    font-size: 1.1rem;
+    margin-right: 0.6rem;
+  }
+
+  hr {
+    margin: 3rem auto;
+    width: 80%;
   }
 
   .div_para_adhesions {
     flex-direction: column;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+    margin: 2.5rem auto 3.5rem auto;
+    padding: 0 1rem;
   }
 
-  .para_adhesions2,
-  .para_adhesions3 {
-    font-size: 16px;
-    line-height: 1.4rem;
-    margin: 0 auto 1rem auto;
-  }
-
-  .cat_image_paiement {
-    display: none;
+  .div_para_adhesions2,
+  .div_para_adhesions3 {
+    min-width: unset;
+    font-size: 0.95rem;
+    padding: 1.5rem;
+    border-radius: 15px;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+/* Tablet devices (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
   .container_img_adhesions {
-    margin-top: 3rem;
-    height: 22rem;
-    padding: 1rem;
-    border-bottom-right-radius: 20%;
-    border-bottom-left-radius: 20%;
-    background-position: center;
+    height: 38rem;
   }
 
   .div_img_adhesions1 {
-    padding-top: 1.5rem;
+    left: 8%;
+    width: 280px;
+    height: 280px;
   }
-
   .div_img_adhesions1 img {
-    width: 320px;
-    height: 160px;
-    border-radius: 30%;
-    margin-top: 2rem;
+    width: 280px;
+    height: 280px;
   }
 
   .div_img_adhesions2 {
-    float: none;
-    margin-right: 0;
-    bottom: 4rem;
-    justify-content: center;
-    left: 0;
+    bottom: 6%;
+    right: 12%;
+    width: 170px;
+    height: 170px;
   }
-
   .div_img_adhesions2 img {
-    position: relative;
-    left: -20%;
-    top: -20px;
-    width: 120px;
-    height: 120px;
+    width: 170px;
+    height: 170px;
   }
 
   .div_para_adhesions1 {
+    max-width: 500px;
     margin-top: -4rem;
-    margin-left: 2rem;
   }
 
   .h1_adhesions {
-    font-size: 2.3rem;
-    text-align: center;
-    margin-top: -1.5rem;
+    font-size: 4rem;
   }
 
   .para_adhesions1 {
-    font-size: 1.2rem;
-    width: 70vw;
-    right: 0;
-    margin: 0 auto;
-    margin-top: 0.5rem;
+    font-size: 1.3rem;
   }
 
   .h2_adhesions {
-    font-size: 1.5rem;
-    margin-left: 2rem;
-    text-align: center;
-    width: 22rem;
+    font-size: 2.5rem;
+    margin: 4rem auto 2rem auto;
+  }
+  .h2_adhesions::after {
+    width: 100px;
+    height: 5px;
   }
 
+  .ul_container_adhesions {
+    padding: 0 3%;
+    gap: 2rem;
+  }
   .ul_adhesions {
-    margin-left: 3rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
-
   .ul_adhesions li {
-    font-size: 1.2rem;
-    line-height: 1.7rem;
-    width: 18rem;
-    justify-content: center;
-    text-align: center;
+    font-size: 1.1rem;
+    padding: 2rem;
+    min-height: 160px;
+    border-radius: 18px;
+  }
+  .ul_adhesions li::before {
+    font-size: 1.8rem;
   }
 
   .container_paiement {
-    width: 80vw;
-    height: auto;
-    margin-top: 3rem;
-    padding: 1rem;
-  }
-
-  .h5_adhesions {
-    font-size: 1.3rem;
-    padding-top: 0.7rem;
-    text-align: center;
-  }
-
-  .span_bank {
-    font-size: 1.1rem;
-  }
-
-  .ul_bank li {
-    font-size: 1rem;
-    padding-left: 1.2rem;
-    text-align: center;
-  }
-
-  .div_para_adhesions {
-    flex-direction: column;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .para_adhesions2,
-  .para_adhesions3 {
-    font-size: 1.1rem;
-    line-height: 1.5rem;
-    margin: 0 auto 1rem auto;
-    width: 90%;
+    width: 90%; /* Ajusté */
+    max-width: 700px; /* Ajusté */
+    padding: 2rem 2.5rem; /* Ajusté */
+    gap: 1.5rem; /* Ajusté */
   }
 
   .cat_image_paiement {
     width: 150px;
     height: 170px;
-    margin-left: 8rem;
-    position: absolute;
-    margin-top: 0;
-    display: block;
+  }
+
+  .h5_adhesions {
+    font-size: 1.6rem;
+  }
+
+  .span_bank {
+    font-size: 1.8rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .ul_bank li {
+    font-size: 1rem;
+  }
+  .ul_bank li::before {
+    font-size: 1.3rem;
+  }
+
+  hr {
+    margin: 4rem auto;
+    width: 70%;
+  }
+
+  .div_para_adhesions {
+    gap: 2.5rem;
+    margin: 3.5rem auto 5rem auto;
+    padding: 0 3%;
+  }
+
+  .div_para_adhesions2,
+  .div_para_adhesions3 {
+    min-width: 300px;
+    font-size: 1.05rem;
+    padding: 2rem;
+    border-radius: 18px;
+  }
+}
+
+/* Large desktops (min-width: 1025px) */
+@media (min-width: 1025px) {
+  .div_img_adhesions1 {
+    left: 18%;
+  }
+
+  .div_img_adhesions2 {
+    right: 22%;
+  }
+
+  .div_para_adhesions1 {
+    margin-left: 10%;
+    text-align: center;
+  }
+  .para_adhesions1 {
+    text-align: center;
   }
 }
