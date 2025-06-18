@@ -89,7 +89,7 @@ const HomePage = () => {
       <div className="container_choix">
         <div className="container_choix1">
           <img
-              src="/img/chien img choix.jpeg"
+            src="/img/chien img choix.jpeg"
             alt="image chien"
             width={470}
             height={300}
@@ -138,22 +138,21 @@ const HomePage = () => {
           À propos de nous
           <img src="/img/pattes.png" alt="" width={40} height={40} />
         </h2>
-        <br />
-        <p className="paragraphe_home_propos">
-          L’association Protectrice des Animaux Les 4 pattes est l’une des plus{" "}
-          <br />
-          anciennes sociétés de protection animale de Belgique. Nous hébergeons{" "}
-          <br />
-          des chiens et chats dans notre centre <br />
-          d’accueils à Bruxelles (Anderlecht). <br />
-          <br />
-          Nous accueillons en moyenne près de 100 chiens <br />
-          et chats par mois, victimes d’abandons. Nous <br />
-          prenons soin d’eux et nous efforçons de leur <br />
-          trouver des familles pour les adopter.
-        </p>
-        <div className="home_propos_img">
-          <img src="/img/img_home_propos.jpg" alt="" />
+        <div className="content_wrapper">
+          <p className="paragraphe_home_propos">
+            L’association Protectrice des Animaux Les 4 pattes est l’une des plus{" "}
+            anciennes sociétés de protection animale de Belgique. Nous hébergeons{" "}
+            des chiens et chats dans notre centre <br />
+            d’accueils à Bruxelles (Anderlecht). <br />
+            <br />
+            Nous accueillons en moyenne près de 100 chiens <br />
+            et chats par mois, victimes d’abandons. Nous <br />
+            prenons soin d’eux et nous efforçons de leur <br />
+            trouver des familles pour les adopter.
+          </p>
+          <div className="home_propos_img">
+            <img src="/img/img_home_propos.jpg" alt="Chiens et chats au refuge" />
+          </div>
         </div>
         <button type="button" onClick={redirectApropos}>
           Notre histoire
