@@ -65,7 +65,6 @@
 }
 
 .circle_img3 img {
-  /* border-radius: 50%; */
   float: right;
   margin-right: -18rem;
   margin-top: 4rem;
@@ -113,7 +112,7 @@
 .button_propos::after {
   content: "";
   position: absolute;
-  bottom: 0; /*  depart background changement ici */
+  bottom: 0;
   left: 0;
   height: 0;
   width: 100%;
@@ -289,6 +288,8 @@
   color: var(--tertiary-color);
 }
 
+/* ------------------ MEDIA QUERIES ------------------ */
+
 @media screen and (max-width: 480px) {
   .container_img {
     height: 45rem;
@@ -353,11 +354,6 @@
     margin-left: 3rem;
   }
 
-  .button_choix_chiens,
-  .button_choix_chats {
-    display: flex;
-  }
-
   .span_maison {
     font-size: 1.8rem;
     margin-left: -9.5rem;
@@ -419,32 +415,34 @@
   }
 }
 
+/* HOME_PROPOS (Section présentation) */
+
 .home_propos {
-  padding: 3rem 1.5rem; /* Réduit le padding */
+  padding: 3rem 1.5rem;
   background-color: #e0e6d2;
   color: #333;
   text-align: center;
-  border-radius: 12px; /* Légèrement moins arrondi */
-  margin: 2rem auto; /* Réduit la marge extérieure */
-  max-width: 1000px; /* Réduit la largeur maximale */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Ombre ajustée */
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 1000px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .home_propos h2 {
-  font-size: 2.8rem; /* Taille de titre réduite */
+  font-size: 2.8rem;
   color: #4a6b24;
-  margin-bottom: 2rem; /* Marge du bas réduite */
+  margin-bottom: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Espacement réduit */
+  gap: 10px;
   font-weight: 700;
 }
 
 .home_propos h2 img {
   vertical-align: middle;
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2)); /* Ombre plus petite */
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .content_wrapper {
@@ -452,20 +450,20 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2rem; /* Espacement réduit */
-  margin-bottom: 2rem; /* Marge du bas réduite */
+  gap: 2rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
 .paragraphe_home_propos {
   flex: 1;
   text-align: left;
-  font-size: 1.2rem; /* Taille de police réduite */
-  line-height: 1.7; /* Hauteur de ligne ajustée */
+  font-size: 1.2rem;
+  line-height: 1.7;
   color: #555;
-  max-width: 500px; /* Largeur maximale réduite */
+  max-width: 500px;
   margin: 0;
-  padding: 0 0.5rem; /* Padding réduit */
+  padding: 0 0.5rem;
 }
 
 .home_propos_img {
@@ -477,34 +475,34 @@
 }
 
 .home_propos_img img {
-  width: 300px; /* Taille d'image réduite */
-  height: 300px; /* Taille d'image réduite */
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   object-fit: cover;
-  border: 6px solid #ffffff; /* Bordure plus fine */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Ombre ajustée */
+  border: 6px solid #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
 }
 
 .home_propos_img img:hover {
-  transform: scale(1.03); /* Effet de zoom légèrement réduit */
+  transform: scale(1.03);
 }
 
 .home_propos button {
   background: #778d45;
   border: none;
-  width: 12rem; /* Largeur du bouton réduite */
-  height: 3rem; /* Hauteur du bouton réduite */
-  font-size: 1.6rem; /* Taille de police réduite */
+  width: 12rem;
+  height: 3rem;
+  font-size: 1.6rem;
   position: relative;
-  margin-top: 1.5rem; /* Marge du haut réduite */
+  margin-top: 1.5rem;
   cursor: pointer;
   overflow: hidden;
   color: #ffffff;
   z-index: 1;
-  border-radius: 6px; /* Moins arrondi */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Ombre ajustée */
-  transition: all 0.3s ease-in-out; /* Transition plus rapide */
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -518,15 +516,15 @@
   height: 2px;
   width: 0;
   background-color: #4a6b24;
-  transition: 0.5s ease; /* Transition plus rapide */
+  transition: 0.5s ease;
   z-index: 2;
 }
 
 .home_propos button:hover {
   color: #ffffff;
   background-color: #4a6b24;
-  transform: translateY(-2px); /* Léger soulèvement réduit */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre ajustée */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .home_propos button:hover::before {
@@ -541,16 +539,17 @@
   height: 0;
   width: 100%;
   background-color: #4a6b24;
-  transition: height 0.4s ease; /* Transition plus rapide */
+  transition: height 0.4s ease;
   z-index: -3;
 }
 
 .home_propos button:hover::after {
   height: 100%;
-  transition-delay: 0.2s; /* Délai plus court */
+  transition-delay: 0.2s;
 }
 
-/* --- Media Queries pour la responsivité (ajustées) --- */
+/* Media queries home_propos */
+
 @media screen and (max-width: 1024px) {
   .content_wrapper {
     flex-direction: column;
@@ -562,7 +561,7 @@
   }
 
   .home_propos_img {
-    margin-top: 1.5rem; /* Marge ajustée */
+    margin-top: 1.5rem;
   }
 
   .home_propos button {
@@ -574,60 +573,60 @@
 
 @media screen and (max-width: 768px) {
   .home_propos {
-    padding: 1.5rem 0.8rem; /* Padding réduit */
-    margin: 1.5rem auto; /* Marge réduite */
+    padding: 1.5rem 0.8rem;
+    margin: 1.5rem auto;
   }
 
   .home_propos h2 {
-    font-size: 2rem; /* Taille de titre réduite */
+    font-size: 2rem;
     gap: 8px;
   }
 
   .home_propos h2 img {
-    width: 25px; /* Taille d'image réduite */
+    width: 25px;
     height: 25px;
   }
 
   .paragraphe_home_propos {
-    font-size: 1.1rem; /* Taille de police réduite */
+    font-size: 1.1rem;
   }
 
   .home_propos_img img {
-    width: 250px; /* Taille d'image réduite */
+    width: 250px;
     height: 250px;
   }
 
   .home_propos button {
-    width: 10rem; /* Largeur du bouton réduite */
-    height: 2.5rem; /* Hauteur du bouton réduite */
-    font-size: 1.3rem; /* Taille de police réduite */
+    width: 10rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
   }
 }
 
 @media screen and (max-width: 480px) {
   .home_propos h2 {
-    font-size: 1.3rem; /* Encore plus réduit pour mobile */
+    font-size: 1.3rem;
   }
 
   .home_propos h2 img {
-    width: 30px; /* Taille d'image ajustée */
+    width: 30px;
     height: 30px;
   }
 
   .paragraphe_home_propos {
-    font-size: 1rem; /* Taille de police plus petite */
-    width: 90vw; /* Largeur ajustée */
+    font-size: 1rem;
+    width: 90vw;
   }
 
   .home_propos_img img {
-    width: 180px; /* Taille d'image plus petite */
+    width: 180px;
     height: 180px;
-    margin-top: 0.8rem; /* Marge ajustée */
+    margin-top: 0.8rem;
   }
 
   .home_propos button {
     width: 10rem;
     font-size: 1.2rem;
-    margin-top: 1.5rem; /* Marge ajustée */
+    margin-top: 1.5rem;
   }
 }
