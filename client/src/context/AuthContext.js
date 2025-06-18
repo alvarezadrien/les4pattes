@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
             const storedToken = localStorage.getItem('token');
             if (storedToken) {
                 try {
-                    const response = await api.get('/auth/profile'); // >>> Fait appel à REACT_APP_API_URL + /auth/profile
+                    const response = await api.get('/auth/profile');
                     setUser(response.data);
                     setToken(storedToken);
                 } catch (error) {
