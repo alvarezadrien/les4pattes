@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Animalitem from "../../Widgets/Animal_item/Animalitem";
 import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
 import Avis from "../Avis/Avis";
@@ -10,19 +10,17 @@ const HomePage = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [typedText, setTypedText] = useState("");
   const [textIndex, setTextIndex] = useState(0);
+  const [nombreNonAdoptes, setNombreNonAdoptes] = useState(0);
 
   function redirectApropos() {
-    console.log("Inside redirect A propos");
     navigate("/Apropos");
   }
 
   function redirectChien() {
-    console.log("Inside redirect Chien");
     navigate("/Galeriechien");
   }
 
   function redirectChat() {
-    console.log("Inside redirect Chat");
     navigate("/Galeriechat");
   }
 
@@ -41,7 +39,6 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Texte à écrire
   const text =
     "Notre association pour les animaux perdus et abandonnés, depuis plus de 100 ans en Belgique";
   const typingSpeed = 50;
@@ -55,6 +52,20 @@ const HomePage = () => {
       return () => clearTimeout(timeout);
     }
   }, [textIndex, text]);
+
+  // ✅ Récupération du nombre d'animaux non adoptés
+  useEffect(() => {
+    const fetchNombre = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux/count/non-adoptes`);
+        const data = await response.json();
+        setNombreNonAdoptes(data.count);
+      } catch (error) {
+        console.error("Erreur lors de la récupération du nombre :", error);
+      }
+    };
+    fetchNombre();
+  }, []);
 
   return (
     <div className="Page_home">
@@ -76,11 +87,7 @@ const HomePage = () => {
             <img src="/img/images.jpeg" alt="" width={200} height={200} />
           </div>
         </div>
-        <button
-          type="button"
-          className="button_propos"
-          onClick={redirectApropos}
-        >
+        <button type="button" className="button_propos" onClick={redirectApropos}>
           À propos
         </button>
       </div>
@@ -102,7 +109,7 @@ const HomePage = () => {
         <div className="container_choix2">
           <img
             src="/img/images.jpeg"
-            alt=""
+            alt="chat"
             width={470}
             height={300}
             onClick={redirectChat}
@@ -117,8 +124,8 @@ const HomePage = () => {
       <div className="leur_maison">
         <span className="span_maison">Ils ont trouvé une maison</span>
         <br />
-        <span className="nombre">18567</span>
-        <img src="/img/hero-dog.png" alt="" width={280} height={280} />
+        <span className="nombre">{nombreNonAdoptes}</span>
+        <img src="/img/hero-dog.png" alt="chien héros" width={280} height={280} />
       </div>
 
       {/* Importation code carte carrousel */}
@@ -140,11 +147,8 @@ const HomePage = () => {
         </h2>
         <div className="content_wrapper">
           <p className="paragraphe_home_propos">
-            L’association Protectrice des Animaux Les 4 pattes est l’une des plus{" "}
-            anciennes sociétés de protection animale de Belgique. Nous hébergeons{" "}
-            des chiens et chats dans notre centre <br />
-            d’accueils à Bruxelles (Anderlecht). <br />
-            <br />
+            L’association Protectrice des Animaux Les 4 pattes est l’une des plus anciennes sociétés de protection animale de Belgique. Nous hébergeons des chiens et chats dans notre centre <br />
+            d’accueils à Bruxelles (Anderlecht). <br /><br />
             Nous accueillons en moyenne près de 100 chiens <br />
             et chats par mois, victimes d’abandons. Nous <br />
             prenons soin d’eux et nous efforçons de leur <br />
@@ -195,7 +199,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <Avis /> {/* <<< Utilisation de Avis directement */}
+
+      <Avis />
     </div>
   );
 };

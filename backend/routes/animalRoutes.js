@@ -1,68 +1,60 @@
 const express = require('express');
 const router = express.Router();
-const Animal = require('../models/Animals'); // Assurez-vous que ce chemin vers votre modèle est correct
+const Animal = require('../models/Animals');
 
-// GET tous les animaux avec filtres possibles (espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge)
+// ✅ DOIT ÊTRE AVANT /:id
+router.get('/count/non-adoptes', async (req, res) => {
+    try {
+        const count = await Animal.countDocuments({
+            $or: [{ adopte: false }, { adopte: { $exists: false } }]
+        });
+        res.json({ count });
+    } catch (error) {
+        res.status(500).json({ message: "Erreur serveur lors du comptage." });
+    }
+});
+
+// GET tous les animaux avec filtres possibles
 router.get('/', async (req, res) => {
     try {
         const { espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge } = req.query;
-        let filter = {}; // Objet qui contiendra les conditions de filtrage pour Mongoose
+        let filter = {};
 
-        if (espece) {
-            filter.espece = espece;
-        }
-        if (sexe) {
-            filter.sexe = sexe;
-        }
-        if (taille) {
-            filter.taille = taille;
-        }
-        if (adopte !== undefined) {
-            filter.adopte = adopte === 'true'; // Convertir la chaîne "true"/"false" en booléen
-        }
+        if (espece) filter.espece = espece;
+        if (sexe) filter.sexe = sexe;
+        if (taille) filter.taille = taille;
+        if (adopte !== undefined) filter.adopte = adopte === 'true';
+        if (comportement) filter.comportement = { $in: [comportement] };
+        if (ententeAvec) filter.ententeAvec = { $in: [ententeAvec] };
 
-        // --- Ajout des filtres spécifiques aux tableaux (comportement, ententeAvec) ---
-        // Utilise l'opérateur $in pour trouver les documents où le tableau contient la valeur spécifiée
-        if (comportement) {
-            filter.comportement = { $in: [comportement] };
-        }
-        if (ententeAvec) {
-            filter.ententeAvec = { $in: [ententeAvec] };
-        }
-
-        // --- Logique pour le filtre dureeRefuge (basée sur dateArrivee) ---
         if (dureeRefuge) {
             const now = new Date();
             let dateThresholdMin, dateThresholdMax;
 
             switch (dureeRefuge) {
-                case '-1mois': // Moins d'un mois au refuge
+                case '-1mois':
                     dateThresholdMin = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
                     filter.dateArrivee = { $gte: dateThresholdMin };
                     break;
-                case '1-3mois': // Entre 1 et 3 mois au refuge
+                case '1-3mois':
                     dateThresholdMax = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
                     dateThresholdMin = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
                     filter.dateArrivee = { $lte: dateThresholdMax, $gte: dateThresholdMin };
                     break;
-                case '3-6mois': // Entre 3 et 6 mois au refuge
+                case '3-6mois':
                     dateThresholdMax = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
                     dateThresholdMin = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
                     filter.dateArrivee = { $lte: dateThresholdMax, $gte: dateThresholdMin };
                     break;
-                case '+6mois': // Plus de 6 mois au refuge
+                case '+6mois':
                     dateThresholdMax = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
                     filter.dateArrivee = { $lte: dateThresholdMax };
                     break;
-                default:
-                    // Ne rien faire si la valeur de dureeRefuge n'est pas reconnue
-                    break;
             }
         }
-        // --- Fin de la logique dureeRefuge ---
 
-        const animaux = await Animal.find(filter); // Exécute la requête Mongoose avec les filtres
-        res.json(animaux); // Renvoie les animaux filtrés
+        const animaux = await Animal.find(filter);
+        res.json(animaux);
     } catch (err) {
         console.error("Erreur lors de la récupération des animaux :", err);
         res.status(500).json({ message: "Erreur serveur lors de la récupération des animaux.", error: err.message });
@@ -113,4 +105,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = router;    
+module.exports = router;
