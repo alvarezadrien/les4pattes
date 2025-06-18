@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
             const storedToken = localStorage.getItem('token');
             if (storedToken) {
                 try {
-                    const response = await api.get('/auth/profile');
+                    const response = await api.get('/api/auth/profile');
                     setUser(response.data);
                     setToken(storedToken);
                 } catch (error) {
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await api.post('/auth/login', { email, password });
+            const response = await api.post('/api/auth/login', { email, password });
             const { token: receivedToken, user: userData } = response.data;
             localStorage.setItem('token', receivedToken);
             setToken(receivedToken);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
     const signup = async (userData) => {
         try {
-            const response = await api.post('/auth/signup', userData);
+            const response = await api.post('/api/auth/signup', userData);
             return { success: true, message: response.data.message };
         } catch (error) {
             console.error('Échec de l\'inscription:', error.response?.data?.message || error.message);

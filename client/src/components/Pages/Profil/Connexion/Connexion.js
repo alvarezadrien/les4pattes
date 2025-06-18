@@ -1,3 +1,6 @@
+// ✅ Connexion.jsx mis à jour pour Render
+// Assure-toi que useAuth() utilise bien l'instance axios à jour
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -18,10 +21,10 @@ const Connexion = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // Utilisé pour les messages d'erreur
-  const [successMessage, setSuccessMessage] = useState(''); // Utilisé pour les messages de succès
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const { login } = useAuth(); // Récupère la fonction login de ton contexte d'authentification
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,8 +32,8 @@ const Connexion = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Réinitialise les erreurs précédentes
-    setSuccessMessage(''); // Réinitialise les messages de succès précédents
+    setError('');
+    setSuccessMessage('');
 
     try {
       const result = await login(email, password);
@@ -38,16 +41,14 @@ const Connexion = () => {
       if (result.success) {
         setSuccessMessage('Connexion réussie ! Redirection...');
         setTimeout(() => {
-          navigate('/Mon compte'); // Redirige vers la page "Mon compte"
-        }, 1500); // Délai de 1.5 seconde avant la redirection
+          navigate('/Mon compte');
+        }, 1500);
       } else {
-        // Affiche le message d'erreur spécifique renvoyé par le backend ou un message générique
-        setError(result.message || 'Échec de la connexion. Veuillez réessayer.');
+        setError(result.message || 'Identifiants invalides.');
       }
     } catch (err) {
-      console.error("Erreur inattendue lors de la connexion:", err);
-      // Gère les erreurs réseau ou autres erreurs non gérées par la réponse du backend
-      setError('Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.');
+      console.error("Erreur inattendue:", err);
+      setError("Erreur de connexion. Veuillez réessayer plus tard.");
     }
   };
 
@@ -57,76 +58,38 @@ const Connexion = () => {
         <h1 className='h1_connexion'>Connectez-vous pour voir nos coulisses</h1>
         <div className="container_form_login_connexion">
           <form onSubmit={handleSubmit}>
-            <Box sx={{
-              '& .MuiTextField-root': {
-                m: 1, width: '30ch', maxWidth: '500px',
-                display: 'flex', margin: '0 auto 1rem auto'
-              },
-              '& .MuiInputLabel-root': {
-                color: 'black', '&.Mui-focused': { color: '#778d45' }
-              },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': { borderColor: 'black' },
-                '&:hover fieldset': { borderColor: '#778d45' },
-                '&.Mui-focused fieldset': { borderColor: '#778d45' },
-              },
-            }}>
+            <Box sx={{ '& .MuiTextField-root': { m: 1, width: '30ch', display: 'flex', margin: '0 auto 1rem auto' } }}>
               <TextField
-                id="email"
                 label="Email"
                 variant='outlined'
-                placeholder='Entrez votre email'
-                sx={{ mb: 2 }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required // Ajouté pour validation HTML5
-                aria-label="Email"
+                required
               />
-              <FormControl
-                variant="outlined"
-                sx={{
-                  m: 1, width: '30ch', maxWidth: '500px',
-                  display: 'flex', margin: '0 auto 1rem auto'
-                }}
-              >
+              <FormControl variant="outlined" sx={{ m: 1, width: '30ch', margin: '0 auto 1rem auto' }}>
                 <InputLabel htmlFor="password">Mot de passe</InputLabel>
                 <OutlinedInput
                   id="password"
                   type={showPassword ? 'text' : 'password'}
-                  placeholder='Entrez votre mot de passe'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required // Ajouté pour validation HTML5
+                  required
                   endAdornment={
                     <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
+                      <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   }
                   label="Mot de passe"
-                  aria-label="Mot de passe"
                 />
               </FormControl>
             </Box>
-            {/* Affichage des messages d'erreur et de succès */}
             {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
             {successMessage && <p style={{ color: 'green', textAlign: 'center' }}>{successMessage}</p>}
 
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-              <Button
-                variant="contained"
-                type="submit"
-                className="btn-login"
-                sx={{
-                  backgroundColor: '#778d45',
-                  '&:hover': { backgroundColor: '#5f7036' }
-                }}
-              >
+              <Button variant="contained" type="submit" sx={{ backgroundColor: '#778d45', '&:hover': { backgroundColor: '#5f7036' } }}>
                 Connexion
               </Button>
             </Box>
