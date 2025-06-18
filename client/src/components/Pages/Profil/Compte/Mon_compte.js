@@ -153,7 +153,7 @@ const Mon_compte = () => {
     ? user.avatarUrl.startsWith('/uploads/')
       ? `${API_URL}${user.avatarUrl}`
       : user.avatarUrl
-    : '/uploads/default_avatar.png';
+    : '/uploads/Avatar/avatar-683c85d03b4aaf7cd97ca1ad-1749016204322.jpg';
 
   return (
     <div className="mon-compte-container">
