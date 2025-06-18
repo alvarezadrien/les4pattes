@@ -53,26 +53,23 @@ const Adhesions = () => {
             <div className='div_para_adhesions'>
                 <div className='div_para_adhesions2'>
                     <p className='para_adhesions2'>
-                        En devenant membre de notre association,
-                        vous entrez dans une communauté engagée
-                        pour la cause animale. Mais quels sont
-                        les avantages que vous obtenez en adhérant à notre cause ?
-                        En plus de soutenir nos actions en faveur
-                        du bien-être animal, votre adhésion vous donne
-                        accès à une gamme d'avantages exclusifs.
+                        En devenant membre de notre association, vous entrez dans une communauté
+                        engagée pour la cause animale. Mais quels sont les avantages que vous obtenez
+                        en adhérant à notre cause ?
+                        En plus de soutenir nos actions en faveur du bien-être animal,
+                        votre adhésion vous donne accès à une gamme d'avantages exclusifs.
+                        En tant que membre, vous recevrez une carte de membre, symbole de votre engagement envers notre mission !
                     </p>
                 </div>
 
                 <div className='div_para_adhesions3'>
                     <p className='para_adhesions3'>
-                        En tant que membre, vous recevrez une **carte de membre**,
-                        symbole de votre engagement envers notre mission !
-                        Mais ce n'est pas tout ! En tant que membre, vous
-                        aurez également accès à notre **magazine**, une source
-                        d'informations précieuse sur les dernières avancées
-                        dans nos domaines d'action. Notre revue vous tiendra
-                        informé des progrès réalisés, des défis à relever et des
-                        initiatives qui façonnent un avenir meilleur pour les animaux.
+
+                        Mais ce n'est pas tout ! En tant que membre,
+                        vous aurez également accès à notre magazine, une source
+                        d'informations précieuse sur les dernières avancées dans nos domaines
+                        d'action. Notre revue vous tiendra informé des progrès réalisés, des défis
+                        à relever et des initiatives qui façonnent un avenir meilleur pour les animaux.
                     </p>
                 </div>
             </div>
