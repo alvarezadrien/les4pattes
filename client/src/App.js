@@ -30,6 +30,7 @@ import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation'
 import Adhesions from './components/Pages/Adhésions/Adhesions';
 import './components/Pages/Gestion_adoption/Gestion_adoption'
 
+// Import composant (widgets)
 import BackButton from './components/Widgets/Back_button/Back_button';
 import Animalitem from './components/Widgets/Animal_item/Animalitem';
 import PopupMenu from './components/Widgets/Popup_menu/PopupMenu';
@@ -41,6 +42,7 @@ import Back_office from './components/back_office/Back_office';
 import CommentCards from './components/Pages/Avis/Avis';
 import GestionAdoption from './components/Pages/Gestion_adoption/Gestion_adoption';
 import Loading from './components/Widgets/Loading/Loading';
+import Page404 from './components/Widgets/404Page/Page_404';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -106,6 +108,7 @@ const App = () => {
             <Route path="/Adhésions" element={<Adhesions />} />
             <Route path='/Back_office' element={<Back_office />} />
             <Route path='/gestion_adoption' element={<GestionAdoption />} />
+            <Route path='#' element={<Page404 />} />
             <Route
               path="/Mon compte"
               element={
