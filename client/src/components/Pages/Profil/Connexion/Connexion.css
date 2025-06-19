@@ -84,7 +84,7 @@
   }
 
   .h1_connexion {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-top: 50px;
   }
 
@@ -102,12 +102,49 @@
   }
 }
 
-@media screen and (min-width: 769px) and (max-width: 999px) {
+@media screen and (min-width: 769px) and (max-width: 800px) {
   .page_connexion {
     flex-direction: column;
   }
 
+  .h1_connexion {
+    font-size: 2rem;
+    margin-top: 50px;
+  }
+
   .right-image {
-    height: fit-content;
+    height: 100%;
+    object-fit: fill;
+  }
+
+  .container_form_login_connexion {
+    width: 80%;
+  }
+
+  .toggle-password {
+    right: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1024px) {
+  .page_connexion {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .h1_connexion {
+    font-size: 2.2rem;
+    margin-top: 0;
+  }
+
+  .left-content {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .toggle-password {
+    right: 0.5rem;
   }
 }
