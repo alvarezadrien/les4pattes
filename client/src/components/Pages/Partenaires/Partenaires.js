@@ -4,10 +4,10 @@ import './Partenaires.css';
 const logos = [
     { src: "/img/logo_partenaires/logo_Nestle-Purina.jpg", link: "https://www.purina.com" },
     { src: "/img/logo_partenaires/logo_pedigree.png", link: "https://www.pedigree.fr" },
-    { src: "/img/logo_partenaires/logo-maxizoo.jpg", link: "https://www.maxizoo.fr" },
+    { src: "/img/logo_partenaires/Logo-maxizoo.jpg", link: "https://www.maxizoo.fr" },
     { src: "/img/logo_partenaires/friskies-logo-comp.jpg", link: "https://www.friskies.com" },
     { src: "/img/logo_partenaires/logo_nestle-good.jpg", link: "https://www.nestle.com" },
-    { src: "/img/logo_partenaires/whiskas-logo.png", link: "https://www.whiskas.fr" },
+    { src: "/img/logo_partenaires/Whiskas-logo.png", link: "https://www.whiskas.fr" },
 ];
 
 const Partenaires = () => {
