@@ -3,6 +3,13 @@
   height: 100vh;
 }
 
+.h1_connexion {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
 .left-content {
   flex: 1;
   display: flex;
@@ -50,6 +57,16 @@
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .page_connexion {
     flex-direction: column;
+  }
+
+  .h1_connexion {
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }
+
+  .right-image {
+    height: 100%;
+    object-fit: cover;
   }
 
   .container_form_login_connexion {
