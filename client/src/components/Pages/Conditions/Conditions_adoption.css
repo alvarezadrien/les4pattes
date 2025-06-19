@@ -1,10 +1,9 @@
 /* Styles généraux pour le conteneur de la page */
 .page_container_conditions {
-  font-family: "Arial", sans-serif;
   line-height: 1.6;
   color: #555555; /* Couleur de texte par défaut */
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 70vw;
+  margin: 6rem auto;
   padding: 20px;
 }
 
@@ -45,28 +44,17 @@
   color: var(--primary-color);
 }
 
-.card_title {
-  color: #333333;
-}
-
-/* Suppression des styles génériques h1, h2, h3, h4, h5 */
-/* h1, h2, h3, h4, h5 {
-    color: #333333;
-    margin-bottom: 1rem;
-} */
-
 ul {
   list-style: none;
   padding: 0;
 }
 
-/* Section Héro - Nouveau design */
 .hero_section {
   text-align: center;
   padding: 60px 20px;
   background: linear-gradient(
     135deg,
-    var(--secondary-color) 0%,
+    var(--secondary-color) 30%,
     var(--tertiary-color) 100%
   ); /* Dégradé doux */
   border-radius: 15px;
@@ -75,6 +63,7 @@ ul {
   position: relative;
   overflow: hidden;
   color: #333333;
+  height: 45rem;
 }
 
 .hero_section::before {
@@ -109,11 +98,10 @@ ul {
 }
 
 .hero_image {
-  width: 100%;
-  max-width: 700px; /* Image plus grande */
-  height: auto;
+  width: 850px;
+  height: 500px;
+  margin-top: -2rem;
   border-radius: 20px; /* Coins plus arrondis */
-  margin-bottom: 30px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombre plus intense */
   object-fit: cover;
   position: relative;
@@ -126,7 +114,7 @@ ul {
 }
 
 .hero_title {
-  font-size: 4rem; /* Titre plus grand */
+  font-size: 3rem; /* Titre plus grand */
   margin-bottom: 25px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Ombre de texte */
   position: relative;
@@ -134,7 +122,7 @@ ul {
 }
 
 .hero_text {
-  font-size: 1.4rem; /* Texte plus grand */
+  font-size: 18px; /* Texte plus grand */
   max-width: 900px; /* Largeur maximale augmentée */
   margin: 0 auto 40px auto;
   text-align: center; /* Texte centré */
@@ -179,9 +167,11 @@ ul {
 .contact_list li:hover {
   background-color: var(--primary-color);
   color: var(--tertiary-color); /* Texte blanc au survol */
+  transition: all 0.7s ease;
 }
 .contact_list li:hover .contact_link {
   color: var(--tertiary-color); /* Texte blanc au survol des liens */
+  transition: all 0.7s ease;
 }
 
 /* Sections avec image et texte (Exigences et Frais) */
@@ -357,6 +347,7 @@ ul {
 .card_title {
   font-size: 1.8rem;
   margin-bottom: 15px;
+  color: var(--primary-color);
 }
 
 .card_text {
