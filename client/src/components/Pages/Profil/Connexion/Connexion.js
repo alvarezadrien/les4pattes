@@ -74,7 +74,7 @@ const Connexion = () => {
                 sx={{
                   width: {
                     xs: '260px',
-                    sm: '300px',
+                    sm: '400px',
                     md: '350px',
                     lg: '400px',
                     xl: '450px'
@@ -87,7 +87,7 @@ const Connexion = () => {
                 sx={{
                   width: {
                     xs: '260px',
-                    sm: '300px',
+                    sm: '400px',
                     md: '350px',
                     lg: '400px',
                     xl: '450px'

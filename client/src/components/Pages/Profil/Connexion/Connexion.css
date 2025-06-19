@@ -83,8 +83,22 @@
     flex-direction: column;
   }
 
+  .h1_connexion {
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }
+
   .right-image {
-    height: fit-content;
+    height: 100%;
+    object-fit: fill;
+  }
+
+  .container_form_login_connexion {
+    width: 80%;
+  }
+
+  .toggle-password {
+    right: 0.5rem;
   }
 }
 
