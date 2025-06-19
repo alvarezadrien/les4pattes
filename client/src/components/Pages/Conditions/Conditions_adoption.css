@@ -1,432 +1,519 @@
-.img_conditions {
-  margin-top: 6rem;
-  margin-bottom: 2rem;
-  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 2rem;
-}
-
-.img_conditions img {
-  display: flex;
+/* Styles généraux pour le conteneur de la page */
+.page_container_conditions {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #555555; /* Couleur de texte par défaut */
+  max-width: 1200px;
   margin: 0 auto;
-  width: 600px;
-  height: 350px;
-  border-radius: 50%;
-  background-position: center;
-  background-size: contain;
+  padding: 20px;
 }
 
-.h1_adopt {
-  text-align: center;
-  font-size: 3rem;
+/* Styles pour les liens spécifiques à cette page */
+.contact_link,
+.button_link {
+  color: var(
+    --quinairy-color
+  ); /* Utilisation de quinairy-color pour les liens */
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.paragraphe_adopt1 {
-  font-size: 1.7rem;
-  text-align: justify;
-  display: flex;
-  margin: 0 auto;
-  width: 61rem;
-}
-
-.h4_moyen_adopt {
-  font-size: 1.5rem;
-  font-style: italic;
-  width: 50rem;
-  margin-left: 5rem;
-  margin-top: 4rem;
-}
-
-.ul_moyen_adopt {
-  margin-left: 10rem;
-  margin-bottom: 5rem;
-  font-size: 1.2rem;
-  margin-top: 3rem;
-}
-
-.ul_moyen_adopt a {
-  color: var(--primary-color);
-}
-
-.ul_moyen_adopt:hover a {
+.contact_link:hover,
+.button_link:hover {
   text-decoration: underline;
+  color: var(--senary-color); /* Nouvelle couleur au survol pour les liens */
+}
+
+/* Styles pour les titres spécifiques par classe */
+.hero_title {
   color: var(--primary-color);
 }
 
-.img_adopt1 {
-  display: flex;
-  float: right;
+.section_title {
+  color: var(--primary-color);
+}
+
+.block_title {
+  color: #333333;
+}
+
+.section_subtitle {
+  color: #333333;
+}
+
+.main_heading {
+  color: var(--primary-color);
+}
+
+.card_title {
+  color: #333333;
+}
+
+/* Suppression des styles génériques h1, h2, h3, h4, h5 */
+/* h1, h2, h3, h4, h5 {
+    color: #333333;
+    margin-bottom: 1rem;
+} */
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Section Héro - Nouveau design */
+.hero_section {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color) 0%,
+    var(--tertiary-color) 100%
+  ); /* Dégradé doux */
+  border-radius: 15px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
   position: relative;
-  right: 9%;
-  top: -12rem;
+  overflow: hidden;
+  color: #333333;
 }
 
-.img_adopt1 img {
-  width: 500px;
-  height: 330px;
-  border-radius: 40%;
-  border: 2px dashed var(--primary-color);
+.hero_section::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: rotate(45deg);
+  z-index: 0;
 }
 
-.div_respecter {
+.hero_section::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  background-color: rgba(
+    119,
+    141,
+    69,
+    0.08
+  ); /* Utilisation de primary-color avec opacité */
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  z-index: 0;
+}
+
+.hero_image {
+  width: 100%;
+  max-width: 700px; /* Image plus grande */
+  height: auto;
+  border-radius: 20px; /* Coins plus arrondis */
+  margin-bottom: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombre plus intense */
+  object-fit: cover;
+  position: relative;
+  z-index: 1; /* Assure que l'image est au-dessus des pseudo-éléments */
+  transition: transform 0.4s ease-in-out;
+}
+
+.hero_image:hover {
+  transform: scale(1.03); /* Léger zoom au survol */
+}
+
+.hero_title {
+  font-size: 4rem; /* Titre plus grand */
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Ombre de texte */
+  position: relative;
+  z-index: 1;
+}
+
+.hero_text {
+  font-size: 1.4rem; /* Texte plus grand */
+  max-width: 900px; /* Largeur maximale augmentée */
+  margin: 0 auto 40px auto;
+  text-align: center; /* Texte centré */
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Contact */
+.contact_section {
+  padding: 30px;
+  margin-bottom: 40px;
+  border: 1px solid var(--primary-color); /* Bordure avec primary-color */
+  border-radius: 10px;
+  background-color: var(--tertiary-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.section_title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.contact_list {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.2rem;
+}
+
+.contact_list li {
+  padding: 8px 15px;
+  background-color: var(
+    --secondary-color
+  ); /* Couleur de fond légère pour chaque élément */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.contact_list li:hover {
+  background-color: var(--primary-color);
+  color: var(--tertiary-color); /* Texte blanc au survol */
+}
+.contact_list li:hover .contact_link {
+  color: var(--tertiary-color); /* Texte blanc au survol des liens */
+}
+
+/* Sections avec image et texte (Exigences et Frais) */
+.image_and_text_block {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 50px;
+  padding: 30px;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image_and_text_block.reverse {
+  flex-direction: row-reverse;
+}
+
+.image_container {
+  flex: 1;
+  display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 600px;
-  padding: 1rem;
-  background-color: var(--secondary-color);
-  border-radius: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
 }
 
-h5 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  margin-top: -0.3rem;
-  text-align: center;
+.block_image {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.ul_respecter {
-  list-style-type: none;
-  padding-left: 0;
+.block_image:hover {
+  transform: scale(1.02);
 }
 
-.ul_respecter li {
+.text_container {
+  flex: 1;
+}
+
+.block_title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.checklist li,
+.fees_list li {
   position: relative;
-  padding-left: 25px;
+  padding-left: 30px;
   margin-bottom: 10px;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
-.ul_respecter li::before {
-  content: "!";
-  color: red;
+.checklist li::before {
+  content: "✓"; /* Symbole de coche */
+  color: var(--senary-color); /* Utilisation de senary-color */
+  font-weight: bold;
+  font-size: 1.3rem;
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 1.5rem;
+}
+
+.fees_list li::before {
+  content: "•"; /* Symbole de puce */
+  color: #ffa726; /* Couleur orange pour les frais (peut être une nouvelle variable si souhaité) */
   font-weight: bold;
-}
-
-.div_frais {
-  max-width: 600px;
-  padding: 20px;
-  margin-left: 11rem;
-  background-color: var(--secondary-color);
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 6rem;
-}
-
-.div_frais h5 {
   font-size: 1.5rem;
-  margin-bottom: 20px;
+  position: absolute;
+  left: 0;
+  top: -2px;
 }
 
-.div_frais ul {
-  list-style-type: none;
-  padding-left: 0;
+/* Section "Comprend" */
+.included_section {
+  padding: 30px;
+  background-color: var(--secondary-color); /* Utilisation de secondary-color */
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+  text-align: center;
 }
 
-.div_frais li {
-  font-size: 1rem;
+.section_subtitle {
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
+
+.included_list {
+  display: inline-block; /* Pour centrer la liste */
+  text-align: left; /* Pour que les puces de liste restent à gauche */
+}
+
+.included_list li {
+  font-size: 1.2rem;
   margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
 }
 
-.ul_frais li::before {
-  content: "*";
-  color: green;
+.included_list li::before {
+  content: "★"; /* Une étoile pour les avantages */
+  color: #ffd700; /* Couleur or (peut être une nouvelle variable si souhaité) */
+  font-size: 1.2rem;
+  position: absolute;
   left: 0;
   top: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 
-.img_adopt2 {
-  position: relative;
-  top: -16rem;
+/* Titre principal pour les cartes d'adoption */
+.main_heading {
+  font-size: 2.8rem;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 2px;
+}
+
+/* Conteneur des cartes d'adoption */
+.adoption_cards_container {
   display: flex;
-  float: right;
-  margin-right: 10rem;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 50px;
 }
 
-.img_adopt2 img {
-  width: 400px;
-  border-radius: 10px;
-  transform: rotate(15deg);
-  border: 2px solid var(--primary-color);
-  box-shadow: 0 2px 5px var(--quaternary-color);
-}
-
-.img_adopt2:hover img {
-  transform: perspective(10px);
-  transition: all 1.5s;
-  border-radius: 100%;
-}
-
-.frais_comprend {
-  background-color: var(--secondary-color);
-  width: 50vw;
-  height: 15rem;
+.adoption_card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 48%;
+  border: 1px solid var(--border-color); /* Note: --border-color n'est pas défini dans vos roots, j'ai donc utilisé une valeur par défaut ici. Si vous voulez la changer, ajoutez-la à votre :root. */
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: var(--tertiary-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 24%;
-  position: relative;
-  top: -10rem;
-}
-.h3_comprend {
-  font-size: 2rem;
-  margin-top: -0.5rem;
-}
-.frais_comprend ul {
-  list-style: circle;
-}
-.frais_comprend ul li {
-  font-size: 1.4rem;
-}
-
-.souhait_adopter {
-  font-size: 2rem;
   text-align: center;
-  margin-top: -6rem;
-  margin-bottom: 3rem;
-  text-decoration: underline;
-  text-underline-offset: 11px;
 }
 
-.div_container_chien_chat_souhait {
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 2rem;
+.adoption_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.container_souhait1,
-.container_souhait2 {
-  border: 3px solid var(--primary-color);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
-}
-
-.img_souhait1 img,
-.img_souhait2 img {
-  width: 450px;
-  height: 230px;
-  padding: 0.5rem;
+.card_image_container {
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
   border-radius: 10px;
 }
 
-.img_souhait1:hover,
-.img_souhait2:hover {
-  transform: scale(0.9);
-  transition: all 0.8s;
+.card_image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
 }
 
-.h4_souhait {
-  font-size: 1.7rem;
-  text-align: center;
-  margin-top: 1rem;
+.adoption_card:hover .card_image {
+  transform: scale(1.05);
 }
 
-/* paragraphe de souhait */
-.para_souhait1 {
-  font-size: 1.3rem;
-  text-align: center;
-  width: 25rem;
-  display: flex;
-  margin: 0 auto;
-  margin-bottom: 2.5rem;
+.card_title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
 }
 
-.button_souhait {
+.card_text {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.call_to_action_button {
   background-color: var(--primary-color);
   color: var(--tertiary-color);
-  border-radius: 70%;
   border: none;
-  font-size: 1.7rem;
-  padding: 0.5rem;
-  width: 11.5rem;
-  height: 3.5rem;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 1rem;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: auto;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .img_conditions {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-size: cover;
+.call_to_action_button:hover {
+  background-color: var(
+    --senary-color
+  ); /* Utilisation de senary-color au survol */
+  transform: translateY(-2px);
+}
+
+.call_to_action_button .button_link {
+  /* Cible le lien à l'intérieur du bouton */
+  color: var(--tertiary-color);
+  text-decoration: none;
+}
+.call_to_action_button .button_link:hover {
+  /* Cible le lien à l'intérieur du bouton au survol */
+  text-decoration: none; /* Pas de soulignement sur le bouton hover */
+  color: var(--tertiary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page_container_conditions {
+    padding: 15px;
   }
 
-  .img_conditions img {
-    width: 90vw;
-    height: 180px;
-    border-radius: 50%;
+  .hero_section {
+    padding: 40px 15px;
   }
 
-  .h1_adopt {
+  .hero_title {
+    font-size: 3rem;
+  }
+
+  .hero_text {
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
+
+  .section_title {
+    font-size: 1.8rem;
+  }
+
+  .contact_list {
+    font-size: 1rem;
+  }
+
+  .image_and_text_block {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .image_and_text_block.reverse {
+    flex-direction: column;
+  }
+
+  .block_title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .checklist li,
+  .fees_list li,
+  .included_list li {
+    font-size: 1rem;
+    padding-left: 25px;
+  }
+
+  .section_subtitle {
+    font-size: 1.5rem;
+  }
+
+  .main_heading {
     font-size: 2rem;
-    padding: 0 0.5rem;
+    text-underline-offset: 7px;
   }
 
-  .paragraphe_adopt1 {
+  .adoption_card {
+    max-width: 95%;
+  }
+
+  .card_title {
+    font-size: 1.5rem;
+  }
+
+  .card_text {
     font-size: 1rem;
-    width: 95vw;
-    margin: 0 auto;
-    padding: 0 0.5rem;
   }
 
-  .h4_moyen_adopt {
+  .call_to_action_button {
     font-size: 1.1rem;
-    width: 90vw;
-    margin-left: 1rem;
-    margin-top: 2rem;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero_section {
+    padding: 30px 10px;
+    border-radius: 10px;
   }
 
-  .ul_moyen_adopt {
-    margin-left: 1rem;
-    margin-bottom: 2rem;
-    font-size: 1rem;
-    margin-top: 1rem;
+  .hero_title {
+    font-size: 2.2rem;
   }
 
-  .img_adopt1 {
-    float: none;
-    right: 0;
-    top: 0;
-    justify-content: center;
-    margin: 1rem auto;
-    display: flex;
+  .hero_text {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
   }
 
-  .img_adopt1 img {
-    width: 90vw;
-    height: 180px;
-    border-radius: 40%;
-  }
-
-  .div_respecter {
-    max-width: 95vw;
-    padding: 0.5rem;
+  .hero_image {
     border-radius: 15px;
   }
 
-  h5 {
+  .contact_section,
+  .requirements_section,
+  .fees_section,
+  .included_section {
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+
+  .block_image {
+    border-radius: 8px;
+  }
+
+  .checklist li::before,
+  .fees_list li::before,
+  .included_list li::before {
     font-size: 1.1rem;
-    margin-bottom: 1rem;
   }
 
-  .ul_respecter li {
-    font-size: 0.95rem;
-    padding-left: 20px;
-  }
-
-  .div_frais {
-    max-width: 95vw;
-    padding: 1rem;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 2rem;
-    border-radius: 10px;
-  }
-
-  .div_frais h5 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-
-  .div_frais li {
-    font-size: 0.95rem;
-  }
-
-  .img_adopt2 {
-    float: none;
-    margin-right: 0;
-    top: 0;
-    justify-content: center;
-    margin: 1rem auto;
-    display: flex;
-  }
-
-  .img_adopt2 img {
-    width: 80vw;
-    min-width: 0;
-    border-radius: 10px;
-    transform: none;
-  }
-
-  .frais_comprend {
-    width: 95vw;
-    height: auto;
-    margin: 1rem auto;
-    top: 0;
-    padding: 1rem 0.5rem;
-  }
-
-  .h3_comprend {
-    font-size: 1.2rem;
-    margin-top: 0;
-  }
-
-  .frais_comprend ul li {
-    font-size: 1rem;
-  }
-
-  .souhait_adopter {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
+  .main_heading {
+    font-size: 1.8rem;
     text-underline-offset: 5px;
   }
 
-  .div_container_chien_chat_souhait {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-    gap: 1.5rem;
-  }
-
-  .container_souhait1,
-  .container_souhait2 {
-    width: 95vw;
-    margin-bottom: 1rem;
-    height: auto;
-  }
-
-  .img_souhait1 img,
-  .img_souhait2 img {
-    width: 90vw;
-    height: 120px;
-    padding: 0.2rem;
-    border-radius: 10px;
-  }
-
-  .h4_souhait {
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-  }
-
-  .para_souhait1 {
-    font-size: 1rem;
-    width: 90vw;
-    margin-bottom: 1rem;
-    padding: 0 0.5rem;
-  }
-
-  .button_souhait {
-    font-size: 1.1rem;
-    width: 90vw;
-    height: 2.5rem;
-    border-radius: 20px;
-    padding: 0.2rem;
+  .card_image {
+    height: 200px;
   }
 }
