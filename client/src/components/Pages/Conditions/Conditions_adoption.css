@@ -386,125 +386,141 @@ ul {
   color: var(--tertiary-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive jusqu'à 480px */
+@media (max-width: 480px) {
   .page_container_conditions {
-    padding: 15px;
+    width: 93vw;
+    margin: 2rem auto;
+    padding: 10px;
   }
 
   .hero_section {
-    padding: 40px 15px;
+    padding: 30px 5px;
+    height: auto;
+    margin-top: 4rem;
+    min-height: 350px;
+    border-radius: 8px;
   }
 
   .hero_title {
-    font-size: 3rem;
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .hero_image {
+    width: 270px;
+    height: 180px;
+    margin-top: 0;
+    border-radius: 10px;
   }
 
   .hero_text {
-    font-size: 1.2rem;
-    padding: 0 10px;
+    font-size: 16px;
+    max-width: 80%;
+    text-align: justify;
+    margin-bottom: 20px;
+    padding: 0 2px;
   }
 
-  .section_title {
-    font-size: 1.8rem;
+  .contact_section {
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 7px;
   }
 
-  .contact_list {
-    font-size: 1rem;
+  .section_title,
+  .section_subtitle,
+  .main_heading {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    text-underline-offset: 5px;
   }
 
-  .image_and_text_block {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-
+  .image_and_text_block,
   .image_and_text_block.reverse {
-    flex-direction: column;
+    flex-direction: column !important;
+    gap: 15px;
+    padding: 12px;
+    margin-bottom: 25px;
+    border-radius: 7px;
+  }
+
+  .image_container {
+    margin-bottom: 10px;
+  }
+
+  .block_image {
+    max-width: 100%;
+    border-radius: 7px;
   }
 
   .block_title {
-    font-size: 1.5rem;
-    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 
   .checklist li,
   .fees_list li,
   .included_list li {
     font-size: 1rem;
-    padding-left: 25px;
+    padding-left: 22px;
+    margin-bottom: 7px;
   }
 
-  .section_subtitle {
-    font-size: 1.5rem;
-  }
-
-  .main_heading {
-    font-size: 2rem;
-    text-underline-offset: 7px;
-  }
-
-  .adoption_card {
-    max-width: 95%;
-  }
-
-  .card_title {
-    font-size: 1.5rem;
-  }
-
-  .card_text {
-    font-size: 1rem;
-  }
-
-  .call_to_action_button {
-    font-size: 1.1rem;
-    padding: 10px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero_section {
-    padding: 30px 10px;
-    border-radius: 10px;
-  }
-
-  .hero_title {
-    font-size: 2.2rem;
-  }
-
-  .hero_text {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-  }
-
-  .hero_image {
-    border-radius: 15px;
-  }
-
-  .contact_section,
-  .requirements_section,
-  .fees_section,
   .included_section {
-    padding: 15px;
+    padding: 12px;
+    border-radius: 7px;
     margin-bottom: 25px;
   }
 
-  .block_image {
-    border-radius: 8px;
+  .adoption_cards_container {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
   }
 
-  .checklist li::before,
-  .fees_list li::before,
-  .included_list li::before {
-    font-size: 1.1rem;
+  .adoption_card {
+    min-width: unset;
+    max-width: 100%;
+    padding: 12px;
+    border-radius: 10px;
   }
 
-  .main_heading {
-    font-size: 1.8rem;
-    text-underline-offset: 5px;
+  .card_image_container {
+    margin-bottom: 10px;
+    border-radius: 7px;
   }
 
   .card_image {
-    height: 200px;
+    height: 140px;
+    border-radius: 7px;
+  }
+
+  .card_title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .card_text {
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+  }
+
+  .call_to_action_button {
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 30px;
+    margin-top: 10px;
+  }
+
+  .contact_list {
+    gap: 8px;
+    font-size: 1rem;
+  }
+
+  .contact_list li {
+    padding: 5px 8px;
+    border-radius: 4px;
   }
 }
