@@ -716,7 +716,7 @@ hr {
   }
 }
 
-@media (min-width: 1025px) {
+@media screen and (min-width: 1025px) {
   .div_img_adhesions1 {
     left: 18%;
   }
@@ -732,5 +732,10 @@ hr {
 
   .para_adhesions1 {
     text-align: center;
+  }
+
+  .ul_adhesions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
