@@ -320,13 +320,11 @@ hr {
     left: auto;
     transform: none;
     margin: 1rem auto 0.5rem auto;
-    width: 150px;
-    height: 150px;
   }
 
   .div_img_adhesions1 img {
-    width: 150px;
-    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
     border: 4px solid #f4eaca;
   }
 
@@ -447,6 +445,154 @@ hr {
     font-size: 0.95rem;
     padding: 1.5rem;
     border-radius: 15px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .page_adhesions {
+    padding-top: 4rem;
+  }
+
+  .container_img_adhesions {
+    height: 34rem;
+    margin-top: 2rem;
+    border-bottom-right-radius: 14%;
+    border-bottom-left-radius: 14%;
+    padding: 1rem;
+  }
+
+  .div_img_adhesions1 {
+    position: absolute;
+    top: 24%;
+    left: 4%;
+  }
+
+  .div_img_adhesions1 img {
+    width: 160px;
+    height: 160px;
+    border: 4px solid #f4eaca;
+  }
+
+  .div_img_adhesions2 {
+    bottom: 8%;
+    right: 8%;
+  }
+
+  .div_img_adhesions2 img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .div_para_adhesions1 {
+    margin-top: -3rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .h1_adhesions {
+    font-size: 3rem;
+    letter-spacing: 1px;
+  }
+
+  .para_adhesions1 {
+    font-size: 1.1rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .h2_adhesions {
+    font-size: 2rem;
+    margin: 3.5rem auto 1.5rem auto;
+    width: 85%;
+    padding-bottom: 10px;
+  }
+
+  .h2_adhesions::after {
+    width: 90px;
+    height: 4px;
+  }
+
+  .ul_container_adhesions {
+    padding: 0 2rem;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .ul_adhesions {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .ul_adhesions li {
+    font-size: 1.05rem;
+    padding: 1.5rem;
+    min-height: 110px;
+    border-radius: 16px;
+  }
+
+  .ul_adhesions li::before {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .container_paiement {
+    flex-direction: column;
+    width: 85vw;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 16px;
+    gap: 1.2rem;
+    text-align: center;
+  }
+
+  .cat_image_paiement {
+    width: 130px;
+    height: 150px;
+  }
+
+  .payment_details_wrapper {
+    align-items: center;
+  }
+
+  .h5_adhesions {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .span_bank {
+    font-size: 1.5rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .ul_bank li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+
+  .ul_bank li::before {
+    font-size: 1.2rem;
+    margin-right: 0.6rem;
+  }
+
+  hr {
+    margin: 3.5rem auto;
+    width: 75%;
+  }
+
+  .div_para_adhesions {
+    flex-direction: column;
+    gap: 2rem;
+    margin: 3rem auto 4rem auto;
+    padding: 0 2rem;
+  }
+
+  .div_para_adhesions2,
+  .div_para_adhesions3 {
+    min-width: unset;
+    font-size: 1rem;
+    padding: 1.8rem;
+    border-radius: 16px;
   }
 }
 
