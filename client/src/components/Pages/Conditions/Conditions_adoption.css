@@ -439,7 +439,7 @@ ul {
 
   .image_and_text_block,
   .image_and_text_block.reverse {
-    flex-direction: column !important;
+    flex-direction: column;
     gap: 15px;
     padding: 12px;
     margin-bottom: 25px;
