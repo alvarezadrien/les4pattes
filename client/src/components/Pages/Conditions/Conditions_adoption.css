@@ -662,3 +662,141 @@ ul {
     border-radius: 5px;
   }
 }
+/* Responsive de 769px à 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .page_container_conditions {
+    width: 90vw;
+    margin: 4rem auto;
+    padding: 16px;
+  }
+
+  .hero_section {
+    padding: 40px 15px;
+    height: auto;
+    min-height: 350px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+
+  .hero_title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .hero_image {
+    width: 600px;
+    height: 350px;
+    margin-top: 0;
+    border-radius: 15px;
+  }
+
+  .hero_text {
+    font-size: 17px;
+    max-width: 95%;
+    margin-bottom: 30px;
+  }
+
+  .contact_section {
+    padding: 22px;
+    margin-bottom: 32px;
+    border-radius: 9px;
+  }
+
+  .section_title,
+  .section_subtitle,
+  .main_heading {
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    text-underline-offset: 8px;
+  }
+
+  .image_and_text_block,
+  .image_and_text_block.reverse {
+    flex-direction: row;
+    gap: 30px;
+    padding: 20px;
+    margin-bottom: 35px;
+    border-radius: 10px;
+  }
+
+  .image_container {
+    margin-bottom: 0;
+  }
+
+  .block_image {
+    width: 350px;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .block_title {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .checklist li,
+  .fees_list li,
+  .included_list li {
+    font-size: 1.08rem;
+    padding-left: 26px;
+    margin-bottom: 9px;
+  }
+
+  .included_section {
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 35px;
+  }
+
+  .adoption_cards_container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 35px;
+  }
+
+  .adoption_card {
+    min-width: 300px;
+    max-width: 48%;
+    padding: 18px;
+    border-radius: 13px;
+  }
+
+  .card_image_container {
+    margin-bottom: 15px;
+    border-radius: 9px;
+  }
+
+  .card_image {
+    height: 200px;
+    border-radius: 9px;
+  }
+
+  .card_title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .card_text {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+  }
+
+  .call_to_action_button {
+    font-size: 1.1rem;
+    padding: 10px 22px;
+    border-radius: 35px;
+    margin-top: 12px;
+  }
+
+  .contact_list {
+    gap: 12px;
+    font-size: 1.08rem;
+  }
+
+  .contact_list li {
+    padding: 7px 12px;
+    border-radius: 5px;
+  }
+}
