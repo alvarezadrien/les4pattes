@@ -556,6 +556,7 @@ hr {
 
   .h5_adhesions {
     font-size: 1.4rem;
+    text-align: center;
     margin-bottom: 1rem;
   }
 
@@ -567,7 +568,6 @@ hr {
   .ul_bank li {
     font-size: 1rem;
     margin-bottom: 0.5rem;
-    justify-content: center;
   }
 
   .ul_bank li::before {
@@ -585,6 +585,7 @@ hr {
     gap: 2rem;
     margin: 3rem auto 4rem auto;
     padding: 0 2rem;
+    align-items: center;
   }
 
   .div_para_adhesions2,
