@@ -691,7 +691,7 @@ ul {
   }
 
   .hero_text {
-    font-size: 17px;
+    font-size: 18px;
     max-width: 95%;
     margin-bottom: 30px;
   }
@@ -775,17 +775,17 @@ ul {
   }
 
   .card_title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: 10px;
   }
 
   .card_text {
-    font-size: 1.05rem;
+    font-size: 18px;
     margin-bottom: 12px;
   }
 
   .call_to_action_button {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     padding: 10px 22px;
     border-radius: 35px;
     margin-top: 12px;
