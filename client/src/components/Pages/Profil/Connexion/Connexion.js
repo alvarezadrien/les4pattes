@@ -13,6 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import './Connexion.css';
 import { useAuth } from '../../../../context/AuthContext';
+import Loading from '../../../../components/Widgets/Loading/Loading.jsx';
 
 const Connexion = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,7 @@ const Connexion = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // ✅
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ const Connexion = () => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
+    setIsLoading(true); // ✅ active le loader
 
     try {
       const result = await login(email, password);
@@ -38,16 +41,24 @@ const Connexion = () => {
       if (result.success) {
         setSuccessMessage('Connexion réussie ! Redirection...');
         setTimeout(() => {
+          setIsLoading(false); // désactive le loader juste avant de rediriger
           navigate('/Mon compte');
         }, 1500);
       } else {
+        setIsLoading(false); // désactive le loader
         setError(result.message || 'Identifiants invalides.');
       }
     } catch (err) {
       console.error("Erreur inattendue:", err);
+      setIsLoading(false); // désactive le loader
       setError("Erreur de connexion. Veuillez réessayer plus tard.");
     }
   };
+
+  // ✅ Affiche le loader si isLoading
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="page_connexion">
