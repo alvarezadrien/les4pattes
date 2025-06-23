@@ -84,3 +84,58 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 480px) {
+  .container_img_galerie {
+    height: 18rem;
+    margin-top: 2rem;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .h1_proteges {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+  }
+
+  .img_galerie1 img,
+  .img_galerie2 img,
+  .img_galerie3 img,
+  .img_galerie4 img {
+    width: 140px;
+    height: 140px;
+    margin: 0.5rem auto;
+    display: block;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+  }
+
+  .img_galerie1,
+  .img_galerie3,
+  .img_galerie4 {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img_galerie2 img {
+    margin: 0.5rem auto;
+    position: static;
+  }
+
+  .animal_group_chien {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .container_galerie {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
