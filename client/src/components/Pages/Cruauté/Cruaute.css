@@ -1,802 +1,386 @@
 .container_cruaute1 {
-  background-color: #faf3e0;
+  background-color: var(--secondary-color); /* Utilise ta couleur secondaire */
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  margin-top: 6rem;
-  padding: 2.5rem 0;
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 3rem;
 }
 
 .titre_cruaute {
   text-align: center;
-  font-size: 32px;
-  border: 3px solid var(--primary-color);
-  padding: 7px;
-  margin: 0 auto;
+  font-size: 2.8em;
+  color: var(
+    --quaternary-color
+  ); /* Utilise ta couleur quaternaire pour le texte foncé */
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.titre_cruaute::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--primary-color); /* Utilise ta couleur primaire */
+  border-radius: 2px;
 }
 
 .paragraphe_cruaute1 {
-  color: var(--quaternary-color);
-  font-size: 25px;
-  width: 40rem;
+  color: var(--quaternary-color); /* Utilise ta couleur quaternaire */
+  font-size: 1.2em;
+  width: clamp(300px, 50vw, 700px);
   text-align: justify;
+  line-height: 1.6;
 }
 
 .image_cruaute1 img {
-  width: 500px;
-  height: 450px;
+  width: clamp(280px, 40vw, 550px);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .container_cruaute2 {
   display: flex;
   align-items: center;
-  width: 60vw;
-  height: 15vw;
-  background-color: var(--secondary-color);
-  border-radius: 10px;
+  width: clamp(90vw, 70vw, 1000px);
+  background-color: var(
+    --tertiary-color
+  ); /* Utilise ta couleur tertiaire (blanc) */
+  border-radius: 12px;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.2);
-  margin: 2rem auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 3rem auto;
+  padding: 2rem;
+  gap: 2rem;
 }
 
 .paragraphe_cruaute2 {
-  font-size: 23px;
-  width: 25rem;
+  font-size: 1.1em;
+  width: clamp(280px, 45vw, 600px);
   text-align: justify;
+  line-height: 1.6;
 }
 
 .image_cruaute2 img {
-  position: relative;
-  left: -34%;
+  width: clamp(200px, 30vw, 400px);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .container_cruaute3 {
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: clamp(90vw, 50vw, 800px);
   margin: 0 auto;
-  padding: 1.5rem;
-  gap: 1rem;
+  padding: 2rem;
+  gap: 1.5rem;
   text-align: center;
+  background-color: var(--secondary-color); /* Utilise ta couleur secondaire */
 }
 
-.div_cruaute1,
+.div_cruaute1 h2 {
+  font-size: 2em;
+  color: var(--primary-color); /* Utilise ta couleur primaire */
+  margin-bottom: 1rem;
+}
+
 .div_cruaute2,
 .div_cruaute3 {
-  background-color: var(--secondary-color);
-  border: 2px solid var(--primary-color);
-  padding: 1rem;
+  background-color: var(
+    --tertiary-color
+  ); /* Utilise ta couleur tertiaire (blanc) */
+  border: 1px solid var(--primary-color); /* Utilise ta couleur primaire pour une bordure */
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .div_cruaute2 p,
 .div_cruaute3 p {
-  font-size: 20px;
+  font-size: 1.1em;
   text-align: justify;
-}
-
-.image_cruaute3 img {
-  border-radius: 80%;
+  line-height: 1.6;
 }
 
 .container_cruaute4 {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-  margin: 2.5rem 0;
+  margin: 4rem 0;
+  gap: 3rem;
+  align-items: center;
 }
 
-.image_cruaute3,
-.image_cruaute4 {
-  margin-bottom: 2rem;
+.image_cruaute3 img,
+.image_cruaute4 img {
+  width: clamp(250px, 30vw, 400px);
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 
 .paragraphe_cruaute4 h2 {
-  border: 2px solid var(--primary-color);
-  padding: 5px;
-  font-size: 25px;
-  width: 100%;
+  font-size: 2em;
+  color: var(--primary-color); /* Utilise ta couleur primaire */
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .paragraphe_cruaute4 {
-  font-size: 20px;
-  width: 22rem;
+  font-size: 1.1em;
+  width: clamp(300px, 35vw, 500px);
   text-align: justify;
+  line-height: 1.6;
 }
 
 .hr_cruaute {
-  border: 2px solid var(--primary-color);
-  width: 30%;
-  margin: 2rem auto 0;
+  border: none;
+  border-top: 3px solid var(--primary-color); /* Utilise ta couleur primaire */
+  width: 25%;
+  margin: 3rem auto;
+  border-radius: 2px;
 }
 
 .container_cruaute5 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 1.5rem;
-}
-
-.div_container_cruaute1 h3,
-.div_container_cruaute2 h3 {
-  font-size: 25px;
-  border: 2px solid var(--primary-color);
-  padding: 5px;
-  text-align: center;
-}
-
-.div_container_cruaute1 ol,
-.div_container_cruaute2 ol {
-  font-size: 20px;
-  border: 2px solid var(--primary-color);
-  list-style-position: inside;
-  padding: 8px;
-  height: auto;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .accordion-container {
-  width: 60%;
-  margin: 2rem auto;
+  width: clamp(90vw, 80vw, 1200px);
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
-  gap: 1.2rem;
-  flex-wrap: wrap; /* Permet de passer à la ligne si l’espace est insuffisant */
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .accordion-item {
   flex: 1;
   min-width: 300px;
-  border: 2px solid var(--primary-color);
-  border-radius: 8px;
+  max-width: 45%;
+  border: 1px solid var(--primary-color); /* Utilise ta couleur primaire pour une bordure */
+  border-radius: 12px;
   overflow: hidden;
-  background-color: #fff;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(
+    --tertiary-color
+  ); /* Utilise ta couleur tertiaire (blanc) */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.accordion-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .accordion-title {
   width: 100%;
   text-align: left;
-  background-color: var(--secondary-color);
-  padding: 1rem;
-  font-size: 20px;
+  background-color: var(--primary-color); /* Utilise ta couleur primaire */
+  color: var(
+    --tertiary-color
+  ); /* Utilise ta couleur tertiaire (blanc) pour le texte */
+  padding: 1.2rem 1.5rem;
+  font-size: 1.3em;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: none;
   outline: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.accordion-title:hover {
+  background-color: var(
+    --senary-color
+  ); /* Utilise ta couleur senary pour le survol */
+}
+
+.accordion-title span {
+  font-size: 1.5em;
+  transition: transform 0.3s ease;
+}
+
+.accordion-title[aria-expanded="true"] span {
+  transform: rotate(180deg);
 }
 
 .accordion-content {
-  padding: 1rem;
-  font-size: 18px;
-  background-color: #fdfdfd;
+  padding: 1.5rem;
+  font-size: 1em;
+  background-color: var(
+    --tertiary-color
+  ); /* Utilise ta couleur tertiaire (blanc) */
+  color: var(
+    --quaternary-color
+  ); /* Utilise ta couleur quaternaire pour le texte */
+  line-height: 1.6;
 }
 
 .accordion-content ul {
-  list-style: disc inside;
-  padding-left: 1rem;
+  list-style: none;
+  padding-left: 0;
 }
 
-@media (max-width: 480px) {
-  .container_cruaute1 {
+.accordion-content li {
+  position: relative;
+  padding-left: 1.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.accordion-content li::before {
+  content: "🌿"; /* Puce personnalisée avec une feuille */
+  position: absolute;
+  left: 0;
+  color: var(--primary-color); /* Utilise ta couleur primaire */
+  font-size: 1.2em;
+}
+
+/* --- Media Queries pour un design responsive amélioré --- */
+
+@media (max-width: 768px) {
+  .container_cruaute1,
+  .container_cruaute2,
+  .container_cruaute4 {
     flex-direction: column;
-    margin-top: 2rem;
-    padding: 1rem 0.5rem;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    margin: 2rem auto;
   }
 
   .titre_cruaute {
-    font-size: 22px;
-    padding: 5px;
-    width: 95%;
+    font-size: 2.2em;
+    padding-bottom: 10px;
   }
 
-  .paragraphe_cruaute1 {
-    font-size: 16px;
-    width: 95%;
-    margin: 0 auto;
-    margin-top: 6rem;
+  .titre_cruaute::after {
+    width: 60px;
+    height: 3px;
   }
 
-  .image_cruaute1 img {
-    width: 95vw;
-    height: auto;
+  .paragraphe_cruaute1,
+  .paragraphe_cruaute2,
+  .paragraphe_cruaute4 {
+    width: 90vw;
+    font-size: 1em;
+  }
+
+  .image_cruaute1 img,
+  .image_cruaute2 img,
+  .image_cruaute3 img,
+  .image_cruaute4 img {
+    width: 80vw;
     max-width: 350px;
-    max-height: 250px;
-    display: block;
-    margin: 1rem auto;
-  }
-
-  .container_cruaute2 {
-    flex-direction: column;
-    width: 90vw;
     height: auto;
-    padding: 1rem 0.5rem;
-  }
-
-  .paragraphe_cruaute2 {
-    font-size: 15px;
-    width: 95%;
-    margin: 0 auto 1rem auto;
-  }
-
-  .image_cruaute2 img {
-    left: 0;
-    width: 90vw;
-    height: auto;
-    max-width: 300px;
-    max-height: 200px;
-    margin: 0 auto;
-    display: block;
-  }
-
-  .container_cruaute3 {
-    width: 95vw;
-    padding: 0.5rem;
-  }
-
-  .div_cruaute1,
-  .div_cruaute2,
-  .div_cruaute3 {
-    padding: 0.5rem;
-  }
-
-  .div_cruaute2 p,
-  .div_cruaute3 p {
-    font-size: 15px;
-  }
-
-  .image_cruaute3 img {
-    max-width: 180px;
-    max-height: 180px;
-  }
-
-  .container_cruaute4 {
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem 0;
-  }
-
-  .image_cruaute3,
-  .image_cruaute4 {
-    margin-bottom: 1rem;
-  }
-
-  .image_cruaute4 img {
-    width: 90vw;
-    height: auto;
-    max-width: 300px;
-    max-height: 200px;
-    display: block;
-    margin: 0 auto;
-  }
-
-  .paragraphe_cruaute4 h2 {
-    font-size: 18px;
-    padding: 3px;
-    width: 90vw;
-  }
-
-  .paragraphe_cruaute4 {
-    font-size: 14px;
-    width: 95vw;
-    margin: 0 auto;
-  }
-
-  .hr_cruaute {
-    width: 80%;
-    margin: 1rem auto 0;
-  }
-
-  .container_cruaute5 {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-  }
-
-  .div_container_cruaute1 h3,
-  .div_container_cruaute2 h3 {
-    font-size: 17px;
-    padding: 3px;
-  }
-
-  .div_container_cruaute1 ol,
-  .div_container_cruaute2 ol {
-    font-size: 14px;
-    padding: 5px;
-  }
-
-  .accordion-container {
-    width: 95vw;
-    flex-direction: column;
-    gap: 0.7rem;
-    padding: 0 0.5rem;
-  }
-
-  .accordion-item {
-    min-width: unset;
-    width: 100%;
-  }
-
-  .accordion-title {
-    font-size: 15px;
-    padding: 0.7rem;
-  }
-
-  .accordion-content {
-    font-size: 13px;
-    padding: 0.7rem;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .container_cruaute1 {
-    flex-direction: column;
-    margin-top: 3rem;
-    padding: 1.5rem 1rem;
-  }
-
-  .titre_cruaute {
-    font-size: 26px;
-    padding: 6px;
-    width: 98%;
-  }
-
-  .paragraphe_cruaute1 {
-    font-size: 19px;
-    width: 90vw;
-    margin: 0 auto;
-    margin-top: 5rem;
-  }
-
-  .image_cruaute1 img {
-    width: 90vw;
-    height: auto;
-    max-height: 300px;
-    display: block;
-    margin: 1rem auto;
-  }
-
-  .container_cruaute2 {
-    flex-direction: column;
-    width: 90vw;
-    height: auto;
-    padding: 1.2rem 1rem;
-  }
-
-  .paragraphe_cruaute2 {
-    font-size: 18px;
-    width: 90vw;
-    margin: 0 auto 1rem auto;
-  }
-
-  .image_cruaute2 img {
-    left: 0;
-    width: 100vw;
-    height: auto;
-    max-height: 250px;
-    margin: 0 auto;
-    display: block;
-    object-fit: cover;
-    top: -19px;
   }
 
   .container_cruaute3 {
     width: 90vw;
     padding: 1rem;
-  }
-
-  .div_cruaute1,
-  .div_cruaute2,
-  .div_cruaute3 {
-    padding: 0.8rem;
-  }
-
-  .div_cruaute2 p,
-  .div_cruaute3 p {
-    font-size: 17px;
-  }
-
-  .image_cruaute3 img {
-    max-height: 220px;
-  }
-
-  .container_cruaute4 {
-    flex-direction: column;
-    align-items: center;
-    margin: 1.5rem 0;
-  }
-
-  .image_cruaute3,
-  .image_cruaute4 {
-    margin-bottom: 1.2rem;
-  }
-
-  .image_cruaute4 img {
-    height: auto;
-    max-height: 250px;
-    display: block;
-    margin: 0 auto;
-    object-fit: cover;
-  }
-
-  .paragraphe_cruaute4 h2 {
-    font-size: 21px;
-    padding: 4px;
-    width: 85vw;
-  }
-
-  .paragraphe_cruaute4 {
-    font-size: 16px;
-    width: 90vw;
-    margin: 0 auto;
-  }
-
-  .hr_cruaute {
-    width: 70%;
-    margin: 1.2rem auto 0;
-  }
-
-  .container_cruaute5 {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1.2rem;
-  }
-
-  .div_container_cruaute1 h3,
-  .div_container_cruaute2 h3 {
-    font-size: 20px;
-    padding: 4px;
-  }
-
-  .div_container_cruaute1 ol,
-  .div_container_cruaute2 ol {
-    font-size: 16px;
-    padding: 6px;
-  }
-
-  .accordion-container {
-    width: 90vw;
-    flex-direction: column;
-    gap: 0.9rem;
-    padding: 0 1rem;
-  }
-
-  .accordion-item {
-    min-width: unset;
-    width: 100%;
-  }
-
-  .accordion-title {
-    font-size: 17px;
-    padding: 0.9rem;
-  }
-
-  .accordion-content {
-    font-size: 15px;
-    padding: 0.9rem;
-  }
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .container_cruaute1 {
-    flex-direction: column;
-    margin-top: 4rem;
-    padding: 2rem 1.5rem;
-  }
-
-  .titre_cruaute {
-    font-size: 28px;
-    padding: 6px;
-    width: 96%;
-  }
-
-  .paragraphe_cruaute1 {
-    font-size: 22px;
-    width: 80vw;
-    margin: 0 auto;
-    margin-top: 4rem;
-  }
-
-  .image_cruaute1 img {
-    width: 80vw;
-    height: auto;
-    max-height: 350px;
-    display: block;
-    margin: 1rem auto;
-  }
-
-  .container_cruaute2 {
-    flex-direction: row;
-    width: 85vw;
-    height: auto;
-    padding: 1.5rem 1rem;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .paragraphe_cruaute2 {
-    font-size: 20px;
-    width: 40vw;
-    margin: 0 1rem 0 0;
-  }
-
-  .image_cruaute2 img {
-    left: 0;
-    width: 35vw;
-    height: auto;
-    max-height: 250px;
-    margin: 0;
-    display: block;
-    object-fit: cover;
-  }
-
-  .container_cruaute3 {
-    width: 70vw;
-    padding: 1.2rem;
-  }
-
-  .div_cruaute1,
-  .div_cruaute2,
-  .div_cruaute3 {
-    padding: 1rem;
-  }
-
-  .div_cruaute2 p,
-  .div_cruaute3 p {
-    font-size: 18px;
-  }
-
-  .image_cruaute3 img {
-    max-height: 200px;
-  }
-
-  .container_cruaute4 {
-    flex-direction: row;
-    align-items: flex-start;
-    margin: 2rem 0;
-  }
-
-  .image_cruaute3,
-  .image_cruaute4 {
-    margin-bottom: 1.5rem;
-  }
-
-  .image_cruaute4 img {
-    height: auto;
-    max-height: 220px;
-    display: block;
-    margin: 0 auto;
-    object-fit: cover;
-  }
-
-  .paragraphe_cruaute4 h2 {
-    font-size: 23px;
-    padding: 4px;
-    width: 45vw;
-    margin: 0 auto;
-  }
-
-  .paragraphe_cruaute4 {
-    font-size: 18px;
-    width: 50vw;
-    margin: 0 auto;
-  }
-
-  .hr_cruaute {
-    width: 60%;
-    margin: 1.5rem auto 0;
-  }
-
-  .container_cruaute5 {
-    flex-direction: row;
-    align-items: flex-start;
-    margin-top: 1.5rem;
-  }
-
-  .div_container_cruaute1 h3,
-  .div_container_cruaute2 h3 {
-    font-size: 22px;
-    padding: 4px;
-  }
-
-  .div_container_cruaute1 ol,
-  .div_container_cruaute2 ol {
-    font-size: 18px;
-    padding: 7px;
-  }
-
-  .accordion-container {
-    flex-direction: row;
     gap: 1rem;
-    width: 71%;
-    padding: 0 1rem;
   }
 
-  .accordion-item {
-    min-width: 280px;
-    width: 100%;
-  }
-
-  .accordion-title {
-    font-size: 18px;
-    padding: 1rem;
-  }
-
-  .accordion-content {
-    font-size: 16px;
-    padding: 1rem;
-  }
-}
-
-@media (min-width: 1025px) and (max-width: 1280px) {
-  .container_cruaute1 {
-    flex-direction: row;
-    margin-top: 5rem;
-    padding: 2.5rem 2rem;
-  }
-
-  .titre_cruaute {
-    font-size: 30px;
-    padding: 7px;
-    width: 90%;
-  }
-
-  .paragraphe_cruaute1 {
-    font-size: 24px;
-    width: 50vw;
-    margin: 0 2rem 0 0;
-    margin-top: 0;
-  }
-
-  .image_cruaute1 img {
-    width: 32vw;
-    height: auto;
-    max-height: 400px;
-    display: block;
-    margin: 0;
-  }
-
-  .container_cruaute2 {
-    flex-direction: row;
-    width: 70vw;
-    height: auto;
-    padding: 1.5rem 2rem;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .paragraphe_cruaute2 {
-    font-size: 21px;
-    width: 32vw;
-    margin: 0 2rem 0 0;
-  }
-  .container_cruaute4 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem 0;
-    gap: 2rem;
-  }
-
-  .image_cruaute3,
-  .paragraphe_cruaute4 {
-    margin-bottom: 0;
-  }
-
-  .image_cruaute3 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .paragraphe_cruaute4 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .image_cruaute2 img {
-    left: 0;
-    height: auto;
-    margin: 0;
-    display: block;
-    object-fit: cover;
-  }
-
-  .container_cruaute3 {
-    width: 55vw;
-    padding: 1.5rem;
-  }
-
-  .div_cruaute1,
-  .div_cruaute2,
-  .div_cruaute3 {
-    padding: 1.2rem;
+  .div_cruaute1 h2 {
+    font-size: 1.8em;
   }
 
   .div_cruaute2 p,
   .div_cruaute3 p {
-    font-size: 19px;
-  }
-
-  .image_cruaute3 img {
-    max-height: 220px;
-    margin-left: 5.5rem;
-  }
-
-  .image_cruaute3,
-  .image_cruaute4 {
-    margin-bottom: 1.5rem;
-  }
-
-  .image_cruaute4 img {
-    height: auto;
-    max-height: 220px;
-    display: block;
-    margin: 0 auto;
-    object-fit: cover;
-  }
-
-  .paragraphe_cruaute4 h2 {
-    font-size: 24px;
-    padding: 5px;
-    width: 30vw;
-    margin: 0 auto;
-  }
-
-  .paragraphe_cruaute4 {
-    font-size: 19px;
-    width: 32vw;
-    margin: 0 auto;
+    font-size: 0.95em;
   }
 
   .hr_cruaute {
-    width: 50%;
-    margin: 1.5rem auto 0;
-  }
-
-  .container_cruaute5 {
-    flex-direction: row;
-    align-items: flex-start;
-    margin-top: 2rem;
-  }
-
-  .div_container_cruaute1 h3,
-  .div_container_cruaute2 h3 {
-    font-size: 23px;
-    padding: 5px;
-  }
-
-  .div_container_cruaute1 ol,
-  .div_container_cruaute2 ol {
-    font-size: 19px;
-    padding: 8px;
+    width: 40%;
   }
 
   .accordion-container {
-    width: 76%;
-    flex-direction: row;
-    gap: 1.2rem;
-    padding: 0 1.5rem;
+    flex-direction: column;
+    width: 90vw;
+    gap: 1rem;
   }
 
   .accordion-item {
-    min-width: 300px;
-    width: 100%;
+    max-width: 100%;
   }
 
   .accordion-title {
-    font-size: 19px;
-    padding: 1.1rem;
+    font-size: 1.1em;
+    padding: 1rem;
   }
 
   .accordion-content {
-    font-size: 17px;
-    padding: 1.1rem;
+    font-size: 0.9em;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container_cruaute1,
+  .container_cruaute2,
+  .container_cruaute4 {
+    gap: 2.5rem;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .titre_cruaute {
+    font-size: 2.5em;
+  }
+
+  .paragraphe_cruaute1 {
+    width: 60vw;
+  }
+
+  .image_cruaute1 img {
+    width: 35vw;
+  }
+
+  .container_cruaute2 {
+    flex-direction: row;
+    width: 80vw;
+  }
+
+  .paragraphe_cruaute2 {
+    width: 40vw;
+  }
+
+  .image_cruaute2 img {
+    width: 25vw;
+  }
+
+  .container_cruaute3 {
+    width: 70vw;
+  }
+
+  .paragraphe_cruaute4 {
+    width: 40vw;
+  }
+
+  .accordion-container {
+    width: 75vw;
+  }
+
+  .accordion-item {
+    max-width: 48%;
   }
 }

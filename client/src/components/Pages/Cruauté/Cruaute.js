@@ -4,7 +4,11 @@ import "./Cruaute.css";
 const AccordionItem = ({ title, children, isOpen, onClick }) => {
   return (
     <div className="accordion-item">
-      <button className="accordion-title" onClick={onClick}>
+      <button
+        className="accordion-title"
+        onClick={onClick}
+        aria-expanded={isOpen} // Ajout de l'attribut aria-expanded
+      >
         {title}
         <span>{isOpen ? "▲" : "▼"}</span>
       </button>
@@ -58,8 +62,8 @@ const Cruaute = () => {
         <div className="div_cruaute2">
           <p>
             Si vous êtes témoin d’une situation de cruauté ou de négligence,
-            contactez notre numéro d’urgence au <strong>0492 76 42 08</strong> en cas
-            de situation grave, ou la police au <strong>101</strong>. Pour les animaux
+            contactez notre numéro d’urgence au **0492 76 42 08** en cas
+            de situation grave, ou la police au **101**. Pour les animaux
             autres que des chiens et chats, contactez-nous afin que nous puissions
             leur venir en aide dans les meilleures conditions.
           </p>
