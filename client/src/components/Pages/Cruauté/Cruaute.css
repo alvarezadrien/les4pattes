@@ -456,3 +456,120 @@
     padding: 1.2rem;
   }
 }
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .container_cruaute1 {
+    flex-direction: row;
+    justify-content: space-evenly; /* Centre les éléments avec un espacement */
+    text-align: left;
+    gap: 4rem; /* Augmente l'espacement entre les éléments */
+    padding: 3rem 2rem;
+    margin: 4rem auto;
+  }
+
+  .titre_cruaute {
+    font-size: 2.8em; /* Encore plus grand pour l'impact */
+    margin-top: 1rem;
+    padding-bottom: 20px;
+    text-align: left;
+  }
+
+  .titre_cruaute::after {
+    left: 0;
+    transform: translateX(0);
+    width: 90px; /* Une ligne plus longue */
+    height: 5px; /* Plus épaisse */
+  }
+
+  .paragraphe_cruaute1 {
+    width: 40vw; /* Réduit la largeur pour mieux s'aligner avec l'image */
+    font-size: 1.3em; /* Taille de police plus confortable */
+  }
+
+  .image_cruaute1 img {
+    width: 38vw;
+    height: auto;
+  }
+
+  .container_cruaute2 {
+    flex-direction: row;
+    width: 75vw; /* Occupe plus de largeur */
+    height: auto;
+    padding: 2.5rem;
+    margin: 3.5rem auto;
+    gap: 3rem; /* Espacement accru */
+  }
+
+  .paragraphe_cruaute2 {
+    width: 40vw; /* Ajuste la largeur */
+    font-size: 1.15em; /* Texte un peu plus grand */
+  }
+
+  .image_cruaute2 img {
+    width: 350px; /* Taille fixe augmentée pour les grands écrans */
+    height: auto;
+  }
+
+  .container_cruaute3 {
+    width: 65vw; /* Plus large pour les grands écrans */
+    padding: 2rem;
+    gap: 1.5rem; /* Espacement standard */
+  }
+
+  .div_cruaute1 h2 {
+    font-size: 2.2em; /* Taille de titre augmentée */
+  }
+
+  .div_cruaute2 p,
+  .div_cruaute3 p {
+    font-size: 1.15em; /* Texte plus lisible */
+  }
+
+  .image_cruaute3 img,
+  .image_cruaute4 img {
+    width: 320px; /* Taille fixe augmentée pour les images rondes */
+    height: 320px; /* Assure une forme ronde cohérente */
+  }
+
+  .container_cruaute4 {
+    flex-direction: row; /* Reste en ligne */
+    justify-content: center;
+    align-items: center;
+    gap: 4rem; /* Espacement accru */
+    margin: 5rem 0;
+  }
+
+  .paragraphe_cruaute4 {
+    width: 30vw; /* Ajuste la largeur */
+    font-size: 1.2em; /* Texte plus grand */
+    text-align: center; /* Centre le texte pour cette disposition */
+  }
+
+  .hr_cruaute {
+    width: 25%; /* Plus large */
+    margin: 4rem auto;
+  }
+
+  .accordion-container {
+    flex-direction: row;
+    flex-wrap: nowrap; /* Maintient les éléments sur une seule ligne si possible */
+    justify-content: center;
+    width: 75vw; /* Occupe une bonne portion de la largeur */
+    gap: 2rem; /* Espacement généreux */
+  }
+
+  .accordion-item {
+    max-width: 45%; /* Garde deux colonnes */
+    min-width: 400px; /* Assure une taille minimale confortable */
+  }
+
+  .accordion-title {
+    font-size: 1.3em; /* Taille de titre plus grande */
+    padding: 1.5rem;
+  }
+
+  .accordion-content {
+    font-size: 1.05em; /* Contenu un peu plus grand */
+    padding: 1.5rem;
+  }
+}
