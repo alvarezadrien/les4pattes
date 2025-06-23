@@ -122,7 +122,7 @@ const HomePage = () => {
 
       {/* Div leur maison */}
       <div className="leur_maison">
-        <span className="span_maison">Ils ont trouvé une maison</span>
+        <span className="span_maison">Toujours en quête d’un foyer</span>
         <br />
         <span className="nombre">{nombreNonAdoptes}</span>
         <img src="/img/hero-dog.png" alt="chien héros" width={280} height={280} />
