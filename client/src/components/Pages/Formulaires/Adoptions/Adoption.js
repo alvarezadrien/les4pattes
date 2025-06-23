@@ -136,7 +136,7 @@ const Adoption = () => {
     },
     [theme.breakpoints.down("sm")]: {
       "& .MuiTextField-root": {
-        width: "300px",
+        width: "260px",
       },
     },
     [theme.breakpoints.down("xs")]: {

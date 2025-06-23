@@ -117,132 +117,6 @@ legend {
   left: 35.4%;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .h2_1 {
-    font-size: 2.6rem;
-  }
-
-  .formulaire1 {
-    width: 75vw;
-  }
-
-  .input_container_adoption1 input,
-  .input_container_adoption2 input {
-    width: 82vw;
-  }
-
-  .input_radio_group {
-    width: 95%;
-  }
-
-  textarea {
-    width: 82vw;
-  }
-
-  .input_textarea label {
-    left: 0;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .h2_1 {
-    font-size: 2.6rem;
-  }
-
-  .formulaire1 {
-    width: 83vw;
-  }
-
-  .input_container_adoption1 input,
-  .input_container_adoption2 input {
-    width: 80vw;
-  }
-
-  textarea {
-    width: 80vw;
-  }
-
-  .input_textarea label {
-    left: 0;
-  }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .formulaire1 {
-    width: 87vw;
-  }
-
-  .input_container_adoption1 input,
-  .input_container_adoption2 input {
-    width: 75vw;
-  }
-
-  .input_radio_group {
-    width: 80%;
-  }
-
-  .input_radio_group label {
-    margin: 0 auto;
-    padding-top: 3rem;
-  }
-
-  .input_textarea label {
-    left: 0;
-  }
-
-  textarea {
-    width: 82vw;
-  }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .formulaire1 {
-    width: 85vw;
-  }
-
-  .input_container_adoption1 input,
-  .input_container_adoption2 input {
-    width: 65vw;
-  }
-
-  .input_radio_group label {
-    margin: 0 auto;
-    padding-top: 3rem;
-  }
-
-  textarea {
-    width: 65vw;
-  }
-
-  .input_textarea label {
-    left: 12rem;
-  }
-}
-
-@media screen and (min-width: 1281px) and (max-width: 1440px) {
-  .formulaire1 {
-    width: 75vw;
-  }
-
-  .input_container_adoption1 input,
-  .input_container_adoption2 input {
-    width: 57vw;
-  }
-
-  .input_radio_group label {
-    margin: 0 auto;
-    padding-top: 3rem;
-  }
-
-  textarea {
-    width: 57vw;
-  }
-
-  .input_textarea label {
-    left: 16.5rem;
-  }
-}
-
 .h2_2 {
   font-size: 3rem;
   text-align: center;
@@ -335,44 +209,6 @@ legend {
 
 .popup-status.error {
   background-color: rgb(220, 53, 69);
-}
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .h2_2 {
-    font-size: 2.5rem;
-  }
-
-  .formulaire2 {
-    width: 75vw;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .h2_2 {
-    font-size: 2.5rem;
-  }
-
-  .formulaire2 {
-    width: 83vw;
-  }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .formulaire2 {
-    width: 87vw;
-  }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .formulaire2 {
-    width: 85vw;
-  }
-}
-
-@media screen and (min-width: 1281px) and (max-width: 1440px) {
-  .formulaire2 {
-    width: 75vw;
-  }
 }
 
 /******************************INPUT RADIO COEUR**************************************************/
@@ -663,4 +499,130 @@ input[type="radio"]:checked + .love-heart .bottom {
 
 .popup-status.error {
   background-color: #f44336;
+}
+
+@media screen and (max-width: 480px) {
+  .h2_1 {
+    font-size: 2.6rem;
+  }
+
+  .formulaire1 {
+    width: 79vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 82vw;
+  }
+
+  .input_radio_group {
+    width: 95%;
+  }
+
+  textarea {
+    width: 82vw;
+  }
+
+  .input_textarea label {
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .h2_1 {
+    font-size: 2.6rem;
+  }
+
+  .formulaire1 {
+    width: 83vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 80vw;
+  }
+
+  textarea {
+    width: 80vw;
+  }
+
+  .input_textarea label {
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .formulaire1 {
+    width: 87vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 75vw;
+  }
+
+  .input_radio_group {
+    width: 80%;
+  }
+
+  .input_radio_group label {
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  .input_textarea label {
+    left: 0;
+  }
+
+  textarea {
+    width: 82vw;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .formulaire1 {
+    width: 85vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 65vw;
+  }
+
+  .input_radio_group label {
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  textarea {
+    width: 65vw;
+  }
+
+  .input_textarea label {
+    left: 12rem;
+  }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .formulaire1 {
+    width: 75vw;
+  }
+
+  .input_container_adoption1 input,
+  .input_container_adoption2 input {
+    width: 57vw;
+  }
+
+  .input_radio_group label {
+    margin: 0 auto;
+    padding-top: 3rem;
+  }
+
+  textarea {
+    width: 57vw;
+  }
+
+  .input_textarea label {
+    left: 16.5rem;
+  }
 }
