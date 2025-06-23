@@ -14,8 +14,7 @@ const Adoption = () => {
   const navigate = useNavigate();
   const { animalData } = location.state || {};
 
-  const [statusMessage, setStatusMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
   const [popupClass, setPopupClass] = useState("");
 
   const [formdata1, setFormData] = useState({
@@ -67,10 +66,8 @@ const Adoption = () => {
       .send("service_268vdcp", "template_q44v26a", emailParams, "GprZAo7Xbj4DQXKdY")
       .then(
         () => {
-          setStatusMessage("Votre message a bien été envoyé !");
-          setPopupClass("success");
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000);
+          setPopupClass("popupenvoie-success");
+          setPopupVisible(true);
           setFormData({
             ...formdata1,
             name: "",
@@ -91,10 +88,8 @@ const Adoption = () => {
           setFocused({});
         },
         () => {
-          setStatusMessage("Erreur lors de l'envoi du message. Veuillez réessayer.");
-          setPopupClass("error");
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000);
+          setPopupClass("popupenvoie-erreur");
+          setPopupVisible(true);
         }
       );
   };
@@ -108,48 +103,56 @@ const Adoption = () => {
       m: "16px",
       width: "500px",
       fontSize: "18px",
-      input: {
-        color: "black",
-      },
-      label: {
-        color: "black",
-      },
-      "& label.Mui-focused": {
-        color: "#778d45",
-      },
+      input: { color: "black" },
+      label: { color: "black" },
+      "& label.Mui-focused": { color: "#778d45" },
       "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-          borderColor: "black",
-        },
-        "&:hover fieldset": {
-          borderColor: "#778d45",
-        },
-        "&.Mui-focused fieldset": {
-          borderColor: "#778d45",
-        },
+        "& fieldset": { borderColor: "black" },
+        "&:hover fieldset": { borderColor: "#778d45" },
+        "&.Mui-focused fieldset": { borderColor: "#778d45" },
       },
     },
     [theme.breakpoints.down("md")]: {
-      "& .MuiTextField-root": {
-        width: "450px",
-      },
+      "& .MuiTextField-root": { width: "450px" },
     },
     [theme.breakpoints.down("sm")]: {
-      "& .MuiTextField-root": {
-        width: "260px",
-      },
+      "& .MuiTextField-root": { width: "260px" },
     },
     [theme.breakpoints.down("xs")]: {
-      "& .MuiTextField-root": {
-        width: "300px",
-      },
+      "& .MuiTextField-root": { width: "300px" },
     },
   });
 
   return (
     <div className="page_adoption">
-      {showPopup && <div className={`popup-status ${popupClass}`}>{statusMessage}</div>}
+      {popupVisible && (
+        <div className={`popupenvoie ${popupClass}`}>
+          <div className="popupenvoie__content">
+            <img
+              src="/img/fleur_pop.png"
+              alt="Image florale"
+              className="popupenvoie__image"
+            />
+            <h2 className="popupenvoie__title">MERCI</h2>
+            <p className="popupenvoie__description">
+              {popupClass === "popupenvoie-success"
+                ? "Nous avons bien reçu votre demande d’adoption."
+                : "Erreur lors de l'envoi du message. Veuillez réessayer."}
+            </p>
+            <div className="popupenvoie__buttons">
+              <button
+                onClick={() => navigate("/")}
+                className="popupenvoie__button retour"
+              >
+                Retour au menu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <h2 className="h2_1">Formulaire d'adoption</h2>
+
       <div className="formulaire1">
         <form onSubmit={handlesubmit1}>
           <fieldset>
@@ -162,6 +165,7 @@ const Adoption = () => {
               <TextField name="animalSexe" label="Sexe" value={formdata1.animalSexe} onChange={handleChange1} />
               <TextField name="animalDescription" label="Description" value={formdata1.animalDescription} onChange={handleChange1} multiline rows={4} />
             </Box>
+
             <div className="love-group">
               <div className="love">
                 <span className="label">Chats</span>
@@ -183,6 +187,7 @@ const Adoption = () => {
                   <div className="round"></div>
                 </label>
               </div>
+
               <div className="love">
                 <span className="label">Chiens</span>
                 <input
