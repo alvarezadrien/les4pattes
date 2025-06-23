@@ -155,12 +155,12 @@ const Adoption = () => {
           <fieldset>
             <legend>Informations sur l'animal</legend>
             <Box sx={inputStyles} noValidate autoComplete="off">
-              <TextField name="animalNom" label="Nom de l'animal" value={formdata1.animalNom} InputProps={{ readOnly: true }} />
-              <TextField name="animalEspece" label="Espèce" value={formdata1.animalEspece} InputProps={{ readOnly: true }} />
-              <TextField name="animalRace" label="Race" value={formdata1.animalRace} InputProps={{ readOnly: true }} />
-              <TextField name="animalAge" label="Âge" value={formdata1.animalAge} InputProps={{ readOnly: true }} />
-              <TextField name="animalSexe" label="Sexe" value={formdata1.animalSexe} InputProps={{ readOnly: true }} />
-              <TextField name="animalDescription" label="Description" value={formdata1.animalDescription} InputProps={{ readOnly: true }} multiline rows={4} />
+              <TextField name="animalNom" label="Nom de l'animal" value={formdata1.animalNom} onChange={handleChange1} />
+              <TextField name="animalEspece" label="Espèce" value={formdata1.animalEspece} onChange={handleChange1} />
+              <TextField name="animalRace" label="Race" value={formdata1.animalRace} onChange={handleChange1} />
+              <TextField name="animalAge" label="Âge" value={formdata1.animalAge} onChange={handleChange1} />
+              <TextField name="animalSexe" label="Sexe" value={formdata1.animalSexe} onChange={handleChange1} />
+              <TextField name="animalDescription" label="Description" value={formdata1.animalDescription} onChange={handleChange1} multiline rows={4} />
             </Box>
             <div className="love-group">
               <div className="love">
@@ -208,20 +208,41 @@ const Adoption = () => {
           <fieldset>
             <legend>Vos informations</legend>
             <Box sx={inputStyles} noValidate autoComplete="off">
-              {/* Tous les TextField du formulaire utilisateur ici */}
-              <TextField name="name" label="Nom" required value={formdata1.name} onChange={handleChange1} onFocus={() => handleFocus1("name")} onBlur={() => handleBlur1("name")} />
-              <TextField name="prenom" label="Prénom" required value={formdata1.prenom} onChange={handleChange1} onFocus={() => handleFocus1("prenom")} onBlur={() => handleBlur1("prenom")} />
-              <TextField name="email" label="Email" required value={formdata1.email} onChange={handleChange1} onFocus={() => handleFocus1("email")} onBlur={() => handleBlur1("email")} />
-              <TextField name="telephone" label="Téléphone" required value={formdata1.telephone} onChange={handleChange1} onFocus={() => handleFocus1("telephone")} onBlur={() => handleBlur1("telephone")} />
-              <TextField name="anniv_adopt" type="date" label="Date de naissance" required value={formdata1.anniv_adopt} onChange={handleChange1} onFocus={() => handleFocus1("anniv_adopt")} onBlur={() => handleBlur1("anniv_adopt")} InputLabelProps={{ shrink: true }} />
-              <TextField name="adresse" label="Adresse" required value={formdata1.adresse} onChange={handleChange1} onFocus={() => handleFocus1("adresse")} onBlur={() => handleBlur1("adresse")} />
-              <TextField name="logement" select label="Type de logement" required value={formdata1.logement} onChange={handleChange1}><MenuItem value="appartement">Appartement</MenuItem><MenuItem value="maison">Maison</MenuItem></TextField>
-              <TextField name="acces" select label="Accès extérieur" required value={formdata1.acces} onChange={handleChange1}><MenuItem value="jardin">Jardin</MenuItem><MenuItem value="terrasse">Terrasse</MenuItem><MenuItem value="aucun">Aucun</MenuItem></TextField>
-              <TextField name="enfants" select label="Avez-vous des enfants ?" required value={formdata1.enfants} onChange={handleChange1}><MenuItem value="oui">Oui</MenuItem><MenuItem value="non">Non</MenuItem></TextField>
-              <TextField name="animaux" select label="Possédez-vous déjà des animaux ?" required value={formdata1.animaux} onChange={handleChange1}><MenuItem value="oui">Oui</MenuItem><MenuItem value="non">Non</MenuItem></TextField>
+              <TextField name="name" label="Nom" required value={formdata1.name} onChange={handleChange1} />
+              <TextField name="prenom" label="Prénom" required value={formdata1.prenom} onChange={handleChange1} />
+              <TextField name="email" label="Email" required value={formdata1.email} onChange={handleChange1} />
+              <TextField name="telephone" label="Téléphone" required value={formdata1.telephone} onChange={handleChange1} />
+              <TextField name="anniv_adopt" type="date" label="Date de naissance" required value={formdata1.anniv_adopt} onChange={handleChange1} InputLabelProps={{ shrink: true }} />
+              <TextField name="adresse" label="Adresse" required value={formdata1.adresse} onChange={handleChange1} />
+              <TextField name="logement" select label="Type de logement" required value={formdata1.logement} onChange={handleChange1}>
+                <MenuItem value="appartement">Appartement</MenuItem>
+                <MenuItem value="maison">Maison</MenuItem>
+              </TextField>
+              <TextField name="acces" select label="Accès extérieur" required value={formdata1.acces} onChange={handleChange1}>
+                <MenuItem value="jardin">Jardin</MenuItem>
+                <MenuItem value="terrasse">Terrasse</MenuItem>
+                <MenuItem value="aucun">Aucun</MenuItem>
+              </TextField>
+              <TextField name="enfants" select label="Avez-vous des enfants ?" required value={formdata1.enfants} onChange={handleChange1}>
+                <MenuItem value="oui">Oui</MenuItem>
+                <MenuItem value="non">Non</MenuItem>
+              </TextField>
+              <TextField name="animaux" select label="Possédez-vous déjà des animaux ?" required value={formdata1.animaux} onChange={handleChange1}>
+                <MenuItem value="oui">Oui</MenuItem>
+                <MenuItem value="non">Non</MenuItem>
+              </TextField>
               <TextField name="animal2" label="Si oui, quels types d'animaux ?" value={formdata1.animal2} onChange={handleChange1} />
-              <TextField name="experienceAnimaux" select label="Avez-vous de l'expérience avec les animaux ?" required value={formdata1.experienceAnimaux} onChange={handleChange1}><MenuItem value="oui_beaucoup">Oui, beaucoup</MenuItem><MenuItem value="oui_un_peu">Oui, un peu</MenuItem><MenuItem value="non">Non</MenuItem></TextField>
-              <TextField name="heuresConsacrees" select label="Combien d'heures par jour pourriez-vous consacrer à l'animal ?" required value={formdata1.heuresConsacrees} onChange={handleChange1}><MenuItem value="moins_2h">Moins de 2 heures</MenuItem><MenuItem value="2_4h">2 à 4 heures</MenuItem><MenuItem value="4_6h">4 à 6 heures</MenuItem><MenuItem value="plus_6h">Plus de 6 heures</MenuItem></TextField>
+              <TextField name="experienceAnimaux" select label="Avez-vous de l'expérience avec les animaux ?" required value={formdata1.experienceAnimaux} onChange={handleChange1}>
+                <MenuItem value="oui_beaucoup">Oui, beaucoup</MenuItem>
+                <MenuItem value="oui_un_peu">Oui, un peu</MenuItem>
+                <MenuItem value="non">Non</MenuItem>
+              </TextField>
+              <TextField name="heuresConsacrees" select label="Combien d'heures par jour pourriez-vous consacrer à l'animal ?" required value={formdata1.heuresConsacrees} onChange={handleChange1}>
+                <MenuItem value="moins_2h">Moins de 2 heures</MenuItem>
+                <MenuItem value="2_4h">2 à 4 heures</MenuItem>
+                <MenuItem value="4_6h">4 à 6 heures</MenuItem>
+                <MenuItem value="plus_6h">Plus de 6 heures</MenuItem>
+              </TextField>
               <TextField name="message" label="Pourquoi souhaitez-vous adopter cet animal ? (Message)" required multiline rows={4} value={formdata1.message} onChange={handleChange1} />
             </Box>
           </fieldset>
