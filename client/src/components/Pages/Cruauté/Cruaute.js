@@ -62,7 +62,7 @@ const Cruaute = () => {
         <div className="div_cruaute2">
           <p>
             Si vous êtes témoin d’une situation de cruauté ou de négligence,
-            contactez notre numéro d’urgence au **0492 76 42 08** en cas
+            contactez notre numéro d’urgence au **0492 95 32 33** en cas
             de situation grave, ou la police au **101**. Pour les animaux
             autres que des chiens et chats, contactez-nous afin que nous puissions
             leur venir en aide dans les meilleures conditions.
