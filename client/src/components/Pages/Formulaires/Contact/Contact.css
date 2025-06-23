@@ -1,7 +1,7 @@
 .container_page_contact {
   position: relative;
   width: 50%;
-  height: 50rem;
+  height: 56rem;
   padding-bottom: 7.5rem;
   margin-bottom: 5rem;
   margin: 0 auto;
@@ -108,7 +108,7 @@
 }
 
 textarea {
-  height: 9rem;
+  height: 9rem !important;
 }
 
 .button_envoyer {
