@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Animal = require('../models/Animals');
+const upload = require('../middlewares/upload'); // middleware multer
 
-// ✅ DOIT ÊTRE AVANT /:id
+// ✅ Compte des non-adoptés
 router.get('/count/non-adoptes', async (req, res) => {
     try {
         const count = await Animal.countDocuments({
@@ -14,7 +15,7 @@ router.get('/count/non-adoptes', async (req, res) => {
     }
 });
 
-// GET tous les animaux avec filtres possibles
+// ✅ GET tous les animaux avec filtres
 router.get('/', async (req, res) => {
     try {
         const { espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge } = req.query;
@@ -61,18 +62,32 @@ router.get('/', async (req, res) => {
     }
 });
 
-// POST un nouvel animal
-router.post('/', async (req, res) => {
-    const newAnimal = new Animal(req.body);
+// ✅ POST nouvel animal avec images dans /uploads/Chats
+router.post('/', upload.array('images', 3), async (req, res) => {
     try {
+        const imagePaths = req.files.map(file => `/uploads/Chats/${file.filename}`);
+
+        const comportement = req.body['comportement[]'] ? [].concat(req.body['comportement[]']) : [];
+        const ententeAvec = req.body['ententeAvec[]'] ? [].concat(req.body['ententeAvec[]']) : [];
+        const isRescue = req.body.isRescue === 'true' || req.body.isRescue === true;
+
+        const newAnimal = new Animal({
+            ...req.body,
+            images: imagePaths,
+            comportement,
+            ententeAvec,
+            isRescue,
+        });
+
         const savedAnimal = await newAnimal.save();
         res.status(201).json(savedAnimal);
     } catch (err) {
+        console.error("Erreur lors de la création de l'animal :", err);
         res.status(400).json({ message: err.message });
     }
 });
 
-// GET un animal par ID
+// ✅ GET par ID
 router.get('/:id', async (req, res) => {
     try {
         const animal = await Animal.findById(req.params.id);
@@ -83,7 +98,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// PUT mise à jour d’un animal
+// ✅ PUT mise à jour
 router.put('/:id', async (req, res) => {
     try {
         const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -94,7 +109,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE un animal
+// ✅ DELETE un animal
 router.delete('/:id', async (req, res) => {
     try {
         const result = await Animal.findByIdAndDelete(req.params.id);

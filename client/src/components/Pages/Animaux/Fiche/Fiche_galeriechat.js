@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Filtres from "../../../Widgets/Filtres/Filtre";
-import Loading from "../../../Widgets/Loading/Loading"; // ← vérifie le chemin
+import Loading from "../../../Widgets/Loading/Loading";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -50,10 +50,6 @@ const Fichegalerie = () => {
     fetchCats();
   }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]);
 
-  // ===> 🔁 Pendant chargement, ne montre rien d'autre
-  if (loading) return <Loading />;
-  if (error) return <p>Erreur : {error}</p>;
-
   const totalPages = Math.ceil(cats.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentCats = cats.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -61,6 +57,13 @@ const Fichegalerie = () => {
   const goToPage = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
     setCurrentPage(pageNumber);
+  };
+
+  const getImageUrl = (cat) => {
+    if (cat.images && cat.images[0]) {
+      return `${process.env.REACT_APP_API_URL}${cat.images[0]}`;
+    }
+    return "/img/default.jpg";
   };
 
   return (
@@ -85,14 +88,9 @@ const Fichegalerie = () => {
             currentCats.map((cat, index) => (
               <div className="item" key={`cat-${startIndex + index}`}>
                 <img
-                  src={
-                    cat.image
-                      ? `${process.env.REACT_APP_API_URL}${cat.image}`
-                      : "/img/default.jpg"
-                  }
+                  src={getImageUrl(cat)}
                   alt={`Photo de ${cat.nom}`}
                 />
-                {/* Nouveau : Le tag de sauvetage apparaît ici si dog.isRescue est true */}
                 {cat.isRescue && (
                   <div className="rescue-tag">Sauvetage</div>
                 )}
