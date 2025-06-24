@@ -12,8 +12,8 @@ const Carte_carrousel = () => {
         fetch(`${process.env.REACT_APP_API_URL}/api/animaux`)
             .then((response) => response.json())
             .then((data) => {
-                const animauxNonAdoptes = data.filter(animal => animal.adopte === false);
-                setAnimaux(animauxNonAdoptes);
+                const animauxNonAdoptes = data.filter((animal) => animal.adopte === false);
+                setAnimaux(animauxNonAdoptes); // No more random 'isRescue' here
             })
             .catch((error) => {
                 console.error("Erreur lors de la récupération des animaux :", error);
@@ -48,7 +48,9 @@ const Carte_carrousel = () => {
 
     return (
         <div className="carrousel-container">
-            <button onClick={handlePrev} className="carrousel-button prev">❮</button>
+            <button onClick={handlePrev} className="carrousel-button prev">
+                ❮
+            </button>
 
             <div className="carrousel-wrapper">
                 <div
@@ -68,6 +70,10 @@ const Carte_carrousel = () => {
                                 }
                                 alt={`Photo de ${animal.nom}`}
                             />
+                            {/* This tag only appears if animal.isRescue is true from your database */}
+                            {animal.isRescue && (
+                                <div className="rescue-tag">Sauvetage</div>
+                            )}
                             <div className="card-info">
                                 <h3 className="h3card_info">{animal.nom}</h3>
                                 <p>Âge : {animal.age}</p>
@@ -85,7 +91,9 @@ const Carte_carrousel = () => {
                 </div>
             </div>
 
-            <button onClick={handleNext} className="carrousel-button next">❯</button>
+            <button onClick={handleNext} className="carrousel-button next">
+                ❯
+            </button>
         </div>
     );
 };

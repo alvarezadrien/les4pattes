@@ -25,7 +25,9 @@ const animalSchema = new mongoose.Schema({
         type: [String], // Permet de stocker plusieurs ententes (ex: ['enfants', 'chiens'])
         enum: ['enfants', 'chiens', 'chats', 'familles'], // 'familles' si c'est une catégorie d'entente
         default: []
-    }
+    },
+    // Nouveau champ pour indiquer si c'est un sauvetage
+    isRescue: { type: Boolean, default: false }
 }, {
     timestamps: true
 });
