@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Filtres from "../../../Widgets/Filtres/Filtre"; // Vérifiez le chemin
+import Filtres from "../../../Widgets/Filtres/Filtre"; // Vérifie le chemin si besoin
 import '../Chiens/Galeriechien.css';
 
 const ITEMS_PER_PAGE = 12;
@@ -24,8 +24,8 @@ const Fiche_galeriechien = () => {
         setError(null);
 
         const params = new URLSearchParams();
-        params.append("espece", "Chien"); // Filtrer par espèce "Chien"
-        params.append("adopte", "false"); // Afficher uniquement les chiens non adoptés
+        params.append("espece", "Chien");
+        params.append("adopte", "false");
 
         if (sexeFilter) params.append("sexe", sexeFilter);
         if (tailleFilter) params.append("taille", tailleFilter);
@@ -35,29 +35,20 @@ const Fiche_galeriechien = () => {
 
         fetch(`${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`)
             .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`Erreur HTTP: ${res.status}`);
-                }
+                if (!res.ok) throw new Error(`Erreur HTTP: ${res.status}`);
                 return res.json();
             })
             .then((data) => {
                 setDogs(data);
-                setCurrentPage(1); // Retourne à la première page après un filtre
+                setCurrentPage(1);
             })
-            .catch((err) => {
-                setError(err.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+            .catch((err) => setError(err.message))
+            .finally(() => setLoading(false));
     };
 
     useEffect(() => {
         fetchDogs();
     }, [sexeFilter, tailleFilter, dureeRefugeFilter, comportementFilter, ententeFilter]);
-
-    if (loading) return <p>Chargement des chiens...</p>;
-    if (error) return <p>Erreur : {error}</p>;
 
     const totalPages = Math.ceil(dogs.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -67,6 +58,16 @@ const Fiche_galeriechien = () => {
         if (pageNumber < 1 || pageNumber > totalPages) return;
         setCurrentPage(pageNumber);
     };
+
+    const getImageUrl = (dog) => {
+        if (dog.images && dog.images[0]) {
+            return `${process.env.REACT_APP_API_URL}${dog.images[0]}`;
+        }
+        return "/img/default.jpg";
+    };
+
+    if (loading) return <p>Chargement des chiens...</p>;
+    if (error) return <p>Erreur : {error}</p>;
 
     return (
         <div className="page-container">
@@ -84,19 +85,14 @@ const Fiche_galeriechien = () => {
             />
 
             <section className="container_appercu">
-                <div className="animal_group_chat"> {/* La classe "animal_group_chat" est utilisée pour le grid commun */}
+                <div className="animal_group_chat">
                     {currentDogs.length > 0 ? (
                         currentDogs.map((dog, index) => (
                             <div className="item" key={`dog-${startIndex + index}`}>
                                 <img
-                                    src={
-                                        dog.image
-                                            ? `${process.env.REACT_APP_API_URL}${dog.image}`
-                                            : "/img/default.jpg"
-                                    }
+                                    src={getImageUrl(dog)}
                                     alt={`Photo de ${dog.nom}`}
                                 />
-                                {/* Nouveau : Le tag de sauvetage apparaît ici si dog.isRescue est true */}
                                 {dog.isRescue && (
                                     <div className="rescue-tag">Sauvetage</div>
                                 )}

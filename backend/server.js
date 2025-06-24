@@ -23,7 +23,7 @@ app.use(cors());
 app.use(express.json());
 
 // Dossier statique pour les images uploadées
-app.use('/uploads/Chats', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes API
 app.use('/api/animaux', animalRoutes);
