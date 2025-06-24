@@ -1,8 +1,10 @@
+/* Styles pour la section d'aperçu des animaux */
 .container_appercu {
   padding-top: 0.5rem;
   padding-bottom: 2rem;
 }
 
+/* Styles pour chaque carte d'animal (item) */
 .item {
   margin-top: 1rem;
   border: 1px solid var(--primary-color);
@@ -14,6 +16,7 @@
   background-color: var(--secondary-color);
   justify-self: center;
   box-shadow: 14px 15px 15px rgba(5, 3, 1, 0.4);
+  position: relative; /* Indispensable pour positionner le tag 'Sauvetage' à l'intérieur */
 }
 
 .item img {
@@ -67,6 +70,8 @@
 .animal_group_chat {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-items: center; /* Centrer les items dans la grille */
+  gap: 20px; /* Ajout d'un écart entre les éléments de la grille */
 }
 
 .button_plus {
@@ -78,7 +83,117 @@
   height: 2.3rem;
   color: var(--tertiary-color);
   font-size: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+/* Styles pour l'en-tête de la galerie */
+.container_img_galerie {
+  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 35rem;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-top: 5rem;
+}
+
+.divimg_principal {
+  margin-top: -1.5rem;
+}
+
+.h1_proteges {
+  display: block;
+  margin: 0 auto;
+  color: var(--tertiary-color);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-top: 5rem;
+  padding-top: 1rem;
+  position: relative;
+}
+
+.img_galerie1 img {
+  border-radius: 80%;
+  width: 470px;
+  height: 370px;
+  margin-top: 3rem;
+}
+
+.img_galerie1 {
+  display: flex;
+  justify-content: center;
+}
+
+.img_galerie2 img {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  margin-top: -22rem;
+  margin-right: 19.5rem;
+  float: right;
+  position: relative;
+}
+
+.img_galerie3 img {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  margin-left: 20rem;
+}
+
+.img_galerie3 {
+  margin-top: -21rem;
+}
+
+.img_galerie4 img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  background-position: center;
+  border-radius: 100%;
+  margin-left: 8rem;
+  margin-top: -8rem;
+}
+
+.img_galerie4 {
+  width: 100%;
+  height: 100%;
+}
+
+.animal_group_chien {
+  /* Cette classe peut être utilisée spécifiquement pour la galerie des chiens */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 20px;
+}
+
+.container_galerie {
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Nouveau style pour le tag Sauvetage dans les fiches de galerie --- */
+.rescue-tag {
+  position: absolute; /* Positionne le tag par rapport à l'élément parent avec position: relative */
+  top: 10px; /* Distance du haut de l'image */
+  right: 10px; /* Distance de la droite de l'image */
+  background-color: #e74c3c; /* Couleur rouge pour le sauvetage */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  z-index: 2; /* S'assure que le tag est au-dessus de l'image */
+  text-transform: uppercase;
+}
+
+/* --- Media Queries --- */
 
 @media (max-width: 480px) {
   .container_appercu {
@@ -143,5 +258,65 @@
     display: block;
     margin-right: auto;
     margin-left: auto;
+  }
+  .container_img_galerie {
+    height: 18rem;
+    margin-top: 2rem;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .h1_proteges {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+  }
+
+  .img_galerie1 img,
+  .img_galerie2 img,
+  .img_galerie3 img,
+  .img_galerie4 img {
+    width: 140px;
+    height: 140px;
+    margin: 0.5rem auto;
+    display: block;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+  }
+
+  .img_galerie1,
+  .img_galerie3,
+  .img_galerie4 {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img_galerie2 img {
+    margin: 0.5rem auto;
+    position: static;
+  }
+
+  .animal_group_chien {
+    /* Cette classe s'applique aux chiens mais aussi aux chats ici sur mobile pour la grille */
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .container_galerie {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Ajustement du tag sur mobile */
+  .rescue-tag {
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
   }
 }
