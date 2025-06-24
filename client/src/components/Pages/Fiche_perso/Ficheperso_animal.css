@@ -422,6 +422,7 @@
   .info-section h2 {
     font-size: 2.3rem;
     margin-bottom: 15px;
+    width: 100%;
     text-align: left;
   }
 
@@ -429,11 +430,6 @@
   .div_p_infos p {
     font-size: 1.15rem;
     margin: 7px 0;
-  }
-
-  .div_p_infos {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
   }
 
   .arrival_date {
