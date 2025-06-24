@@ -14,7 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => {
-        cb(null, `avatar-${req.user.id}-${Date.now()}${path.extname(file.originalname)}`);
+        cb(null, `avatar-${req.user?.id || Date.now()}${path.extname(file.originalname)}`);
     }
 });
 
@@ -24,13 +24,14 @@ const upload = multer({
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png|gif/;
         const isValid = filetypes.test(file.mimetype) && filetypes.test(path.extname(file.originalname).toLowerCase());
-        cb(isValid ? null : 'Erreur : Seules les images (JPEG, JPG, PNG, GIF) sont autorisées !', isValid);
+        cb(isValid ? null : new Error('Seules les images JPEG, JPG, PNG, GIF sont autorisées'));
     }
 });
 
 // 🧾 Inscription
 router.post('/signup', async (req, res) => {
-    const { nom, prenom, dateNaissance, adresse, telephone, email, password, role } = req.body;
+    const { nom, prenom, dateNaissance, adresse, telephone, email, password, avatar, role } = req.body;
+
     try {
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'Email déjà utilisé' });
@@ -43,7 +44,8 @@ router.post('/signup', async (req, res) => {
             telephone,
             email,
             password,
-            role: ['admin', 'user'].includes(role) ? role : 'user' // ✅ Correction ici
+            avatar: avatar || '/img/avatar.png',
+            role: ['admin', 'user'].includes(role) ? role : 'user'
         });
 
         await newUser.save();
@@ -73,7 +75,7 @@ router.post('/login', async (req, res) => {
                 nom: user.nom,
                 prenom: user.prenom,
                 email: user.email,
-                avatarUrl: user.avatarUrl,
+                avatar: user.avatar,
                 role: user.role
             }
         });
@@ -103,8 +105,8 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
 
-        if (user.avatarUrl && user.avatarUrl !== '/uploads/default_avatar.png') {
-            const oldAvatarPath = path.join(__dirname, '..', user.avatarUrl);
+        if (user.avatar && user.avatar !== '/img/avatar.png') {
+            const oldAvatarPath = path.join(__dirname, '..', user.avatar);
             if (fs.existsSync(oldAvatarPath)) {
                 fs.unlink(oldAvatarPath, (err) => {
                     if (err) console.error("Erreur suppression avatar:", err);
@@ -112,19 +114,19 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
             }
         }
 
-        user.avatarUrl = `/uploads/${req.file.filename}`;
+        user.avatar = `/uploads/${req.file.filename}`;
         await user.save();
-        res.json({ msg: 'Avatar mis à jour avec succès', avatarUrl: user.avatarUrl });
+        res.json({ msg: 'Avatar mis à jour avec succès', avatar: user.avatar });
 
     } catch (err) {
-        if (err instanceof multer.MulterError || (err.message && err.message.includes('Erreur'))) {
+        if (err instanceof multer.MulterError || err.message.includes('Seules les images')) {
             return res.status(400).json({ msg: err.message });
         }
         res.status(500).send("Erreur serveur lors de l'upload de l'avatar");
     }
 });
 
-// 🛠️ Admin : mettre à jour le rôle d'un utilisateur
+// 🔁 Admin : mise à jour du rôle
 router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
     const userId = req.params.id;
     const { role } = req.body;
@@ -140,7 +142,7 @@ router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
         user.role = role;
         await user.save();
 
-        res.status(200).json({ message: `Rôle de l'utilisateur mis à jour en '${role}'.`, user });
+        res.status(200).json({ message: `Rôle mis à jour en '${role}'.`, user });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
