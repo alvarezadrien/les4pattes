@@ -16,15 +16,19 @@ const authMiddleware = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        const user = await User.findById(decoded.userId).select('prenom nom role');
+        const user = await User.findById(decoded.userId).select('-password'); // tu peux tout garder sauf le mdp
         if (!user) {
             return res.status(404).json({ message: 'Utilisateur non trouvé.' });
         }
 
+        // 👇 Permet à isAdmin de fonctionner avec req.user.role
         req.user = {
-            id: decoded.userId,
-            username: `${user.prenom} ${user.nom}`,
-            role: user.role
+            id: user._id,
+            role: user.role,
+            email: user.email,
+            nom: user.nom,
+            prenom: user.prenom,
+            avatar: user.avatar
         };
 
         next();
