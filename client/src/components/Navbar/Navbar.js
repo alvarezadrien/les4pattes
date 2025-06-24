@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './Navbar.css';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // Importe useAuth
+import React, { useState } from "react";
+import "./Navbar.css";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"; // Importe useAuth
 
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
@@ -34,25 +34,25 @@ function Navbar() {
         { text: "Nos compagnons adoptés", link: "/Nos compagnons adoptés" },
         { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" },
         { text: "Nos chats", link: "/Galeriechat" },
-        { text: "Nos chiens", link: "/Galeriechien" }
-      ]
+        { text: "Nos chiens", link: "/Galeriechien" },
+      ],
     },
     {
       title: "Adoption",
       propositions: [
         { text: "Formulaire d'adoption", link: "/Formulaire d'adoption" },
-        { text: "Conditions d'adoption", link: "/Conditions d'adoption" }
-      ]
+        { text: "Conditions d'adoption", link: "/Conditions d'adoption" },
+      ],
     },
     {
       title: "Membres",
       propositions: [
         { text: "Notre équipe", link: "/Notre équipe" },
         { text: "Adhésions", link: "/Adhésions" },
-        { text: "Nos partenaires", link: "/Nos partenaires" }
-      ]
+        { text: "Nos partenaires", link: "/Nos partenaires" },
+      ],
     },
-    { title: "Contact", link: "/Contact" }
+    { title: "Contact", link: "/Contact" },
   ];
 
   return (
@@ -99,10 +99,14 @@ function Navbar() {
         ))}
 
         {/* Lien Back Office visible uniquement pour les admins */}
-        {user?.role === 'admin' && (
+        {user?.role === "admin" && (
           <li className="navbar_item">
             <Link className="navbar_link" to="/Back_office">
-              Back Office
+              <img
+                src="/img/icon_back_office.svg"
+                alt="Icon back office (Admin)"
+                width={35}
+              />
             </Link>
           </li>
         )}
@@ -120,7 +124,10 @@ function Navbar() {
 
         {/* Icône Profil */}
         <li className="navbar_item icon_navbar icon_profil">
-          <Link className="navbar_link" to={isAuthenticated ? "/Mon compte" : "/Connexion"}>
+          <Link
+            className="navbar_link"
+            to={isAuthenticated ? "/Mon compte" : "/Connexion"}
+          >
             <img
               src="/img/svg_profil.svg"
               alt="C'est l'icon de connexion avec un petit profil"
