@@ -791,3 +791,52 @@ button.btn_delete {
   box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
   background-color: #ffffff;
 }
+
+/* Styles pour les checkboxes et leurs labels */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem; /* Espace après le groupe */
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #3498db; /* Couleur d'accentuation pour la checkbox */
+  cursor: pointer;
+  margin: 0; /* Réinitialise les marges par défaut */
+}
+
+.checkbox-group label {
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  margin-top: 0; /* Pour bien s'aligner avec la checkbox */
+}
+
+/* Styles pour les tags "Rescue" dans la liste des animaux */
+.tag-rescue {
+  background-color: #e74c3c; /* Rouge vif pour "Rescue" */
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.85em;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block; /* Pour un bon padding */
+  margin-left: 5px; /* Espace entre le label et le tag */
+}
+
+.tag-not-rescue {
+  background-color: #7f8c8d; /* Gris pour "Non Rescue" */
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.85em;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 5px;
+}

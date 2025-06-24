@@ -21,6 +21,7 @@ function Back_office() {
     images: [], // Pour le stockage des chemins en BDD (tableau)
     comportement: [], // Nouveau champ: tableau vide par défaut
     ententeAvec: [], // Nouveau champ: tableau vide par défaut
+    isRescue: false, // NOUVEAU CHAMP : pour indiquer si c'est un sauvetage (isRescue)
   });
 
   const [openAccordion, setOpenAccordion] = useState({
@@ -28,9 +29,9 @@ function Back_office() {
     users: false,
     comments: false,
     newAnimalComportement: false, // New accordion for new animal behavior
-    newAnimalEntente: false,     // New accordion for new animal compatibility
+    newAnimalEntente: false, // New accordion for new animal compatibility
     editAnimalComportement: false, // New accordion for edit animal behavior
-    editAnimalEntente: false,     // New accordion for edit animal compatibility
+    editAnimalEntente: false, // New accordion for edit animal compatibility
   });
 
   // États pour la pop-up de confirmation
@@ -113,6 +114,7 @@ function Back_office() {
           images: [],
           comportement: [], // Réinitialiser le comportement
           ententeAvec: [], // Réinitialiser l'entente
+          isRescue: false, // Réinitialiser le champ isRescue
         });
       })
       .catch((err) => console.error("Erreur ajout animal:", err));
@@ -272,6 +274,7 @@ function Back_office() {
       images: animal.images || [], // Copie du tableau d'images existant
       comportement: animal.comportement || [], // Initialiser le comportement
       ententeAvec: animal.ententeAvec || [], // Initialiser l'entente
+      isRescue: animal.isRescue || false, // NOUVEAU : Initialiser le champ isRescue
     });
   };
 
@@ -460,6 +463,19 @@ function Back_office() {
             <option value="moyen">Moyen</option>
             <option value="grand">Grand</option>
           </select>
+
+          {/* NOUVEAU CHAMP : Sauvetage (isRescue) */}
+          <div className="checkbox-group">
+            <input
+              type="checkbox"
+              id="isRescueNew"
+              checked={newAnimal.isRescue}
+              onChange={(e) =>
+                setNewAnimal({ ...newAnimal, isRescue: e.target.checked })
+              }
+            />
+            <label htmlFor="isRescueNew">Sauvetage ?</label>
+          </div>
 
           {/* NOUVEAUX CHAMPS ACCORDION : COMPORTEMENT ET ENTENTE AVEC */}
           <h3
@@ -702,6 +718,19 @@ function Back_office() {
                       <option value="grand">Grand</option>
                     </select>
 
+                    {/* NOUVEAU CHAMP EDIT : Sauvetage (isRescue) */}
+                    <div className="checkbox-group">
+                      <input
+                        type="checkbox"
+                        id="isRescueEdit"
+                        checked={editAnimalData.isRescue}
+                        onChange={(e) =>
+                          setEditAnimalData({ ...editAnimalData, isRescue: e.target.checked })
+                        }
+                      />
+                      <label htmlFor="isRescueEdit">Est un sauvetage ?</label>
+                    </div>
+
                     {/* CHAMPS DE MODIFICATION ACCORDION : COMPORTEMENT ET ENTENTE AVEC */}
                     <h3
                       onClick={() => toggleAccordion("editAnimalComportement")}
@@ -913,6 +942,15 @@ function Back_office() {
                       {a.ententeAvec && a.ententeAvec.length > 0
                         ? a.ententeAvec.join(", ")
                         : "Non spécifié"}
+                    </p>
+                    {/* NOUVEAU : Affichage du statut de sauvetage (isRescue) */}
+                    <p>
+                      <span className="info-label">Sauvetage :</span>{" "}
+                      {a.isRescue ? (
+                        <span className="tag-rescue">Oui</span>
+                      ) : (
+                        <span className="tag-not-rescue">Non</span>
+                      )}
                     </p>
                     {/* Fin affichage nouveaux champs */}
                     <p>
