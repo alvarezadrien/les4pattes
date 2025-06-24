@@ -193,10 +193,10 @@
   }
 
   .image-section {
-    margin-right: 0;
-    top: 0;
-    margin-bottom: 0; /* Reset margin */
-    order: 1; /* Place image section first in column flow */
+    margin: auto;
+    top: 6rem;
+    margin-bottom: 4rem;
+    order: 1;
   }
 
   .main-image {
