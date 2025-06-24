@@ -35,6 +35,9 @@ router.post('/signup', async (req, res) => {
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'Email déjà utilisé' });
 
+        // Par défaut : 'user', mais si explicitement 'admin', on le garde
+        const assignedRole = role === 'admin' ? 'admin' : 'user';
+
         const newUser = new User({
             nom,
             prenom,
@@ -43,11 +46,11 @@ router.post('/signup', async (req, res) => {
             telephone,
             email,
             password,
-            role: role === 'admin' ? 'admin' : 'user' // ✅ Force le rôle sauf si explicitement "admin"
+            role: assignedRole
         });
 
         await newUser.save();
-        res.status(201).json({ message: 'Inscription réussie' });
+        res.status(201).json({ message: 'Inscription réussie', role: newUser.role });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
@@ -129,7 +132,6 @@ router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
     const userId = req.params.id;
     const { role } = req.body;
 
-    // Vérification de validité
     if (!['user', 'admin'].includes(role)) {
         return res.status(400).json({ message: "Rôle invalide. Utilise 'user' ou 'admin'." });
     }
@@ -146,7 +148,6 @@ router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
-
 
 // 👥 Admin : voir tous les utilisateurs
 router.get('/users', auth, isAdmin, async (req, res) => {
