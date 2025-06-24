@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Filtres from "../../../Widgets/Filtres/Filtre"; // Vérifiez le chemin
+import '../Chiens/Galeriechien.css';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -23,8 +24,8 @@ const Fiche_galeriechien = () => {
         setError(null);
 
         const params = new URLSearchParams();
-        params.append("espece", "Chien");
-        params.append("adopte", "false");
+        params.append("espece", "Chien"); // Filtrer par espèce "Chien"
+        params.append("adopte", "false"); // Afficher uniquement les chiens non adoptés
 
         if (sexeFilter) params.append("sexe", sexeFilter);
         if (tailleFilter) params.append("taille", tailleFilter);
@@ -41,7 +42,7 @@ const Fiche_galeriechien = () => {
             })
             .then((data) => {
                 setDogs(data);
-                setCurrentPage(1);
+                setCurrentPage(1); // Retourne à la première page après un filtre
             })
             .catch((err) => {
                 setError(err.message);
@@ -83,7 +84,7 @@ const Fiche_galeriechien = () => {
             />
 
             <section className="container_appercu">
-                <div className="animal_group_chat">
+                <div className="animal_group_chat"> {/* La classe "animal_group_chat" est utilisée pour le grid commun */}
                     {currentDogs.length > 0 ? (
                         currentDogs.map((dog, index) => (
                             <div className="item" key={`dog-${startIndex + index}`}>
@@ -95,6 +96,10 @@ const Fiche_galeriechien = () => {
                                     }
                                     alt={`Photo de ${dog.nom}`}
                                 />
+                                {/* Nouveau : Le tag de sauvetage apparaît ici si dog.isRescue est true */}
+                                {dog.isRescue && (
+                                    <div className="rescue-tag">Sauvetage</div>
+                                )}
                                 <div className="item_info">
                                     <h3>{dog.nom}</h3>
                                     <p className="age">Âge: {dog.age}</p>

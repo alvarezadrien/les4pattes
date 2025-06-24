@@ -92,6 +92,10 @@ const Fichegalerie = () => {
                   }
                   alt={`Photo de ${cat.nom}`}
                 />
+                {/* Nouveau : Le tag de sauvetage apparaît ici si dog.isRescue est true */}
+                {cat.isRescue && (
+                  <div className="rescue-tag">Sauvetage</div>
+                )}
                 <div className="item_info">
                   <h3>{cat.nom}</h3>
                   <p className="age">Âge: {cat.age}</p>
