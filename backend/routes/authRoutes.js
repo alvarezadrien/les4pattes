@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/authMiddleware');
-const isAdmin = require('../middleware/isAdmin'); // ✅ Ajout du middleware admin
+const isAdmin = require('../middleware/isAdmin');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -30,12 +30,22 @@ const upload = multer({
 
 // 🧾 Inscription
 router.post('/signup', async (req, res) => {
-    const { nom, prenom, dateNaissance, adresse, telephone, email, password } = req.body;
+    const { nom, prenom, dateNaissance, adresse, telephone, email, password, role } = req.body;
     try {
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'Email déjà utilisé' });
 
-        const newUser = new User({ nom, prenom, dateNaissance, adresse, telephone, email, password });
+        const newUser = new User({
+            nom,
+            prenom,
+            dateNaissance,
+            adresse,
+            telephone,
+            email,
+            password,
+            role: role === 'admin' ? 'admin' : 'user' // ✅ Force le rôle sauf si explicitement "admin"
+        });
+
         await newUser.save();
         res.status(201).json({ message: 'Inscription réussie' });
     } catch (error) {
@@ -64,7 +74,7 @@ router.post('/login', async (req, res) => {
                 prenom: user.prenom,
                 email: user.email,
                 avatarUrl: user.avatarUrl,
-                role: user.role // Ajouté pour gérer le rôle côté frontend
+                role: user.role
             }
         });
     } catch (error) {
@@ -79,7 +89,6 @@ router.get('/profile', auth, async (req, res) => {
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
         res.json(user);
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Erreur Serveur');
     }
 });
@@ -94,7 +103,6 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
 
-        // Supprimer l'ancien avatar si ce n'est pas le défaut
         if (user.avatarUrl && user.avatarUrl !== '/uploads/default_avatar.png') {
             const oldAvatarPath = path.join(__dirname, '..', user.avatarUrl);
             if (fs.existsSync(oldAvatarPath)) {
@@ -109,7 +117,6 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         res.json({ msg: 'Avatar mis à jour avec succès', avatarUrl: user.avatarUrl });
 
     } catch (err) {
-        console.error(err);
         if (err instanceof multer.MulterError || (err.message && err.message.includes('Erreur'))) {
             return res.status(400).json({ msg: err.message });
         }
