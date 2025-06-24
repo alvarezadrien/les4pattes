@@ -182,6 +182,21 @@
   margin-bottom: 40px; /* More space before carousel */
 }
 
+/* --- Nouveau style pour le tag Sauvetage sur Ficheperso_animal --- */
+.rescue-tag-fiche {
+  background-color: #e74c3c; /* Couleur du sauvetage */
+  color: white;
+  padding: 6px 12px; /* Un peu plus de padding */
+  border-radius: 5px;
+  font-size: 0.9rem; /* Un peu plus grand */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: -15px; /* Remonte légèrement pour être proche du nom */
+  margin-bottom: 15px; /* Espace après le tag */
+  align-self: flex-start; /* Aligne à gauche dans la colonne */
+}
+
 @media (max-width: 480px) {
   .animal-details-container {
     flex-direction: column;
@@ -278,6 +293,13 @@
   .carrousel_vue {
     margin-top: 2rem;
     margin-bottom: 1.5rem;
+  }
+
+  /* Style du tag sur mobile */
+  .rescue-tag-fiche {
+    margin-top: -10px; /* Ajustement mobile */
+    margin-bottom: 10px;
+    align-self: center; /* Centre le tag sur mobile */
   }
 }
 
@@ -379,6 +401,13 @@
     margin-top: 3rem;
     margin-bottom: 2rem;
   }
+
+  /* Style du tag sur tablette */
+  .rescue-tag-fiche {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    align-self: center;
+  }
 }
 
 /* Small Laptops/Desktops (min-width: 769px and max-width: 1024px) */
@@ -464,6 +493,11 @@
     margin-top: 4rem;
     margin-bottom: 2.5rem;
   }
+  /* Style du tag sur petits laptops/desktops */
+  .rescue-tag-fiche {
+    margin-top: -1px; /* Ajustement */
+    margin-bottom: 15px;
+  }
 }
 
 /* Medium Laptops/Desktops (min-width: 1025px and max-width: 1280px) */
@@ -548,6 +582,11 @@
     margin-top: 4.5rem;
     margin-bottom: 3rem;
   }
+  /* Style du tag sur medium laptops/desktops */
+  .rescue-tag-fiche {
+    margin-top: -15px; /* Ajustement */
+    margin-bottom: 15px;
+  }
 }
 
 /* Large Laptops/Desktops (min-width: 1281px and max-width: 1440px) */
@@ -631,5 +670,10 @@
   .carrousel_vue {
     margin-top: 5rem;
     margin-bottom: 3.5rem;
+  }
+  /* Style du tag sur grands laptops/desktops */
+  .rescue-tag-fiche {
+    margin-top: -15px; /* Ajustement */
+    margin-bottom: 15px;
   }
 }

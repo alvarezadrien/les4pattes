@@ -90,6 +90,11 @@ const Ficheperso_animal = () => {
 
         <div className="info-section">
           <h2>{animal.nom}</h2>
+          {/* Nouveau : Le tag de sauvetage apparaît ici si animal.isRescue est true */}
+          {animal.isRescue && (
+            <div className="rescue-tag-fiche">Sauvetage</div>
+          )}
+
           <div className="div_p_infos">
             <p><strong>Espèce :</strong> {animal.espece || "N/A"}</p>
             <p><strong>Race :</strong> {animal.race || "N/A"}</p>
