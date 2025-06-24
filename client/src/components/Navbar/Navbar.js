@@ -8,7 +8,6 @@ function Navbar() {
   const [showPopup, setShowPopup] = useState(null);
   const { user } = useAuth(); // Récupère l'objet user du contexte d'authentification
 
-  // Détermine si l'utilisateur est connecté en vérifiant si l'objet user existe
   const isAuthenticated = !!user;
 
   const handleShowLinks = () => {
@@ -99,6 +98,16 @@ function Navbar() {
           </li>
         ))}
 
+        {/* Lien Back Office visible uniquement pour les admins */}
+        {user?.role === 'admin' && (
+          <li className="navbar_item">
+            <Link className="navbar_link" to="/Back_office">
+              Back Office
+            </Link>
+          </li>
+        )}
+
+        {/* Icône Don */}
         <li className="navbar_item icon_navbar">
           <Link className="navbar_link" to="/Adhésions">
             <img
@@ -109,8 +118,8 @@ function Navbar() {
           </Link>
         </li>
 
+        {/* Icône Profil */}
         <li className="navbar_item icon_navbar icon_profil">
-          {/* LOGIQUE CLÉ : Utilise 'isAuthenticated' basé sur la présence de 'user' */}
           <Link className="navbar_link" to={isAuthenticated ? "/Mon compte" : "/Connexion"}>
             <img
               src="/img/svg_profil.svg"

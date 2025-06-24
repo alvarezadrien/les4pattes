@@ -11,18 +11,18 @@ const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 const mongoURI =
     process.env.NODE_ENV === 'production'
         ? process.env.MONGO_URI
         : process.env.LOCAL_MONGO_URI;
 
-// Middleware
+// Middlewares globaux
 app.use(cors());
 app.use(express.json());
 
-// Rendre le dossier uploads public (accès aux images)
+// Dossier statique pour les images uploadées
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes API
@@ -32,7 +32,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 
-// Connexion MongoDB
+// Connexion à MongoDB
 mongoose.connect(mongoURI)
     .then(() => {
         console.log('✅ Connexion à MongoDB réussie');

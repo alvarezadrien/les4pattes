@@ -1,45 +1,34 @@
-// routes/authRoutes.js
-
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Assure-toi que le chemin est correct
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const auth = require('../middleware/authMiddleware'); // Ton middleware d'authentification
-const multer = require('multer'); // Pour la gestion des fichiers
-const path = require('path'); // Pour les chemins de fichiers
-const fs = require('fs'); // Pour la suppression de fichiers (ancien avatar)
+const auth = require('../middleware/authMiddleware');
+const isAdmin = require('../middleware/isAdmin'); // ✅ Ajout du middleware admin
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
-// --- Configuration de Multer pour le téléversement d'avatar ---
+// --- Multer config pour avatar ---
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // Le dossier 'uploads/' doit exister à la racine de ton backend (là où server.js est)
-        cb(null, 'uploads/');
-    },
+    destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => {
-        // Nom de fichier unique pour éviter les conflits
         cb(null, `avatar-${req.user.id}-${Date.now()}${path.extname(file.originalname)}`);
     }
 });
 
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 2 * 1024 * 1024 }, // Limite la taille de fichier à 2MB
+    storage,
+    limits: { fileSize: 2 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
-        // Valide les types de fichiers (images uniquement)
         const filetypes = /jpeg|jpg|png|gif/;
-        const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-
-        if (mimetype && extname) {
-            return cb(null, true);
-        } else {
-            cb('Erreur : Seules les images (JPEG, JPG, PNG, GIF) sont autorisées !');
-        }
+        const isValid = filetypes.test(file.mimetype) && filetypes.test(path.extname(file.originalname).toLowerCase());
+        cb(isValid ? null : 'Erreur : Seules les images (JPEG, JPG, PNG, GIF) sont autorisées !', isValid);
     }
 });
 
+// 🧾 Inscription
 router.post('/signup', async (req, res) => {
     const { nom, prenom, dateNaissance, adresse, telephone, email, password } = req.body;
     try {
@@ -54,7 +43,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// Route connexion (ajustée pour renvoyer avatarUrl)
+// 🔐 Connexion
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -74,7 +63,8 @@ router.post('/login', async (req, res) => {
                 nom: user.nom,
                 prenom: user.prenom,
                 email: user.email,
-                avatarUrl: user.avatarUrl // Renvoie maintenant le champ avatarUrl mis à jour
+                avatarUrl: user.avatarUrl,
+                role: user.role // Ajouté pour gérer le rôle côté frontend
             }
         });
     } catch (error) {
@@ -82,70 +72,53 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-router.get('/profile', auth, async (req, res) => { // Protégé par le middleware 'auth'
+// 👤 Récupération du profil connecté
+router.get('/profile', auth, async (req, res) => {
     try {
-        // req.user.id est défini par ton middleware d'authentification
         const user = await User.findById(req.user.id).select('-password');
-        if (!user) {
-            return res.status(404).json({ msg: 'Utilisateur non trouvé' });
-        }
-        res.json(user); // Cette réponse doit contenir toutes les données du user (nom, prenom, email, avatarUrl, etc.)
+        if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
+        res.json(user);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Erreur Serveur');
     }
 });
 
-// NOUVELLE ROUTE : Téléverser et mettre à jour l'avatar de l'utilisateur
-// @route   POST /api/auth/profile/avatar
-// @desc    Téléverser et mettre à jour l'avatar de l'utilisateur
-// @access  Private (nécessite un token JWT)
-router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => { // Protégé par 'auth'
+// 🖼️ Mise à jour avatar
+router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
         if (!req.file) {
-            // Multer renvoie une erreur si le fichier n'est pas bon ou absent
-            return res.status(400).json({ msg: 'Aucun fichier sélectionné ou le fichier n\'est pas une image valide (max 2MB).' });
+            return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
         }
 
-        const user = await User.findById(req.user.id); // L'ID de l'utilisateur connecté
-        if (!user) {
-            return res.status(404).json({ msg: 'Utilisateur non trouvé' });
-        }
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
 
-        // Si l'utilisateur avait déjà un avatar et que ce n'était pas l'avatar par défaut
-        // tenter de supprimer l'ancien fichier pour ne pas accumuler les images inutiles.
+        // Supprimer l'ancien avatar si ce n'est pas le défaut
         if (user.avatarUrl && user.avatarUrl !== '/uploads/default_avatar.png') {
-            const oldAvatarAbsolutePath = path.join(__dirname, '..', user.avatarUrl); // Chemin absolu de l'ancien avatar
-
-            // Vérifier si le fichier existe avant de tenter de le supprimer
-            if (fs.existsSync(oldAvatarAbsolutePath)) {
-                fs.unlink(oldAvatarAbsolutePath, (err) => {
-                    if (err) console.error("Erreur lors de la suppression de l'ancien avatar:", err);
+            const oldAvatarPath = path.join(__dirname, '..', user.avatarUrl);
+            if (fs.existsSync(oldAvatarPath)) {
+                fs.unlink(oldAvatarPath, (err) => {
+                    if (err) console.error("Erreur suppression avatar:", err);
                 });
             }
         }
 
-        // L'URL de l'avatar sera le chemin relatif au dossier uploads/
-        // Ex: /uploads/avatar-65d4f2g3h4j5k6l7m8n9o0p1-1678901234567.png
         user.avatarUrl = `/uploads/${req.file.filename}`;
         await user.save();
-
         res.json({ msg: 'Avatar mis à jour avec succès', avatarUrl: user.avatarUrl });
 
     } catch (err) {
         console.error(err);
-        // Gérer spécifiquement les erreurs de Multer (ex: taille de fichier, type de fichier)
-        if (err instanceof multer.MulterError) {
-            return res.status(400).json({ msg: err.message });
-        } else if (err.message && err.message.includes('Erreur : Seules les images')) { // Pour l'erreur personnalisée dans fileFilter
+        if (err instanceof multer.MulterError || (err.message && err.message.includes('Erreur'))) {
             return res.status(400).json({ msg: err.message });
         }
-        res.status(500).send('Erreur Serveur lors du téléversement de l\'avatar');
+        res.status(500).send("Erreur serveur lors de l'upload de l'avatar");
     }
 });
 
-router.get('/users', async (req, res) => { // Cette route devrait être protégée pour les administrateurs
+// 👥 Admin : voir tous les utilisateurs
+router.get('/users', auth, isAdmin, async (req, res) => {
     try {
         const users = await User.find().select('-password');
         res.json(users);
@@ -154,7 +127,8 @@ router.get('/users', async (req, res) => { // Cette route devrait être protég�
     }
 });
 
-router.delete('/users/:id', async (req, res) => { // Cette route devrait être protégée pour les administrateurs
+// ❌ Admin : supprimer un utilisateur
+router.delete('/users/:id', auth, isAdmin, async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);
         if (!deletedUser) {

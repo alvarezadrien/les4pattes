@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoutes';
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -28,9 +29,7 @@ import Mon_compte from './components/Pages/Profil/Compte/Mon_compte';
 import Accueil_animaux from './components/Pages/Accueil/Accueil_animaux';
 import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation';
 import Adhesions from './components/Pages/Adhésions/Adhesions';
-import './components/Pages/Gestion_adoption/Gestion_adoption'
 
-// Import composant (widgets)
 import BackButton from './components/Widgets/Back_button/Back_button';
 import Animalitem from './components/Widgets/Animal_item/Animalitem';
 import PopupMenu from './components/Widgets/Popup_menu/PopupMenu';
@@ -64,7 +63,6 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        // Appel à une API critique pour vérifier la disponibilité du backend
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
         if (!res.ok) throw new Error("Erreur API");
         await res.json();
@@ -106,17 +104,21 @@ const App = () => {
             <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
             <Route path="/Sensibilisation" element={<Sensibilisation />} />
             <Route path="/Adhésions" element={<Adhesions />} />
-            <Route path='/Back_office' element={<Back_office />} />
-            <Route path='/gestion_adoption' element={<GestionAdoption />} />
-            <Route path='*' element={<Page404 />} />
-            <Route
-              path="/Mon compte"
-              element={
-                <PrivateRoute>
-                  <Mon_compte />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/gestion_adoption" element={<GestionAdoption />} />
+
+            <Route path="/Mon compte" element={
+              <PrivateRoute>
+                <Mon_compte />
+              </PrivateRoute>
+            } />
+
+            <Route path="/Back_office" element={
+              <AdminRoute>
+                <Back_office />
+              </AdminRoute>
+            } />
+
+            <Route path="*" element={<Page404 />} />
           </Routes>
           <Scroll_button />
         </Layout>

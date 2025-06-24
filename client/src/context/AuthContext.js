@@ -40,7 +40,10 @@ export const AuthProvider = ({ children }) => {
             return { success: true };
         } catch (error) {
             console.error('Échec de la connexion:', error.response?.data?.message || error.message);
-            return { success: false, message: error.response?.data?.message || 'Erreur de connexion' };
+            return {
+                success: false,
+                message: error.response?.data?.message || 'Erreur de connexion'
+            };
         }
     };
 
@@ -50,7 +53,10 @@ export const AuthProvider = ({ children }) => {
             return { success: true, message: response.data.message };
         } catch (error) {
             console.error('Échec de l\'inscription:', error.response?.data?.message || error.message);
-            return { success: false, message: error.response?.data?.message || 'Erreur d\'inscription' };
+            return {
+                success: false,
+                message: error.response?.data?.message || 'Erreur d\'inscription'
+            };
         }
     };
 
@@ -75,6 +81,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         logout,
         updateAvatar,
+        isAdmin: user?.role === 'admin' // ✅ détecte si l'utilisateur est admin
     };
 
     return (
@@ -91,3 +98,5 @@ export const useAuth = () => {
     }
     return context;
 };
+
+export default AuthContext;
