@@ -35,9 +35,6 @@ router.post('/signup', async (req, res) => {
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'Email déjà utilisé' });
 
-        // Par défaut : 'user', mais si explicitement 'admin', on le garde
-        const assignedRole = role === 'admin' ? 'admin' : 'user';
-
         const newUser = new User({
             nom,
             prenom,
@@ -46,11 +43,11 @@ router.post('/signup', async (req, res) => {
             telephone,
             email,
             password,
-            role: assignedRole
+            role: ['admin', 'user'].includes(role) ? role : 'user' // ✅ Correction ici
         });
 
         await newUser.save();
-        res.status(201).json({ message: 'Inscription réussie', role: newUser.role });
+        res.status(201).json({ message: 'Inscription réussie' });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }

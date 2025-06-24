@@ -12,11 +12,12 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String, default: "/img/avatar.png" },
     role: {
         type: String,
-        enum: ['user', 'admin'], // 'user' pour les utilisateurs standards, 'admin' pour les administrateurs
-        default: 'user' //user par défaut
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 });
 
+// Hash du mot de passe avant enregistrement
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
@@ -29,6 +30,7 @@ userSchema.pre('save', async function (next) {
     }
 });
 
+// Méthode pour comparer le mot de passe
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
