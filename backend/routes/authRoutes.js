@@ -124,6 +124,30 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
     }
 });
 
+// 🛠️ Admin : mettre à jour le rôle d'un utilisateur
+router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
+    const userId = req.params.id;
+    const { role } = req.body;
+
+    // Vérification de validité
+    if (!['user', 'admin'].includes(role)) {
+        return res.status(400).json({ message: "Rôle invalide. Utilise 'user' ou 'admin'." });
+    }
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "Utilisateur non trouvé." });
+
+        user.role = role;
+        await user.save();
+
+        res.status(200).json({ message: `Rôle de l'utilisateur mis à jour en '${role}'.`, user });
+    } catch (error) {
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+});
+
+
 // 👥 Admin : voir tous les utilisateurs
 router.get('/users', auth, isAdmin, async (req, res) => {
     try {
