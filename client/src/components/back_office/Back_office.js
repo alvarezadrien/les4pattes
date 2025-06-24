@@ -350,28 +350,17 @@ function Back_office() {
 
   const ententeAvecOptions = ["enfants", "chiens", "chats", "familles"];
 
-  // Handle multi-select change for NEW animal form
-  const handleMultiSelectChange = (e, field) => {
-    const { options } = e.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
+  // Handle checkbox change for NEW animal form
+  const handleCheckboxChange = (e, field, currentValues, setter) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setter({ ...currentValues, [field]: [...currentValues[field], value] });
+    } else {
+      setter({
+        ...currentValues,
+        [field]: currentValues[field].filter((item) => item !== value),
+      });
     }
-    setNewAnimal({ ...newAnimal, [field]: value });
-  };
-
-  // Handle multi-select change for EDIT animal form
-  const handleEditMultiSelectChange = (e, field) => {
-    const { options } = e.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setEditAnimalData({ ...editAnimalData, [field]: value });
   };
 
   return (
@@ -485,20 +474,22 @@ function Back_office() {
             Comportement(s) {openAccordion.newAnimalComportement ? "▲" : "▼"}
           </h3>
           {openAccordion.newAnimalComportement && (
-            <div className="accordion-content">
-              <label>Sélectionner un ou plusieurs comportements</label>
-              <select
-                multiple // Permet la sélection multiple
-                value={newAnimal.comportement}
-                onChange={(e) => handleMultiSelectChange(e, "comportement")}
-                size={Math.min(comportementOptions.length, 5)} // Adjust size for better visibility
-              >
-                {comportementOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+            <div className="accordion-content checkbox-options">
+              <p>Sélectionner un ou plusieurs comportements</p>
+              {comportementOptions.map((option) => (
+                <div key={`new-comportement-${option}`}>
+                  <input
+                    type="checkbox"
+                    id={`new-comportement-${option}`}
+                    value={option}
+                    checked={newAnimal.comportement.includes(option)}
+                    onChange={(e) =>
+                      handleCheckboxChange(e, "comportement", newAnimal, setNewAnimal)
+                    }
+                  />
+                  <label htmlFor={`new-comportement-${option}`}>{option}</label>
+                </div>
+              ))}
             </div>
           )}
 
@@ -509,20 +500,22 @@ function Back_office() {
             Entente(s) avec {openAccordion.newAnimalEntente ? "▲" : "▼"}
           </h3>
           {openAccordion.newAnimalEntente && (
-            <div className="accordion-content">
-              <label>Sélectionner un ou plusieurs types d'entente</label>
-              <select
-                multiple // Permet la sélection multiple
-                value={newAnimal.ententeAvec}
-                onChange={(e) => handleMultiSelectChange(e, "ententeAvec")}
-                size={Math.min(ententeAvecOptions.length, 5)} // Adjust size for better visibility
-              >
-                {ententeAvecOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+            <div className="accordion-content checkbox-options">
+              <p>Sélectionner un ou plusieurs types d'entente</p>
+              {ententeAvecOptions.map((option) => (
+                <div key={`new-entente-${option}`}>
+                  <input
+                    type="checkbox"
+                    id={`new-entente-${option}`}
+                    value={option}
+                    checked={newAnimal.ententeAvec.includes(option)}
+                    onChange={(e) =>
+                      handleCheckboxChange(e, "ententeAvec", newAnimal, setNewAnimal)
+                    }
+                  />
+                  <label htmlFor={`new-entente-${option}`}>{option}</label>
+                </div>
+              ))}
             </div>
           )}
           {/* FIN NOUVEAUX CHAMPS ACCORDION */}
@@ -739,20 +732,22 @@ function Back_office() {
                       Comportement(s) {openAccordion.editAnimalComportement ? "▲" : "▼"}
                     </h3>
                     {openAccordion.editAnimalComportement && (
-                      <div className="accordion-content">
-                        <label>Sélectionner un ou plusieurs comportements</label>
-                        <select
-                          multiple
-                          value={editAnimalData.comportement}
-                          onChange={(e) => handleEditMultiSelectChange(e, "comportement")}
-                          size={Math.min(comportementOptions.length, 5)}
-                        >
-                          {comportementOptions.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                      <div className="accordion-content checkbox-options">
+                        <p>Sélectionner un ou plusieurs comportements</p>
+                        {comportementOptions.map((option) => (
+                          <div key={`edit-comportement-${option}`}>
+                            <input
+                              type="checkbox"
+                              id={`edit-comportement-${option}`}
+                              value={option}
+                              checked={editAnimalData.comportement.includes(option)}
+                              onChange={(e) =>
+                                handleCheckboxChange(e, "comportement", editAnimalData, setEditAnimalData)
+                              }
+                            />
+                            <label htmlFor={`edit-comportement-${option}`}>{option}</label>
+                          </div>
+                        ))}
                       </div>
                     )}
 
@@ -763,20 +758,22 @@ function Back_office() {
                       Entente(s) avec {openAccordion.editAnimalEntente ? "▲" : "▼"}
                     </h3>
                     {openAccordion.editAnimalEntente && (
-                      <div className="accordion-content">
-                        <label>Sélectionner un ou plusieurs types d'entente</label>
-                        <select
-                          multiple
-                          value={editAnimalData.ententeAvec}
-                          onChange={(e) => handleEditMultiSelectChange(e, "ententeAvec")}
-                          size={Math.min(ententeAvecOptions.length, 5)}
-                        >
-                          {ententeAvecOptions.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                      <div className="accordion-content checkbox-options">
+                        <p>Sélectionner un ou plusieurs types d'entente</p>
+                        {ententeAvecOptions.map((option) => (
+                          <div key={`edit-entente-${option}`}>
+                            <input
+                              type="checkbox"
+                              id={`edit-entente-${option}`}
+                              value={option}
+                              checked={editAnimalData.ententeAvec.includes(option)}
+                              onChange={(e) =>
+                                handleCheckboxChange(e, "ententeAvec", editAnimalData, setEditAnimalData)
+                              }
+                            />
+                            <label htmlFor={`edit-entente-${option}`}>{option}</label>
+                          </div>
+                        ))}
                       </div>
                     )}
                     {/* FIN CHAMPS DE MODIFICATION ACCORDION */}
