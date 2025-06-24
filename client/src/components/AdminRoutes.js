@@ -1,22 +1,16 @@
+// components/AdminRoutes.jsx
 import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Assure-toi que ce chemin est correct
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-const AdminRoute = () => {
+const AdminRoute = ({ children }) => {
     const { user, loading, isAdmin } = useAuth();
 
     if (loading) {
-        return <div>Chargement de l'authentification...</div>; // Ou un spinner visuel
+        return <div>Chargement de l'authentification...</div>;
     }
 
-    // ✅ Si l'utilisateur est admin, on affiche les routes enfants
-    // ❌ Sinon, on le redirige (ici vers /Connexion)
-    return user && isAdmin ? (
-        <Outlet />
-    ) : (
-        <Navigate to="/Connexion" replace />
-        // Tu peux aussi faire : <Navigate to="/unauthorized" replace />
-    );
+    return user && isAdmin ? children : <Navigate to="/Connexion" replace />;
 };
 
 export default AdminRoute;
