@@ -226,109 +226,164 @@
   bottom: -30px; /* Position ajustée */
 }
 
-/* Media Queries pour la Responsivité */
-@media (max-width: 1024px) {
-  .avis-list {
-    padding: 0 30px;
+/* Responsive : Jusqu'à 480px */
+@media screen and (max-width: 480px) {
+  .avis-section {
+    max-width: 100%;
   }
-  .avis-title {
-    font-size: 2.2em;
+
+  .container_img {
+    height: auto;
+    padding: 2rem 0;
   }
-  .avis-item-wrapper {
-    padding: 0 10px; /* Espacement réduit pour les tablettes */
+
+  .h1_titre {
+    font-size: 2rem;
+    text-align: center;
   }
-  .avis-item {
-    min-height: 180px; /* Hauteur ajustée */
-    padding: 20px; /* Padding ajusté */
+
+  #content {
+    font-size: 1.1rem;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
   }
-  .avis-text {
-    font-size: 0.95em;
+
+  .circle_img0 {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
-  .slick-prev:before,
-  .slick-next:before {
-    font-size: 25px;
+
+  .circle_img1 img,
+  .circle_img2 img,
+  .circle_img3 img {
+    width: 120px;
+    height: 120px;
   }
-  .slick-prev {
-    left: -20px;
-  }
-  .slick-next {
-    right: -20px;
+
+  .button_propos {
+    font-size: 1.1rem;
+    display: block;
+    margin: 2rem auto;
   }
 }
 
-@media (max-width: 768px) {
-  .avis-list {
-    padding: 0 15px;
+/* Responsive : 481px à 768px */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .container_img {
+    height: auto;
+    padding: 2rem 0;
   }
-  .avis-title {
-    font-size: 1.8em;
-    gap: 10px;
+
+  .h1_titre {
+    font-size: 2.2rem;
+    text-align: center;
   }
-  .avis-title img {
-    width: 35px;
-    height: 35px;
+
+  #content {
+    font-size: 1.2rem;
+    width: 20rem;
+    margin: 0 auto;
   }
-  .avis-item-wrapper {
-    padding: 0 8px; /* Espacement ajusté */
+
+  .circle_img0 {
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
   }
-  .avis-item {
-    padding: 18px;
-    min-height: unset;
+
+  .circle_img1 img,
+  .circle_img2 img,
+  .circle_img3 img {
+    width: 150px;
+    height: 150px;
   }
-  .slick-prev:before,
-  .slick-next:before {
-    font-size: 25px;
-  }
-  .slick-prev {
-    left: -20px;
-  }
-  .slick-next {
-    right: -20px;
-  }
-  .slick-prev,
-  .slick-next {
-    top: 45%;
-    transform: translateY(-50%);
+
+  .button_propos {
+    font-size: 1.2rem;
+    display: block;
+    margin: 1rem auto;
   }
 }
 
-@media (max-width: 480px) {
-  .avis-list {
-    padding: 0 10px;
+/* Responsive : 769px à 1024px */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .container_img {
+    height: 40rem;
   }
-  .avis-title {
-    font-size: 1.5em;
-    gap: 8px;
+
+  .h1_titre {
+    font-size: 2.5rem;
   }
-  .avis-title img {
-    width: 28px;
-    height: 28px;
+
+  #content {
+    font-size: 1.3rem;
+    width: 22rem;
   }
-  .avis-item-wrapper {
-    padding: 0 5px; /* Espacement ajusté */
+
+  .circle_img1 img,
+  .circle_img2 img,
+  .circle_img3 img {
+    width: 180px;
+    height: 180px;
   }
-  .avis-item {
-    padding: 15px;
+
+  .button_propos {
+    font-size: 1.3rem;
   }
-  .avis-text {
-    font-size: 0.9em;
+}
+
+/* Responsive : 1025px à 1280px */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .container_img {
+    height: 45rem;
   }
-  .slick-prev:before,
-  .slick-next:before {
-    font-size: 20px;
+
+  .h1_titre {
+    font-size: 2.8rem;
   }
-  .slick-prev {
-    left: -10px;
+
+  #content {
+    font-size: 1.4rem;
+    width: 23rem;
   }
-  .slick-next {
-    right: -10px;
+
+  .circle_img1 img,
+  .circle_img2 img,
+  .circle_img3 img {
+    width: 200px;
+    height: 200px;
   }
-  .slick-prev,
-  .slick-next {
-    top: 48%;
-    transform: translateY(-50%);
+
+  .button_propos {
+    font-size: 1.4rem;
   }
-  .slick-dots {
-    bottom: -25px;
+}
+
+/* Responsive : 1281px à 1440px */
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .container_img {
+    height: 50rem;
+  }
+
+  .h1_titre {
+    font-size: 3rem;
+  }
+
+  #content {
+    font-size: 1.5rem;
+    width: 25rem;
+  }
+
+  .circle_img1 img,
+  .circle_img2 img,
+  .circle_img3 img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .button_propos {
+    font-size: 1.5rem;
   }
 }

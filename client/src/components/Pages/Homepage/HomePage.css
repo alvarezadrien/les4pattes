@@ -383,13 +383,15 @@
 
   .box_soins1,
   .box_soins2 {
-    width: 85vw;
+    width: 75vw;
     margin: 1rem auto;
   }
 
   .container_aides_soins {
     height: 100%;
+    width: 95vw;
     margin-top: -5rem;
+    justify-self: center;
   }
 
   .container_aides_soins h2 {
@@ -414,6 +416,8 @@
   .icon_ensemble {
     display: block;
   }
+
+  
 }
 
 /* HOME_PROPOS (Section présentation) */
@@ -553,6 +557,8 @@
   .home_propos {
     padding: 2rem 1rem;
     margin: 1.5rem auto;
+    width: 85vw;
+    margin-bottom: 6rem;
   }
 
   .home_propos h2 {
