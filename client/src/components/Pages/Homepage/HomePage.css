@@ -355,12 +355,13 @@
   }
 
   .span_maison {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-left: -9.5rem;
   }
 
   .nombre {
     margin-left: 0;
+    font-size: 3rem;
     padding-left: 1rem;
   }
 
