@@ -33,7 +33,7 @@ function Navbar() {
         { text: "Témoin de cruauté animale ?", link: "/Témoin de cruauté" },
         { text: "Nos compagnons adoptés", link: "/Nos compagnons adoptés" },
         { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" },
-        { text: "Nos chats", link: "/Galeriechat" },
+        { text: "Nos chats", link: "/Adoptionchats" },
         { text: "Nos chiens", link: "/Adoptionchiens" },
       ],
     },

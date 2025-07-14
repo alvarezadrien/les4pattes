@@ -21,7 +21,7 @@ const HomePage = () => {
   }
 
   function redirectChat() {
-    navigate("/Galeriechat");
+    navigate("/Adoptionchats");
   }
 
   const images = [
