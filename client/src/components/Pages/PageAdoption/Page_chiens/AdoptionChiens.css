@@ -68,7 +68,6 @@
   height: 20%;
   background-color: rgba(0, 0, 0, 0.6);
   transition: all 0.5s;
-  z-index: 1;
 }
 
 .adoption-card::before {
@@ -99,7 +98,7 @@
   font-weight: bold;
   font-size: 1.5rem;
   text-shadow: 0 0 5px black;
-  z-index: 2;
+  z-index: 1;
 }
 
 .adoption-card-content {
@@ -116,7 +115,7 @@
   background: #f4eaca;
   transition: opacity 0.5s ease;
   text-align: center;
-  z-index: 2;
+  z-index: 1;
 }
 
 .adoption-card-content h2 {

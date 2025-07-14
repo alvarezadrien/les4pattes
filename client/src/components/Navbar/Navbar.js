@@ -34,7 +34,7 @@ function Navbar() {
         { text: "Nos compagnons adoptés", link: "/Nos compagnons adoptés" },
         { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" },
         { text: "Nos chats", link: "/Galeriechat" },
-        { text: "Nos chiens", link: "/Galeriechien" },
+        { text: "Nos chiens", link: "/Adoptionchiens" },
       ],
     },
     {

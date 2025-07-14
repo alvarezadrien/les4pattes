@@ -17,7 +17,7 @@ const HomePage = () => {
   }
 
   function redirectChien() {
-    navigate("/Galeriechien");
+    navigate("/Adoptionchiens");
   }
 
   function redirectChat() {
