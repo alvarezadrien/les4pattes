@@ -1,71 +1,54 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
-
-const HeroSection = () => {
-  return (
-    <header className="adoption-hero-container">
-      <div className="adoption-hero-content">
-        <h1 className="adoption-hero-title-textured">
-          Trouvez Votre Nouveau Compagnon Canin !
-        </h1>
-        <p>Découvrez nos adorables chiens prêts à trouver un foyer aimant.</p>
-        <a href="#adoption-dog-cards-section" className="adoption-btn-discover">
-          Découvrir les chiens
-        </a>
-      </div>
-    </header>
-  );
-};
-
-const DogCard = ({ dog, onAdoptClick }) => {
-  const imageUrl =
-    dog.image && dog.image !== "" ? dog.image : "https://picsum.photos/280/380";
-
-  return (
-    <div
-      className="adoption-card"
-      style={{ backgroundImage: `url(${imageUrl})` }}
-    >
-      <div className="adoption-card-name">{dog.nom}</div>
-      <div className="adoption-card-content">
-        <h2>Nom : {dog.nom}</h2>
-        <p>Âge : {dog.age} ans</p>
-        <p>Sexe : {dog.sexe}</p>
-        <p>Race : {dog.race || "Non spécifiée"}</p>
-        <button onClick={() => onAdoptClick(dog.nom)}>Voir</button>
-      </div>
-    </div>
-  );
-};
+import Filtres from "../../../Widgets/Filtres/Filtre";
 
 function AdoptionChiens() {
+  const navigate = useNavigate();
   const [dogs, setDogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const dogsPerPage = 6;
+  const dogsPerPage = 12;
+
+  const [sexeFilter, setSexeFilter] = useState("");
+  const [tailleFilter, setTailleFilter] = useState("");
+  const [dureeRefugeFilter, setDureeRefugeFilter] = useState("");
+  const [comportementFilter, setComportementFilter] = useState("");
+  const [ententeFilter, setEntenteFilter] = useState("");
 
   useEffect(() => {
     const fetchDogs = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
-        const data = await res.json();
-        const filteredDogs = data.filter(
-          (animal) => animal.espece === "Chien" && !animal.adopte
+        const params = new URLSearchParams();
+        params.append("espece", "Chien");
+        params.append("adopte", "false");
+
+        if (sexeFilter) params.append("sexe", sexeFilter);
+        if (tailleFilter) params.append("taille", tailleFilter);
+        if (comportementFilter)
+          params.append("comportement", comportementFilter);
+        if (ententeFilter) params.append("ententeAvec", ententeFilter);
+        if (dureeRefugeFilter) params.append("dureeRefuge", dureeRefugeFilter);
+
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`
         );
-        setDogs(filteredDogs);
+        const data = await res.json();
+        setDogs(data);
+        setCurrentPage(1);
       } catch (error) {
-        console.error("Erreur lors du chargement :", error);
+        console.error("Erreur :", error);
       }
     };
 
     fetchDogs();
-  }, []);
-
-  const handleAdoptClick = (dogName) => {
-    alert(
-      `Merci pour votre intérêt pour ${dogName} ! Contactez-nous pour adopter.`
-    );
-  };
+  }, [
+    sexeFilter,
+    tailleFilter,
+    dureeRefugeFilter,
+    comportementFilter,
+    ententeFilter,
+  ]);
 
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
@@ -78,13 +61,64 @@ function AdoptionChiens() {
 
   return (
     <div className="adoption-chiens-page">
-      <HeroSection />
+      <header className="adoption-hero-container">
+        <div className="adoption-hero-content">
+          <h1 className="adoption-hero-title-textured">
+            Trouvez Votre Nouveau Compagnon Canin !
+          </h1>
+          <p>Découvrez nos adorables chiens prêts à trouver un foyer aimant.</p>
+          <a
+            href="#adoption-dog-cards-section"
+            className="adoption-btn-discover"
+          >
+            Découvrir les chiens
+          </a>
+        </div>
+      </header>
+
       <main className="adoption-container">
+        <Filtres
+          sexe={sexeFilter}
+          setSexe={setSexeFilter}
+          taille={tailleFilter}
+          setTaille={setTailleFilter}
+          dureeRefuge={dureeRefugeFilter}
+          setDureeRefuge={setDureeRefugeFilter}
+          comportement={comportementFilter}
+          setComportement={setComportementFilter}
+          entente={ententeFilter}
+          setEntente={setEntenteFilter}
+        />
+
         <section id="adoption-dog-cards-section" className="adoption-dog-grid">
           {currentDogs.map((dog) => (
-            <DogCard key={dog._id} dog={dog} onAdoptClick={handleAdoptClick} />
+            <div
+              key={dog._id}
+              className="adoption-card"
+              style={{
+                backgroundImage: `url(${process.env.REACT_APP_API_URL}${
+                  dog.images?.[0] || "/img/default.jpg"
+                })`,
+              }}
+            >
+              <div className="adoption-card-name">{dog.nom}</div>
+              {dog.isRescue && <div className="rescue-tag">Sauvetage</div>}
+
+              <div className="adoption-card-content">
+                <h2>{dog.nom}</h2>
+                <p>Âge : {dog.age} ans</p>
+                <p>Sexe : {dog.sexe}</p>
+                <p>Race : {dog.race || "Non spécifiée"}</p>
+                <button
+                  onClick={() => navigate(`/Ficheperso_animal/${dog._id}`)}
+                >
+                  Voir
+                </button>
+              </div>
+            </div>
           ))}
         </section>
+
         {dogs.length > dogsPerPage && (
           <Pagination
             totalItems={dogs.length}
