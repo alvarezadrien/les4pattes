@@ -50,7 +50,7 @@ function AdoptionChiens() {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
         const data = await res.json();
         const filteredDogs = data.filter(
-          (animal) => animal.espece === "chien" && !animal.adopte
+          (animal) => animal.espece === "Chien" && !animal.adopte
         );
         setDogs(filteredDogs);
       } catch (error) {
