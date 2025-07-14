@@ -41,6 +41,10 @@ import Back_office from './components/back_office/Back_office';
 import CommentCards from './components/Pages/Avis/Avis';
 import GestionAdoption from './components/Pages/Gestion_adoption/Gestion_adoption';
 import Loading from './components/Widgets/Loading/Loading';
+
+
+import AdoptionChiens from './components/Pages/PageAdoption/Page_chiens/AdoptionChiens';
+
 import Page404 from './components/Widgets/404Page/Page_404';
 
 const Layout = ({ children }) => {
@@ -105,6 +109,7 @@ const App = () => {
             <Route path="/Sensibilisation" element={<Sensibilisation />} />
             <Route path="/Adhésions" element={<Adhesions />} />
             <Route path="/gestion_adoption" element={<GestionAdoption />} />
+            <Route path="/AdoptionChiens" element={<AdoptionChiens />} />
 
             <Route path="/Mon compte" element={
               <PrivateRoute>

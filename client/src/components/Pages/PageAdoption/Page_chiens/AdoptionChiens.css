@@ -1,0 +1,246 @@
+/* --- CSS Variables (important: make sure they are defined somewhere, ideally in your index.css) --- */
+/* If these variables are not globally defined (e.g., in index.css), you can add them here: */
+/*
+:root {
+    --primary-color: #A97B51; // Soft brown for dogs (e.g., buttons)
+    --secondary-color: #F0EAD6; // Light beige (e.g., light backgrounds)
+    --accent-color: #6C5B7B; // Soft purple (e.g., important buttons)
+    --text-color: #333;
+    --light-bg: #f9f9f9;
+    --white: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+*/
+
+/* General styles specific to the adoption page */
+.adoption-chiens-page {
+  /* Styles for the entire page if needed */
+}
+
+.adoption-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* --- Hero Section (Header) --- */
+.adoption-hero-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/public/img/pexels-anete-lusina-16621442.jpg") no-repeat center
+      center/cover; /* Larger image for hero */
+  color: var(--white);
+  text-align: center;
+  padding: 100px 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.adoption-hero-content {
+  z-index: 1;
+}
+
+/* Style for the title with image in text */
+.adoption-hero-title-textured {
+  font-family: "Pacifico", cursive;
+  font-size: 3.5em;
+  margin-bottom: 15px;
+  /* Properties for the image in the text */
+  background-image: url("https://picsum.photos/200/300?random=text"); /* Image for text */
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text; /* Clip the background to the text */
+  background-clip: text;
+  color: transparent; /* Makes text transparent to show the image */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for readability */
+  -webkit-text-fill-color: transparent; /* Necessary for some browsers */
+}
+
+.adoption-hero-content p {
+  font-size: 1.3em;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.adoption-btn-discover {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: var(--white);
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.adoption-btn-discover:hover {
+  background-color: #5a4b64; /* A slightly darker shade for the Discover button */
+  transform: translateY(-3px);
+}
+
+/* --- Dog Card Grid --- */
+.adoption-dog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px 0;
+  justify-content: center;
+}
+
+/* --- Individual Dog Card (exact styles you provided, with specific classes) --- */
+.adoption-card {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  /* Background image is set dynamically via style in the React component */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Inherited animation, exactly as requested */
+.adoption-card::before,
+.adoption-card::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  background-color: rgba(0, 0, 0, 0.6); /* Pseudo-element color */
+  transition: all 0.5s;
+  z-index: 1;
+}
+
+.adoption-card::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.adoption-card::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+/* Card content, exactly as requested */
+.adoption-card-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: var(--white);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.5s, transform 0.5s;
+  text-align: center;
+  z-index: 2;
+}
+
+.adoption-card-content h2 {
+  font-size: 1.5rem;
+  margin: 0 0 10px;
+  font-family: "Pacifico", cursive;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.adoption-card-content p {
+  margin: 5px 0;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.adoption-card-content button {
+  margin-top: 15px;
+  padding: 0.8rem 1.5rem;
+  background: #6d214f; /* New color for "See" button on hover */
+  border: none;
+  color: var(--white);
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.adoption-card-content button:hover {
+  background-color: #a03472; /* New hover color for "See" button */
+  transform: translateY(-2px);
+}
+
+/* Hover effect, exactly as requested */
+.adoption-card:hover::before,
+.adoption-card:hover::after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /* More opaque background on hover for better text visibility */
+}
+
+/* Show info on hover, exactly as requested */
+.adoption-card:hover .adoption-card-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Media Queries for Responsive Design --- */
+@media (max-width: 768px) {
+  .adoption-hero-content h1 {
+    font-size: 2.5em;
+  }
+  .adoption-hero-content p {
+    font-size: 1.1em;
+  }
+  .adoption-dog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .adoption-hero-content h1 {
+    font-size: 2em;
+  }
+  .adoption-hero-content p {
+    font-size: 0.9em;
+  }
+  .adoption-btn-discover {
+    padding: 12px 25px;
+  }
+  .adoption-card {
+    width: 100%;
+    height: 300px;
+  }
+  .adoption-card-content h2 {
+    font-size: 1.3rem;
+  }
+  .adoption-card-content p {
+    font-size: 0.9rem;
+  }
+  .adoption-card-content button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
