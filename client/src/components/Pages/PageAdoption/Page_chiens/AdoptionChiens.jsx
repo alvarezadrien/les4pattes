@@ -53,10 +53,13 @@ function AdoptionChiens() {
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
+  const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -103,7 +106,6 @@ function AdoptionChiens() {
             >
               <div className="adoption-card-name">{dog.nom}</div>
               {dog.isRescue && <div className="rescue-tag">Sauvetage</div>}
-
               <div className="adoption-card-content">
                 <h2>{dog.nom}</h2>
                 <p>Âge : {dog.age} ans</p>
@@ -119,10 +121,9 @@ function AdoptionChiens() {
           ))}
         </section>
 
-        {dogs.length > dogsPerPage && (
+        {totalPages > 1 && (
           <Pagination
-            totalItems={dogs.length}
-            itemsPerPage={dogsPerPage}
+            totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={handlePageChange}
           />
