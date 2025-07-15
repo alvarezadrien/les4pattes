@@ -68,9 +68,6 @@ const Compagnons_adopter = () => {
                                 ) : (
                                     <p>Ce compagnon a trouvé une famille ♥</p>
                                 )}
-                                <button onClick={() => navigate(`/Ficheperso_animal/${animal._id}`)}>
-                                    Voir
-                                </button>
                             </div>
                         </div>
                     ))}

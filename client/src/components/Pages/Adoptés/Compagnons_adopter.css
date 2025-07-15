@@ -23,7 +23,7 @@
 
 .animal_group_compagnons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   padding: 40px 0;
   justify-items: center;
@@ -113,21 +113,6 @@
   font-size: 1rem;
 }
 
-.adoption-card-content button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #778d45;
-  border: none;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.adoption-card-content button:hover {
-  background-color: #5f7037;
-  transform: translateY(-2px);
-}
 
 .adoption-card:hover .adoption-card-content {
   opacity: 1;
