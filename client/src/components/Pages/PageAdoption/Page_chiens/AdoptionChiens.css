@@ -5,45 +5,141 @@
 }
 
 .adoption-hero-container {
-  background: #1a202c;
+  background: linear-gradient(
+    135deg,
+    #176d70 0%,
+    #457b9d 100%
+  ); /* Blueish gradient */
   color: white;
   text-align: center;
   padding: 100px 20px;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Common paw print SVG base */
+.paw-print-svg {
+  fill: rgba(255, 255, 255, 0.15); /* Light translucent white */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Dog-specific paw prints */
+.adoption-hero-container.dog-hero .paw-large-1 {
+  width: 150px;
+  height: 150px;
+  top: 20px;
+  left: -50px;
+  transform: rotate(-30deg);
+}
+
+.adoption-hero-container.dog-hero .paw-large-2 {
+  width: 120px;
+  height: 120px;
+  bottom: 0px;
+  right: -30px;
+  transform: rotate(45deg);
+}
+
+/* Cat-specific paw prints */
+.adoption-hero-container.cat-hero .paw-large-1 {
+  width: 130px;
+  height: 130px;
+  top: 10px;
+  left: -40px;
+  transform: rotate(20deg);
+}
+
+.adoption-hero-container.cat-hero .paw-large-2 {
+  width: 100px;
+  height: 100px;
+  bottom: 10px;
+  right: -20px;
+  transform: rotate(-15deg);
+}
+
+/* Speech bubble */
+.speech-bubble {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.2); /* Translucent white bubble */
+  border-radius: 50%;
+  top: 10%;
+  right: 10%;
+  transform: translate(50%, -50%);
+  z-index: 1;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+/* For dog hero, position the bubble slightly differently */
+.adoption-hero-container.dog-hero .speech-bubble {
+  top: 15%;
+  right: 8%;
+}
+
+/* For cat hero, position the bubble slightly differently */
+.adoption-hero-container.cat-hero .speech-bubble {
+  top: 20%;
+  right: 12%;
+}
+
+.adoption-hero-content {
+  position: relative;
 }
 
 .adoption-hero-title-textured {
-  font-family: "bungee", cursive;
+  font-family: "Bungee Outline", cursive;
   font-size: 4rem;
   margin-bottom: 20px;
-  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
+  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg); /* Your existing background image */
   background-size: cover;
   background-position: center;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Added for better readability */
+}
+
+.adoption-hero-container p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #e0e0e0;
 }
 
 .adoption-btn-discover {
   display: inline-block;
-  background-color: var(--primary-color);
+  background-color: var(
+    --primary-color
+  ); /* Assuming --primary-color is defined elsewhere */
   color: white;
   padding: 15px 30px;
   text-decoration: none;
   border-radius: 50px;
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .adoption-btn-discover:hover {
+  background-color: #5f7037; /* A darker shade for hover, replace with your color if needed */
   transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 .adoption-dog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Adjusted for better responsiveness */
   gap: 30px;
   padding: 40px 0;
+  justify-items: center; /* Center items within the grid */
 }
 
 .adoption-card {
@@ -66,7 +162,9 @@
   content: "";
   width: 20%;
   height: 20%;
-  background-color: var(--secondary-color);
+  background-color: var(
+    --secondary-color
+  ); /* Assuming --secondary-color is defined elsewhere */
   opacity: 0.6;
   transition: all 0.5s;
 }
@@ -102,6 +200,18 @@
   z-index: 1;
 }
 
+.rescue-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #e74c3c; /* Red color for rescue tag */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
 .adoption-card-content {
   position: absolute;
   width: 100%;
@@ -113,7 +223,7 @@
   justify-content: center;
   align-items: center;
   opacity: 0;
-  background: #f4eaca;
+  background: #f4eaca; /* Light beige background for content */
   transition: opacity 0.5s ease;
   text-align: center;
   z-index: 1;
@@ -125,10 +235,15 @@
   color: var(--primary-color);
 }
 
+.adoption-card-content p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
 .adoption-card-content button {
   margin-top: 15px;
   padding: 10px 20px;
-  background: #778d45;
+  background: #778d45; /* Greenish button color */
   border: none;
   color: white;
   border-radius: 20px;
@@ -137,7 +252,7 @@
 }
 
 .adoption-card-content button:hover {
-  background-color: #5f7037;
+  background-color: #5f7037; /* Darker green on hover */
   transform: translateY(-2px);
 }
 
@@ -153,11 +268,69 @@
   .adoption-hero-title-textured {
     font-size: 2.5rem;
   }
+
+  .adoption-dog-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .adoption-card {
+    width: 250px;
+    height: 350px;
+  }
+
+  /* Adjust paw and bubble sizes/positions for smaller screens */
+  .adoption-hero-container .paw-large-1 {
+    width: 100px;
+    height: 100px;
+    top: 10px;
+    left: -30px;
+  }
+  .adoption-hero-container .paw-large-2 {
+    width: 80px;
+    height: 80px;
+    bottom: 5px;
+    right: -10px;
+  }
+  .speech-bubble {
+    width: 70px;
+    height: 70px;
+    top: 5%;
+    right: 5%;
+  }
 }
 
 @media (max-width: 480px) {
+  .adoption-hero-title-textured {
+    font-size: 2rem;
+  }
+
+  .adoption-hero-container p {
+    font-size: 1rem;
+  }
+
+  .adoption-btn-discover {
+    padding: 12px 25px;
+  }
+
+  .adoption-dog-grid {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+  }
+
   .adoption-card {
-    width: 100%;
+    width: 90%; /* Make cards take up more width */
+    margin: 0 auto; /* Center the cards */
     height: 300px;
+  }
+
+  /* Further adjust paw and bubble sizes/positions for very small screens */
+  .adoption-hero-container .paw-large-1,
+  .adoption-hero-container .paw-large-2 {
+    display: none; /* Hide for very small screens if too cluttered */
+  }
+  .speech-bubble {
+    width: 60px;
+    height: 60px;
+    top: 3%;
+    right: 3%;
   }
 }

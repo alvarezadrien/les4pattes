@@ -64,7 +64,7 @@ function AdoptionChiens() {
 
   return (
     <div className="adoption-chiens-page">
-      <header className="adoption-hero-container">
+      <header className="adoption-hero-container dog-hero">
         <div className="adoption-hero-content">
           <h1 className="adoption-hero-title-textured">
             Trouvez Votre Nouveau Compagnon Canin !
