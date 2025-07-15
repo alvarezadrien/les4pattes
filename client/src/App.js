@@ -11,8 +11,6 @@ import Footer from './components/Footer/Footer';
 
 import HomePage from './components/Pages/Homepage/HomePage';
 import Apropos from './components/Pages/Propos/Apropos';
-import Galeriechien from './components/Pages/Animaux/Chiens/Galeriechien';
-import Galeriechat from './components/Pages/Animaux/Chats/Galeriechat';
 import Contact from './components/Pages/Formulaires/Contact/Contact';
 import Equipe from './components/Pages/Equipe/Equipe';
 import Ficheperso_animal from './components/Pages/Fiche_perso/Ficheperso_animal';
@@ -87,8 +85,6 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/HomePage" element={<HomePage />} />
             <Route path="/Apropos" element={<Apropos />} />
-            <Route path="/Galeriechien" element={<Galeriechien />} />
-            <Route path="/Galeriechat" element={<Galeriechat />} />
             <Route path="/Nos partenaires" element={<Partenaires />} />
             <Route path="/Ficheperso_animal/:id" element={<Ficheperso_animal />} />
             <Route path="/Animalitem" element={<Animalitem />} />
