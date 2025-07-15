@@ -15,96 +15,126 @@
 }
 
 .container_compagnons {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  justify-content: center;
 }
 
 .animal_group_compagnons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px 0;
+  justify-items: center;
 }
 
-.item_flip-card {
-  width: 20rem;
-  height: 20rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flip-card-inner {
+.adoption-card {
   position: relative;
+  width: 280px;
+  height: 380px;
+  background-position: center;
+  background-size: cover;
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.adoption-card::before,
+.adoption-card::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  background-color: var(--secondary-color);
+  opacity: 0.6;
+  transition: all 0.5s;
+}
+
+.adoption-card::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.adoption-card::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.adoption-card:hover::before,
+.adoption-card:hover::after {
   width: 100%;
   height: 100%;
-  transition: transform 1.3s;
-  transform-style: preserve-3d;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
-.item_flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-  transition: all 0.4;
+.adoption-card-name {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px black;
+  z-index: 1;
 }
 
-.flip-card-front,
-.flip-card-back {
+.adoption-card-content {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  border-radius: 20px;
+  color: black;
+  padding: 1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 2px 7px 8px rgba(0, 0, 0, 0.3);
-}
-
-.flip-card-front {
-  background-color: var(--secondary-color);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  background: #f4eaca;
+  transition: opacity 0.5s ease;
+  text-align: center;
+  z-index: 1;
+}
+
+.adoption-card-content h2 {
+  font-family: "Pacifico", cursive;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.adoption-card-content p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.adoption-card-content button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #778d45;
+  border: none;
+  color: white;
   border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.flip-card-front img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-top-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-  margin-top: -3rem;
+.adoption-card-content button:hover {
+  background-color: #5f7037;
+  transform: translateY(-2px);
 }
 
-.flip-card-front h3 {
-  font-size: 2rem;
-  margin-top: 1.5rem;
-  text-align: center;
+.adoption-card:hover .adoption-card-content {
+  opacity: 1;
 }
 
-.flip-card-front span {
-  font-size: 1.3rem;
-  display: block;
-  margin-top: 1rem;
-}
-
-.flip-card-back {
-  background-color: var(--secondary-color);
-  transform: rotatey(180deg);
-  padding: 2.5rem;
-  border-radius: 100%;
-  text-align: center;
-  position: relative;
-  bottom: 4.5rem;
-}
-
-.animal-description {
-  font-size: 1.4rem;
-  padding: 0.8rem;
-  width: 75%;
+.adoption-card:hover .adoption-card-name {
+  display: none;
 }
 
 @media (max-width: 480px) {
@@ -115,48 +145,45 @@
     padding-bottom: 2rem;
   }
 
-  .container_compagnons {
-    flex-direction: column;
-    margin-bottom: 1rem;
-    width: 100%;
-    align-items: center;
+  .animal_group_compagnons {
+    grid-template-columns: 1fr;
+  }
+
+  .adoption-card {
+    width: 90%;
+    margin: 0 auto;
+    height: 300px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .h1_compagnons {
+    font-size: 2.5rem;
   }
 
   .animal_group_compagnons {
-    gap: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
-  .item_flip-card {
-    width: 90vw;
-    max-width: 18rem;
-    height: 16rem;
+  .adoption-card {
+    width: 250px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .h1_compagnons {
+    font-size: 3rem;
   }
 
-  .flip-card-front img {
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+  .animal_group_compagnons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 30px 0;
   }
 
-  .flip-card-front h3 {
-    font-size: 1.3rem;
-    margin-top: 1rem;
-  }
-
-  .flip-card-front span {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    width: fit-content;
-  }
-
-  .flip-card-back {
-    padding: 1rem;
-    bottom: 2rem;
-    width: fit-content;
-  }
-
-  .animal-description {
-    font-size: 1rem;
-    width: 90%;
-    padding: 0.5rem;
+  .adoption-card {
+    width: 220px;
+    height: 320px;
   }
 }

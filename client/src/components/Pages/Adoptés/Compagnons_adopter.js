@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import './Compagnons_adopter.css';
-import Loading from '../../Widgets/Loading/Loading.jsx';
+import { useNavigate } from "react-router-dom";
+import "./Compagnons_adopter.css";
+import Loading from "../../Widgets/Loading/Loading.jsx";
 
 const Compagnons_adopter = () => {
     const [animaux, setAnimaux] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAnimaux = async () => {
@@ -40,27 +42,6 @@ const Compagnons_adopter = () => {
     if (error) return <p>Erreur : {error}</p>;
     if (!animaux.length) return <p>Aucun compagnon adopté pour l’instant.</p>;
 
-    const renderCard = (animal, index) => (
-        <div className="item_flip-card" key={animal._id || index}>
-            <div className="flip-card-inner">
-                <div className="flip-card-front">
-                    <img
-                        src={animal.images && animal.images[0] ? animal.images[0] : "/img/chat_galeriefiche.jpg"}
-                        alt={`Photo de ${animal.nom}`}
-                    />
-                    <h3>{animal.nom}</h3>
-                </div>
-                <div className="flip-card-back">
-                    {animal.descriptionAdoption && animal.descriptionAdoption.trim() !== "" ? (
-                        <p className="animal-description">{animal.descriptionAdoption}</p>
-                    ) : (
-                        <p className="animal-description">Ce compagnon a trouvé une famille ♥</p>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
-
     return (
         <div className="page_compagnons">
             <h1 className="h1_compagnons">
@@ -71,7 +52,28 @@ const Compagnons_adopter = () => {
 
             <section className="container_compagnons">
                 <div className="animal_group_compagnons">
-                    {animaux.map(renderCard)}
+                    {animaux.map((animal) => (
+                        <div
+                            key={animal._id}
+                            className="adoption-card"
+                            style={{
+                                backgroundImage: `url(${animal.images?.[0] || "/img/chat_galeriefiche.jpg"})`,
+                            }}
+                        >
+                            <div className="adoption-card-name">{animal.nom}</div>
+                            <div className="adoption-card-content">
+                                <h2>{animal.nom}</h2>
+                                {animal.descriptionAdoption && animal.descriptionAdoption.trim() !== "" ? (
+                                    <p>{animal.descriptionAdoption}</p>
+                                ) : (
+                                    <p>Ce compagnon a trouvé une famille ♥</p>
+                                )}
+                                <button onClick={() => navigate(`/Ficheperso_animal/${animal._id}`)}>
+                                    Voir
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </section>
         </div>
