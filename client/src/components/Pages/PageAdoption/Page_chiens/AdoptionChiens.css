@@ -1,7 +1,6 @@
 .adoption-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .adoption-hero-container {
@@ -112,9 +111,7 @@
 
 .adoption-btn-discover {
   display: inline-block;
-  background-color: var(
-    --primary-color
-  ); /* Assuming --primary-color is defined elsewhere */
+  background-color: var(--primary-color);
   color: white;
   padding: 15px 30px;
   text-decoration: none;
@@ -126,20 +123,17 @@
 }
 
 .adoption-btn-discover:hover {
-  background-color: #5f7037; /* A darker shade for hover, replace with your color if needed */
+  background-color: #5f7037;
   transform: translateY(-3px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 .adoption-dog-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  ); /* Adjusted for better responsiveness */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
   padding: 40px 0;
-  justify-items: center; /* Center items within the grid */
+  justify-items: center;
 }
 
 .adoption-card {
@@ -252,7 +246,7 @@
 }
 
 .adoption-card-content button:hover {
-  background-color: #5f7037; /* Darker green on hover */
+  background-color: #5f7037;
   transform: translateY(-2px);
 }
 
@@ -264,7 +258,43 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .adoption-hero-title-textured {
+    font-size: 1.7rem;
+    margin-top: 3rem;
+  }
+
+  .adoption-hero-container p {
+    font-size: 1rem;
+  }
+
+  .adoption-btn-discover {
+    padding: 12px 25px;
+  }
+
+  .adoption-dog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .adoption-card {
+    width: 90%;
+    margin: 0 auto;
+    height: 300px;
+  }
+
+  .adoption-hero-container .paw-large-1,
+  .adoption-hero-container .paw-large-2 {
+    display: none;
+  }
+  .speech-bubble {
+    width: 60px;
+    height: 60px;
+    top: 3%;
+    right: 3%;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
   .adoption-hero-title-textured {
     font-size: 2.5rem;
   }
@@ -278,7 +308,6 @@
     height: 350px;
   }
 
-  /* Adjust paw and bubble sizes/positions for smaller screens */
   .adoption-hero-container .paw-large-1 {
     width: 100px;
     height: 100px;
@@ -299,38 +328,45 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .adoption-hero-title-textured {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
-  .adoption-hero-container p {
-    font-size: 1rem;
-  }
-
-  .adoption-btn-discover {
-    padding: 12px 25px;
+  .adoption-hero-container {
+    padding: 70px 10px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
   }
 
   .adoption-dog-grid {
-    grid-template-columns: 1fr; /* Stack cards on small screens */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 30px 0;
   }
 
   .adoption-card {
-    width: 90%; /* Make cards take up more width */
-    margin: 0 auto; /* Center the cards */
-    height: 300px;
+    width: 220px;
+    height: 320px;
   }
 
-  /* Further adjust paw and bubble sizes/positions for very small screens */
-  .adoption-hero-container .paw-large-1,
-  .adoption-hero-container .paw-large-2 {
-    display: none; /* Hide for very small screens if too cluttered */
+  .adoption-hero-container .paw-large-1 {
+    width: 80px;
+    height: 80px;
+    top: 8px;
+    left: -20px;
   }
+  .adoption-hero-container .paw-large-2 {
+    width: 70px;
+    height: 70px;
+    bottom: 8px;
+    right: -8px;
+  }
+
   .speech-bubble {
     width: 60px;
     height: 60px;
-    top: 3%;
-    right: 3%;
+    top: 7%;
+    right: 7%;
   }
 }
