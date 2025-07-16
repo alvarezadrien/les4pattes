@@ -493,26 +493,30 @@
 /* Mobile devices (max-width: 480px) */
 @media screen and (max-width: 480px) {
   .container_img {
-    height: 45rem;
+    height: auto; /* Adjust height based on content */
+    min-height: 40rem; /* Ensure minimum height */
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     padding-top: 2rem;
+    padding-bottom: 2rem; /* Add padding to bottom */
   }
 
   .h1_titre {
     margin-left: 0;
-    font-size: 2.5rem;
+    font-size: 2rem; /* Smaller font size for mobile */
     text-align: center;
     margin-top: 0;
     padding-top: 0;
+    line-height: 1.2; /* Adjust line height for better display */
   }
 
   #content {
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* Smaller font for slogan */
     margin-left: 1rem;
+    margin-right: 1rem; /* Add right margin */
     width: calc(100% - 2rem);
     max-width: none;
     text-align: center;
@@ -521,6 +525,7 @@
     word-break: break-word;
     border-right: none;
     animation: none;
+    padding: 0 0.5rem; /* Add horizontal padding */
   }
 
   @keyframes blink-cursor {
@@ -538,40 +543,39 @@
     margin-top: 2rem;
     margin-right: 0;
     align-items: center;
+    gap: 1rem; /* Space between images */
   }
 
-  .circle_img1 img {
-    position: static;
-    margin: 1rem auto;
-    width: 200px;
-    height: 200px;
-    float: none;
-  }
-
-  .circle_img2 img {
-    position: static;
-    margin: 1rem auto;
-    width: 140px;
-    height: 140px;
-    float: none;
-  }
-
+  .circle_img1 img,
+  .circle_img2 img,
   .circle_img3 img {
-    position: static;
-    margin: 1rem auto;
-    width: 140px;
-    height: 140px;
-    float: none;
+    position: static; /* Remove absolute positioning */
+    float: none; /* Remove float */
+    margin: 0; /* Remove specific margins */
+    width: 150px; /* Unified smaller size for all images */
+    height: 150px;
+    object-fit: cover; /* Ensure images fill their space */
+  }
+
+  /* Specific adjustments for individual images if needed, but keeping them similar for uniformity */
+  .circle_img1 img {
+    order: 1; /* Define order for stacking */
+  }
+  .circle_img2 img {
+    order: 2;
+  }
+  .circle_img3 img {
+    order: 3;
   }
 
   .button_propos {
-    font-size: 1.3rem;
-    margin: 2rem auto 0 auto;
+    font-size: 1.2rem; /* Smaller font for button */
+    margin: 2.5rem auto 0 auto; /* Adjust top margin for spacing */
     position: static;
     left: auto;
     top: auto;
-    width: 10rem;
-    height: 2.8rem;
+    width: 9rem; /* Smaller button width */
+    height: 2.5rem; /* Smaller button height */
   }
 
   .container_choix {
@@ -711,53 +715,53 @@
 /* Tablet devices (min-width: 481px and max-width: 768px) */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .container_img {
-    height: 40rem;
+    height: auto; /* Adjust height based on content */
+    min-height: 45rem; /* Ensure minimum height */
     margin-top: 15rem;
+    padding-top: 3rem; /* More padding top */
+    padding-bottom: 3rem; /* More padding bottom */
   }
 
   .h1_titre {
-    margin-left: 5rem;
-    font-size: 3.5rem;
+    margin-left: 0; /* Center title */
+    font-size: 3rem; /* Adjusted font size */
+    text-align: center;
   }
 
   #content {
-    font-size: 2rem;
-    margin-left: 5rem;
-    max-width: 450px;
+    font-size: 1.8rem; /* Adjusted font size for slogan */
+    margin-left: auto; /* Center content */
+    margin-right: auto;
+    max-width: 80%; /* Limit width */
+    text-align: center;
+    min-height: auto;
   }
 
   .circle_img0 {
-    margin-top: -5rem;
-    margin-right: 0;
+    margin-top: 3rem; /* More space above images */
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: row; /* Layout images in a row */
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: center; /* Center images */
+    gap: 2rem; /* Space between images */
   }
 
-  .circle_img1 img {
-    float: none;
-    margin: 1rem;
-    width: 280px;
-    height: 270px;
-  }
-
-  .circle_img2 img {
-    float: none;
-    margin: 1rem;
-    width: 200px;
-    height: 180px;
-  }
-
+  .circle_img1 img,
+  .circle_img2 img,
   .circle_img3 img {
+    position: static;
     float: none;
-    margin: 1rem;
-    width: 180px;
-    height: 180px;
+    margin: 0;
+    width: 200px; /* Adjusted size */
+    height: 200px;
+    object-fit: cover;
   }
 
   .button_propos {
-    margin-left: 20rem;
-    margin-top: 10rem;
+    margin: 3rem auto 0 auto; /* Center button and adjust top margin */
+    width: 10rem;
+    height: 2.8rem;
+    font-size: 1.4rem;
   }
 
   .container_choix {
@@ -837,40 +841,50 @@
   .container_img {
     height: 35rem;
     margin-top: 20rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .h1_titre {
-    margin-left: 10rem;
-    font-size: 3.8rem;
+    margin-left: 0; /* Center title */
+    font-size: 3.5rem; /* Adjusted font size */
+    text-align: center;
   }
 
   #content {
-    font-size: 2.2rem;
-    margin-left: 10rem;
-    max-width: 500px;
+    font-size: 2rem; /* Adjusted font size for slogan */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+    text-align: center;
+    min-height: auto;
   }
 
-  .circle_img1 img {
-    margin-right: 3rem;
-    width: 320px;
-    height: 310px;
+  .circle_img0 {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Prevent wrapping if space allows */
+    justify-content: center;
+    gap: 3rem; /* More space between images */
   }
 
-  .circle_img2 img {
-    margin-right: -1rem;
-    width: 220px;
-    height: 200px;
-  }
-
+  .circle_img1 img,
+  .circle_img2 img,
   .circle_img3 img {
-    margin-right: -10rem;
-    width: 180px;
-    height: 180px;
+    position: static;
+    float: none;
+    margin: 0;
+    width: 220px; /* Larger size for medium devices */
+    height: 220px;
+    object-fit: cover;
   }
 
   .button_propos {
-    margin-left: 30rem;
-    margin-top: 12rem;
+    margin: 4rem auto 0 auto;
+    width: 11rem;
+    height: 3rem;
+    font-size: 1.5rem;
   }
 
   .container_choix {
