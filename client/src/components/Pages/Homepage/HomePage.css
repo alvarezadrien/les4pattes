@@ -76,13 +76,12 @@
   position: relative;
   transition: 0.5s ease;
   cursor: pointer;
-  width: 12rem;
-  height: 3rem;
+  width: 10rem; /* Made smaller */
   border: none;
   padding: 0.5rem 1rem;
   margin-left: 40rem;
   margin-top: 13rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem; /* Adjusted font size */
   color: var(--tertiary-color);
   overflow: hidden;
   z-index: 1;
@@ -206,7 +205,7 @@
 
 .span_maison {
   color: var(--primary-color);
-  font-size: 4.5rem; /* Larger font size */
+  font-size: 3.8rem; /* Made smaller */
   margin-bottom: 2rem; /* More space below text */
   font-weight: 900; /* Extra bold */
   letter-spacing: -0.05rem; /* Tighter letter spacing */
@@ -571,11 +570,8 @@
   .button_propos {
     font-size: 1.2rem; /* Smaller font for button */
     margin: 2.5rem auto 0 auto; /* Adjust top margin for spacing */
-    position: static;
     left: auto;
     top: auto;
-    width: 9rem; /* Smaller button width */
-    height: 2.5rem; /* Smaller button height */
   }
 
   .container_choix {
@@ -607,7 +603,7 @@
   }
 
   .span_maison {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Smaller for mobile */
     margin-bottom: 1.5rem;
   }
 
@@ -783,7 +779,7 @@
   }
 
   .span_maison {
-    font-size: 3.5rem;
+    font-size: 3rem; /* Smaller for tablet */
     margin-bottom: 1.8rem;
   }
 
@@ -903,7 +899,7 @@
   }
 
   .span_maison {
-    font-size: 4rem;
+    font-size: 3.5rem; /* Smaller for medium devices */
     margin-bottom: 2rem;
   }
 
@@ -1010,7 +1006,7 @@
   }
 
   .span_maison {
-    font-size: 4.2rem;
+    font-size: 3.8rem; /* Adjusted for large devices */
     margin-bottom: 2rem;
   }
 
@@ -1115,7 +1111,7 @@
   }
 
   .span_maison {
-    font-size: 4.5rem;
+    font-size: 4.5rem; /* Revert to original size for XL */
     margin-bottom: 2rem;
   }
 
