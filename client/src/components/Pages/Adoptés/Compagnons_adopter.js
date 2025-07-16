@@ -39,16 +39,21 @@ const Compagnons_adopter = () => {
     }, []);
 
     if (loading) return <Loading />;
-    if (error) return <p>Erreur : {error}</p>;
-    if (!animaux.length) return <p>Aucun compagnon adopté pour l’instant.</p>;
+    if (error) return <p className="error-message">Erreur : {error}</p>;
+    if (!animaux.length) return <p className="no-compagnon-message">Aucun compagnon adopté pour l’instant. Revenez vite !</p>;
 
     return (
         <div className="page_compagnons">
-            <h1 className="h1_compagnons">
-                <img src="/img/pattes.png" alt="pattes" width={40} height={40} />
-                Nos compagnons adoptés
-                <img src="/img/pattes.png" alt="pattes" width={40} height={40} />
-            </h1>
+            <header className="compagnons_header">
+                <h1 className="h1_compagnons">
+                    <img src="/img/pattes.png" alt="pattes" className="pattes-icon" />
+                    Nos compagnons <span className="highlight-text">adoptés</span>
+                    <img src="/img/pattes.png" alt="pattes" className="pattes-icon" />
+                </h1>
+                <p className="paragraphe_compagnons">
+                    Chaque adoption est une magnifique histoire ! Découvrez les animaux qui ont trouvé leur foyer pour la vie. Merci à toutes les familles qui ont ouvert leur cœur et offert une seconde chance à nos amis à quatre pattes.
+                </p>
+            </header>
 
             <section className="container_compagnons">
                 <div className="animal_group_compagnons">
@@ -66,7 +71,9 @@ const Compagnons_adopter = () => {
                                 {animal.descriptionAdoption && animal.descriptionAdoption.trim() !== "" ? (
                                     <p>{animal.descriptionAdoption}</p>
                                 ) : (
-                                    <p>Ce compagnon a trouvé une famille ♥</p>
+                                    <p>
+                                        Ce merveilleux compagnon a trouvé une famille aimante pour la vie ! <br /> Nous lui souhaitons beaucoup de bonheur. ♥
+                                    </p>
                                 )}
                             </div>
                         </div>
