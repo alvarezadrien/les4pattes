@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "./AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
+import Loading from "../../../Widgets/Loading/Loading"; // ✅ Import du composant Loading
 
 function AdoptionChiens() {
   const navigate = useNavigate();
   const [dogs, setDogs] = useState([]);
+  const [loading, setLoading] = useState(true); // ✅ État de chargement
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 12;
 
@@ -18,6 +20,7 @@ function AdoptionChiens() {
 
   useEffect(() => {
     const fetchDogs = async () => {
+      setLoading(true);
       try {
         const params = new URLSearchParams();
         params.append("espece", "Chien");
@@ -38,6 +41,8 @@ function AdoptionChiens() {
         setCurrentPage(1);
       } catch (error) {
         console.error("Erreur :", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -93,40 +98,49 @@ function AdoptionChiens() {
           setEntente={setEntenteFilter}
         />
 
-        <section id="adoption-dog-cards-section" className="adoption-dog-grid">
-          {currentDogs.map((dog) => (
-            <div
-              key={dog._id}
-              className="adoption-card"
-              style={{
-                backgroundImage: `url(${process.env.REACT_APP_API_URL}${
-                  dog.images?.[0] || "/img/default.jpg"
-                })`,
-              }}
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <section
+              id="adoption-dog-cards-section"
+              className="adoption-dog-grid"
             >
-              <div className="adoption-card-name">{dog.nom}</div>
-              {dog.isRescue && <div className="rescue-tag">Sauvetage</div>}
-              <div className="adoption-card-content">
-                <h2>{dog.nom}</h2>
-                <p>Âge : {dog.age} ans</p>
-                <p>Sexe : {dog.sexe}</p>
-                <p>Race : {dog.race || "Non spécifiée"}</p>
-                <button
-                  onClick={() => navigate(`/Ficheperso_animal/${dog._id}`)}
+              {currentDogs.map((dog) => (
+                <div
+                  key={dog._id}
+                  className="adoption-card"
+                  style={{
+                    backgroundImage: `url(${process.env.REACT_APP_API_URL}${
+                      dog.images?.[0] || "/img/default.jpg"
+                    })`,
+                  }}
                 >
-                  Voir
-                </button>
-              </div>
-            </div>
-          ))}
-        </section>
+                  <div className="adoption-card-name">{dog.nom}</div>
+                  {dog.isRescue && <div className="rescue-tag">Sauvetage</div>}
+                  <div className="adoption-card-content">
+                    <h2>{dog.nom}</h2>
+                    <p>Âge : {dog.age} ans</p>
+                    <p>Sexe : {dog.sexe}</p>
+                    <p>Race : {dog.race || "Non spécifiée"}</p>
+                    <button
+                      onClick={() => navigate(`/Ficheperso_animal/${dog._id}`)}
+                    >
+                      Voir
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </section>
 
-        {totalPages > 1 && (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+            {totalPages > 1 && (
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </>
         )}
       </main>
     </div>
