@@ -205,7 +205,7 @@
 
 .span_maison {
   color: var(--primary-color);
-  font-size: 3.8rem; /* Made smaller */
+  font-size: 3rem;
   margin-bottom: 2rem; /* More space below text */
   font-weight: 900; /* Extra bold */
   letter-spacing: -0.05rem; /* Tighter letter spacing */
@@ -494,7 +494,7 @@
   .container_img {
     height: auto; /* Adjust height based on content */
     min-height: 40rem; /* Ensure minimum height */
-    margin-top: 5rem;
+    margin-top: 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -619,9 +619,8 @@
   }
 
   .titre_carte {
-    font-size: 1.8rem;
-    flex-direction: column;
-    gap: 5px;
+    font-size: 1.5rem;
+    margin-top: 3rem;
     padding: 0 1rem;
   }
 
@@ -674,13 +673,12 @@
   .home_propos {
     padding: 1.5rem 1rem;
     margin: 1.5rem auto;
-    width: calc(100% - 2rem);
     margin-bottom: 4rem;
+    width: 85vw;
   }
 
   .home_propos h2 {
-    font-size: 1.8rem;
-    flex-direction: column;
+    font-size: 1.5rem;
     gap: 0.5rem;
   }
 
