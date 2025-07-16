@@ -19,19 +19,19 @@ function Back_office() {
     image2: "", // Secondaire
     image3: "", // Tertiaire
     images: [], // Pour le stockage des chemins en BDD (tableau)
-    comportement: [], // Nouveau champ: tableau vide par défaut
-    ententeAvec: [], // Nouveau champ: tableau vide par défaut
+    comportement: [], // Nouveau champ: tableau vide par default
+    ententeAvec: [], // Nouveau champ: tableau vide par default
     isRescue: false, // NOUVEAU CHAMP : pour indiquer si c'est un sauvetage (isRescue)
   });
 
   const [openAccordion, setOpenAccordion] = useState({
-    animals: true,
-    users: false,
-    comments: false,
-    newAnimalComportement: false, // New accordion for new animal behavior
-    newAnimalEntente: false, // New accordion for new animal compatibility
-    editAnimalComportement: false, // New accordion for edit animal behavior
-    editAnimalEntente: false, // New accordion for edit animal compatibility
+    animals: false, // Changed to false
+    users: false, // Changed to false
+    comments: false, // Changed to false
+    newAnimalComportement: false,
+    newAnimalEntente: false,
+    editAnimalComportement: false,
+    editAnimalEntente: false,
   });
 
   // États pour la pop-up de confirmation
@@ -51,25 +51,64 @@ function Back_office() {
     try {
       const response = await fetch(commentsApiUrl);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setComments(data);
+      if (Array.isArray(data)) {
+        setComments(data);
+      } else {
+        console.warn("API returned non-array data for comments:", data);
+        setComments([]);
+      }
     } catch (err) {
       console.error("Erreur chargement commentaires:", err);
+      setComments([]); // Ensure comments is an array even on fetch error
     }
   };
 
   useEffect(() => {
     fetch(apiUrl)
-      .then((res) => res.json())
-      .then((data) => setAnimals(data))
-      .catch((err) => console.error("Erreur chargement animaux:", err));
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(errorData => { throw new Error(errorData.message || `HTTP error! status: ${res.status}`); });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setAnimals(data);
+        } else {
+          console.warn("API returned non-array data for animals:", data);
+          setAnimals([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Erreur chargement animaux:", err);
+        setAnimals([]);
+      });
 
     fetch(usersApiUrl)
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((err) => console.error("Erreur chargement utilisateurs:", err));
+      .then((res) => {
+        if (!res.ok) {
+          // Handle non-2xx responses (e.g., 401, 404, 500)
+          return res.json().then(errorData => { throw new Error(errorData.message || `HTTP error! status: ${res.status}`); });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Ensure data is an array before setting the state
+        if (Array.isArray(data)) {
+          setUsers(data);
+        } else {
+          console.warn("API returned non-array data for users:", data);
+          setUsers([]); // Fallback to an empty array
+        }
+      })
+      .catch((err) => {
+        console.error("Erreur chargement utilisateurs:", err);
+        setUsers([]); // Ensure users is an array even on fetch error
+      });
 
     // Initial fetch for comments
     fetchComments();
@@ -90,12 +129,23 @@ function Back_office() {
       ),
     };
 
+    // Get the authentication token
+    const authToken = localStorage.getItem('userToken'); // Assuming 'userToken' is your key
+
     fetch(apiUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${authToken}`, // Include Authorization header
+      },
       body: JSON.stringify(animalToSend),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Erreur HTTP: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((newAddedAnimal) => {
         setAnimals([...animals, newAddedAnimal]);
         setNewAnimal({
@@ -117,29 +167,70 @@ function Back_office() {
           isRescue: false, // Réinitialiser le champ isRescue
         });
       })
-      .catch((err) => console.error("Erreur ajout animal:", err));
+      .catch((err) => {
+        console.error("Erreur ajout animal:", err);
+        // Removed specific 401 alert
+        alert(`Échec de l'ajout de l'animal: ${err.message}`);
+      });
   };
 
   // Fonctions de suppression avec confirmation
   const confirmDeleteAnimal = (id) => {
     setPopupMessage("Voulez-vous vraiment supprimer cet animal ?");
-    setPopupAction(() => () => {
-      // Utilisation d'une fonction pour définir l'action
-      fetch(`${apiUrl}/${id}`, { method: "DELETE" })
-        .then(() => setAnimals(animals.filter((a) => a._id !== id)))
-        .catch((err) => console.error("Erreur suppression animal:", err));
-      setShowPopup(false); // Fermer la pop-up après confirmation
+    setPopupAction(() => {
+      return async () => {
+        try {
+          const authToken = localStorage.getItem('userToken');
+          const response = await fetch(`${apiUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+              'Authorization': `Bearer ${authToken}`,
+            }
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || `Erreur HTTP! statut: ${response.status}`);
+          }
+          setAnimals(animals.filter((a) => a._id !== id));
+          setShowPopup(false);
+        } catch (err) {
+          console.error("Erreur suppression animal:", err);
+          // Removed specific 401 alert
+          alert(`Échec de la suppression de l'animal: ${err.message}`);
+          setShowPopup(false);
+        }
+      };
     });
     setShowPopup(true);
   };
 
   const confirmDeleteUser = (id) => {
     setPopupMessage("Voulez-vous vraiment supprimer cet utilisateur ?");
-    setPopupAction(() => () => {
-      fetch(`${usersApiUrl}/${id}`, { method: "DELETE" })
-        .then(() => setUsers(users.filter((u) => u._id !== id)))
-        .catch((err) => console.error("Erreur suppression utilisateur:", err));
-      setShowPopup(false);
+    setPopupAction(() => {
+      return async () => {
+        try {
+          const authToken = localStorage.getItem('userToken');
+          const response = await fetch(`${usersApiUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+              'Authorization': `Bearer ${authToken}`,
+            }
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || `Erreur HTTP! statut: ${response.status}`);
+          }
+          setUsers(users.filter((u) => u._id !== id));
+          setShowPopup(false);
+        } catch (err) {
+          console.error("Erreur suppression utilisateur:", err);
+          // Removed specific 401 alert
+          alert(`Échec de la suppression de l'utilisateur: ${err.message}`);
+          setShowPopup(false);
+        }
+      };
     });
     setShowPopup(true);
   };
@@ -149,22 +240,13 @@ function Back_office() {
     setPopupMessage("Voulez-vous vraiment supprimer ce commentaire ?");
     setPopupAction(() => async () => {
       try {
-        // IMPORTANT: Récupération du token depuis localStorage
-        const token = localStorage.getItem("token");
-
-        // Vérifiez si le token existe avant d'envoyer la requête
-        if (!token) {
-          throw new Error(
-            "Token d'authentification manquant. Veuillez vous reconnecter."
-          );
-        }
+        const authToken = localStorage.getItem('userToken'); // Retrieve the authentication token
 
         const response = await fetch(`${commentsApiUrl}/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            // Utilisez l'en-tête 'Authorization' avec 'Bearer' comme attendu par le middleware
-            Authorization: `Bearer ${token}`, // <-- C'est le changement clé ici !
+            'Authorization': `Bearer ${authToken}`, // Add the Authorization header
           },
         });
 
@@ -180,6 +262,7 @@ function Back_office() {
         setShowPopup(false);
       } catch (err) {
         console.error("Erreur suppression commentaire:", err);
+        // Removed specific 401 alert
         alert(`Échec de la suppression du commentaire: ${err.message}`); // Afficher une alerte utilisateur
         setShowPopup(false);
       }
@@ -188,41 +271,76 @@ function Back_office() {
   };
 
   const handleToggleAdoption = (id, currentStatus) => {
+    const authToken = localStorage.getItem('userToken');
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${authToken}`,
+      },
       body: JSON.stringify({ adopte: !currentStatus }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Erreur HTTP: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((updatedAnimal) => {
         setAnimals(animals.map((a) => (a._id === id ? updatedAnimal : a)));
       })
-      .catch((err) => console.error("Erreur mise à jour adoption:", err));
+      .catch((err) => {
+        console.error("Erreur mise à jour adoption:", err);
+        // Removed specific 401 alert
+        alert(`Échec de la mise à jour du statut d'adoption: ${err.message}`);
+      });
   };
 
   const handleUpdateDescription = (id, description) => {
+    const authToken = localStorage.getItem('userToken');
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${authToken}`,
+      },
       body: JSON.stringify({ description }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Erreur HTTP: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(() =>
         setAnimals(
           animals.map((a) => (a._id === id ? { ...a, description } : a))
         )
       )
-      .catch((err) => console.error("Erreur mise à jour description:", err));
+      .catch((err) => {
+        console.error("Erreur mise à jour description:", err);
+        // Removed specific 401 alert
+        alert(`Échec de la mise à jour de la description: ${err.message}`);
+      });
   };
 
   // New handler for descriptionAdoption
   const handleUpdateDescriptionAdoption = (id, descriptionAdoption) => {
+    const authToken = localStorage.getItem('userToken');
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${authToken}`,
+      },
       body: JSON.stringify({ descriptionAdoption }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Erreur HTTP: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(() =>
         setAnimals(
           animals.map((a) =>
@@ -230,9 +348,11 @@ function Back_office() {
           )
         )
       )
-      .catch((err) =>
-        console.error("Erreur mise à jour description d'adoption:", err)
-      );
+      .catch((err) => {
+        console.error("Erreur mise à jour description d'adoption:", err);
+        // Removed specific 401 alert
+        alert(`Échec de la mise à jour de la description d'adoption: ${err.message}`);
+      });
   };
 
   const toggleAccordion = (section) => {
@@ -246,6 +366,9 @@ function Back_office() {
   const handleImageChange = (e, field, setter) => {
     const file = e.target.files[0];
     if (file) {
+      // For simplicity, we are using createObjectURL for immediate preview.
+      // In a real application, you would upload the file to a server
+      // and get a persistent URL back.
       const imageUrl = URL.createObjectURL(file);
       setter((prev) => ({ ...prev, [field]: imageUrl }));
     }
@@ -300,18 +423,32 @@ function Back_office() {
     delete animalToUpdate.image2;
     delete animalToUpdate.image3;
 
+    const authToken = localStorage.getItem('userToken');
+
     fetch(`${apiUrl}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${authToken}`,
+      },
       body: JSON.stringify(animalToUpdate),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Erreur HTTP: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((updatedAnimal) => {
         setAnimals(animals.map((a) => (a._id === id ? updatedAnimal : a)));
         setEditAnimalId(null);
         setEditAnimalData({});
       })
-      .catch((err) => console.error("Erreur modification animal:", err));
+      .catch((err) => {
+        console.error("Erreur modification animal:", err);
+        // Removed specific 401 alert
+        alert(`Échec de la modification de l'animal: ${err.message}`);
+      });
   };
 
   const handlePopupConfirm = () => {
