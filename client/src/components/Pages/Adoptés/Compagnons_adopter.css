@@ -15,7 +15,6 @@
 .h1_compagnons {
   font-family: "Pacifico", cursive; /* Police plus douce pour le titre */
   font-size: 3.8rem; /* Augmenter la taille pour plus d'impact */
-  color: var(--primary-color);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -164,17 +163,16 @@
 }
 
 /* --- Media Queries --- */
-
 @media (max-width: 480px) {
   .page_compagnons {
-    margin-top: 1rem;
+    margin-top: 7rem;
     padding: 1.5rem 0;
   }
 
   .h1_compagnons {
-    font-size: 2rem;
-    gap: 10px;
-    flex-wrap: wrap; /* Permet au titre de s'enrouler sur plusieurs lignes */
+    font-size: 1.5rem;
+    width: 100%;
+    flex-wrap: wrap;
   }
 
   .h1_compagnons .pattes-icon {

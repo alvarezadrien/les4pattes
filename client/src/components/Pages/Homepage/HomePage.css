@@ -133,6 +133,7 @@
   justify-content: center;
   gap: 15rem;
   height: 30rem;
+  padding: 2rem 0;
 }
 
 .container_choix1,
@@ -146,6 +147,7 @@
   margin-top: 5rem;
   object-fit: cover;
   box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 .button_choix_chiens,
@@ -161,6 +163,8 @@
   border-radius: 50px;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .button_choix_chiens:hover,
@@ -169,40 +173,100 @@
   color: var(--tertiary-color);
 }
 
+/* NEW DESIGN FOR LEUR MAISON */
 .leur_maison {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 6rem 0; /* More vertical padding */
+  background: #f7f9fc; /* Light background */
+  border-bottom: 8px solid var(--primary-color); /* Stronger bottom border */
+  border-top: 8px solid var(--primary-color); /* Stronger top border */
+  margin-top: 5rem;
   position: relative;
-  top: 5rem;
-  padding-bottom: 15rem;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+}
+
+.leur_maison::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 70%
+  ); /* Radial gradient overlay */
+  z-index: 0;
 }
 
 .span_maison {
-  position: relative;
   color: var(--primary-color);
-  font-size: 4rem;
-  top: -3rem;
-  left: 10rem;
+  font-size: 4.5rem; /* Larger font size */
+  margin-bottom: 2rem; /* More space below text */
+  font-weight: 900; /* Extra bold */
+  letter-spacing: -0.05rem; /* Tighter letter spacing */
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); /* Softer, larger text shadow */
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase; /* Uppercase text */
 }
 
 .leur_maison img {
+  width: 300px; /* Larger image */
+  height: 300px;
+  object-fit: contain;
+  margin: 3rem 0; /* Increased vertical margin */
+  animation: bounceScale 2s infinite ease-in-out; /* New bounce animation */
+  border-radius: 20px; /* Rounded corners for the image */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  transition: all 0.4s ease-in-out; /* Smooth transitions */
   position: relative;
-  float: right;
-  margin-right: 18rem;
-  margin-top: -11.5rem;
+  z-index: 1;
+}
+
+.leur_maison img:hover {
+  transform: scale(1.08) rotate(2deg); /* More pronounced hover effect */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes bounceScale {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.02);
+  } /* Slight bounce up and scale */
 }
 
 .nombre {
   color: var(--primary-color);
-  font-size: 4rem;
-  margin-left: 40rem;
+  font-size: 6rem; /* Even larger font size */
+  font-weight: 900; /* Extra bold */
+  margin-top: 2rem; /* More space above number */
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Larger, softer text shadow */
+  position: relative;
+  z-index: 1;
 }
 
 .titre_carte {
   font-size: 2.5rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
 }
 
 .container_carte {
   margin-top: -3.5rem;
+  padding: 2rem 0;
 }
 
 .div_soins {
@@ -220,6 +284,7 @@
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
+  padding: 2rem 0;
 }
 
 .h2_titre_soins {
@@ -250,6 +315,7 @@
   background-color: var(--tertiary-color);
   box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .icon_soins1 img,
@@ -275,6 +341,7 @@
   font-size: 1.1rem;
   color: var(--tertiary-color);
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .icon_soins1 button:hover,
@@ -288,139 +355,7 @@
   color: var(--tertiary-color);
 }
 
-/* ------------------ MEDIA QUERIES ------------------ */
-
-@media screen and (max-width: 480px) {
-  .container_img {
-    height: 45rem;
-  }
-
-  .h1_titre {
-    margin-left: 0;
-    font-size: 2.5rem;
-    text-align: center;
-  }
-
-  #content {
-    font-size: 1.3rem;
-    margin-left: 2rem;
-    width: 18rem;
-  }
-
-  .circle_img0 {
-    display: flex;
-    margin-top: 9rem;
-    flex-wrap: wrap;
-  }
-
-  .circle_img1 img {
-    left: 3.5rem;
-    width: 200px;
-    height: 200px;
-    display: block;
-  }
-
-  .circle_img2 img {
-    margin-top: -2.5rem;
-    margin-left: 0.8rem;
-    width: 140px;
-    height: 140px;
-  }
-
-  .circle_img3 img {
-    width: 140px;
-    margin-right: 0;
-    margin-left: 2.5rem;
-    margin-top: 0;
-    height: 140px;
-  }
-
-  .button_propos {
-    font-size: 1.3rem;
-    margin: 0;
-    position: relative;
-    left: 20%;
-    top: 2rem;
-  }
-
-  .container_choix {
-    display: block;
-    height: 45rem;
-  }
-
-  .container_choix img {
-    width: 200px;
-    height: 200px;
-    margin-left: 3rem;
-  }
-
-  .span_maison {
-    font-size: 1.6rem;
-    margin-left: -9.5rem;
-  }
-
-  .nombre {
-    margin-left: 0;
-    font-size: 3rem;
-    padding-left: 1rem;
-  }
-
-  .leur_maison img {
-    margin-right: 0;
-    margin-top: -3rem;
-    width: 150px;
-    height: 150px;
-  }
-
-  .titre_carte {
-    font-size: 1.5rem;
-  }
-
-  .titre_carte img {
-    width: 35px;
-    height: 35px;
-  }
-
-  .box_soins1,
-  .box_soins2 {
-    width: 75vw;
-    margin: 1rem auto;
-  }
-
-  .container_aides_soins {
-    height: 100%;
-    width: 95vw;
-    margin-top: -5rem;
-    justify-self: center;
-  }
-
-  .container_aides_soins h2 {
-    font-size: 2rem;
-  }
-
-  .container_aides_soins h3 {
-    font-size: 1.5rem;
-  }
-
-  .h2_titre_soins img {
-    width: 35px;
-    height: 35px;
-  }
-
-  .icon_soins1 img,
-  .icon_soins2 img {
-    width: 170px;
-    height: 170px;
-  }
-
-  .icon_ensemble {
-    display: block;
-  }
-
-  
-}
-
-/* HOME_PROPOS (Section présentation) */
+/* ------------------ HOME_PROPOS (Section présentation) ------------------ */
 
 .home_propos {
   padding: 3rem 1.5rem;
@@ -553,16 +488,198 @@
   transition-delay: 0.2s;
 }
 
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Mobile devices (max-width: 480px) */
 @media screen and (max-width: 480px) {
-  .home_propos {
+  .container_img {
+    height: 45rem;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2rem;
+  }
+
+  .h1_titre {
+    margin-left: 0;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  #content {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    width: calc(100% - 2rem);
+    max-width: none;
+    text-align: center;
+    min-height: auto;
+    white-space: normal;
+    word-break: break-word;
+    border-right: none;
+    animation: none;
+  }
+
+  @keyframes blink-cursor {
+    from {
+      border-right-color: transparent;
+    }
+    to {
+      border-right-color: transparent;
+    }
+  }
+
+  .circle_img0 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-right: 0;
+    align-items: center;
+  }
+
+  .circle_img1 img {
+    position: static;
+    margin: 1rem auto;
+    width: 200px;
+    height: 200px;
+    float: none;
+  }
+
+  .circle_img2 img {
+    position: static;
+    margin: 1rem auto;
+    width: 140px;
+    height: 140px;
+    float: none;
+  }
+
+  .circle_img3 img {
+    position: static;
+    margin: 1rem auto;
+    width: 140px;
+    height: 140px;
+    float: none;
+  }
+
+  .button_propos {
+    font-size: 1.3rem;
+    margin: 2rem auto 0 auto;
+    position: static;
+    left: auto;
+    top: auto;
+    width: 10rem;
+    height: 2.8rem;
+  }
+
+  .container_choix {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
     padding: 2rem 1rem;
+  }
+
+  .container_choix img {
+    width: 250px;
+    height: 200px;
+    margin-top: 2rem;
+    margin-left: 0;
+  }
+
+  .button_choix_chiens,
+  .button_choix_chats {
+    font-size: 1.5rem;
+    padding: 0.4rem 0.8rem;
+    height: 2.2rem;
+  }
+
+  /* Responsive for NEW LEUR MAISON design (max-width: 480px) */
+  .leur_maison {
+    padding: 4rem 1rem;
+    margin-top: 3rem;
+  }
+
+  .span_maison {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .nombre {
+    font-size: 4rem;
+    margin-top: 1.5rem;
+  }
+
+  .leur_maison img {
+    width: 200px;
+    height: 200px;
+    margin: 2rem 0;
+  }
+
+  .titre_carte {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 1rem;
+  }
+
+  .titre_carte img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .box_soins1,
+  .box_soins2 {
+    width: 90vw;
+    margin: 1rem auto;
+    max-width: 350px;
+  }
+
+  .container_aides_soins {
+    height: auto;
+    width: 100vw;
+    margin-top: -2rem;
+    padding: 2rem 0;
+    box-sizing: border-box;
+  }
+
+  .container_aides_soins h2 {
+    font-size: 2rem;
+  }
+
+  .container_aides_soins h3 {
+    font-size: 1.3rem;
+  }
+
+  .h2_titre_soins img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .icon_soins1 img,
+  .icon_soins2 img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .icon_ensemble {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* HOME_PROPOS (Section présentation) */
+  .home_propos {
+    padding: 1.5rem 1rem;
     margin: 1.5rem auto;
-    width: 85vw;
-    margin-bottom: 6rem;
+    width: calc(100% - 2rem);
+    margin-bottom: 4rem;
   }
 
   .home_propos h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     flex-direction: column;
     gap: 0.5rem;
   }
@@ -574,19 +691,458 @@
 
   .paragraphe_home_propos {
     text-align: center;
-    font-size: 1rem;
-    padding: 0 1rem;
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
   }
 
   .home_propos_img img {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border: 4px solid #ffffff;
   }
 
   .home_propos button {
-    width: 10rem;
-    height: 2.5rem;
-    font-size: 1.3rem;
+    width: 9rem;
+    height: 2.2rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Tablet devices (min-width: 481px and max-width: 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .container_img {
+    height: 40rem;
+    margin-top: 15rem;
+  }
+
+  .h1_titre {
+    margin-left: 5rem;
+    font-size: 3.5rem;
+  }
+
+  #content {
+    font-size: 2rem;
+    margin-left: 5rem;
+    max-width: 450px;
+  }
+
+  .circle_img0 {
+    margin-top: -5rem;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .circle_img1 img {
+    float: none;
+    margin: 1rem;
+    width: 280px;
+    height: 270px;
+  }
+
+  .circle_img2 img {
+    float: none;
+    margin: 1rem;
+    width: 200px;
+    height: 180px;
+  }
+
+  .circle_img3 img {
+    float: none;
+    margin: 1rem;
+    width: 180px;
+    height: 180px;
+  }
+
+  .button_propos {
+    margin-left: 20rem;
+    margin-top: 10rem;
+  }
+
+  .container_choix {
+    gap: 5rem;
+    height: auto;
+    padding: 3rem 0;
+  }
+
+  .container_choix img {
+    width: 350px;
+    height: 250px;
+    margin-top: 3rem;
+  }
+
+  /* Responsive for NEW LEUR MAISON design (min-width: 481px and max-width: 768px) */
+  .leur_maison {
+    padding: 5rem 0;
+    margin-top: 4rem;
+  }
+
+  .span_maison {
+    font-size: 3.5rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .nombre {
+    font-size: 5rem;
+    margin-top: 1.8rem;
+  }
+
+  .leur_maison img {
+    width: 250px;
+    height: 250px;
+    margin: 2.5rem 0;
+  }
+
+  .titre_carte {
+    font-size: 2rem;
+  }
+
+  .box_soins1,
+  .box_soins2 {
+    width: 45vw;
+    max-width: 350px;
+  }
+
+  .icon_ensemble {
+    gap: 5rem;
+  }
+
+  .home_propos {
+    padding: 2.5rem 1.5rem;
+    margin: 2rem auto;
+  }
+
+  .home_propos h2 {
+    font-size: 2.5rem;
+  }
+
+  .paragraphe_home_propos {
+    font-size: 1.1rem;
+  }
+
+  .home_propos_img img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .home_propos button {
+    width: 11rem;
+    font-size: 1.4rem;
+  }
+}
+
+/* Medium devices (min-width: 769px and max-width: 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .container_img {
+    height: 35rem;
+    margin-top: 20rem;
+  }
+
+  .h1_titre {
+    margin-left: 10rem;
+    font-size: 3.8rem;
+  }
+
+  #content {
+    font-size: 2.2rem;
+    margin-left: 10rem;
+    max-width: 500px;
+  }
+
+  .circle_img1 img {
+    margin-right: 3rem;
+    width: 320px;
+    height: 310px;
+  }
+
+  .circle_img2 img {
+    margin-right: -1rem;
+    width: 220px;
+    height: 200px;
+  }
+
+  .circle_img3 img {
+    margin-right: -10rem;
+    width: 180px;
+    height: 180px;
+  }
+
+  .button_propos {
+    margin-left: 30rem;
+    margin-top: 12rem;
+  }
+
+  .container_choix {
+    gap: 10rem;
+  }
+
+  .container_choix img {
+    width: 400px;
+    height: 280px;
+  }
+
+  /* Responsive for NEW LEUR MAISON design (min-width: 769px and max-width: 1024px) */
+  .leur_maison {
+    padding: 6rem 0;
+    margin-top: 5rem;
+  }
+
+  .span_maison {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .nombre {
+    font-size: 5.5rem;
+    margin-top: 2rem;
+  }
+
+  .leur_maison img {
+    width: 280px;
+    height: 280px;
+    margin: 3rem 0;
+  }
+
+  .titre_carte {
+    font-size: 2.2rem;
+  }
+
+  .box_soins1,
+  .box_soins2 {
+    width: 22rem;
+  }
+
+  .icon_ensemble {
+    gap: 10rem;
+  }
+
+  .home_propos {
+    padding: 3rem 1.5rem;
+    margin: 2rem auto;
+    max-width: 900px;
+  }
+
+  .home_propos h2 {
+    font-size: 2.6rem;
+  }
+
+  .paragraphe_home_propos {
+    font-size: 1.15rem;
+  }
+
+  .home_propos_img img {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+/* Large devices (min-width: 1025px and max-width: 1280px) */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .container_img {
+    height: 30rem;
+    margin-top: 25rem;
+  }
+
+  .h1_titre {
+    margin-left: 15rem;
+    font-size: 4rem;
+  }
+
+  #content {
+    font-size: 2.5rem;
+    margin-left: 15rem;
+    max-width: 550px;
+  }
+
+  .circle_img1 img {
+    margin-right: 4rem;
+    width: 340px;
+    height: 330px;
+  }
+
+  .circle_img2 img {
+    margin-right: -2rem;
+    width: 230px;
+    height: 205px;
+  }
+
+  .circle_img3 img {
+    margin-right: -15rem;
+    margin-top: 3rem;
+    width: 190px;
+    height: 190px;
+  }
+
+  .button_propos {
+    margin-left: 35rem;
+    margin-top: 13rem;
+  }
+
+  .container_choix {
+    gap: 12rem;
+    height: 30rem;
+  }
+
+  .container_choix img {
+    width: 450px;
+    height: 290px;
+  }
+
+  /* Responsive for NEW LEUR MAISON design (min-width: 1025px and max-width: 1280px) */
+  .leur_maison {
+    padding: 6rem 0;
+    margin-top: 5rem;
+  }
+
+  .span_maison {
+    font-size: 4.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .nombre {
+    font-size: 5.8rem;
+    margin-top: 2rem;
+  }
+
+  .leur_maison img {
+    width: 290px;
+    height: 290px;
+    margin: 3rem 0;
+  }
+
+  .titre_carte {
+    font-size: 2.3rem;
+  }
+
+  .box_soins1,
+  .box_soins2 {
+    width: 23rem;
+  }
+
+  .icon_ensemble {
+    gap: 15rem;
+  }
+
+  .home_propos {
+    max-width: 950px;
+  }
+
+  .home_propos h2 {
+    font-size: 2.7rem;
+  }
+
+  .paragraphe_home_propos {
+    font-size: 1.18rem;
+  }
+
+  .home_propos_img img {
+    width: 290px;
+    height: 290px;
+  }
+}
+
+/* Extra large devices (min-width: 1281px and max-width: 1440px) */
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .container_img {
+    height: 30rem;
+    margin-top: 25rem;
+  }
+
+  .h1_titre {
+    margin-left: 20rem;
+    font-size: 4rem;
+  }
+
+  #content {
+    font-size: 2.5rem;
+    margin-left: 15rem;
+    max-width: 600px;
+  }
+
+  .circle_img1 img {
+    margin-right: 5rem;
+    width: 360px;
+    height: 350px;
+  }
+
+  .circle_img2 img {
+    margin-right: -3rem;
+    width: 235px;
+    height: 210px;
+  }
+
+  .circle_img3 img {
+    margin-right: -18rem;
+    margin-top: 4rem;
+    width: 200px;
+    height: 200px;
+  }
+
+  .button_propos {
+    margin-left: 40rem;
+    margin-top: 13rem;
+  }
+
+  .container_choix {
+    gap: 15rem;
+    height: 30rem;
+  }
+
+  .container_choix img {
+    width: 470px;
+    height: 300px;
+  }
+
+  /* Responsive for NEW LEUR MAISON design (min-width: 1281px and max-width: 1440px) */
+  .leur_maison {
+    padding: 6rem 0;
+    margin-top: 5rem;
+  }
+
+  .span_maison {
+    font-size: 4.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .nombre {
+    font-size: 6rem;
+    margin-top: 2rem;
+  }
+
+  .leur_maison img {
+    width: 300px;
+    height: 300px;
+    margin: 3rem 0;
+  }
+
+  .titre_carte {
+    font-size: 2.5rem;
+  }
+
+  .box_soins1,
+  .box_soins2 {
+    width: 25rem;
+  }
+
+  .icon_ensemble {
+    gap: 20rem;
+  }
+
+  .home_propos {
+    max-width: 1000px;
+  }
+
+  .home_propos h2 {
+    font-size: 2.8rem;
+  }
+
+  .paragraphe_home_propos {
+    font-size: 1.2rem;
+  }
+
+  .home_propos_img img {
+    width: 300px;
+    height: 300px;
   }
 }
