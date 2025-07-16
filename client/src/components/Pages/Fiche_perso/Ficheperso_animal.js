@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Ficheperso_animal.css";
 import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
+import Loading from "../../Widgets/Loading/Loading"; // ✅ Import de Loading
 
 const Ficheperso_animal = () => {
   const { id } = useParams();
@@ -42,7 +43,7 @@ const Ficheperso_animal = () => {
       });
   }, [id]);
 
-  if (loading) return <p>Chargement de l'animal...</p>;
+  if (loading) return <Loading />; // ✅ Remplacement par Loading
 
   if (error || !animal) {
     return (
@@ -90,7 +91,7 @@ const Ficheperso_animal = () => {
 
         <div className="info-section">
           <h2>{animal.nom}</h2>
-          {/* Nouveau : Le tag de sauvetage apparaît ici si animal.isRescue est true */}
+
           {animal.isRescue && (
             <div className="rescue-tag-fiche">Sauvetage</div>
           )}
