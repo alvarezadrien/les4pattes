@@ -842,9 +842,7 @@
 /* Medium devices (min-width: 769px and max-width: 1024px) */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .container_img {
-    height: 35rem;
-    margin-top: 20rem;
-    padding-top: 4rem;
+    height: 45rem;
     padding-bottom: 4rem;
   }
 
@@ -869,7 +867,7 @@
     flex-direction: row;
     flex-wrap: nowrap; /* Prevent wrapping if space allows */
     justify-content: center;
-    gap: 3rem; /* More space between images */
+    gap: 1rem;
   }
 
   .circle_img1 img,
@@ -884,18 +882,19 @@
   }
 
   .button_propos {
-    margin: 4rem auto 0 auto;
+    margin: 7rem;
     width: 11rem;
     height: 3rem;
     font-size: 1.5rem;
   }
 
   .container_choix {
-    gap: 10rem;
+    gap: 1rem;
+    flex-wrap: nowrap;
   }
 
   .container_choix img {
-    width: 400px;
+    width: 90%;
     height: 280px;
   }
 
@@ -906,12 +905,12 @@
   }
 
   .span_maison {
-    font-size: 3.5rem; /* Smaller for medium devices */
+    font-size: 2.5rem; /* Smaller for medium devices */
     margin-bottom: 2rem;
   }
 
   .nombre {
-    font-size: 5.5rem;
+    font-size: 4.5rem;
     margin-top: 2rem;
   }
 
@@ -923,15 +922,17 @@
 
   .titre_carte {
     font-size: 2.2rem;
+    margin-top: 5rem;
   }
 
   .box_soins1,
   .box_soins2 {
-    width: 22rem;
+    width: 21rem;
   }
 
   .icon_ensemble {
-    gap: 10rem;
+    gap: 1rem;
+    flex-wrap: nowrap;
   }
 
   .home_propos {
