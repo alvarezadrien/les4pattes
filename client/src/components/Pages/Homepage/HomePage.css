@@ -1114,7 +1114,7 @@
   }
 
   .h1_titre {
-    margin-left: 20rem;
+    margin-left: 15rem;
     font-size: 4rem;
   }
 
@@ -1124,9 +1124,13 @@
     max-width: 600px;
   }
 
+  .circle_img0 {
+    margin-right: -2rem;
+  }
+
   .circle_img1 img {
     margin-right: 5rem;
-    width: 360px;
+    max-width: 360px;
     height: 350px;
   }
 
@@ -1144,12 +1148,12 @@
   }
 
   .button_propos {
-    margin-left: 40rem;
+    margin-left: 30rem;
     margin-top: 13rem;
   }
 
   .container_choix {
-    gap: 15rem;
+    gap: 10rem;
     height: 30rem;
   }
 
@@ -1189,6 +1193,7 @@
 
   .titre_carte {
     font-size: 2.5rem;
+    margin-top: 4rem;
   }
 
   .box_soins1,
@@ -1197,7 +1202,7 @@
   }
 
   .icon_ensemble {
-    gap: 20rem;
+    gap: 10rem;
   }
 
   .home_propos {
