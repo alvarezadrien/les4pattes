@@ -3,16 +3,15 @@
   background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center; /* Assure que l'image est centrée */
+  background-position: center;
   position: relative;
-  height: 32rem; /* Hauteur fixe pour le desktop */
-  width: 100%; /* Utilise 100% de la largeur disponible */
+  height: 32rem;
   top: 0;
   left: 0;
   padding: 0;
   margin-top: 6rem;
   margin-bottom: 2rem;
-  box-sizing: border-box; /* Inclure padding et border dans la taille totale */
+  box-sizing: border-box;
 }
 
 .h1_accueil {
@@ -20,35 +19,35 @@
   font-size: 3rem;
   text-align: center;
   padding-top: 2rem;
-  word-wrap: break-word; /* Assure que le texte ne déborde pas sur petits écrans */
+  word-wrap: break-word;
 }
 
 /* --- Conteneur d'images de l'accueil --- */
 .container_img_accueil {
   display: flex;
-  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
-  justify-content: space-around;
-  gap: 1.5rem; /* Ajout d'un écart entre les images */
-  padding: 1rem; /* Ajouter un peu de padding pour les bords */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
 .img_accueil1 img,
 .img_accueil3 img {
-  border-radius: 100%; /* Images rondes */
+  border-radius: 100%;
   object-fit: cover;
   object-position: center;
-  width: 280px; /* Taille de base pour les images rondes */
-  height: 280px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+  width: clamp(180px, 20vw, 250px);
+  height: clamp(180px, 20vw, 250px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .img_accueil2 img {
-  object-fit: cover; /* Ou 'contain' selon le besoin de votre image */
+  object-fit: cover;
   object-position: center;
-  width: 400px; /* Taille de base pour l'image rectangulaire */
-  height: 250px;
-  border-radius: 20px; /* Bords arrondis pour l'image rectangulaire */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+  width: clamp(240px, 40vw, 400px);
+  height: clamp(160px, 25vw, 250px);
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Blocs image + texte (accueil_bloc) --- */
@@ -57,8 +56,8 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 4rem;
-  flex-wrap: wrap; /* Important pour le responsive */
-  padding: 0 1rem; /* Padding horizontal pour éviter que le contenu ne touche les bords */
+  flex-wrap: wrap;
+  padding: 0 1rem;
 }
 
 .accueil_bloc.inverse {
@@ -66,38 +65,38 @@
 }
 
 .accueil_image {
-  flex-shrink: 0; /* Empêche l'image de rétrécir trop */
-  max-width: 500px; /* Taille max de l'image sur desktop */
-  width: 100%; /* Prend toute la largeur disponible dans son conteneur */
+  flex-shrink: 0;
+  max-width: 500px;
+  width: 100%;
   display: flex;
-  justify-content: center; /* Centre l'image si elle est plus petite que max-width */
+  justify-content: center;
 }
 
 .accueil_image img {
-  width: 100%; /* L'image remplit son conteneur flex */
-  height: 20rem; /* Hauteur fixe, `object-fit: cover` est clé ici */
+  width: 100%;
+  height: 20rem;
   border-radius: 20px;
   object-fit: cover;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  max-width: 500px; /* Limite la taille de l'image */
+  max-width: 500px;
 }
 
 .accueil_texte {
-  flex-grow: 1; /* Permet au texte de prendre l'espace restant */
+  flex-grow: 1;
   max-width: 600px;
   padding: 2rem;
   background: #f7f9fc;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  margin: 1rem; /* Espace entre l'image et le texte, et entre les blocs */
+  margin: 1rem;
   border-radius: 20px;
-  color: #333; /* Couleur de texte plus foncée pour lisibilité sur fond clair */
+  color: #333;
   box-sizing: border-box;
 }
 
 .accueil_texte h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #333; /* Ajustement pour lisibilité */
+  color: #333;
 }
 
 .accueil_texte p {
@@ -105,81 +104,96 @@
   line-height: 1.8rem;
 }
 
-/* --- Media Queries pour la Responsivité --- */
-
-/* Très petits écrans (smartphones en mode portrait) */
-@media (max-width: 575px) {
+/* --- Responsive Adjustments --- */
+@media (max-width: 480px) {
   .container_accueil1 {
-    height: auto; /* La hauteur s'ajuste au contenu */
-    min-height: 400px; /* Minimum pour la visibilité de l'image de fond */
-    padding-top: 4rem; /* Plus d'espace en haut */
-    margin-top: 4rem; /* Ajustement marge si navbar change de taille */
+    height: 100%;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
   }
 
   .h1_accueil {
-    font-size: 2rem; /* Taille de police réduite pour les titres */
-    padding: 1rem; /* Ajustement du padding */
+    font-size: 1.5rem;
+    padding-top: 5rem;
   }
 
   .container_img_accueil {
-    flex-direction: column; /* Les images s'empilent */
-    align-items: center; /* Centre les images empilées */
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
   }
 
   .img_accueil1 img,
   .img_accueil3 img {
-    width: 200px; /* Plus petites sur mobile */
-    height: 200px;
+    width: 130px;
+    height: 130px;
   }
 
   .img_accueil2 img {
-    width: 280px; /* Plus petite sur mobile */
-    height: 180px;
+    width: 200px;
+    height: 130px;
+  }
+
+  .accueil_bloc {
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  .accueil_image {
+    max-width: 100%;
   }
 
   .accueil_image img {
-    height: 15rem; /* Réduire la hauteur des images de bloc */
+    height: 15rem;
+    border-radius: 10px;
   }
 
   .accueil_texte {
-    padding: 1.5rem; /* Réduire le padding */
-    margin: 1rem 0.5rem; /* Ajuster les marges horizontales */
+    padding: 1rem;
+    margin: 1rem 0;
+    max-width: 100%;
   }
 
   .accueil_texte h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .accueil_texte p {
-    font-size: 1.1rem;
-    line-height: 1.6rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
-/* Petits écrans (smartphones en mode paysage, petites tablettes) */
-@media (min-width: 576px) and (max-width: 767px) {
+/* Small Tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
   .container_accueil1 {
-    height: 35rem; /* Ajuster la hauteur */
+    height: 100%;
     margin-top: 5rem;
   }
 
   .h1_accueil {
     font-size: 2.5rem;
+    padding-top: 5rem;
   }
 
-  .img_accueil1 img,
-  .img_accueil3 img {
-    width: 250px;
-    height: 250px;
+  .container_img_accueil {
+    gap: 1rem;
   }
 
-  .img_accueil2 img {
-    width: 350px;
-    height: 220px;
+  .accueil_bloc {
+    margin-bottom: 3rem;
   }
 
   .accueil_image img {
     height: 18rem;
+  }
+
+  .accueil_texte {
+    padding: 1.5rem;
+    margin: 1rem;
   }
 
   .accueil_texte h2 {
@@ -188,32 +202,39 @@
 
   .accueil_texte p {
     font-size: 1.2rem;
+    line-height: 1.6rem;
   }
 }
 
-/* Moyens écrans (tablettes, petits ordinateurs portables) */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Medium Tablets & Small Laptops (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
   .container_accueil1 {
-    height: 38rem; /* Maintenir une hauteur suffisante */
+    height: 28rem;
+    margin-top: 5.5rem;
   }
 
   .h1_accueil {
     font-size: 2.8rem;
   }
 
-  .img_accueil1 img,
-  .img_accueil3 img {
-    width: 270px;
-    height: 270px;
+  .container_img_accueil {
+    gap: 1.5rem;
   }
 
-  .img_accueil2 img {
-    width: 380px;
-    height: 240px;
+  .accueil_bloc {
+    margin-bottom: 3.5rem;
+    padding: 0 1.5rem;
   }
 
   .accueil_image img {
-    height: 19rem;
+    height: 18rem;
+    max-width: 450px;
+  }
+
+  .accueil_texte {
+    padding: 1.8rem;
+    margin: 1.2rem;
+    max-width: 550px;
   }
 
   .accueil_texte h2 {
@@ -222,63 +243,88 @@
 
   .accueil_texte p {
     font-size: 1.3rem;
+    line-height: 1.7rem;
   }
 }
 
-/* Grands écrans (ordinateurs portables, moniteurs standard) */
-@media (min-width: 992px) and (max-width: 1200px) {
-  /* Les styles de base sont déjà bien pour cette gamme, peu de changements */
+/* Large Laptops (1025px to 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
   .container_accueil1 {
-    height: 32rem; /* Hauteur de base */
+    height: 30rem;
+    margin-top: 6rem;
   }
 
   .h1_accueil {
     font-size: 3rem;
   }
 
-  .img_accueil1 img,
-  .img_accueil3 img {
-    width: 290px;
-    height: 290px;
-  }
-
-  .img_accueil2 img {
-    width: 430px;
-    height: 270px;
-  }
-}
-
-/* Très grands écrans (moniteurs larges) */
-@media (min-width: 1201px) {
-  .container_accueil1 {
-    height: 35rem; /* Peut-être un peu plus grand pour très grands écrans */
-  }
-
-  .h1_accueil {
-    font-size: 3.5rem;
-  }
-
-  /* Ajuster si les images semblent trop petites/grandes */
-  .img_accueil1 img,
-  .img_accueil3 img {
-    width: 300px;
-    height: 300px;
-  }
-
-  .img_accueil2 img {
-    width: 450px;
-    height: 280px;
+  .container_img_accueil {
+    gap: 2rem;
   }
 
   .accueil_bloc {
-    max-width: 1400px; /* Contenir les blocs sur très grands écrans */
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 4rem;
+    padding: 0 2rem;
   }
+
   .accueil_image img {
-    max-width: 550px; /* Plus grande image sur très grand écran */
+    height: 20rem;
+    max-width: 500px;
   }
+
   .accueil_texte {
-    max-width: 650px; /* Plus de texte sur très grand écran */
+    padding: 2rem;
+    margin: 1.5rem;
+    max-width: 600px;
+  }
+
+  .accueil_texte h2 {
+    font-size: 2rem;
+  }
+
+  .accueil_texte p {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}
+
+/* Desktops & Large Screens (1281px to 1440px) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .container_accueil1 {
+    height: 32rem;
+    margin-top: 6rem;
+  }
+
+  .h1_accueil {
+    font-size: 3.2rem;
+  }
+
+  .container_img_accueil {
+    gap: 2.5rem;
+  }
+
+  .accueil_bloc {
+    margin-bottom: 4rem;
+    padding: 0 3rem;
+  }
+
+  .accueil_image img {
+    height: 22rem;
+    max-width: 550px;
+  }
+
+  .accueil_texte {
+    padding: 2.2rem;
+    margin: 1.8rem;
+    max-width: 650px;
+  }
+
+  .accueil_texte h2 {
+    font-size: 2.2rem;
+  }
+
+  .accueil_texte p {
+    font-size: 1.5rem;
+    line-height: 1.9rem;
   }
 }
