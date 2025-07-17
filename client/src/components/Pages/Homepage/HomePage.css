@@ -1029,8 +1029,8 @@
   }
 
   .button_propos {
-    margin-left: 35rem;
-    margin-top: 13rem;
+    margin-left: 25rem;
+    margin-top: 8rem;
   }
 
   .container_choix {
@@ -1042,7 +1042,6 @@
     height: 290px;
   }
 
-  /* Responsive for LEUR MAISON (min-width: 1025px and max-width: 1280px) */
   .leur_maison {
     flex-direction: row; /* Side-by-side for large devices */
     gap: 3rem; /* Adjusted gap */
@@ -1173,12 +1172,12 @@
   }
 
   .span_maison {
-    font-size: 4.5rem; /* Revert to original size for XL */
+    font-size: 3.5rem;
     margin-bottom: 2rem;
   }
 
   .nombre {
-    font-size: 6rem;
+    font-size: 5rem;
     margin-top: 2rem;
   }
 
