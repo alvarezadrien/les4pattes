@@ -17,7 +17,7 @@ const Savoir = () => {
               conditions
             </p>
           </div>
-          <div>
+          <div className="button_savoir00">
             <button>
               <a href="/Galeriechien">Chiens</a>
             </button>
