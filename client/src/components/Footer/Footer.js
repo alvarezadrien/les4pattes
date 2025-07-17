@@ -26,10 +26,10 @@ const Footer = () => {
             </h2>
             <ul className="liste_contact_footer">
               <li>
-                <a href="tel:+32492764208">0492 95 32 33</a>
+                <a className="lien_foot" href="tel:+32492764208">0492 95 32 33</a>
               </li>
               <li>
-                <a href="mailto:adrienalvarez15@gmail.com">
+                <a className="lien_foot" href="mailto:adrienalvarez15@gmail.com">
                   adrienalvarez15@gmail.com
                 </a>
               </li>
@@ -51,7 +51,7 @@ const Footer = () => {
             <ul className="liste_horaire_footer">
               <li>
                 Lundi-Samedi: 10h à 16h sur rendez-vous au{" "}
-                <a href="tel:0492764208">0492 95 32 33</a>
+                <a className="lien_foot" href="tel:0492764208">0492 95 32 33</a>
               </li>
               <li>Fermé les dimanches et les jours fériés.</li>
             </ul>

@@ -6,6 +6,13 @@
   background-color: #778d45;
 }
 
+/* a {
+  color: var(--tertiary-color);
+}
+
+a:hover {
+} */
+
 .footer_content {
   display: flex;
   align-items: center;
@@ -16,6 +23,16 @@
 
 .logo_footer {
   flex-shrink: 0;
+}
+
+.lien_foot {
+  color: var(--tertiary-color);
+  text-decoration-line: underline;
+  text-underline-offset: 5px;
+}
+
+.lien_foot:hover {
+  color: #bc5759;
 }
 
 .logo_site_footer {
