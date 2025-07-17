@@ -4,11 +4,9 @@
 }
 
 .adoption-hero-container {
-  background: linear-gradient(
-    135deg,
-    #176d70 0%,
-    #457b9d 100%
-  ); /* Blueish gradient */
+  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
   text-align: center;
   padding: 100px 20px;

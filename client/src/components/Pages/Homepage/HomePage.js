@@ -57,7 +57,9 @@ const HomePage = () => {
   useEffect(() => {
     const fetchNombre = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux/count/non-adoptes`);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/animaux/count/non-adoptes`
+        );
         const data = await response.json();
         setNombreNonAdoptes(data.count);
       } catch (error) {
@@ -122,10 +124,12 @@ const HomePage = () => {
 
       {/* Div leur maison */}
       <div className="leur_maison">
-        <span className="span_maison">Toujours en quête d’un foyer</span>
-        <br />
-        <span className="nombre">{nombreNonAdoptes}</span>
-        <img src="/img/hero-dog.png" alt="chien héros" width={280} height={280} />
+        <div className="maison_text_content">
+          <span className="span_maison">Toujours en quête d’un foyer</span>
+          <br />
+          <span className="nombre">{nombreNonAdoptes}</span>
+        </div>
+        <img src="/img/hero-dog.png" alt="chien héros" />
       </div>
 
       {/* Importation code carte carrousel */}
@@ -141,14 +145,15 @@ const HomePage = () => {
       {/* Div home propos */}
       <div className="home_propos">
         <h2>
-          <img src="/img/pattes.png" alt="" width={40} height={40} />
-          À propos de nous
+          <img src="/img/pattes.png" alt="" width={40} height={40} />À propos de nous
           <img src="/img/pattes.png" alt="" width={40} height={40} />
         </h2>
         <div className="content_wrapper">
           <p className="paragraphe_home_propos">
-            L’association Protectrice des Animaux Les 4 pattes est l’une des plus anciennes sociétés de protection animale de Belgique. Nous hébergeons des chiens et chats dans notre centre <br />
-            d’accueils à Bruxelles (Anderlecht). <br /><br />
+            L’association Protectrice des Animaux Les 4 pattes est l’une des plus anciennes sociétés de protection
+            animale de Belgique. Nous hébergeons des chiens et chats dans notre centre <br />
+            d’accueils à Bruxelles (Anderlecht). <br />
+            <br />
             Nous accueillons en moyenne près de 100 chiens <br />
             et chats par mois, victimes d’abandons. Nous <br />
             prenons soin d’eux et nous efforçons de leur <br />
@@ -205,4 +210,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePage;  

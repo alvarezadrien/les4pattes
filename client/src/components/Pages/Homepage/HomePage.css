@@ -11,7 +11,7 @@
 }
 
 .h1_titre {
-  color: var(--tertiary-color);
+  color: #ffffff; /* Remplacé var(--tertiary-color) */
   margin-top: -20rem;
   font-size: 4rem;
   margin-left: 20rem;
@@ -21,9 +21,9 @@
 #content {
   font-size: 2.5rem;
   margin-left: 15rem;
-  color: var(--tertiary-color);
+  color: #ffffff; /* Remplacé var(--tertiary-color) */
   display: flex;
-  border-right: 2px solid var(--quaternary-color);
+  border-right: 2px solid #778d45; /* Remplacé var(--quaternary-color) */
   overflow: hidden;
   max-width: 600px;
   animation: blink-cursor 0.9s steps(2, start) infinite;
@@ -82,7 +82,7 @@
   margin-left: 40rem;
   margin-top: 13rem;
   font-size: 1.3rem; /* Adjusted font size */
-  color: var(--tertiary-color);
+  color: #ffffff; /* Remplacé var(--tertiary-color) */
   overflow: hidden;
   z-index: 1;
 }
@@ -160,32 +160,33 @@
   height: 2.5rem;
   font-size: 1.8rem;
   border-radius: 50px;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+  border: 2px solid #4a6b24; /* Remplacé var(--primary-color) */
+  color: #4a6b24; /* Remplacé var(--primary-color) */
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .button_choix_chiens:hover,
 .button_choix_chats:hover {
-  background-color: var(--senary-color);
-  color: var(--tertiary-color);
+  background-color: #5f803b; /* Remplacé var(--senary-color) */
+  color: #ffffff; /* Remplacé var(--tertiary-color) */
 }
 
-/* NEW DESIGN FOR LEUR MAISON */
+/* MODIFIED SECTION FOR LEUR_MAISON - Side-by-side for non-responsive (larger screens) */
 .leur_maison {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 6rem 0; /* More vertical padding */
-  background: #f7f9fc; /* Light background */
-  border-bottom: 8px solid var(--primary-color); /* Stronger bottom border */
-  border-top: 8px solid var(--primary-color); /* Stronger top border */
+  display: flex; /* Use flexbox for side-by-side layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Align items vertically */
+  gap: 5rem; /* Space between text and image */
+  padding: 6rem 5rem; /* More padding horizontal */
+  background: #f7f9fc; /* Fond clair */
+  border-bottom: 8px solid #4a6b24; /* Bordure inférieure plus forte */
+  border-top: 8px solid #4a6b24; /* Bordure supérieure plus forte */
   margin-top: 5rem;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée */
+  flex-wrap: nowrap; /* Prevent wrapping on larger screens */
 }
 
 .leur_maison::before {
@@ -199,37 +200,58 @@
     circle,
     rgba(255, 255, 255, 0.2) 0%,
     rgba(255, 255, 255, 0) 70%
-  ); /* Radial gradient overlay */
+  ); /* Superposition de dégradé radial */
   z-index: 0;
 }
 
+.maison_text_content {
+  /* Nouvelle classe pour le contenu textuel */
+  text-align: right; /* Alignement du texte à droite pour PC */
+  padding-right: 2rem; /* Padding pour l'espacement */
+  z-index: 1;
+  flex-shrink: 0; /* Prevent text content from shrinking */
+}
+
 .span_maison {
-  color: var(--primary-color);
-  font-size: 3rem;
-  margin-bottom: 2rem; /* More space below text */
-  font-weight: 900; /* Extra bold */
-  letter-spacing: -0.05rem; /* Tighter letter spacing */
-  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); /* Softer, larger text shadow */
+  color: #4a6b24; /* Remplacé var(--primary-color) */
+  font-size: 3.5rem; /* Légèrement ajusté */
+  margin-bottom: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.05rem;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 1;
-  text-transform: uppercase; /* Uppercase text */
+  text-transform: uppercase;
+  display: block; /* S'assure qu'il prend toute la largeur */
+  line-height: 1.2;
+}
+
+.nombre {
+  color: #4a6b24; /* Remplacé var(--primary-color) */
+  font-size: 6rem;
+  font-weight: 900;
+  margin-top: 1rem; /* Ajusté */
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+  display: block; /* S'assure qu'il prend toute la largeur */
 }
 
 .leur_maison img {
-  width: 300px; /* Larger image */
-  height: 300px;
+  width: 350px; /* Image plus grande */
+  height: 350px;
   object-fit: contain;
-  margin: 3rem 0; /* Increased vertical margin */
-  animation: bounceScale 2s infinite ease-in-out; /* New bounce animation */
-  border-radius: 20px; /* Rounded corners for the image */
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
-  transition: all 0.4s ease-in-out; /* Smooth transitions */
-  position: relative;
+  margin: 0; /* Supprimé le margin par défaut */
+  animation: bounceScale 2s infinite ease-in-out;
+  border-radius: 50%; /* Image circulaire */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+  flex-shrink: 0; /* Prevent image from shrinking */
   z-index: 1;
 }
 
 .leur_maison img:hover {
-  transform: scale(1.08) rotate(2deg); /* More pronounced hover effect */
+  transform: scale(1.08) rotate(2deg);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -240,17 +262,7 @@
   }
   50% {
     transform: translateY(-15px) scale(1.02);
-  } /* Slight bounce up and scale */
-}
-
-.nombre {
-  color: var(--primary-color);
-  font-size: 6rem; /* Even larger font size */
-  font-weight: 900; /* Extra bold */
-  margin-top: 2rem; /* More space above number */
-  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Larger, softer text shadow */
-  position: relative;
-  z-index: 1;
+  } /* Léger rebond vers le haut et mise à l'échelle */
 }
 
 .titre_carte {
@@ -311,7 +323,7 @@
   padding: 1rem;
   border-radius: 35px;
   width: 25rem;
-  background-color: var(--tertiary-color);
+  background-color: #ffffff; /* Remplacé var(--tertiary-color) */
   box-shadow: 12px 13px 15px rgba(0, 0, 0, 0.3);
   flex-wrap: wrap;
   text-align: center;
@@ -332,26 +344,26 @@
 .icon_soins1 button,
 .icon_soins2 button {
   margin-top: 0.5rem;
-  background-color: var(--primary-color);
+  background-color: #4a6b24; /* Remplacé var(--primary-color) */
   border: none;
   border-radius: 50px;
   width: 7rem;
   height: 2rem;
   font-size: 1.1rem;
-  color: var(--tertiary-color);
+  color: #ffffff; /* Remplacé var(--tertiary-color) */
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .icon_soins1 button:hover,
 .icon_soins2 button:hover {
-  background-color: var(--senary-color);
+  background-color: #5f803b; /* Remplacé var(--senary-color) */
 }
 
 .icon_soins1 button a,
 .icon_soins2 button a {
   text-decoration: none;
-  color: var(--tertiary-color);
+  color: #ffffff; /* Remplacé var(--tertiary-color) */
 }
 
 /* ------------------ HOME_PROPOS (Section présentation) ------------------ */
@@ -399,7 +411,6 @@
   text-align: left;
   font-size: 1.2rem;
   line-height: 1.7;
-  color: #555;
   max-width: 500px;
   margin: 0;
   padding: 0 0.5rem;
@@ -596,10 +607,17 @@
     height: 2.2rem;
   }
 
-  /* Responsive for NEW LEUR MAISON design (max-width: 480px) */
+  /* Responsive for LEUR MAISON (max-width: 480px) */
   .leur_maison {
+    flex-direction: column; /* Stack vertically for mobile */
+    gap: 1.5rem; /* Reduced gap for mobile */
     padding: 4rem 1rem;
     margin-top: 3rem;
+  }
+
+  .maison_text_content {
+    text-align: center; /* Center text for mobile */
+    padding-right: 0; /* Remove right padding */
   }
 
   .span_maison {
@@ -615,7 +633,7 @@
   .leur_maison img {
     width: 200px;
     height: 200px;
-    margin: 2rem 0;
+    margin: 2rem auto; /* Center image horizontally */
   }
 
   .titre_carte {
@@ -631,17 +649,19 @@
 
   .box_soins1,
   .box_soins2 {
-    width: 90vw;
+    width: 80vw;
     margin: 1rem auto;
     max-width: 350px;
   }
 
   .container_aides_soins {
     height: auto;
-    width: 100vw;
+    width: 97vw;
+    border-radius: 15px;
     margin-top: -2rem;
     padding: 2rem 0;
     box-sizing: border-box;
+    justify-self: center;
   }
 
   .container_aides_soins h2 {
@@ -768,10 +788,17 @@
     margin-top: 3rem;
   }
 
-  /* Responsive for NEW LEUR MAISON design (min-width: 481px and max-width: 768px) */
+  /* Responsive for LEUR MAISON (min-width: 481px and max-width: 768px) */
   .leur_maison {
+    flex-direction: column; /* Stack vertically for tablet */
+    gap: 2rem; /* Reduced gap for tablet */
     padding: 5rem 0;
     margin-top: 4rem;
+  }
+
+  .maison_text_content {
+    text-align: center; /* Center text for tablet */
+    padding-right: 0; /* Remove right padding */
   }
 
   .span_maison {
@@ -787,7 +814,7 @@
   .leur_maison img {
     width: 250px;
     height: 250px;
-    margin: 2.5rem 0;
+    margin: 2.5rem auto; /* Center image horizontally */
   }
 
   .titre_carte {
@@ -797,8 +824,7 @@
 
   .box_soins1,
   .box_soins2 {
-    width: 45vw;
-    max-width: 350px;
+    max-width: 95vw;
   }
 
   .icon_ensemble {
@@ -836,6 +862,8 @@
 
   .container_aides_soins {
     height: 55rem;
+    width: 95vw;
+    justify-self: center;
   }
 }
 
@@ -898,10 +926,14 @@
     height: 280px;
   }
 
-  /* Responsive for NEW LEUR MAISON design (min-width: 769px and max-width: 1024px) */
+  /* Responsive for LEUR MAISON (min-width: 769px and max-width: 1024px) */
   .leur_maison {
-    padding: 6rem 0;
-    margin-top: 5rem;
+    flex-direction: column;
+  }
+
+  .maison_text_content {
+    text-align: right; /* Align text to the right */
+    padding-right: 2rem; /* Padding for spacing */
   }
 
   .span_maison {
@@ -918,6 +950,7 @@
     width: 280px;
     height: 280px;
     margin: 3rem 0;
+    margin-top: -9rem;
   }
 
   .titre_carte {
@@ -938,7 +971,7 @@
   .home_propos {
     padding: 3rem 1.5rem;
     margin: 2rem auto;
-    max-width: 900px;
+    max-width: 90vw;
   }
 
   .home_propos h2 {
@@ -1001,8 +1034,7 @@
   }
 
   .container_choix {
-    gap: 12rem;
-    height: 30rem;
+    gap: 3rem;
   }
 
   .container_choix img {
@@ -1010,19 +1042,26 @@
     height: 290px;
   }
 
-  /* Responsive for NEW LEUR MAISON design (min-width: 1025px and max-width: 1280px) */
+  /* Responsive for LEUR MAISON (min-width: 1025px and max-width: 1280px) */
   .leur_maison {
+    flex-direction: row; /* Side-by-side for large devices */
+    gap: 3rem; /* Adjusted gap */
     padding: 6rem 0;
     margin-top: 5rem;
   }
 
+  .maison_text_content {
+    text-align: right; /* Align text to the right */
+    padding-right: 2rem; /* Padding for spacing */
+  }
+
   .span_maison {
-    font-size: 3.8rem; /* Adjusted for large devices */
+    font-size: 2.5rem;
     margin-bottom: 2rem;
   }
 
   .nombre {
-    font-size: 5.8rem;
+    font-size: 4.5rem;
     margin-top: 2rem;
   }
 
@@ -1034,6 +1073,7 @@
 
   .titre_carte {
     font-size: 2.3rem;
+    margin-top: 4rem;
   }
 
   .box_soins1,
@@ -1042,7 +1082,11 @@
   }
 
   .icon_ensemble {
-    gap: 15rem;
+    gap: 5rem;
+  }
+
+  .h2_titre_soins {
+    font-size: 2.5rem;
   }
 
   .home_propos {
@@ -1115,10 +1159,17 @@
     height: 300px;
   }
 
-  /* Responsive for NEW LEUR MAISON design (min-width: 1281px and max-width: 1440px) */
+  /* Responsive for LEUR MAISON (min-width: 1281px and max-width: 1440px) */
   .leur_maison {
+    flex-direction: row; /* Side-by-side for extra large devices */
+    gap: 4rem; /* Adjusted gap */
     padding: 6rem 0;
     margin-top: 5rem;
+  }
+
+  .maison_text_content {
+    text-align: right; /* Align text to the right */
+    padding-right: 3rem; /* Padding for spacing */
   }
 
   .span_maison {
