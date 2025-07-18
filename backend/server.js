@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
+const passwordRoutes = require('./routes/passwordRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -32,6 +33,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/password', passwordRoutes);
 
 // Connexion à MongoDB
 mongoose.connect(mongoURI)

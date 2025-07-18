@@ -29,6 +29,7 @@ import Sensibilisation from './components/Pages/Sensibilisation/Sensibilisation'
 import Adhesions from './components/Pages/Adhésions/Adhesions';
 import AdoptionChiens from './components/Pages/PageAdoption/Page_chiens/AdoptionChiens';
 import AdoptionChats from './components/Pages/PageAdoption/Page_chats/AdoptionChats';
+import ResetPassword from './components/Pages/Profil/Oublie/ResetPassword';
 
 import BackButton from './components/Widgets/Back_button/Back_button';
 import Animalitem from './components/Widgets/Animal_item/Animalitem';
@@ -92,6 +93,7 @@ const App = () => {
             <Route path="/Contact" element={<Contact />} />
             <Route path="/Connexion" element={<Connexion />} />
             <Route path="/MotpasseOublie" element={<MotpasseOublie />} />
+            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
             <Route path="/Inscription" element={<Inscription />} />
             <Route path="/Formulaire d'adoption" element={<Adoption />} />
             <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
