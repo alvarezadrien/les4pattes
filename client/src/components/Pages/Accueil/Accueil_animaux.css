@@ -306,6 +306,7 @@
   .accueil_bloc {
     margin-bottom: 4rem;
     padding: 0 3rem;
+    flex-wrap: nowrap;
   }
 
   .accueil_image img {
