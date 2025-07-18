@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Motpasse_oublie.css';
+import emailjs from 'emailjs-com';
 
 // Import Material-UI
 import Box from '@mui/material/Box';
@@ -34,78 +35,54 @@ const formSx = {
 };
 
 function MotpasseOublie() {
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [inputValue, setInputValue] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const validateInput = (value) => {
-        setInputValue(value);
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (emailRegex.test(value)) {
-            setErrorMessage('');
-        } else {
-            setErrorMessage('Veuillez entrer un email valide.');
-        }
-    };
-
-    const handleSubmit = async (e) => {
+    const sendEmail = (e) => {
         e.preventDefault();
-        setSuccessMessage('');
-        setErrorMessage('');
 
-        if (!inputValue) {
-            setErrorMessage('Veuillez entrer votre email.');
-            return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(inputValue)) {
-            setErrorMessage('Email invalide.');
+        if (!email) {
+            setMessage('Veuillez entrer votre adresse email.');
             return;
         }
 
         setLoading(true);
 
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/password/forgot-password`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: inputValue }),
+        const resetLink = `https://les4pattes.x75.form.efp.be/ResetPassword/` + Math.random().toString(36).substring(2, 15);
+
+        const templateParams = {
+            user_email: email,
+            reset_link: resetLink,
+        };
+
+        emailjs
+            .send('service_kz9t1py', 'template_icjtlos', templateParams, 'u38vBbMZCmg2Jtwor')
+            .then(() => {
+                setMessage('Un email vous a été envoyé si votre adresse est valide.');
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Erreur EmailJS :', error);
+                setMessage('Erreur lors de l’envoi de l’email.');
+                setLoading(false);
             });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setSuccessMessage(data.message);
-            } else {
-                setErrorMessage(data.message || "Une erreur est survenue.");
-            }
-
-        } catch (error) {
-            setErrorMessage("Erreur serveur.");
-        } finally {
-            setLoading(false);
-        }
     };
 
     return (
         <div className="page_oublie">
             <div className="left-content">
-                <h1 className="h1_oublie">Mot de passe oublié ? Récupérez votre compte ici</h1>
+                <h1 className="h1_oublie">Mot de passe oublié ?</h1>
 
-                <form onSubmit={handleSubmit} className="container_form_login">
+                <form onSubmit={sendEmail} className="container_form_login">
                     <Box component="div" sx={formSx}>
                         <TextField
                             fullWidth
                             variant="outlined"
                             label="Email"
                             placeholder="Entrez votre email"
-                            value={inputValue}
-                            onChange={(e) => validateInput(e.target.value)}
-                            error={!!errorMessage}
-                            helperText={errorMessage}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             disabled={loading}
                         />
                     </Box>
@@ -117,9 +94,7 @@ function MotpasseOublie() {
                         disabled={loading}
                         sx={{
                             backgroundColor: '#778d45',
-                            '&:hover': {
-                                backgroundColor: '#5f7036',
-                            },
+                            '&:hover': { backgroundColor: '#5f7036' },
                             margin: '0 auto',
                             display: 'block',
                             width: '30ch',
@@ -128,15 +103,13 @@ function MotpasseOublie() {
                         {loading ? 'Envoi...' : 'Confirmer'}
                     </Button>
 
-                    {successMessage && (
-                        <p style={{ color: 'green', textAlign: 'center', marginTop: '1rem' }}>
-                            {successMessage}
-                        </p>
+                    {message && (
+                        <p style={{ textAlign: 'center', marginTop: '1rem' }}>{message}</p>
                     )}
                 </form>
             </div>
 
-            <img src="/img/img_chat_oublie.jpg" alt="Chien" className="right-oublie-image" />
+            <img src="/img/img_chat_oublie.jpg" alt="Chat" className="right-oublie-image" />
         </div>
     );
 }
