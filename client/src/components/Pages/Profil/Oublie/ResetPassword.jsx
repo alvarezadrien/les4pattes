@@ -147,12 +147,6 @@ function ResetPassword() {
           )}
         </form>
       </div>
-
-      <img
-        src="/img/img_chat_reset.jpg"
-        alt="Chat"
-        className="right-reset-image"
-      />
     </div>
   );
 }
