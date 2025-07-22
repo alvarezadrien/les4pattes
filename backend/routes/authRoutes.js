@@ -10,7 +10,7 @@ const fs = require('fs');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
-// 🖼️ Multer config pour avatar
+// 🖼️ Multer config pour avatar personnalisé
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => {
@@ -95,7 +95,7 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Mettre à jour l’avatar
+// ✅ Mettre à jour l’avatar (upload)
 router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
@@ -103,7 +103,8 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
 
-        if (user.avatar && user.avatar !== '/img/avatar.png') {
+        // Supprimer l'ancien avatar s'il existe
+        if (user.avatar && user.avatar !== '/img/avatar.png' && user.avatar.startsWith('/uploads/')) {
             const oldAvatarPath = path.join(__dirname, '..', user.avatar);
             if (fs.existsSync(oldAvatarPath)) {
                 fs.unlink(oldAvatarPath, (err) => {
@@ -120,6 +121,28 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
             return res.status(400).json({ msg: err.message });
         }
         res.status(500).send("Erreur serveur lors de l'upload de l'avatar");
+    }
+});
+
+// ✅ Choisir un avatar prédéfini (URL)
+router.put('/profile/avatar-url', auth, async (req, res) => {
+    try {
+        const { avatarUrl } = req.body;
+
+        if (!avatarUrl || !avatarUrl.startsWith('/img/Avatar/')) {
+            return res.status(400).json({ msg: "URL d'avatar non valide." });
+        }
+
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
+
+        user.avatar = avatarUrl;
+        await user.save();
+
+        res.json({ msg: "Avatar mis à jour avec succès", avatarUrl: user.avatar });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: "Erreur serveur lors de la mise à jour de l'avatar." });
     }
 });
 
