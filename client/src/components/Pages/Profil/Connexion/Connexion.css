@@ -1,192 +1,301 @@
-.page_connexion {
+/* Base container for the entire Connexion page */
+.connexion-page-wrapper {
   display: flex;
-  height: 100vh;
+  min-height: 100vh; /* Ensures it takes full viewport height */
+  background-color: #f0f2f5; /* Light background for the page */
 }
 
-.h1_connexion {
-  text-align: center;
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-}
-
-.left-content {
-  flex: 1;
+/* Section containing the title and form */
+.connexion-main-content {
+  flex: 1; /* Takes available space */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 2rem; /* Consistent padding */
   text-align: center;
-  font-size: 1.5rem;
-  font-style: italic;
 }
 
-/* Box de connexion */
-.container_form_login_connexion {
-  margin-top: 20px;
-  background-color: var(--secondary-color);
-  padding: 40px;
+/* Title styling */
+.connexion-heading {
+  font-size: 2.5rem;
+  color: var(--primary-color, #333); /* Fallback color for primary-color */
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+/* Form card/container */
+.connexion-form-card {
+  background-color: var(
+    --secondary-color,
+    #fff
+  ); /* Fallback color for secondary-color */
+  padding: 2.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Default to full width, max-width will control actual size */
+  max-width: 650px; /* Slightly increased max-width for the whole card */
 }
 
-.form-links {
+/* Links below the form (Forgot password, Register) */
+.connexion-links-container {
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+  padding: 0 10%; /* Add horizontal padding to prevent links from touching edges on small screens */
 }
 
-.form-links a {
-  color: var(--primary-color);
+.connexion-link-item {
+  color: #778d45; /* Specific color for links */
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.9rem;
+  transition: text-decoration 0.3s ease;
 }
 
-.form-links a:hover {
+.connexion-link-item:hover {
   text-decoration: underline;
 }
 
-.right-image {
-  width: auto;
-  height: 100%;
-  object-fit: cover;
+/* Error and success message styling */
+.connexion-message-error {
+  color: red;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
-/* ============ 320px à 480px ============ */
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .page_connexion {
-    flex-direction: column;
-  }
-
-  .h1_connexion {
-    font-size: 1.5rem;
-    margin-top: 50px;
-  }
-
-  .container_form_login_connexion {
-    width: 85%;
-    padding: 30px;
-  }
-
-  .right-image {
-    height: auto;
-    object-fit: cover;
-  }
+.connexion-message-success {
+  color: green;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
-/* ============ 481px à 768px ============ */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .page_connexion {
-    flex-direction: column;
-  }
-
-  .h1_connexion {
-    font-size: 1.8rem;
-    margin-top: 50px;
-  }
-
-  .container_form_login_connexion {
-    width: 80%;
-    padding: 35px;
-  }
-
-  .right-image {
-    height: auto;
-    object-fit: cover;
-  }
+/* Section for the image */
+.connexion-image-section {
+  flex: 1; /* Takes available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Hide overflow if image is too large */
 }
 
-/* ============ 769px à 800px ============ */
-@media screen and (min-width: 769px) and (max-width: 800px) {
-  .page_connexion {
-    flex-direction: column;
-  }
-
-  .h1_connexion {
-    font-size: 2rem;
-    margin-top: 50px;
-  }
-
-  .container_form_login_connexion {
-    width: 75%;
-    padding: 40px;
-  }
-
-  .right-image {
-    height: auto;
-    object-fit: cover;
-  }
+.connexion-responsive-image {
+  width: 100%;
+  height: 100%; /* Image fills height of its container */
+  object-fit: cover; /* Crop image to cover the area without stretching */
+  display: block; /* Remove extra space below image */
 }
 
-/* ============ 801px à 1024px ============ */
-@media screen and (min-width: 801px) and (max-width: 1024px) {
-  .page_connexion {
-    flex-direction: row;
+/* --- Responsive Styles --- */
+
+/* 480px and below (Mobile portrait) */
+@media (max-width: 480px) {
+  .connexion-page-wrapper {
+    flex-direction: column; /* Stack elements vertically */
+    padding: 1rem;
+  }
+
+  .connexion-main-content {
+    order: 1; /* Place content section first */
+    padding: 1rem;
+  }
+
+  .connexion-heading {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .connexion-form-card {
+    padding: 1rem;
+    width: 95%; /* Wider on small screens */
+    max-width: none; /* Remove max-width for small screens */
+  }
+
+  .connexion-links-container {
+    flex-direction: column; /* Stack links */
+    gap: 0.5rem;
     align-items: center;
-    justify-content: center;
   }
 
-  .h1_connexion {
+  .connexion-image-section {
+    order: 2; /* Place image section below the content */
+    height: 30vh; /* Fixed height for image section on mobile */
+    min-height: 180px; /* Minimum height to ensure visibility */
+    margin-top: 1.5rem; /* Space between form and image */
+  }
+
+  .connexion-responsive-image {
+    max-height: 100%; /* Ensure image fits container height */
+    width: auto; /* Allow width to adjust proportionally */
+  }
+}
+
+/* 481px to 768px (Mobile landscape, small tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .connexion-page-wrapper {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .connexion-main-content {
+    order: 1;
+    padding: 1.5rem;
+  }
+
+  .connexion-heading {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .connexion-form-card {
+    width: 85%;
+    padding: 2rem;
+  }
+
+  .connexion-image-section {
+    order: 2;
+    height: 40vh;
+    min-height: 250px;
+    margin-top: 2rem;
+  }
+
+  .connexion-responsive-image {
+    max-height: 100%;
+    width: auto;
+  }
+}
+
+/* 769px to 1024px (Tablets, small laptops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .connexion-page-wrapper {
+    flex-direction: row; /* Side-by-side layout */
+    padding: 0; /* Reset overall page padding */
+  }
+
+  .connexion-main-content {
+    order: unset; /* Reset order */
+    flex: 1.2; /* Give more space to the left panel */
+    padding: 2rem;
+  }
+
+  .connexion-heading {
     font-size: 2.2rem;
     margin-top: 0;
   }
 
-  .left-content {
-    padding: 2rem;
+  .connexion-form-card {
+    width: 90%;
+    max-width: 550px; /* Adjusted max-width for this breakpoint */
+    padding: 2.5rem;
   }
 
-  .container_form_login_connexion {
-    width: 60%;
+  .connexion-image-section {
+    order: unset; /* Reset order */
+    height: 100vh; /* Image takes full viewport height */
+    flex: 0.8; /* Give less space to the image */
   }
 
-  .right-image {
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-/* ============ 1025px à 1280px ============ */
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .page_connexion {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .h1_connexion {
-    font-size: 2.3rem;
-  }
-
-  .container_form_login_connexion {
-    width: 55%;
-  }
-
-  .right-image {
-    height: 100%;
-    object-fit: cover;
+  .connexion-responsive-image {
+    height: 100%; /* Image fills its container height */
+    width: 100%; /* Image fills its container width */
   }
 }
 
-/* ============ 1281px à 1440px ============ */
-@media screen and (min-width: 1281px) and (max-width: 1440px) {
-  .page_connexion {
+/* 1025px to 1280px (Laptops, desktops) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .connexion-page-wrapper {
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
   }
 
-  .h1_connexion {
+  .connexion-main-content {
+    flex: 1.5;
+    padding: 2.5rem;
+  }
+
+  .connexion-heading {
     font-size: 2.5rem;
   }
 
-  .container_form_login_connexion {
-    width: 50%;
+  .connexion-form-card {
+    width: 80%;
+    max-width: 600px; /* Adjusted max-width for this breakpoint */
+    padding: 3rem;
   }
 
-  .right-image {
+  .connexion-image-section {
+    height: 100vh;
+    flex: 1;
+  }
+
+  .connexion-responsive-image {
     height: 100%;
-    object-fit: cover;
+    width: 100%;
+  }
+}
+
+/* 1281px to 1440px (Larger desktops) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .connexion-page-wrapper {
+    flex-direction: row;
+  }
+
+  .connexion-main-content {
+    flex: 1.8;
+    padding: 3rem;
+  }
+
+  .connexion-heading {
+    font-size: 2.7rem;
+  }
+
+  .connexion-form-card {
+    width: 70%;
+    max-width: 650px; /* Consistent max-width for larger screens */
+    padding: 3.5rem;
+  }
+
+  .connexion-image-section {
+    height: 100vh;
+    flex: 1.2;
+  }
+
+  .connexion-responsive-image {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* 1441px and up (Extra large desktops) */
+@media (min-width: 1441px) {
+  .connexion-page-wrapper {
+    flex-direction: row;
+  }
+
+  .connexion-main-content {
+    flex: 2;
+    padding: 4rem;
+  }
+
+  .connexion-heading {
+    font-size: 3rem;
+  }
+
+  .connexion-form-card {
+    width: 60%;
+    max-width: 700px; /* Increased max-width for very large screens */
+    padding: 4rem;
+  }
+
+  .connexion-image-section {
+    height: 100vh;
+    flex: 1.5;
+  }
+
+  .connexion-responsive-image {
+    height: 100%;
+    width: 100%;
   }
 }
