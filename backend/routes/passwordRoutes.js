@@ -84,8 +84,10 @@ router.post('/reset-password/:token', async (req, res) => {
             return res.status(400).json({ message: 'Mot de passe manquant.' });
         }
 
+        // ✅ FORCER le hachage ici
+        const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
-        console.log('🔐 Mot de passe haché pour l’utilisateur :', user.email);
+
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
@@ -99,5 +101,6 @@ router.post('/reset-password/:token', async (req, res) => {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
+
 
 module.exports = router;
