@@ -23,8 +23,11 @@ const mongoURI =
 app.use(cors());
 app.use(express.json());
 
-// Dossier statique pour les images uploadées
+// ✅ Dossier statique pour les images uploadées
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// ✅ Dossier statique pour les avatars prédéfinis
+app.use('/img', express.static(path.join(__dirname, 'public/img')));
 
 // Routes API
 app.use('/api/animaux', animalRoutes);
@@ -32,7 +35,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/password', passwordRoutes);
 
 // Connexion à MongoDB
