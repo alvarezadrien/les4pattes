@@ -1,111 +1,104 @@
-import React, { useState } from 'react';
-import './Motpasse_oublie.css';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
-const formSx = {
-    '& .MuiTextField-root': {
-        m: 1,
-        width: '30ch',
-        maxWidth: '500px',
-        display: 'flex',
-        margin: '0 auto 1rem auto',
-    },
-    '& .MuiInputLabel-root': {
-        color: 'black',
-        '&.Mui-focused': {
-            color: '#778d45',
-        },
-    },
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'black',
-        },
-        '&:hover fieldset': {
-            borderColor: '#778d45',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: '#778d45',
-        },
-    },
-};
+// ✅ ROUTE DE TEST pour Render
+router.get('/test', (req, res) => {
+    res.json({ message: '✅ La route /api/password/test fonctionne !' });
+});
 
-function MotpasseOublie() {
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false);
+// ✅ Configurer le transporteur avec les variables d'environnement
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+// ✅ Route de demande de réinitialisation
+router.post('/forgot-password', async (req, res) => {
+    const { email } = req.body;
 
-        if (!email) {
-            setMessage('Veuillez entrer votre adresse email.');
-            return;
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            console.log('❌ Aucun utilisateur avec cet email :', email);
+            return res.status(404).json({ message: 'Aucun utilisateur avec cet email.' });
         }
 
-        setLoading(true);
+        const token = user.generatePasswordResetToken(); // généré et stocké dans user
+        await user.save();
 
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/password/forgot-password`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
-            });
+        const resetURL = `${process.env.FRONTEND_URL}/ResetPassword/${token}`;
+        console.log('🔑 Token généré :', token);
+        console.log('🔗 Reset URL :', resetURL);
 
-            const data = await response.json();
-            setMessage(data.message || 'Si un compte existe, un email a été envoyé.');
-        } catch (error) {
-            console.error('Erreur côté front-end :', error);
-            setMessage('Une erreur est survenue.');
-        } finally {
-            setLoading(false);
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: user.email,
+            subject: 'Réinitialisation de mot de passe',
+            html: `
+                <p>Bonjour ${user.prenom},</p>
+                <p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien ci-dessous pour le faire :</p>
+                <p><a href="${resetURL}">${resetURL}</a></p>
+                <p>Ce lien est valide pendant 1 heure.</p>
+                <br/>
+                <p>Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email.</p>
+                <p>— L'équipe Les 4 Pattes</p>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.json({ message: 'Email de réinitialisation envoyé.' });
+
+    } catch (error) {
+        console.error('❌ Erreur forgot-password :', error);
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+});
+
+// ✅ Route de réinitialisation avec le token
+router.post('/reset-password/:token', async (req, res) => {
+    const { token } = req.params;
+    const { newPassword } = req.body;
+
+    console.log('🧪 Token reçu dans l’URL :', token);
+    console.log('🔐 Nouveau mot de passe reçu :', newPassword);
+
+    try {
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        console.log('👤 Utilisateur trouvé ?', !!user);
+
+        if (!user) {
+            return res.status(400).json({ message: 'Token invalide ou expiré.' });
         }
-    };
 
-    return (
-        <div className="page_oublie">
-            <div className="left-content">
-                <h1 className="h1_oublie">Mot de passe oublié ?</h1>
+        if (!newPassword || newPassword.trim() === '') {
+            return res.status(400).json({ message: 'Mot de passe manquant.' });
+        }
 
-                <form onSubmit={handleSubmit} className="container_form_login">
-                    <Box component="div" sx={formSx}>
-                        <TextField
-                            fullWidth
-                            variant="outlined"
-                            label="Email"
-                            placeholder="Entrez votre email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            disabled={loading}
-                        />
-                    </Box>
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
 
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        disabled={loading}
-                        sx={{
-                            backgroundColor: '#778d45',
-                            '&:hover': { backgroundColor: '#5f7036' },
-                            margin: '0 auto',
-                            display: 'block',
-                            width: '30ch',
-                        }}
-                    >
-                        {loading ? 'Envoi...' : 'Confirmer'}
-                    </Button>
+        await user.save();
+        console.log('✅ Mot de passe mis à jour avec succès pour :', user.email);
 
-                    {message && (
-                        <p style={{ textAlign: 'center', marginTop: '1rem' }}>{message}</p>
-                    )}
-                </form>
-            </div>
+        res.json({ message: 'Mot de passe réinitialisé avec succès.' });
 
-            <img src="/img/img_chat_oublie.jpg" alt="Chat" className="right-oublie-image" />
-        </div>
-    );
-}
+    } catch (error) {
+        console.error('❌ Erreur reset-password :', error);
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+});
 
-export default MotpasseOublie;
+module.exports = router;
