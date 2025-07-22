@@ -10,7 +10,7 @@ const fs = require('fs');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
-// --- Multer config pour avatar ---
+// 🖼️ Multer config pour avatar
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => {
@@ -28,7 +28,7 @@ const upload = multer({
     }
 });
 
-// 🧾 Inscription
+// ✅ Inscription
 router.post('/signup', async (req, res) => {
     const { nom, prenom, dateNaissance, adresse, telephone, email, password, avatar, role } = req.body;
 
@@ -55,7 +55,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// 🔐 Connexion
+// ✅ Connexion
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// 👤 Récupération du profil connecté
+// ✅ Récupérer le profil connecté
 router.get('/profile', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
@@ -95,12 +95,10 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// 🖼️ Mise à jour avatar
+// ✅ Mettre à jour l’avatar
 router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
-        }
+        if (!req.file) return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
 
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
@@ -117,7 +115,6 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         user.avatar = `/uploads/${req.file.filename}`;
         await user.save();
         res.json({ msg: 'Avatar mis à jour avec succès', avatar: user.avatar });
-
     } catch (err) {
         if (err instanceof multer.MulterError || err.message.includes('Seules les images')) {
             return res.status(400).json({ msg: err.message });
@@ -126,7 +123,7 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
     }
 });
 
-// 🔁 Admin : mise à jour du rôle
+// ✅ Admin : mise à jour du rôle
 router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
     const userId = req.params.id;
     const { role } = req.body;
@@ -148,7 +145,7 @@ router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
     }
 });
 
-// 👥 Admin : voir tous les utilisateurs
+// ✅ Admin : voir tous les utilisateurs
 router.get('/users', auth, isAdmin, async (req, res) => {
     try {
         const users = await User.find().select('-password');
@@ -158,7 +155,7 @@ router.get('/users', auth, isAdmin, async (req, res) => {
     }
 });
 
-// ❌ Admin : supprimer un utilisateur
+// ✅ Admin : supprimer un utilisateur
 router.delete('/users/:id', auth, isAdmin, async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);
