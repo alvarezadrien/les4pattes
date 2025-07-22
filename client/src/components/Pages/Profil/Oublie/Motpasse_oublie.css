@@ -1,100 +1,269 @@
-.page_oublie {
+/* Base container for the entire Forgot Password page */
+.forgot-password-page-wrapper {
   display: flex;
-  height: 100vh;
+  min-height: 100vh; /* Ensures it takes full viewport height */
+  background-color: #f0f2f5; /* Light background for the page */
 }
 
-.left-content {
-  flex: 1;
+/* Section containing the title and form */
+.forgot-password-main-content {
+  flex: 1; /* Takes available space */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 2rem; /* Consistent padding */
   text-align: center;
-  font-size: 1.5rem;
-  font-style: italic;
 }
 
-.container_form_login {
-  margin-top: 20px;
-  background-color: var(--secondary-color);
-  padding: 40px;
+/* Title styling */
+.forgot-password-heading {
+  font-size: 2.5rem;
+  color: var(--primary-color, #333); /* Fallback color for primary-color */
+  margin-bottom: 2rem; /* Space below heading */
+  line-height: 1.2;
+}
+
+/* Form card/container */
+.forgot-password-form-card {
+  background-color: var(
+    --secondary-color,
+    #fff
+  ); /* Fallback color for secondary-color */
+  padding: 2.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Default to full width, max-width will control actual size */
+  max-width: 650px; /* Max width for the form card on larger screens */
+}
+
+/* Message styling (success/error) */
+.forgot-password-message {
+  color: #555; /* Neutral color by default */
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Section for the image */
+.forgot-password-image-section {
+  flex: 1; /* Takes available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Hide overflow if image is too large */
+}
+
+.forgot-password-responsive-image {
   width: 100%;
-  max-width: 400px;
+  height: 100%; /* Image fills height of its container */
+  object-fit: cover; /* Crop image to cover the area without stretching */
+  display: block; /* Remove extra space below image */
 }
 
-.container_form_login .form-group {
-  margin-bottom: 15px;
-}
+/* --- Responsive Styles --- */
 
-.btn-login {
-  width: 70%;
-  padding: 10px;
-  background-color: var(--primary-color);
-  color: var(--tertiary-color);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1.3rem;
-  margin-top: 10px;
-  border-radius: 30px;
-}
-
-.right-oublie-image {
-  width: auto;
-  height: 100%;
-  object-fit: cover;
-}
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .page_oublie {
-    flex-direction: column;
+/* 480px and below (Mobile portrait) */
+@media (max-width: 480px) {
+  .forgot-password-page-wrapper {
+    flex-direction: column; /* Stack elements vertically */
+    padding: 1rem;
   }
 
-  .container_form_login {
+  .forgot-password-main-content {
+    order: 1; /* Place content section first */
+    padding: 1rem;
+  }
+
+  .forgot-password-heading {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .forgot-password-form-card {
+    padding: 1rem;
+    width: 95%; /* Wider on small screens */
+    max-width: none; /* Remove max-width for small screens */
+  }
+
+  .forgot-password-image-section {
+    order: 2; /* Place image section below the content */
+    height: 30vh; /* Fixed height for image section on mobile */
+    min-height: 180px; /* Minimum height to ensure visibility */
+    margin-top: 1.5rem; /* Space between form and image */
+  }
+
+  .forgot-password-responsive-image {
+    max-height: 100%; /* Ensure image fits container height */
+    width: 85%;
+  }
+}
+
+/* 481px to 768px (Mobile landscape, small tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .forgot-password-page-wrapper {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .forgot-password-main-content {
+    order: 1;
+    padding: 1.5rem;
+  }
+
+  .forgot-password-heading {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .forgot-password-form-card {
+    width: 85%;
+    padding: 2rem;
+  }
+
+  .forgot-password-image-section {
+    order: 2;
+    height: 40vh;
+    min-height: 250px;
+    margin-top: 2rem;
+  }
+
+  .forgot-password-responsive-image {
+    max-height: 100%;
     width: 80%;
   }
+}
 
-  .container_form_login input {
+/* 769px to 1024px (Tablets, small laptops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .forgot-password-page-wrapper {
+    flex-direction: row; /* Side-by-side layout */
+    padding: 0; /* Reset overall page padding */
+  }
+
+  .forgot-password-main-content {
+    order: unset; /* Reset order */
+    flex: 1.2; /* Give more space to the left panel */
+    padding: 2rem;
+  }
+
+  .forgot-password-heading {
+    font-size: 2.2rem;
+    margin-top: 0;
+  }
+
+  .forgot-password-form-card {
+    width: 90%;
+    max-width: 550px; /* Adjusted max-width for this breakpoint */
+    padding: 2.5rem;
+  }
+
+  .forgot-password-image-section {
+    order: unset; /* Reset order */
+    height: 100vh; /* Image takes full viewport height */
+    flex: 0.8; /* Give less space to the image */
+  }
+
+  .forgot-password-responsive-image {
+    height: 100%; /* Image fills its container height */
+    width: 100%; /* Image fills its container width */
+  }
+}
+
+/* 1025px to 1280px (Laptops, desktops) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .forgot-password-page-wrapper {
+    flex-direction: row;
+  }
+
+  .forgot-password-main-content {
+    flex: 1.5;
+    padding: 2.5rem;
+  }
+
+  .forgot-password-heading {
+    font-size: 2.5rem;
+  }
+
+  .forgot-password-form-card {
+    width: 80%;
+    max-width: 600px; /* Adjusted max-width for this breakpoint */
+    padding: 3rem;
+  }
+
+  .forgot-password-image-section {
+    height: 100vh;
+    flex: 1;
+  }
+
+  .forgot-password-responsive-image {
+    height: 100%;
     width: 100%;
   }
+}
 
-  .h1_oublie {
-    font-size: 2rem;
-    margin-top: 5.5rem;
+/* 1281px to 1440px (Larger desktops) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .forgot-password-page-wrapper {
+    flex-direction: row;
   }
 
-  .container_form_login label {
-    font-size: 1.4rem;
+  .forgot-password-main-content {
+    flex: 1.8;
+    padding: 3rem;
+  }
+
+  .forgot-password-heading {
+    font-size: 2.7rem;
+  }
+
+  .forgot-password-form-card {
+    width: 70%;
+    max-width: 650px; /* Consistent max-width for larger screens */
+    padding: 3.5rem;
+  }
+
+  .forgot-password-image-section {
+    height: 100vh;
+    flex: 1.2;
+  }
+
+  .forgot-password-responsive-image {
+    height: 100%;
+    width: 100%;
   }
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .h1_oublie {
-    margin-top: 5.5rem;
+/* 1441px and up (Extra large desktops) */
+@media (min-width: 1441px) {
+  .forgot-password-page-wrapper {
+    flex-direction: row;
   }
 
-  .page_oublie {
-    flex-direction: column;
+  .forgot-password-main-content {
+    flex: 2;
+    padding: 4rem;
   }
 
-  .right-oublie-image {
-    height: fit-content;
-  }
-}
-
-@media screen and (min-width: 769px) and (max-width: 999px) {
-  .h1_oublie {
-    margin-top: 6rem;
+  .forgot-password-heading {
+    font-size: 3rem;
   }
 
-  .page_oublie {
-    flex-direction: column;
+  .forgot-password-form-card {
+    width: 60%;
+    max-width: 700px; /* Increased max-width for very large screens */
+    padding: 4rem;
   }
 
-  .right-oublie-image {
-    height: fit-content;
+  .forgot-password-image-section {
+    height: 100vh;
+    flex: 1.5;
+  }
+
+  .forgot-password-responsive-image {
+    height: 100%;
+    width: 100%;
   }
 }
