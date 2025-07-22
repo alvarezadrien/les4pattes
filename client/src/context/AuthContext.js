@@ -69,8 +69,12 @@ export const AuthProvider = ({ children }) => {
     const updateAvatar = (newAvatarUrl) => {
         setUser(prevUser => ({
             ...prevUser,
-            avatarUrl: newAvatarUrl
+            avatar: newAvatarUrl
         }));
+    };
+
+    const updateUserData = (updatedUser) => {
+        setUser(updatedUser);
     };
 
     const authContextValue = {
@@ -81,7 +85,8 @@ export const AuthProvider = ({ children }) => {
         signup,
         logout,
         updateAvatar,
-        isAdmin: user?.role === 'admin' // ✅ détecte si l'utilisateur est admin
+        updateUserData, // ✅ ajout ici
+        isAdmin: user?.role === 'admin'
     };
 
     return (
