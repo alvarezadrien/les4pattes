@@ -122,16 +122,17 @@ function Navbar() {
           </Link>
         </li>
 
-        {/* Icône Profil */}
+        {/* Icône Profil avec avatar */}
         <li className="navbar_item icon_navbar icon_profil">
           <Link
             className="navbar_link"
             to={isAuthenticated ? "/Mon compte" : "/Connexion"}
           >
             <img
-              src="/img/svg_profil.svg"
-              alt="C'est l'icon de connexion avec un petit profil"
+              src={user?.avatar || "/img/avatar.png"}
+              alt="Avatar utilisateur"
               width={50}
+              style={{ borderRadius: "50%", objectFit: "cover" }}
             />
           </Link>
         </li>
