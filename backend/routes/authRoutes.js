@@ -1,3 +1,7 @@
+// ✅ authRoutes.js modifié avec deux routes distinctes :
+// - /profile         -> pour les données utilisateur (nom, prenom, email)
+// - /password        -> pour le changement de mot de passe
+
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
@@ -96,8 +100,31 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Modifier mot de passe
+// ✅ Modifier les données personnelles (nom, prenom, email)
 router.put('/profile', auth, async (req, res) => {
+    const { nom, prenom, email } = req.body;
+
+    if (!prenom || !nom || !email) {
+        return res.status(400).json({ msg: "Champs requis manquants." });
+    }
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
+
+        user.nom = nom;
+        user.prenom = prenom;
+        user.email = email;
+
+        await user.save();
+        res.json({ msg: "Profil mis à jour avec succès.", user });
+    } catch (err) {
+        res.status(500).json({ msg: "Erreur serveur lors de la mise à jour du profil." });
+    }
+});
+
+// ✅ Modifier le mot de passe
+router.put('/password', auth, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || !newPassword) {
@@ -119,25 +146,6 @@ router.put('/profile', auth, async (req, res) => {
         res.json({ msg: "Mot de passe mis à jour avec succès." });
     } catch (err) {
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour du mot de passe." });
-    }
-});
-
-// ✅ Modifier les données personnelles (nom, prénom, email)
-router.put('/profile', auth, async (req, res) => {
-    const { nom, prenom, email } = req.body;
-
-    try {
-        const user = await User.findById(req.user.id);
-        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
-
-        user.nom = nom || user.nom;
-        user.prenom = prenom || user.prenom;
-        user.email = email || user.email;
-
-        await user.save();
-        res.json({ msg: "Données utilisateur mises à jour", user });
-    } catch (err) {
-        res.status(500).json({ msg: "Erreur lors de la mise à jour", error: err.message });
     }
 });
 
