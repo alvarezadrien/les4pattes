@@ -84,8 +84,7 @@ router.post('/reset-password/:token', async (req, res) => {
             return res.status(400).json({ message: 'Mot de passe manquant.' });
         }
 
-        user.password = await bcrypt.hash(newPassword, salt);
-        console.log('🔐 Mot de passe haché pour l’utilisateur :', user.email);
+        user.password = newPassword; // ✅ sera hashé automatiquement par le hook 'pre save'
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
