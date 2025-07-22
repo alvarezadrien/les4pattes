@@ -191,7 +191,7 @@ router.delete('/users/:id', auth, isAdmin, async (req, res) => {
     }
 });
 
-// ✅ Route temporaire pour vérifier si le fichier est bien actif
+// ✅ Route temporaire de test
 router.get('/test-avatar-url', (req, res) => {
     res.json({ msg: "Route /profile/avatar-url disponibleee ✅" });
 });
