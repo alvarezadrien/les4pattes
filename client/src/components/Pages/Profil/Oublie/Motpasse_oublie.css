@@ -2,7 +2,6 @@
 .forgot-password-page-wrapper {
   display: flex;
   min-height: 100vh; /* Ensures it takes full viewport height */
-  background-color: #f0f2f5; /* Light background for the page */
 }
 
 /* Section containing the title and form */
@@ -77,7 +76,7 @@
 
   .forgot-password-heading {
     font-size: 1.6rem;
-    margin-top: 1rem;
+    margin-top: 3rem;
     margin-bottom: 1rem;
   }
 
