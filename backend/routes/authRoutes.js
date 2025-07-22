@@ -96,7 +96,7 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Modifier le mot de passe (profil utilisateur)
+// ✅ Modifier mot de passe
 router.put('/profile', auth, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
@@ -113,19 +113,35 @@ router.put('/profile', auth, async (req, res) => {
             return res.status(401).json({ msg: "Mot de passe actuel incorrect." });
         }
 
-        // Changer le mot de passe
-        user.password = newPassword; // le pré-hook va le re-hasher
+        user.password = newPassword;
         await user.save();
 
         res.json({ msg: "Mot de passe mis à jour avec succès." });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour du mot de passe." });
     }
 });
 
+// ✅ Modifier les données personnelles (nom, prénom, email)
+router.put('/profil', auth, async (req, res) => {
+    const { nom, prenom, email } = req.body;
 
-// ✅ Mettre à jour l’avatar (upload personnalisé)
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
+
+        user.nom = nom || user.nom;
+        user.prenom = prenom || user.prenom;
+        user.email = email || user.email;
+
+        await user.save();
+        res.json({ msg: "Données utilisateur mises à jour", user });
+    } catch (err) {
+        res.status(500).json({ msg: "Erreur lors de la mise à jour", error: err.message });
+    }
+});
+
+// ✅ Upload avatar personnalisé
 router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
@@ -133,7 +149,6 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
 
-        // Supprimer l'ancien avatar uploadé (si pas avatar par défaut)
         if (user.avatar && user.avatar.startsWith('/uploads/')) {
             const oldAvatarPath = path.join(__dirname, '..', user.avatar);
             if (fs.existsSync(oldAvatarPath)) {
@@ -147,14 +162,11 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         await user.save();
         res.json({ msg: 'Avatar mis à jour avec succès', avatar: user.avatar });
     } catch (err) {
-        if (err instanceof multer.MulterError || err.message.includes('Seules les images')) {
-            return res.status(400).json({ msg: err.message });
-        }
         res.status(500).send("Erreur serveur lors de l'upload de l'avatar");
     }
 });
 
-// ✅ Choisir un avatar prédéfini (URL uniquement)
+// ✅ Avatar prédéfini via URL
 router.put('/profile/avatar-url', auth, async (req, res) => {
     try {
         const { avatarUrl } = req.body;
@@ -171,7 +183,6 @@ router.put('/profile/avatar-url', auth, async (req, res) => {
 
         res.json({ msg: "Avatar mis à jour avec succès", avatarUrl: user.avatar });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour de l'avatar." });
     }
 });
@@ -223,7 +234,7 @@ router.delete('/users/:id', auth, isAdmin, async (req, res) => {
 
 // ✅ Route temporaire de test
 router.get('/test-avatar-url', (req, res) => {
-    res.json({ msg: "Route /profile/avatar-url disponibleee ✅" });
+    res.json({ msg: "Route /profile/avatar-url disponible ✅" });
 });
 
 module.exports = router;
