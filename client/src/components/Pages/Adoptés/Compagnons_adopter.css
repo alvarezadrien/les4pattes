@@ -168,7 +168,7 @@
   word-wrap: break-word;
 }
 
-/* --- Media Queries --- */
+/* --- Responsive --- */
 
 /* Mobile */
 @media (max-width: 480px) {
@@ -223,6 +223,7 @@
   .h1_compagnons {
     font-size: 2.6rem;
     gap: 12px;
+    margin-top: 4rem;
   }
 
   .h1_compagnons .pattes-icon {
@@ -261,6 +262,7 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .h1_compagnons {
     font-size: 3rem;
+    margin-top: 5rem;
   }
 
   .animal_group_compagnons {
