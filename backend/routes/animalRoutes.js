@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Animal = require('../models/Animals');
-const upload = require('../middlewares/upload'); // middleware multer
 
 // ✅ Compte des non-adoptés
 router.get('/count/non-adoptes', async (req, res) => {
