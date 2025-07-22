@@ -6,21 +6,25 @@ const userSchema = new mongoose.Schema({
     nom: { type: String, required: true },
     prenom: { type: String, required: true },
     dateNaissance: { type: Date, required: true },
+
     adresse: {
-        rue: { type: String, default: '' },
-        ville: { type: String, default: '' },
-        codePostal: { type: String, default: '' },
-        pays: { type: String, default: '' }
+        rue: { type: String, default: '', required: true },
+        ville: { type: String, default: '', required: true },
+        codePostal: { type: String, default: '', required: true },
+        pays: { type: String, default: '', required: true }
     },
+
     telephone: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
     avatar: { type: String, default: "/img/avatar.png" },
+
     role: {
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
     },
+
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date }
 });

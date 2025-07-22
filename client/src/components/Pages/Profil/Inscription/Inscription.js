@@ -18,7 +18,12 @@ const Inscription = () => {
         nom: "",
         prenom: "",
         dateNaissance: "",
-        adresse: "",
+        adresse: {
+            rue: "",
+            ville: "",
+            codePostal: "",
+            pays: ""
+        },
         telephone: "",
         email: "",
         password: "",
@@ -32,7 +37,18 @@ const Inscription = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (["rue", "ville", "codePostal", "pays"].includes(name)) {
+            setFormData(prev => ({
+                ...prev,
+                adresse: {
+                    ...prev.adresse,
+                    [name]: value
+                }
+            }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleFocus = (field) => {
@@ -40,7 +56,10 @@ const Inscription = () => {
     };
 
     const handleBlur = (field) => {
-        if (!formData[field]) {
+        const value = ["rue", "ville", "codePostal", "pays"].includes(field)
+            ? formData.adresse[field]
+            : formData[field];
+        if (!value) {
             setFocused(prev => ({ ...prev, [field]: false }));
         }
     };
@@ -69,7 +88,12 @@ const Inscription = () => {
                     nom: "",
                     prenom: "",
                     dateNaissance: "",
-                    adresse: "",
+                    adresse: {
+                        rue: "",
+                        ville: "",
+                        codePostal: "",
+                        pays: ""
+                    },
                     telephone: "",
                     email: "",
                     password: "",
@@ -119,11 +143,11 @@ const Inscription = () => {
                                 },
                             }}
                         >
-                            <TextField required type="text" name="nom" value={formData.nom}
+                            <TextField required name="nom" value={formData.nom}
                                 onChange={handleChange} onFocus={() => handleFocus("nom")} onBlur={() => handleBlur("nom")}
                                 label="Nom" variant='outlined' />
 
-                            <TextField required type="text" name="prenom" value={formData.prenom}
+                            <TextField required name="prenom" value={formData.prenom}
                                 onChange={handleChange} onFocus={() => handleFocus("prenom")} onBlur={() => handleBlur("prenom")}
                                 label="Prénom" variant='outlined' />
 
@@ -131,9 +155,21 @@ const Inscription = () => {
                                 onChange={handleChange} label="Date de naissance"
                                 InputLabelProps={{ shrink: true }} variant='outlined' />
 
-                            <TextField required type="text" name="adresse" value={formData.adresse}
-                                onChange={handleChange} onFocus={() => handleFocus("adresse")} onBlur={() => handleBlur("adresse")}
-                                label="Adresse" variant='outlined' />
+                            <TextField required name="rue" value={formData.adresse.rue}
+                                onChange={handleChange} onFocus={() => handleFocus("rue")} onBlur={() => handleBlur("rue")}
+                                label="Rue" variant='outlined' />
+
+                            <TextField required name="ville" value={formData.adresse.ville}
+                                onChange={handleChange} onFocus={() => handleFocus("ville")} onBlur={() => handleBlur("ville")}
+                                label="Ville" variant='outlined' />
+
+                            <TextField required name="codePostal" value={formData.adresse.codePostal}
+                                onChange={handleChange} onFocus={() => handleFocus("codePostal")} onBlur={() => handleBlur("codePostal")}
+                                label="Code postal" variant='outlined' />
+
+                            <TextField required name="pays" value={formData.adresse.pays}
+                                onChange={handleChange} onFocus={() => handleFocus("pays")} onBlur={() => handleBlur("pays")}
+                                label="Pays" variant='outlined' />
 
                             <TextField required type="tel" name="telephone" value={formData.telephone}
                                 onChange={handleChange} onFocus={() => handleFocus("telephone")} onBlur={() => handleBlur("telephone")}

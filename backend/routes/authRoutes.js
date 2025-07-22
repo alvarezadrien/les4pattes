@@ -1,7 +1,3 @@
-// ✅ authRoutes.js modifié avec deux routes distinctes :
-// - /profile         -> pour les données utilisateur (nom, prenom, email)
-// - /password        -> pour le changement de mot de passe
-
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
@@ -45,7 +41,12 @@ router.post('/signup', async (req, res) => {
             nom,
             prenom,
             dateNaissance,
-            adresse,
+            adresse: {
+                rue: adresse?.rue || '',
+                ville: adresse?.ville || '',
+                codePostal: adresse?.codePostal || '',
+                pays: adresse?.pays || ''
+            },
             telephone,
             email,
             password,
@@ -81,6 +82,7 @@ router.post('/login', async (req, res) => {
                 prenom: user.prenom,
                 email: user.email,
                 avatar: user.avatar,
+                adresse: user.adresse,
                 role: user.role
             }
         });
@@ -100,7 +102,7 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Modifier les données personnelles (nom, prenom, email)
+// ✅ Modifier les données personnelles
 router.put('/profile', auth, async (req, res) => {
     const { nom, prenom, email } = req.body;
 
@@ -123,7 +125,7 @@ router.put('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Mettre à jour l'adresse de livraison
+// ✅ Mettre à jour l'adresse
 router.put('/profile/address', auth, async (req, res) => {
     const { rue, ville, codePostal, pays } = req.body;
 
@@ -140,13 +142,11 @@ router.put('/profile/address', auth, async (req, res) => {
 
         res.json({ msg: "Adresse mise à jour avec succès", user });
     } catch (err) {
-        console.error("Erreur lors de la mise à jour de l'adresse :", err);
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour de l'adresse." });
     }
 });
 
-
-// ✅ Modifier le mot de passe
+// ✅ Modifier mot de passe
 router.put('/password', auth, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
@@ -172,7 +172,7 @@ router.put('/password', auth, async (req, res) => {
     }
 });
 
-// ✅ Upload avatar personnalisé
+// ✅ Upload avatar
 router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
@@ -197,7 +197,7 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
     }
 });
 
-// ✅ Avatar prédéfini via URL
+// ✅ Choisir avatar prédéfini
 router.put('/profile/avatar-url', auth, async (req, res) => {
     try {
         const { avatarUrl } = req.body;
@@ -216,56 +216,6 @@ router.put('/profile/avatar-url', auth, async (req, res) => {
     } catch (err) {
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour de l'avatar." });
     }
-});
-
-// ✅ Admin : mise à jour du rôle
-router.put('/users/:id/role', auth, isAdmin, async (req, res) => {
-    const userId = req.params.id;
-    const { role } = req.body;
-
-    if (!['user', 'admin'].includes(role)) {
-        return res.status(400).json({ message: "Rôle invalide. Utilise 'user' ou 'admin'." });
-    }
-
-    try {
-        const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ message: "Utilisateur non trouvé." });
-
-        user.role = role;
-        await user.save();
-
-        res.status(200).json({ message: `Rôle mis à jour en '${role}'.`, user });
-    } catch (error) {
-        res.status(500).json({ message: 'Erreur serveur', error: error.message });
-    }
-});
-
-// ✅ Admin : voir tous les utilisateurs
-router.get('/users', auth, isAdmin, async (req, res) => {
-    try {
-        const users = await User.find().select('-password');
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ message: 'Erreur serveur', error: error.message });
-    }
-});
-
-// ✅ Admin : supprimer un utilisateur
-router.delete('/users/:id', auth, isAdmin, async (req, res) => {
-    try {
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
-        if (!deletedUser) {
-            return res.status(404).json({ message: "Utilisateur non trouvé." });
-        }
-        res.status(200).json({ message: "Utilisateur supprimé avec succès." });
-    } catch (error) {
-        res.status(500).json({ message: 'Erreur serveur', error: error.message });
-    }
-});
-
-// ✅ Route temporaire de test
-router.get('/test-avatar-url', (req, res) => {
-    res.json({ msg: "Route /profile/avatar-url disponible ✅" });
 });
 
 module.exports = router;
