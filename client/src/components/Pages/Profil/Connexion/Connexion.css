@@ -55,19 +55,22 @@
   text-decoration: underline;
 }
 
-/* Error and success message styling */
+/* Error message styling (text only) */
 .connexion-message-error {
-  color: red;
+  color: red; /* Red text */
   text-align: center;
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem; /* Slightly larger for readability */
+  font-weight: bold; /* Make it stand out */
 }
 
+/* Success message styling (text only) */
 .connexion-message-success {
-  color: green;
+  color: green; /* Green text */
   text-align: center;
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem; /* Slightly larger for readability */
+  font-weight: bold; /* Make it stand out */
 }
 
 /* Section for the image */
@@ -116,6 +119,7 @@
     flex-direction: column; /* Stack links */
     gap: 0.5rem;
     align-items: center;
+    padding: 0; /* Remove horizontal padding on small screens to fit links */
   }
 
   .connexion-image-section {
