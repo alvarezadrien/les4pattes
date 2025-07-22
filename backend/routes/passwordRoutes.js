@@ -9,7 +9,7 @@ router.get('/test', (req, res) => {
     res.json({ message: '✅ La route /api/password/test fonctionne !' });
 });
 
-// Configurer Nodemailer (avec variables d'environnement)
+// 📧 Configuration de Nodemailer
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Route : Demande de réinitialisation
+// 📩 Étape 1 : Demande de réinitialisation
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     try {
@@ -41,22 +41,29 @@ router.post('/forgot-password', async (req, res) => {
 
         res.json({ message: 'Email de réinitialisation envoyé.' });
     } catch (error) {
+        console.error("Erreur dans /forgot-password :", error);
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
 
-// Route : Réinitialisation avec le token
+// 🔐 Étape 2 : Soumission du nouveau mot de passe
 router.post('/reset-password/:token', async (req, res) => {
     const { token } = req.params;
     const { newPassword } = req.body;
 
     try {
+        // Log de debug (à retirer après test)
+        console.log("🔍 Token reçu :", token);
+
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpires: { $gt: Date.now() }
         });
 
-        if (!user) return res.status(400).json({ message: 'Token invalide ou expiré.' });
+        if (!user) {
+            console.warn("⚠️ Token invalide ou expiré");
+            return res.status(400).json({ message: 'Token invalide ou expiré.' });
+        }
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
@@ -66,6 +73,7 @@ router.post('/reset-password/:token', async (req, res) => {
 
         res.json({ message: 'Mot de passe réinitialisé avec succès.' });
     } catch (error) {
+        console.error("Erreur dans /reset-password :", error);
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
