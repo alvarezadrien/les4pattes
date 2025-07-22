@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../../../../context/AuthContext'; // Chemin à vérifier
+import { useAuth } from '../../../../../context/AuthContext';
 
 const DataFormPopup = ({ onClose, user, onUpdateSuccess }) => {
-    const { updateUserData } = useAuth(); // Function pour maj le contexte
+    const { updateUserData } = useAuth();
     const [formData, setFormData] = useState({
         prenom: user.prenom || '',
         nom: user.nom || '',
@@ -24,13 +24,11 @@ const DataFormPopup = ({ onClose, user, onUpdateSuccess }) => {
         setLoading(true);
 
         try {
-            const token = localStorage.getItem('token');
-
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
                 body: JSON.stringify(formData),
             });
@@ -38,13 +36,15 @@ const DataFormPopup = ({ onClose, user, onUpdateSuccess }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.msg || 'Échec de la mise à jour.');
+                throw new Error(data.msg || 'Erreur lors de la mise à jour.');
             }
+
+            // ✅ Mettre à jour le contexte utilisateur immédiatement
+            updateUserData(data.user);
 
             setMessage(data.msg || 'Données mises à jour avec succès !');
             setError('');
-            updateUserData(data.user); // Mise à jour du contexte
-            onUpdateSuccess();
+            onUpdateSuccess(); // optionnel, pour fermer ou autre
         } catch (err) {
             console.error("Erreur lors de la mise à jour :", err);
             setError(err.message || 'Erreur lors de la mise à jour.');
