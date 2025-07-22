@@ -119,8 +119,6 @@ function MotpasseOublie() {
                             display: "block",
                             paddingY: '12px', // Make button taller
                             fontSize: '1.1rem', // Adjust font size
-                            borderRadius: '30px', // Rounded corners as per your initial CSS
-                            // Apply responsive widths to button
                             width: getInputWidth(),
                             maxWidth: "550px", // Consistent with input maxWidth
                             mt: 2, // Margin top for the button from the Box above
