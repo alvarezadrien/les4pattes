@@ -21,16 +21,21 @@ const transporter = nodemailer.createTransport({
 // ✅ Demande de réinitialisation
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
+
     try {
         const user = await User.findOne({ email });
-        if (!user) return res.status(404).json({ message: 'Aucun utilisateur avec cet email.' });
+
+        if (!user) {
+            console.log('❌ Aucun utilisateur avec cet email :', email);
+            return res.status(404).json({ message: 'Aucun utilisateur avec cet email.' });
+        }
 
         const token = user.generatePasswordResetToken();
         await user.save();
 
         const resetURL = `${process.env.FRONTEND_URL}/ResetPassword/${token}`;
-        console.log('🔑 Token généré:', token);
-        console.log('🔗 Reset URL:', resetURL);
+        console.log('🔑 Token généré :', token);
+        console.log('🔗 Reset URL :', resetURL);
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -43,6 +48,7 @@ router.post('/forgot-password', async (req, res) => {
         res.json({ message: 'Email de réinitialisation envoyé.' });
 
     } catch (error) {
+        console.error('❌ Erreur forgot-password :', error);
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
@@ -63,7 +69,13 @@ router.post('/reset-password/:token', async (req, res) => {
 
         console.log('👤 Utilisateur trouvé ?', !!user);
 
-        if (!user) return res.status(400).json({ message: 'Token invalide ou expiré.' });
+        if (!user) {
+            return res.status(400).json({ message: 'Token invalide ou expiré.' });
+        }
+
+        if (!newPassword || newPassword.trim() === '') {
+            return res.status(400).json({ message: 'Mot de passe manquant.' });
+        }
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
@@ -71,10 +83,12 @@ router.post('/reset-password/:token', async (req, res) => {
         user.resetPasswordExpires = undefined;
 
         await user.save();
+        console.log('✅ Mot de passe mis à jour avec succès pour :', user.email);
+
         res.json({ message: 'Mot de passe réinitialisé avec succès.' });
 
     } catch (error) {
-        console.error('❌ Erreur serveur :', error);
+        console.error('❌ Erreur reset-password :', error);
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
