@@ -4,12 +4,7 @@ const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
-// ✅ ROUTE DE TEST pour Render
-router.get('/test', (req, res) => {
-    res.json({ message: '✅ La route /api/password/test fonctionne !' });
-});
-
-// ✅ Transporteur
+// Configurer Nodemailer (simple version)
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -18,24 +13,17 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// ✅ Demande de réinitialisation
+// Route pour demander un reset
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
-
     try {
         const user = await User.findOne({ email });
-
-        if (!user) {
-            console.log('❌ Aucun utilisateur avec cet email :', email);
-            return res.status(404).json({ message: 'Aucun utilisateur avec cet email.' });
-        }
+        if (!user) return res.status(404).json({ message: 'Aucun utilisateur avec cet email.' });
 
         const token = user.generatePasswordResetToken();
         await user.save();
 
         const resetURL = `${process.env.FRONTEND_URL}/ResetPassword/${token}`;
-        console.log('🔑 Token généré :', token);
-        console.log('🔗 Reset URL :', resetURL);
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -45,21 +33,17 @@ router.post('/forgot-password', async (req, res) => {
         };
 
         await transporter.sendMail(mailOptions);
-        res.json({ message: 'Email de réinitialisation envoyé.' });
 
+        res.json({ message: 'Email de réinitialisation envoyé.' });
     } catch (error) {
-        console.error('❌ Erreur forgot-password :', error);
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
 
-// ✅ Réinitialisation avec le token
+// Route pour réinitialiser le mot de passe
 router.post('/reset-password/:token', async (req, res) => {
     const { token } = req.params;
     const { newPassword } = req.body;
-
-    console.log('🧪 Token reçu dans l’URL :', token);
-    console.log('🔐 Nouveau mot de passe reçu :', newPassword);
 
     try {
         const user = await User.findOne({
@@ -67,28 +51,16 @@ router.post('/reset-password/:token', async (req, res) => {
             resetPasswordExpires: { $gt: Date.now() }
         });
 
-        console.log('👤 Utilisateur trouvé ?', !!user);
-
-        if (!user) {
-            return res.status(400).json({ message: 'Token invalide ou expiré.' });
-        }
-
-        if (!newPassword || newPassword.trim() === '') {
-            return res.status(400).json({ message: 'Mot de passe manquant.' });
-        }
+        if (!user) return res.status(400).json({ message: 'Token invalide ou expiré.' });
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
-
         await user.save();
-        console.log('✅ Mot de passe mis à jour avec succès pour :', user.email);
 
         res.json({ message: 'Mot de passe réinitialisé avec succès.' });
-
     } catch (error) {
-        console.error('❌ Erreur reset-password :', error);
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 });
