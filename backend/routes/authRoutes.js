@@ -123,6 +123,29 @@ router.put('/profile', auth, async (req, res) => {
     }
 });
 
+// ✅ Mettre à jour l'adresse de livraison
+router.put('/profile/address', auth, async (req, res) => {
+    const { rue, ville, codePostal, pays } = req.body;
+
+    if (!rue || !ville || !codePostal || !pays) {
+        return res.status(400).json({ msg: "Tous les champs sont requis." });
+    }
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
+
+        user.adresse = { rue, ville, codePostal, pays };
+        await user.save();
+
+        res.json({ msg: "Adresse mise à jour avec succès", user });
+    } catch (err) {
+        console.error("Erreur lors de la mise à jour de l'adresse :", err);
+        res.status(500).json({ msg: "Erreur serveur lors de la mise à jour de l'adresse." });
+    }
+});
+
+
 // ✅ Modifier le mot de passe
 router.put('/password', auth, async (req, res) => {
     const { currentPassword, newPassword } = req.body;

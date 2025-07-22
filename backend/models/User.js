@@ -6,7 +6,12 @@ const userSchema = new mongoose.Schema({
     nom: { type: String, required: true },
     prenom: { type: String, required: true },
     dateNaissance: { type: Date, required: true },
-    adresse: { type: String, required: true },
+    adresse: {
+        rue: { type: String, default: '' },
+        ville: { type: String, default: '' },
+        codePostal: { type: String, default: '' },
+        pays: { type: String, default: '' }
+    },
     telephone: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
