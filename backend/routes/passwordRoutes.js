@@ -36,7 +36,7 @@ router.post('/forgot-password', async (req, res) => {
 
         const resetURL = `${process.env.FRONTEND_URL}/ResetPassword/${token}`;
         console.log('🔑 Token généré :', token);
-        console.log('🔗 Reset URL :', resetURL);
+        console.log('🔗 Réinitialiser l\'URL :', resetURL);
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -84,8 +84,7 @@ router.post('/reset-password/:token', async (req, res) => {
             return res.status(400).json({ message: 'Mot de passe manquant.' });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(newPassword, salt);
+        user.password = newPassword; // ✅ sera hashé automatiquement par le hook 'pre save'
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
