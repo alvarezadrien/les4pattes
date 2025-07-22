@@ -7,6 +7,7 @@ const isAdmin = require('../middleware/isAdmin');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
@@ -92,6 +93,28 @@ router.get('/profile', auth, async (req, res) => {
         res.json(user);
     } catch (err) {
         res.status(500).send('Erreur Serveur');
+    }
+});
+
+// ✅ Modifier le mot de passe du profil connecté
+router.put('/profile', auth, async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
+
+        const isMatch = await user.comparePassword(currentPassword);
+        if (!isMatch) return res.status(400).json({ msg: 'Mot de passe actuel incorrect.' });
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        await user.save();
+
+        res.json({ msg: 'Mot de passe mis à jour avec succès.' });
+    } catch (error) {
+        console.error("Erreur changement mot de passe:", error);
+        res.status(500).json({ msg: 'Erreur serveur lors de la mise à jour du mot de passe.' });
     }
 });
 
