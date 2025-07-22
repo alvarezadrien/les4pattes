@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext"; // Importe useAuth
+import { useAuth } from "../../context/AuthContext";
 
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
   const [showPopup, setShowPopup] = useState(null);
-  const { user } = useAuth(); // Récupère l'objet user du contexte d'authentification
+  const { user } = useAuth();
 
   const isAuthenticated = !!user;
 
@@ -54,6 +54,11 @@ function Navbar() {
     },
     { title: "Contact", link: "/Contact" },
   ];
+
+  // Détermine le bon avatar à afficher
+  const avatarSrc = isAuthenticated && user.avatar
+    ? user.avatar
+    : "/img/svg_profil.svg";
 
   return (
     <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
@@ -122,15 +127,15 @@ function Navbar() {
           </Link>
         </li>
 
-        {/* Icône Profil avec avatar */}
+        {/* Icône Profil (ou avatar) */}
         <li className="navbar_item icon_navbar icon_profil">
           <Link
             className="navbar_link"
             to={isAuthenticated ? "/Mon compte" : "/Connexion"}
           >
             <img
-              src={user?.avatar || "/img/avatar.png"}
-              alt="Avatar utilisateur"
+              src={avatarSrc}
+              alt="Avatar ou icône de profil"
               width={50}
               style={{ borderRadius: "50%", objectFit: "cover" }}
             />
