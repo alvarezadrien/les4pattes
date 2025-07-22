@@ -96,27 +96,34 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Modifier le mot de passe du profil connecté
+// ✅ Modifier le mot de passe (profil utilisateur)
 router.put('/profile', auth, async (req, res) => {
-    try {
-        const { currentPassword, newPassword } = req.body;
+    const { currentPassword, newPassword } = req.body;
 
+    if (!currentPassword || !newPassword) {
+        return res.status(400).json({ msg: "Champs requis manquants." });
+    }
+
+    try {
         const user = await User.findById(req.user.id);
-        if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
+        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
 
         const isMatch = await user.comparePassword(currentPassword);
-        if (!isMatch) return res.status(400).json({ msg: 'Mot de passe actuel incorrect.' });
+        if (!isMatch) {
+            return res.status(401).json({ msg: "Mot de passe actuel incorrect." });
+        }
 
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(newPassword, salt);
+        // Changer le mot de passe
+        user.password = newPassword; // le pré-hook va le re-hasher
         await user.save();
 
-        res.json({ msg: 'Mot de passe mis à jour avec succès.' });
-    } catch (error) {
-        console.error("Erreur changement mot de passe:", error);
-        res.status(500).json({ msg: 'Erreur serveur lors de la mise à jour du mot de passe.' });
+        res.json({ msg: "Mot de passe mis à jour avec succès." });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: "Erreur serveur lors de la mise à jour du mot de passe." });
     }
 });
+
 
 // ✅ Mettre à jour l’avatar (upload personnalisé)
 router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
