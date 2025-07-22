@@ -63,7 +63,7 @@ function ResetPassword() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/password/reset-password/${token}`,
+        `${process.env.REACT_APP_API_URL}/api/password/reset-password/${token}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
