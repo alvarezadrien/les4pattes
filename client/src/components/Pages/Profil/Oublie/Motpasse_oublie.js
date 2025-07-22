@@ -5,12 +5,10 @@ import "./Motpasse_oublie.css"; // Ensure this CSS file is correctly linked
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-// Import useTheme and useMediaQuery if you plan to use them directly for more complex responsive logic in JSX
-// import { useTheme } from "@mui/material/styles";
-// import useMediaQuery from "@mui/material/useMediaQuery";
+// import useTheme from "@mui/material/styles/useTheme"; // Only if you plan to use theme directly
+// import useMediaQuery from "@mui/material/useMediaQuery"; // Only if you plan to use media queries directly
 
 function MotpasseOublie() {
-    // const theme = useTheme(); // Initialize theme if using
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -27,12 +25,10 @@ function MotpasseOublie() {
     const formSx = {
         "& .MuiTextField-root": {
             marginBottom: "16px",
-            // Removed fixed width: "100%", use responsive width from getInputWidth()
             maxWidth: "550px", // Base size, inputs won't exceed this
             display: "flex",
             marginLeft: "auto",
             marginRight: "auto",
-            // Apply responsive widths
             width: getInputWidth(),
         },
         "& .MuiInputLabel-root": {
@@ -57,10 +53,10 @@ function MotpasseOublie() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage("");
+        setMessage(""); // Clear previous messages
 
         if (!email) {
-            setMessage("Veuillez entrer votre adresse email.");
+            setMessage("Veuillez entrer votre adresse email."); // This will be error-text
             return;
         }
 
@@ -79,13 +75,13 @@ function MotpasseOublie() {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage("Un email vous a été envoyé si l'adresse est valide.");
+                setMessage("Un email vous a été envoyé si l'adresse est valide."); // This will be success-text
             } else {
-                setMessage(data.message || "Erreur lors de la demande.");
+                setMessage(data.message || "Erreur lors de la demande."); // This will be error-text
             }
         } catch (error) {
             console.error("Erreur:", error.message);
-            setMessage("Erreur serveur.");
+            setMessage("Erreur serveur."); // This will be error-text
         } finally {
             setLoading(false);
         }
@@ -127,8 +123,11 @@ function MotpasseOublie() {
                         {loading ? "Envoi..." : "Confirmer"}
                     </Button>
 
+                    {/* Apply conditional styling based on message content */}
                     {message && (
-                        <p className="forgot-password-message" style={{ textAlign: "center", marginTop: "16px" }}>
+                        <p className={
+                            message.includes("envoyé") ? "forgot-password-message-success" : "forgot-password-message-error"
+                        } style={{ textAlign: "center", marginTop: "16px" }}>
                             {message}
                         </p>
                     )}
