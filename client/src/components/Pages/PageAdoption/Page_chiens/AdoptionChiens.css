@@ -89,16 +89,13 @@
 
 .adoption-hero-title-textured {
   font-family: "Bungee Outline", cursive;
+  color: var(--tertiary-color);
   font-size: 4rem;
   margin-bottom: 20px;
-  background-image: url(/public/img/pexels-anete-lusina-16621442.jpg); /* Your existing background image */
   background-size: cover;
   background-position: center;
-  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Added for better readability */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .adoption-hero-container p {
@@ -138,6 +135,7 @@
   position: relative;
   width: 280px;
   height: 380px;
+  justify-items: center;
   background-position: center;
   background-size: cover;
   border-top-right-radius: 40px;
