@@ -61,29 +61,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-// ✅ POST nouvel animal avec images dans /uploads/Chats
-router.post('/', upload.array('images', 3), async (req, res) => {
-    try {
-        const imagePaths = req.files.map(file => `/uploads/Chats/${file.filename}`);
-
-        const comportement = req.body['comportement[]'] ? [].concat(req.body['comportement[]']) : [];
-        const ententeAvec = req.body['ententeAvec[]'] ? [].concat(req.body['ententeAvec[]']) : [];
-        const isRescue = req.body.isRescue === 'true' || req.body.isRescue === true;
-
-        const newAnimal = new Animal({
-            ...req.body,
-            images: imagePaths,
-            comportement,
-            ententeAvec,
-            isRescue,
-        });
-
-        const savedAnimal = await newAnimal.save();
-        res.status(201).json(savedAnimal);
-    } catch (err) {
-        console.error("Erreur lors de la création de l'animal :", err);
-        res.status(400).json({ message: err.message });
-    }
+// 🛠️ Route désactivée temporairement (problème avec multer)
+router.post('/', async (req, res) => {
+    res.status(501).json({
+        message: "Ajout d'animal avec image désactivé temporairement (upload non configuré)."
+    });
 });
 
 // ✅ GET par ID
