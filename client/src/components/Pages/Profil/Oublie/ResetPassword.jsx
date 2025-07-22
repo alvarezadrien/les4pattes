@@ -6,37 +6,55 @@ import "./ResetPassword.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-const formSx = {
-  "& .MuiTextField-root": {
-    m: 1,
-    width: "30ch",
-    maxWidth: "500px",
-    display: "flex",
-    margin: "0 auto 1rem auto",
-  },
-  "& .MuiInputLabel-root": {
-    color: "black",
-    "&.Mui-focused": {
-      color: "#778d45",
-    },
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "black",
-    },
-    "&:hover fieldset": {
-      borderColor: "#778d45",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#778d45",
-    },
-  },
-};
+import { useTheme } from "@mui/material/styles"; // Import useTheme
+import useMediaQuery from "@mui/material/useMediaQuery"; // Import useMediaQuery
 
 function ResetPassword() {
   const { token } = useParams();
   const navigate = useNavigate();
+  const theme = useTheme(); // Initialize theme
+
+  // Media queries for responsive input widths
+  const isXs = useMediaQuery(theme.breakpoints.down("sm")); // Up to 599px (approx 480px)
+  const isSm = useMediaQuery(theme.breakpoints.between("sm", "md")); // 600px to 959px (approx 481px-768px, 769px-1024px)
+  const isMd = useMediaQuery(theme.breakpoints.between("md", "lg")); // 960px to 1279px (approx 1025px-1280px)
+  const isLg = useMediaQuery(theme.breakpoints.up("lg")); // 1280px and up (approx 1281px-1440px and beyond)
+
+  // Determine input width based on screen size
+  const getInputWidth = () => {
+    if (isXs) return "90%"; // For extra-small screens (up to 480px)
+    if (isSm) return "80%"; // For small screens (481px to 768px, and up to 1024px)
+    if (isMd) return "60%"; // For medium screens (1025px to 1280px)
+    if (isLg) return "40ch"; // For large screens (1281px and above)
+    return "30ch"; // Default width
+  };
+
+  const formSx = {
+    "& .MuiTextField-root": {
+      m: 1,
+      width: getInputWidth(), // Dynamic width based on screen size
+      maxWidth: "500px",
+      display: "flex",
+      margin: "0 auto 1rem auto",
+    },
+    "& .MuiInputLabel-root": {
+      color: "black",
+      "&.Mui-focused": {
+        color: "#778d45",
+      },
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "black",
+      },
+      "&:hover fieldset": {
+        borderColor: "#778d45",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#778d45",
+      },
+    },
+  };
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -100,11 +118,13 @@ function ResetPassword() {
   };
 
   return (
-    <div className="page_reset">
-      <div className="left-content">
-        <h1 className="h1_reset">Réinitialisation du mot de passe</h1>
+    <div className="reset-password-page">
+      <div className="reset-password-content">
+        <h1 className="reset-password-title">
+          Réinitialisation du mot de passe
+        </h1>
 
-        <form onSubmit={handleSubmit} className="container_form_reset">
+        <form onSubmit={handleSubmit} className="reset-password-form-container">
           <Box component="div" sx={formSx}>
             <TextField
               fullWidth
@@ -138,23 +158,18 @@ function ResetPassword() {
               "&:hover": { backgroundColor: "#5f7036" },
               margin: "0 auto",
               display: "block",
-              width: "30ch",
+              width: getInputWidth(), // Dynamic width for the button too
+              maxWidth: "500px",
             }}
           >
             {loading ? "Envoi..." : "Valider"}
           </Button>
 
           {errorMessage && (
-            <p style={{ color: "red", textAlign: "center", marginTop: "1rem" }}>
-              {errorMessage}
-            </p>
+            <p className="reset-password-error-message">{errorMessage}</p>
           )}
           {successMessage && (
-            <p
-              style={{ color: "green", textAlign: "center", marginTop: "1rem" }}
-            >
-              {successMessage}
-            </p>
+            <p className="reset-password-success-message">{successMessage}</p>
           )}
         </form>
       </div>
