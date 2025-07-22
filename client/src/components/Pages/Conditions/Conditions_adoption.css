@@ -1,10 +1,12 @@
 /* Styles généraux pour le conteneur de la page */
 .page_container_conditions {
   line-height: 1.6;
-  color: #555555; /* Couleur de texte par défaut */
   width: 70vw;
   margin: 6rem auto;
   padding: 20px;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
 }
 
 /* Styles pour les liens spécifiques à cette page */
@@ -530,7 +532,6 @@ ul {
   .page_container_conditions {
     width: 95vw;
     margin: 5rem auto;
-    /* padding: 12px; */
   }
 
   .hero_section {
