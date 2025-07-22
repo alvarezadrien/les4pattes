@@ -71,20 +71,29 @@ function ResetPassword() {
         }
       );
 
-      const data = await response.json();
+      const text = await response.text();
+      console.log("Réponse brute : ", text);
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw new Error("Réponse invalide (pas du JSON)");
+      }
 
       if (response.ok) {
+        console.log("✅ Réinitialisation réussie");
         setSuccessMessage(data.message);
         setTimeout(() => {
           navigate("/Connexion");
         }, 2000);
       } else {
+        console.log("❌ Erreur backend : ", data.message);
         setErrorMessage(data.message || "Erreur lors de la réinitialisation.");
-        console.error("Réponse erreur :", data); // Ajout ici
       }
     } catch (error) {
-      setErrorMessage("Erreur serveur.");
-      console.error("Erreur serveur :", error); // Ajout ici
+      console.error("Erreur serveur :", error.message);
+      setErrorMessage("Erreur serveur : " + error.message);
     } finally {
       setLoading(false);
     }
