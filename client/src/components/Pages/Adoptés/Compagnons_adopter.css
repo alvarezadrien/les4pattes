@@ -1,3 +1,4 @@
+/* --- Page Compagnons --- */
 .page_compagnons {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@
   margin-top: 3rem;
 }
 
+/* --- En-tête --- */
 .compagnons_header {
   text-align: center;
   margin-bottom: 4rem;
@@ -13,25 +15,27 @@
 }
 
 .h1_compagnons {
-  font-family: "Pacifico", cursive; /* Police plus douce pour le titre */
-  font-size: 3.8rem; /* Augmenter la taille pour plus d'impact */
+  font-family: "Pacifico", cursive;
+  font-size: 3.8rem;
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px; /* Espace entre les pattes et le texte */
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .h1_compagnons .pattes-icon {
-  width: 50px; /* Taille légèrement plus grande pour les icônes */
+  width: 50px;
   height: 50px;
 }
 
 .h1_compagnons .highlight-text {
-  font-family: "Montserrat", sans-serif; /* Police plus moderne pour le mot clé */
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
 }
 
+/* --- Paragraphe d'intro --- */
 .paragraphe_compagnons {
   max-width: 900px;
   text-align: center;
@@ -42,6 +46,7 @@
   padding: 0 1rem;
 }
 
+/* --- Messages --- */
 .no-compagnon-message,
 .error-message {
   font-size: 1.5rem;
@@ -54,43 +59,42 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* --- Conteneur de cartes --- */
 .container_compagnons {
-  max-width: 1280px; /* Largeur maximale augmentée */
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  width: 100%; /* S'assure que le conteneur prend toute la largeur disponible */
+  width: 100%;
 }
 
 .animal_group_compagnons {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  ); /* Rend les colonnes plus flexibles */
-  gap: 35px; /* Espacement légèrement augmenté */
-  padding: 40px 1rem; /* Ajout de padding horizontal */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
+  padding: 40px 1rem;
   justify-items: center;
   width: 100%;
 }
 
+/* --- Carte d'adoption --- */
 .adoption-card {
   position: relative;
-  width: 300px; /* Largeur légèrement augmentée */
-  height: 400px; /* Hauteur légèrement augmentée */
+  width: 300px;
+  height: 400px;
   background-position: center;
   background-size: cover;
   border-top-right-radius: 40px;
   border-bottom-left-radius: 40px;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35); /* Ombre plus prononcée */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-  border: 4px solid #f4eaca; /* Bordure pour le style (couleur secondaire) */
+  border: 4px solid #f4eaca;
 }
 
 .adoption-card:hover {
-  transform: translateY(-10px) scale(1.03); /* Effet de zoom et de soulèvement */
+  transform: translateY(-10px) scale(1.03);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
 }
 
@@ -98,10 +102,10 @@
 .adoption-card::after {
   position: absolute;
   content: "";
-  width: 25%; /* Taille initiale un peu plus grande */
+  width: 25%;
   height: 25%;
   background-color: #5c8d89;
-  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transition plus douce */
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .adoption-card::before {
@@ -121,16 +125,16 @@
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  background-color: #f4eaca; /* Fond au survol en f4eaca */
+  background-color: #f4eaca;
 }
 
 .adoption-card-name {
   position: absolute;
-  bottom: 20px; /* Position ajustée */
-  left: 20px; /* Position ajustée */
+  bottom: 20px;
+  left: 20px;
   color: white;
   font-weight: bold;
-  font-size: 1.8rem; /* Taille de police plus grande */
+  font-size: 1.8rem;
   transition: opacity 0.3s ease;
 }
 
@@ -138,41 +142,44 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 1.5rem; /* Padding augmenté */
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   opacity: 0;
-  background: #f4eaca; /* Fond par défaut en f4eaca, même s'il n'est visible qu'au hover */
+  background: #f4eaca;
   transition: 0.5s ease;
   text-align: center;
 }
 
 .adoption-card-content h2 {
   font-family: "Pacifico", cursive;
-  margin-bottom: 15px; /* Marge augmentée */
-  color: #5c8d89; /* Couleur primaire */
-  font-size: 2.2rem; /* Taille du titre du contenu */
+  margin-bottom: 15px;
+  color: #5c8d89;
+  font-size: 2.2rem;
   line-height: 1.2;
 }
 
 .adoption-card-content p {
   width: 85%;
   text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 /* --- Media Queries --- */
+
+/* Mobile */
 @media (max-width: 480px) {
   .page_compagnons {
-    margin-top: 7rem;
-    padding: 1.5rem 0;
+    margin-top: 6rem;
+    padding: 2rem 0;
   }
 
   .h1_compagnons {
-    font-size: 1.5rem;
-    width: 100%;
-    flex-wrap: wrap;
+    font-size: 2rem;
+    gap: 10px;
   }
 
   .h1_compagnons .pattes-icon {
@@ -182,8 +189,7 @@
 
   .paragraphe_compagnons {
     font-size: 1rem;
-    padding: 0 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .animal_group_compagnons {
@@ -194,28 +200,28 @@
 
   .adoption-card {
     width: 90%;
-    height: 350px;
-    margin: 0 auto;
+    height: 400px;
   }
 
   .adoption-card-name {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     bottom: 15px;
     left: 15px;
   }
 
   .adoption-card-content h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .adoption-card-content p {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
 
+/* Tablettes */
 @media (min-width: 481px) and (max-width: 768px) {
   .h1_compagnons {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     gap: 12px;
   }
 
@@ -226,42 +232,91 @@
 
   .paragraphe_compagnons {
     font-size: 1.1rem;
-    margin-bottom: 3rem;
   }
 
   .animal_group_compagnons {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    padding: 30px 1rem;
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
 
   .adoption-card {
-    width: 250px;
-    height: 350px;
+    width: 260px;
+    height: 380px;
   }
 
   .adoption-card-name {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 
   .adoption-card-content h2 {
-    font-size: 2rem;
+    font-size: 1.9rem;
+  }
+
+  .adoption-card-content p {
+    font-size: 1rem;
   }
 }
 
+/* Petits laptops */
 @media (min-width: 769px) and (max-width: 1024px) {
   .h1_compagnons {
-    font-size: 3.5rem;
+    font-size: 3rem;
+  }
+
+  .animal_group_compagnons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+  }
+
+  .adoption-card {
+    width: 300px;
+    height: 420px;
+  }
+}
+
+/* Desktop classique */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .h1_compagnons {
+    font-size: 3.6rem;
   }
 
   .animal_group_compagnons {
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    padding: 35px 1rem;
+    gap: 40px;
   }
 
   .adoption-card {
-    width: 280px;
-    height: 380px;
+    width: 320px;
+    height: 440px;
+  }
+}
+
+/* Écrans larges */
+@media (min-width: 1281px) {
+  .h1_compagnons {
+    font-size: 4.2rem;
+  }
+
+  .animal_group_compagnons {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    padding: 50px 2rem;
+  }
+
+  .adoption-card {
+    width: 340px;
+    height: 460px;
+  }
+
+  .adoption-card-name {
+    font-size: 2rem;
+  }
+
+  .adoption-card-content h2 {
+    font-size: 2.4rem;
+  }
+
+  .adoption-card-content p {
+    font-size: 1.1rem;
   }
 }
