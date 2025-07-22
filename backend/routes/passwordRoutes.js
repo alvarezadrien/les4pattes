@@ -4,6 +4,11 @@ const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
+// ✅ ROUTE DE TEST pour Render
+router.get('/test', (req, res) => {
+    res.json({ message: '✅ La route /api/password/test fonctionne !' });
+});
+
 // Configurer Nodemailer (avec variables d'environnement)
 const transporter = nodemailer.createTransport({
     service: 'gmail',
