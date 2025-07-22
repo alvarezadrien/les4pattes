@@ -8,11 +8,12 @@ import Button from "@mui/material/Button";
 
 const formSx = {
     "& .MuiTextField-root": {
-        m: 1,
-        width: "30ch",
-        maxWidth: "500px",
+        marginBottom: "16px",
+        width: "100%",
+        maxWidth: "480px",
         display: "flex",
-        margin: "0 auto 1rem auto",
+        marginLeft: "auto",
+        marginRight: "auto",
     },
     "& .MuiInputLabel-root": {
         color: "black",
@@ -82,7 +83,6 @@ function MotpasseOublie() {
                 <form onSubmit={handleSubmit} className="container_form_login">
                     <Box component="div" sx={formSx}>
                         <TextField
-                            fullWidth
                             variant="outlined"
                             label="Email"
                             placeholder="Entrez votre email"
@@ -95,21 +95,20 @@ function MotpasseOublie() {
                     <Button
                         variant="contained"
                         type="submit"
-                        fullWidth
                         disabled={loading}
                         sx={{
                             backgroundColor: "#778d45",
                             "&:hover": { backgroundColor: "#5f7036" },
                             margin: "0 auto",
                             display: "block",
-                            width: "30ch",
+                            width: "240px", // équivalent à 30ch environ
                         }}
                     >
                         {loading ? "Envoi..." : "Confirmer"}
                     </Button>
 
                     {message && (
-                        <p style={{ textAlign: "center", marginTop: "1rem" }}>{message}</p>
+                        <p style={{ textAlign: "center", marginTop: "16px" }}>{message}</p>
                     )}
                 </form>
             </div>
