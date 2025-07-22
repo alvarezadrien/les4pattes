@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
-import axios from 'axios';
 
 import "./Mon_compte.css";
 
@@ -59,18 +58,28 @@ const Mon_compte = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`${API_URL}/api/auth/profile/avatar-url`, { avatarUrl: imgUrl }, {
+
+      const response = await fetch(`${API_URL}/api/auth/profile/avatar-url`, {
+        method: 'PUT',
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ avatarUrl: imgUrl })
       });
 
-      setMessage(response.data.msg);
-      updateAvatar(response.data.avatarUrl || imgUrl);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.msg || 'Erreur lors de la mise à jour de l’avatar.');
+      }
+
+      setMessage(data.msg);
+      updateAvatar(data.avatarUrl || imgUrl);
 
     } catch (error) {
       console.error("Erreur lors de la sélection de l'avatar prédéfini:", error);
-      setError(error.response?.data?.msg || "Erreur lors de la mise à jour de l'avatar.");
+      setError(error.message || "Erreur lors de la mise à jour de l'avatar.");
       setMessage('');
     }
   };
@@ -109,7 +118,7 @@ const Mon_compte = () => {
     ? user.avatar.startsWith('/uploads/')
       ? `${API_URL}${user.avatar}`
       : user.avatar
-    : '/img/avatar.png';
+    : '/img/Avatar/avatar_chat1.jpg';
 
   return (
     <div className="mon-compte-container">
