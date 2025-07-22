@@ -80,9 +80,11 @@ function ResetPassword() {
         }, 2000);
       } else {
         setErrorMessage(data.message || "Erreur lors de la réinitialisation.");
+        console.error("Réponse erreur :", data); // Ajout ici
       }
     } catch (error) {
       setErrorMessage("Erreur serveur.");
+      console.error("Erreur serveur :", error); // Ajout ici
     } finally {
       setLoading(false);
     }
