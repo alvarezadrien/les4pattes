@@ -123,7 +123,7 @@ router.put('/profile', auth, async (req, res) => {
 });
 
 // ✅ Modifier les données personnelles (nom, prénom, email)
-router.put('/profil', auth, async (req, res) => {
+router.put('/profile', auth, async (req, res) => {
     const { nom, prenom, email } = req.body;
 
     try {
