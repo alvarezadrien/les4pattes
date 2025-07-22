@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpires: { type: Date }
 });
 
-// Hash du mot de passe avant enregistrement
+// ✅ Hash du mot de passe avant enregistrement (sauf si reset token modifié uniquement)
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
@@ -33,16 +33,16 @@ userSchema.pre('save', async function (next) {
     }
 });
 
-// Méthode pour comparer le mot de passe
+// ✅ Comparaison de mot de passe
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Méthode pour générer un token de réinitialisation
+// ✅ Génération de token de réinitialisation
 userSchema.methods.generatePasswordResetToken = function () {
     const token = crypto.randomBytes(20).toString('hex');
     this.resetPasswordToken = token;
-    this.resetPasswordExpires = Date.now() + 3600000; // 1 heure
+    this.resetPasswordExpires = Date.now() + 3600000; // 1h
     return token;
 };
 
