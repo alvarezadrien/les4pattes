@@ -95,7 +95,7 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Mettre à jour l’avatar (upload)
+// ✅ Mettre à jour l’avatar (upload personnalisé)
 router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ msg: 'Aucun fichier valide sélectionné.' });
@@ -103,8 +103,8 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: 'Utilisateur non trouvé' });
 
-        // Supprimer l'ancien avatar s'il existe
-        if (user.avatar && user.avatar !== '/img/avatar.png' && user.avatar.startsWith('/uploads/')) {
+        // Supprimer l'ancien avatar uploadé (si pas avatar par défaut)
+        if (user.avatar && user.avatar.startsWith('/uploads/')) {
             const oldAvatarPath = path.join(__dirname, '..', user.avatar);
             if (fs.existsSync(oldAvatarPath)) {
                 fs.unlink(oldAvatarPath, (err) => {
@@ -124,7 +124,7 @@ router.post('/profile/avatar', auth, upload.single('avatar'), async (req, res) =
     }
 });
 
-// ✅ Choisir un avatar prédéfini (URL)
+// ✅ Choisir un avatar prédéfini (URL uniquement)
 router.put('/profile/avatar-url', auth, async (req, res) => {
     try {
         const { avatarUrl } = req.body;

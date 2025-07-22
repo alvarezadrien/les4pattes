@@ -29,7 +29,6 @@ const Mon_compte = () => {
   const { user, logout, loading, updateAvatar } = useAuth();
   const navigate = useNavigate();
 
-  const [avatarFile, setAvatarFile] = useState(null);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [showAvatarPopup, setShowAvatarPopup] = useState(false);
@@ -53,49 +52,6 @@ const Mon_compte = () => {
     navigate('/connexion');
   };
 
-  const handleAvatarUpload = async (file) => {
-    if (!file) {
-      setError('Veuillez sélectionner un fichier à téléverser.');
-      return;
-    }
-
-    setMessage('Téléchargement de l\'avatar en cours...');
-    setError('');
-    setShowAvatarPopup(false);
-
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(`${API_URL}/api/auth/profile/avatar`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        },
-      });
-
-      setMessage(response.data.msg);
-      updateAvatar(response.data.avatarUrl);
-      setAvatarFile(null);
-      const fileInput = document.getElementById('avatar-upload-input');
-      if (fileInput) fileInput.value = '';
-
-    } catch (err) {
-      console.error("Erreur lors du téléversement de l'avatar:", err);
-      setError(err.response?.data?.msg || "Erreur lors du téléversement de l'avatar.");
-      setMessage('');
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setAvatarFile(file);
-      handleAvatarUpload(file);
-    }
-  };
-
   const handleAvatarSelect = async (imgUrl) => {
     setShowAvatarPopup(false);
     setMessage('Mise à jour de l\'avatar en cours...');
@@ -110,7 +66,7 @@ const Mon_compte = () => {
       });
 
       setMessage(response.data.msg);
-      updateAvatar(response.data.avatarUrl);
+      updateAvatar(response.data.avatarUrl || imgUrl);
 
     } catch (error) {
       console.error("Erreur lors de la sélection de l'avatar prédéfini:", error);
@@ -149,11 +105,11 @@ const Mon_compte = () => {
     }
   };
 
-  const displayAvatarUrl = user.avatarUrl
-    ? user.avatarUrl.startsWith('/uploads/')
-      ? `${API_URL}${user.avatarUrl}`
-      : user.avatarUrl
-    : '/uploads/Avatar/avatar-683c85d03b4aaf7cd97ca1ad-1749016204322.jpg';
+  const displayAvatarUrl = user.avatar
+    ? user.avatar.startsWith('/uploads/')
+      ? `${API_URL}${user.avatar}`
+      : user.avatar
+    : '/img/avatar.png';
 
   return (
     <div className="mon-compte-container">
@@ -235,21 +191,6 @@ const Mon_compte = () => {
                   className="avatar-option"
                 />
               ))}
-            </div>
-
-            <div className="upload-section">
-              <h4>Ou téléchargez une image personnalisée :</h4>
-              <label htmlFor="avatar-upload-input" className="custom-file-upload-button">
-                Choisir un fichier
-              </label>
-              <input
-                type="file"
-                id="avatar-upload-input"
-                accept="image/jpeg,image/png,image/gif"
-                onChange={handleFileChange}
-                style={{ display: 'none' }}
-              />
-              {avatarFile && <span className="selected-file-name">{avatarFile.name}</span>}
             </div>
 
             {message && <p className="success-message">{message}</p>}
