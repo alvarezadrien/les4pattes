@@ -9,7 +9,7 @@ router.get('/test', (req, res) => {
     res.json({ message: '✅ La route /api/password/test fonctionne !' });
 });
 
-// ✅ Configurer le transporteur avec les variables d'environnement
+// ✅ Transporteur
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// ✅ Route de demande de réinitialisation
+// ✅ Demande de réinitialisation
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
 
@@ -30,7 +30,7 @@ router.post('/forgot-password', async (req, res) => {
             return res.status(404).json({ message: 'Aucun utilisateur avec cet email.' });
         }
 
-        const token = user.generatePasswordResetToken(); // généré et stocké dans user
+        const token = user.generatePasswordResetToken();
         await user.save();
 
         const resetURL = `${process.env.FRONTEND_URL}/ResetPassword/${token}`;
@@ -41,15 +41,7 @@ router.post('/forgot-password', async (req, res) => {
             from: process.env.EMAIL_USER,
             to: user.email,
             subject: 'Réinitialisation de mot de passe',
-            html: `
-                <p>Bonjour ${user.prenom},</p>
-                <p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien ci-dessous pour le faire :</p>
-                <p><a href="${resetURL}">${resetURL}</a></p>
-                <p>Ce lien est valide pendant 1 heure.</p>
-                <br/>
-                <p>Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email.</p>
-                <p>— L'équipe Les 4 Pattes</p>
-            `
+            html: `<p>Pour réinitialiser votre mot de passe, cliquez ici : <a href="${resetURL}">${resetURL}</a></p>`
         };
 
         await transporter.sendMail(mailOptions);
@@ -61,7 +53,7 @@ router.post('/forgot-password', async (req, res) => {
     }
 });
 
-// ✅ Route de réinitialisation avec le token
+// ✅ Réinitialisation avec le token
 router.post('/reset-password/:token', async (req, res) => {
     const { token } = req.params;
     const { newPassword } = req.body;
