@@ -1,4 +1,3 @@
-// ✅ FICHEPERSO_ANIMAL.JSX (Corrigé complet)
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Ficheperso_animal.css";
@@ -25,13 +24,13 @@ const Ficheperso_animal = () => {
         const images = [];
 
         if (data.images && data.images.length > 0) {
-          data.images.forEach(imgPath => {
-            if (imgPath) images.push(`${baseUrl}/${imgPath.replace(/^\/+/, '')}`);
+          data.images.forEach((imgPath) => {
+            if (imgPath) images.push(`${baseUrl}/${imgPath.replace(/^\/+/, "")}`);
           });
         } else {
-          if (data.image) images.push(`${baseUrl}/${data.image.replace(/^\/+/, '')}`);
-          if (data.image2) images.push(`${baseUrl}/${data.image2.replace(/^\/+/, '')}`);
-          if (data.image3) images.push(`${baseUrl}/${data.image3.replace(/^\/+/, '')}`);
+          if (data.image) images.push(`${baseUrl}/${data.image.replace(/^\/+/, "")}`);
+          if (data.image2) images.push(`${baseUrl}/${data.image2.replace(/^\/+/, "")}`);
+          if (data.image3) images.push(`${baseUrl}/${data.image3.replace(/^\/+/, "")}`);
         }
 
         setAnimal({ ...data, _processedImages: images });
@@ -47,6 +46,7 @@ const Ficheperso_animal = () => {
   }, [id]);
 
   if (loading) return <Loading />;
+
   if (error || !animal) {
     return (
       <div className="animal-details-container">
@@ -58,7 +58,6 @@ const Ficheperso_animal = () => {
 
   const thumbnails = animal._processedImages?.slice(0, 3) || [];
   const handleImageClick = (img) => setMainImg(img);
-
   const handleAdoptClick = () => {
     navigate("/Formulaire d'adoption", { state: { animalData: animal } });
   };
@@ -67,12 +66,15 @@ const Ficheperso_animal = () => {
     <div>
       <div className="animal-details-container">
         <div className="image-section">
-          {mainImg ? (
-            <img className="main-image" src={mainImg} alt={`Photo de ${animal.nom}`} />
-          ) : (
-            <p>Aucune image disponible</p>
-          )}
-
+          <img
+            className="main-image"
+            src={mainImg}
+            alt={`Photo de ${animal.nom}`}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/img/default.jpg";
+            }}
+          />
           <div className="small-images">
             {thumbnails.map((img, idx) => (
               <img
@@ -81,7 +83,10 @@ const Ficheperso_animal = () => {
                 src={img}
                 alt={`Miniature ${idx + 1}`}
                 onClick={() => handleImageClick(img)}
-                style={{ cursor: "pointer" }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/img/default.jpg";
+                }}
               />
             ))}
             {Array.from({ length: Math.max(0, 3 - thumbnails.length) }).map((_, idx) => (
