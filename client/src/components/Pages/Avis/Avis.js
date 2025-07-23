@@ -84,10 +84,6 @@ const Avis = () => {
                 <img src="/img/pattes.png" alt="Patte" width={40} height={40} />
             </h2>
 
-            <button onClick={() => setShowPopup(true)} className="open-comment-btn">
-                Laisser un commentaire
-            </button>
-
             {showPopup && (
                 <CommentFormPopup
                     onClose={() => setShowPopup(false)}
