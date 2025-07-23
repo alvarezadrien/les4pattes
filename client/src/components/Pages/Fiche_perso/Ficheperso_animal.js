@@ -1,3 +1,4 @@
+// ✅ FICHEPERSO_ANIMAL.JSX (Corrigé complet)
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Ficheperso_animal.css";
@@ -23,20 +24,18 @@ const Ficheperso_animal = () => {
         const baseUrl = process.env.REACT_APP_API_URL;
         const images = [];
 
-        // ✅ Préférence aux images multiples (nouveau système)
         if (data.images && data.images.length > 0) {
           data.images.forEach(imgPath => {
-            if (imgPath) images.push(`${baseUrl}${imgPath}`);
+            if (imgPath) images.push(`${baseUrl}/${imgPath.replace(/^\/+/, '')}`);
           });
         } else {
-          // ✅ Ancien système
-          if (data.image) images.push(`${baseUrl}${data.image}`);
-          if (data.image2) images.push(`${baseUrl}${data.image2}`);
-          if (data.image3) images.push(`${baseUrl}${data.image3}`);
+          if (data.image) images.push(`${baseUrl}/${data.image.replace(/^\/+/, '')}`);
+          if (data.image2) images.push(`${baseUrl}/${data.image2.replace(/^\/+/, '')}`);
+          if (data.image3) images.push(`${baseUrl}/${data.image3.replace(/^\/+/, '')}`);
         }
 
         setAnimal({ ...data, _processedImages: images });
-        setMainImg(images[0] || null);
+        setMainImg(images[0] || "/img/default.jpg");
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -93,10 +92,7 @@ const Ficheperso_animal = () => {
 
         <div className="info-section">
           <h2>{animal.nom}</h2>
-
-          {animal.isRescue && (
-            <div className="rescue-tag-fiche">Sauvetage</div>
-          )}
+          {animal.isRescue && <div className="rescue-tag-fiche">Sauvetage</div>}
 
           <div className="div_p_infos">
             <p><strong>Espèce :</strong> {animal.espece || "N/A"}</p>
@@ -105,14 +101,14 @@ const Ficheperso_animal = () => {
             <p><strong>Sexe :</strong> {animal.sexe || "N/A"}</p>
             <p><strong>Taille :</strong> {animal.taille || "N/A"}</p>
           </div>
+
           <br />
           <p className="arrival_date">
-            <strong>Date d'arrivée :</strong>{" "}
-            {animal.dateArrivee ? new Date(animal.dateArrivee).toLocaleDateString() : "N/A"}
+            <strong>Date d'arrivée :</strong> {animal.dateArrivee ? new Date(animal.dateArrivee).toLocaleDateString() : "N/A"}
           </p>
           <p><strong>Adopté :</strong> {animal.adopte ? "Oui" : "Non"}</p>
-          <br />
 
+          <br />
           {animal.description && (
             <>
               <h3>Description :</h3>

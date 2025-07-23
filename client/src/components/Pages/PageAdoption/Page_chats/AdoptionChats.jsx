@@ -69,10 +69,10 @@ function AdoptionChats() {
 
   const getAnimalImage = (dog) => {
     const base = process.env.REACT_APP_API_URL;
-    if (dog.images?.length > 0) return `${base}${dog.images[0]}`;
-    if (dog.image) return `${base}${dog.image}`;
-    if (dog.image2) return `${base}${dog.image2}`;
-    if (dog.image3) return `${base}${dog.image3}`;
+    if (dog.images?.length > 0) return `${base}/${dog.images[0]}`;
+    if (dog.image) return `${base}/${dog.image}`;
+    if (dog.image2) return `${base}/${dog.image2}`;
+    if (dog.image3) return `${base}/${dog.image3}`;
     return "/img/default.jpg";
   };
 
