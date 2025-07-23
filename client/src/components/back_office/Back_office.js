@@ -30,7 +30,6 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 // --- URL de base de votre API Backend ---
-// Cette ligne est déjà correcte et pointe vers votre API Render.
 const API_BASE_URL = 'https://les4pattes-backend.onrender.com/api';
 
 // --- Composant Modal de Confirmation Réutilisable (Utilise MUI Dialog) ---
@@ -164,11 +163,23 @@ const BackOffice = () => {
     setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000); // Le message disparaît après 3 secondes
   }, []);
 
+  // Fonction pour obtenir les headers avec le token
+  const getAuthHeaders = useCallback(() => {
+    const token = localStorage.getItem('authToken');
+    return {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    };
+  }, []);
+
   // Fonction générique pour récupérer les données de l'API
   const fetchData = useCallback(async (endpoint, setter, errorMessage) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/${endpoint}`);
+      const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+        headers: getAuthHeaders() // Utilisez les headers avec le token
+      });
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Erreur de réponse du serveur pour ${endpoint}:`, errorText);
@@ -187,7 +198,7 @@ const BackOffice = () => {
     } finally {
       setLoading(false);
     }
-  }, [showFeedback]);
+  }, [showFeedback, getAuthHeaders]);
 
   // Effet pour récupérer les données initiales au montage du composant
   useEffect(() => {
@@ -276,7 +287,6 @@ const BackOffice = () => {
     }));
   };
 
-
   const handleSubmitAnimal = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -298,7 +308,6 @@ const BackOffice = () => {
       ...newAnimal,
       age: Number(newAnimal.age),
       images: imagesToSave, // Envoi des URLs d'images au lieu des objets File
-      // Renommer les champs pour correspondre au modèle Animal si nécessaire (déjà fait dans setNewAnimal)
     };
     // Supprimer la propriété '_id' si elle existe pour un POST (MongoDB la générera)
     if (!isEditing && animalData._id) {
@@ -308,9 +317,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(url, {
         method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
         body: JSON.stringify(animalData),
       });
 
@@ -409,6 +416,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/animaux/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -450,9 +458,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/animaux/${id}/status`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
         body: JSON.stringify({ adopte: newAdopteStatus }) // Envoyer le booléen 'adopte'
       });
       if (!response.ok) {
@@ -497,6 +503,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/users/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -535,6 +542,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/comments/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -576,7 +584,6 @@ const BackOffice = () => {
   );
 
   // Options communes pour les cases à cocher (comportement et ententeAvec)
-  // Noms exacts de l'énumération de votre modèle Animal
   const commonBehaviors = ['calme', 'actif', 'affectueux', 'independant', 'sociable', 'joueur', 'curieux', 'calin'];
   const commonCompatibilities = ['enfants', 'chiens', 'chats', 'familles'];
 
@@ -956,7 +963,6 @@ const BackOffice = () => {
                   onChange={handleAnimalChange}
                   multiline
                   rows={3}
-                  required
                   variant="outlined"
                 />
               </Grid>
