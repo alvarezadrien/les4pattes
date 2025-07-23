@@ -267,27 +267,26 @@ const BackOffice = () => {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    const newPreviews = [];
-    const newImageFiles = [];
 
-    files.forEach(file => {
-      if (imagePreviews.length + newImageFiles.length < 3) {
-        newImageFiles.push(file);
-        newPreviews.push(URL.createObjectURL(file));
-      } else {
-        showFeedback('error', 'Vous pouvez télécharger un maximum de 3 images.');
-      }
-    });
+    // On filtre pour ne pas dépasser 3 images
+    const filesToAdd = files.slice(0, 3 - newAnimal.images.length);
+
+    // Création des aperçus (URLs locales)
+    const previews = filesToAdd.map(file => URL.createObjectURL(file));
+
+    if (newAnimal.images.length + filesToAdd.length > 3) {
+      showFeedback('error', 'Vous pouvez télécharger un maximum de 3 images.');
+    }
 
     setNewAnimal(prev => ({
       ...prev,
-      // Important: Ici, `images` stocke les objets `File` pour l'upload,
-      // mais votre backend attendra probablement des URLs après un upload réel vers un service de stockage.
-      // Pour l'instant, on ajoute les fichiers bruts.
-      images: [...prev.images, ...newImageFiles]
+      images: [...prev.images, ...filesToAdd]
     }));
-    setImagePreviews(prev => [...prev, ...newPreviews]); // Ajoute les URLs pour l'aperçu
+
+    setImagePreviews(prev => [...prev, ...previews]);
   };
+
+
 
   const removeImagePreview = (indexToRemove) => {
     const urlToRevoke = imagePreviews[indexToRemove];
@@ -309,45 +308,39 @@ const BackOffice = () => {
     setFeedbackMessage({ type: '', message: '' });
 
     const isEditing = !!editingAnimal;
-    let method = isEditing ? 'PUT' : 'POST';
-    let url = isEditing ? `${API_BASE_URL}/animaux/${editingAnimal._id}` : `${API_BASE_URL}/animaux`;
-
-    // ATTENTION: Votre backend doit gérer l'upload d'images
-    // Si votre API attend des URLs d'images directement (comme votre code actuel semble le faire),
-    // vous devrez avoir un service d'upload (ex: Cloudinary, S3) qui renvoie des URLs.
-    // Actuellement, `newAnimal.images` contient des objets `File` ou des URLs existantes.
-    // Pour que votre code actuel fonctionne *directement* avec votre backend sans un service d'upload
-    // qui retourne des URLs, le backend devrait être capable de recevoir des fichiers via FormData.
-    // Si votre backend attend des URLs, vous devriez UPLOADER les fichiers ici D'ABORD,
-    // puis envoyer les URLs retournées par le service d'upload dans `animalData.images`.
-
-    // Pour cette démo et pour coller à votre code actuel qui envoie `imagePreviews`,
-    // je vais faire l'hypothèse que les `images` dans `newAnimal` sont déjà des URLs ou seront gérées
-    // côté backend comme des références. Si `newAnimal.images` contient des objets `File`,
-    // une requête FormData est généralement nécessaire.
-    // Pour simplifier et correspondre à votre envoi actuel de JSON avec `images: imagesToSave`,
-    // nous considérons que `imagePreviews` contient les URLs à sauvegarder.
-
-    const imagesToSave = imagePreviews.filter(url => !url.startsWith('blob:')); // Exclut les aperçus locaux temporaires
-
-    const animalData = {
-      ...newAnimal,
-      age: Number(newAnimal.age),
-      // Si `newAnimal.images` contient des objets `File`, il faut les uploader séparément.
-      // Pour l'instant, nous envoyons ce qui est dans `imagesToSave` (qui sont les URLs existantes).
-      // Si vous avez de nouvelles images à uploader, la logique ici doit être repensée pour un `FormData`.
-      images: imagesToSave,
-    };
-    // Supprimer la propriété '_id' si elle existe pour un POST (MongoDB la générera)
-    if (!isEditing && animalData._id) {
-      delete animalData._id;
-    }
+    const method = isEditing ? 'PUT' : 'POST';
+    const url = isEditing
+      ? `${API_BASE_URL}/animaux/${editingAnimal._id}`
+      : `${API_BASE_URL}/animaux`;
 
     try {
+      const formData = new FormData();
+      formData.append('nom', newAnimal.nom || '');
+      formData.append('espece', newAnimal.espece || '');
+      formData.append('race', newAnimal.race || '');
+      formData.append('age', newAnimal.age || '');
+      formData.append('sexe', newAnimal.sexe || '');
+      formData.append('taille', newAnimal.taille || '');
+      formData.append('description', newAnimal.description || '');
+      formData.append('descriptionAdoption', newAnimal.descriptionAdoption || '');
+      formData.append('dateArrivee', newAnimal.dateArrivee || '');
+      formData.append('isRescue', newAnimal.isRescue ? 'true' : 'false');
+      formData.append('comportement', JSON.stringify(newAnimal.comportement || []));
+      formData.append('ententeAvec', JSON.stringify(newAnimal.ententeAvec || []));
+      formData.append('dossier', newAnimal.espece?.toLowerCase() === 'chat' ? 'Chats' : 'Chiens');
+
+      if (!isEditing || newAnimal.images.length > 0) {
+        newAnimal.images.forEach((file, index) => {
+          formData.append(`image${index + 1}`, file);
+        });
+      }
+
       const response = await fetch(url, {
-        method: method,
-        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
-        body: JSON.stringify(animalData), // Si vous uploadez des fichiers, ce doit être FormData
+        method,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: formData,
       });
 
       if (!response.ok) {
@@ -367,14 +360,14 @@ const BackOffice = () => {
       const resultAnimal = await response.json();
 
       if (!isEditing) {
-        setAnimals(prev => [...prev, resultAnimal]);
+        setAnimals(prev => [...prev, resultAnimal.animal]);
         showFeedback('success', 'Animal ajouté avec succès !');
       } else {
         setAnimals(prev => prev.map(animal => animal._id === resultAnimal._id ? resultAnimal : animal));
         showFeedback('success', 'Animal mis à jour avec succès !');
       }
 
-      closeAnimalFormModal(); // Fermer et réinitialiser le formulaire
+      closeAnimalFormModal();
 
     } catch (error) {
       console.error('Erreur API:', error);
@@ -1131,13 +1124,28 @@ const BackOffice = () => {
           <div className="animal-details-modal-content">
             <div className="detail-images">
               {animalDetailModal.images && animalDetailModal.images.length > 0 ? (
-                animalDetailModal.images.map((img, index) => (
-                  <img key={index} src={img} alt={`${animalDetailModal.nom} image ${index + 1}`} onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/150x150/EEEEEE/888888?text=Image+introuvable"; }} />
-                ))
+                animalDetailModal.images.map((img, index) => {
+                  // Vérifie si c’est une URL externe ou un chemin relatif
+                  const isAbsoluteUrl = img.startsWith('http') || img.startsWith('blob:');
+                  const imageSrc = isAbsoluteUrl ? img : `${API_BASE_URL}/${img}`;
+
+                  return (
+                    <img
+                      key={index}
+                      src={imageSrc}
+                      alt={`${animalDetailModal.nom} image ${index + 1}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://placehold.co/150x150/EEEEEE/888888?text=Image+introuvable";
+                      }}
+                    />
+                  );
+                })
               ) : (
                 <p>Aucune image disponible.</p>
               )}
             </div>
+
             <div className="detail-info-grid">
               <div className="detail-item"><strong>ID:</strong> {animalDetailModal._id}</div>
               <div className="detail-item"><strong>Nom:</strong> {animalDetailModal.nom}</div>
@@ -1159,25 +1167,30 @@ const BackOffice = () => {
                 />
               </div>
             </div>
+
             <div className="detail-section full-width">
               <strong>Description générale:</strong>
               <p>{animalDetailModal.description}</p>
             </div>
+
             <div className="detail-section full-width">
               <strong>Description d'adoption:</strong>
               <p>{animalDetailModal.descriptionAdoption}</p>
             </div>
+
             <div className="detail-section">
               <strong>Comportements:</strong>
-              <p>{animalDetailModal.comportement && animalDetailModal.comportement.length > 0 ? animalDetailModal.comportement.join(', ') : 'Aucun'}</p>
+              <p>{animalDetailModal.comportement?.length > 0 ? animalDetailModal.comportement.join(', ') : 'Aucun'}</p>
             </div>
+
             <div className="detail-section">
               <strong>Ententes avec:</strong>
-              <p>{animalDetailModal.ententeAvec && animalDetailModal.ententeAvec.length > 0 ? animalDetailModal.ententeAvec.join(', ') : 'Aucune'}</p>
+              <p>{animalDetailModal.ententeAvec?.length > 0 ? animalDetailModal.ententeAvec.join(', ') : 'Aucune'}</p>
             </div>
           </div>
         </SimpleModal>
       )}
+
 
       {/* Modale des détails du commentaire */}
       {commentDetailModal && (
