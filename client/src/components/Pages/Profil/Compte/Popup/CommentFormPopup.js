@@ -8,7 +8,7 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    const { token } = useAuth();
+    const { token, user } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,36 +38,28 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
                 body: JSON.stringify({
                     commentText: commentText,
                     rating: rating,
+                    username: user?.prenom || "Utilisateur"
                 }),
             });
 
             if (!response.ok) {
-                let errorMessage = `Erreur du serveur (Statut: ${response.status}).`;
                 const contentType = response.headers.get('content-type');
-
+                let errorMessage = `Erreur serveur (${response.status})`;
                 if (contentType && contentType.includes('application/json')) {
-                    try {
-                        const errorData = await response.json();
-                        errorMessage = errorData.msg || errorData.message || errorMessage;
-                    } catch (jsonParseError) {
-                        errorMessage = `Erreur: Réponse JSON malformée du serveur (Statut: ${response.status}).`;
-                    }
+                    const errorData = await response.json();
+                    errorMessage = errorData.message || errorMessage;
                 } else {
-                    const textResponse = await response.text();
-                    if (textResponse.startsWith('<!DOCTYPE html>')) {
-                        errorMessage = "Le serveur a renvoyé une page HTML inattendue au lieu de JSON. Vérifiez l'URL de l'API ou le routage côté serveur.";
-                    } else if (textResponse) {
-                        errorMessage = textResponse;
+                    const text = await response.text();
+                    if (text.startsWith('<!DOCTYPE html>')) {
+                        errorMessage = "Le serveur a renvoyé une page HTML au lieu d'une réponse JSON. Vérifiez l'URL de l'API.";
+                    } else {
+                        errorMessage = text;
                     }
                 }
                 throw new Error(errorMessage);
             }
 
-            const successContentType = response.headers.get('content-type');
-            if (successContentType && successContentType.includes('application/json')) {
-                await response.json();
-            }
-
+            await response.json();
             setSuccess('Commentaire soumis avec succès !');
             setCommentText('');
             setRating(0);
@@ -75,11 +67,7 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
             setTimeout(onClose, 1500);
         } catch (err) {
             console.error("Erreur lors de la soumission du commentaire:", err);
-            if (err.message.includes("autorisée") || err.message.includes("401")) {
-                setError("Session expirée ou non autorisée. Veuillez vous reconnecter.");
-            } else {
-                setError(err.message || "Une erreur inattendue est survenue lors de la soumission du commentaire.");
-            }
+            setError(err.message || "Une erreur est survenue lors de l'envoi du commentaire.");
         } finally {
             setLoading(false);
         }

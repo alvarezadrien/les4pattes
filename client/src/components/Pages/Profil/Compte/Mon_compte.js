@@ -174,14 +174,6 @@ const Mon_compte = () => {
                 </button>
               </div>
             </div>
-
-            <div className="compte-option">
-              <div className="option-content">
-                <button className="adoption-button" onClick={() => handleOptionClick("adoption")}>
-                  Mes demandes d'adoption
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
