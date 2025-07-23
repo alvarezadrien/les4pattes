@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "../Page_chiens/AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
-import Loading from "../../../Widgets/Loading/Loading";
+import Loading from "../../../Widgets/Loading/Loading"; // ✅ Import Loading
 
 function AdoptionChats() {
   const navigate = useNavigate();
   const [dogs, setDogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // ✅ État de loading
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 12;
 
@@ -111,10 +111,8 @@ function AdoptionChats() {
                   key={dog._id}
                   className="adoption-card"
                   style={{
-                    backgroundImage: `url(${
-                      dog.images?.[0]
-                        ? `${process.env.REACT_APP_API_URL}/uploads/${dog.images[0]}`
-                        : `${process.env.REACT_APP_API_URL}/img/default.jpg`
+                    backgroundImage: `url(${process.env.REACT_APP_API_URL}${
+                      dog.images?.[0] || "/img/default.jpg"
                     })`,
                   }}
                 >
