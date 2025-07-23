@@ -15,21 +15,20 @@ const animalSchema = new mongoose.Schema({
     image2: { type: String, default: "" },
     image3: { type: String, default: "" },
     images: { type: [String], default: [] },
-    // --- Nouveaux champs pour les filtres ---
     comportement: {
-        type: [String], // Permet de stocker plusieurs comportements (ex: ['calme', 'affectueux'])
+        type: [String],
         enum: ['calme', 'actif', 'affectueux', 'independant', 'sociable', 'joueur', 'curieux', 'calin'],
         default: []
     },
     ententeAvec: {
-        type: [String], // Permet de stocker plusieurs ententes (ex: ['enfants', 'chiens'])
-        enum: ['enfants', 'chiens', 'chats', 'familles'], // 'familles' si c'est une catégorie d'entente
+        type: [String],
+        enum: ['enfants', 'chiens', 'chats', 'familles'],
         default: []
     },
-    // Nouveau champ pour indiquer si c'est un sauvetage
     isRescue: { type: Boolean, default: false }
 }, {
     timestamps: true
 });
 
+// ✅ Export simple et propre du modèle Mongoose
 module.exports = mongoose.model('Animal', animalSchema);
