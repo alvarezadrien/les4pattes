@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import api from '../services/api'; // api utilise process.env.REACT_APP_API_URL
 
@@ -14,7 +13,11 @@ export const AuthProvider = ({ children }) => {
             const storedToken = localStorage.getItem('token');
             if (storedToken) {
                 try {
-                    const response = await api.get('/api/auth/profile');
+                    const response = await api.get('/api/auth/profile', {
+                        headers: {
+                            Authorization: `Bearer ${storedToken}`
+                        }
+                    });
                     setUser(response.data);
                     setToken(storedToken);
                 } catch (error) {
@@ -74,7 +77,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     const updateUserData = (updatedUser) => {
-        setUser(updatedUser);
+        setUser(prev => ({
+            ...prev,
+            ...updatedUser
+        }));
     };
 
     const authContextValue = {
@@ -85,7 +91,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         logout,
         updateAvatar,
-        updateUserData, // ✅ ajout ici
+        updateUserData,
         isAdmin: user?.role === 'admin'
     };
 
