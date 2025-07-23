@@ -20,7 +20,7 @@ const Ficheperso_animal = () => {
         if (!response.ok) throw new Error("Animal non trouvé");
         const data = await response.json();
 
-        const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
+        const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, ""); // Enlève les '/' à la fin
         const images = [];
 
         if (data.images && data.images.length > 0) {
@@ -62,8 +62,6 @@ const Ficheperso_animal = () => {
     navigate("/Formulaire d'adoption", { state: { animalData: animal } });
   };
 
-  const defaultImg = `${process.env.REACT_APP_API_URL.replace(/\/+$/, "")}/img/default.jpg`;
-
   return (
     <div>
       <div className="animal-details-container">
@@ -74,7 +72,7 @@ const Ficheperso_animal = () => {
             alt={`Photo de ${animal.nom}`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = defaultImg;
+              e.target.src = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
             }}
           />
           <div className="small-images">
@@ -87,7 +85,7 @@ const Ficheperso_animal = () => {
                 onClick={() => handleImageClick(img)}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = defaultImg;
+                  e.target.src = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
                 }}
               />
             ))}

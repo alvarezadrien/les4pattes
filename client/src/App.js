@@ -64,8 +64,7 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        const apiBase = process.env.REACT_APP_API_URL.replace(/\/+$/, ""); // Retire les slashs finaux
-        const res = await fetch(`${apiBase}/api/animaux`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
         if (!res.ok) throw new Error("Erreur API");
         await res.json();
         setSiteReady(true);
