@@ -30,7 +30,7 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 // --- URL de base de votre API Backend ---
-// C'est la SEULE LIGNE À MODIFIER pour pointer vers votre API Render !
+// Cette ligne est déjà correcte et pointe vers votre API Render.
 const API_BASE_URL = 'https://les4pattes-backend.onrender.com/api';
 
 // --- Composant Modal de Confirmation Réutilisable (Utilise MUI Dialog) ---
@@ -119,18 +119,18 @@ const BackOffice = () => {
   // États de gestion des animaux
   const [animals, setAnimals] = useState([]);
   const [newAnimal, setNewAnimal] = useState({
-    name: '',
-    species: '',
-    breed: '',
-    age: '',
-    gender: '',
-    size: '',
-    generalDescription: '',
-    adoptionDescription: '',
-    arrivalDate: '',
+    nom: '', // Correspond à 'nom' dans le modèle
+    espece: '', // Correspond à 'espece' dans le modèle
+    race: '', // Correspond à 'race' dans le modèle
+    age: '', // Correspond à 'age' dans le modèle
+    sexe: '', // Correspond à 'sexe' dans le modèle
+    taille: '', // Correspond à 'taille' dans le modèle
+    description: '', // Correspond à 'description' dans le modèle (generalDescription)
+    descriptionAdoption: '', // Correspond à 'descriptionAdoption' dans le modèle
+    dateArrivee: '', // Correspond à 'dateArrivee' dans le modèle
     isRescue: false,
-    behaviors: [],
-    compatibilities: [],
+    comportement: [], // Correspond à 'comportement' dans le modèle
+    ententeAvec: [], // Correspond à 'ententeAvec' dans le modèle
     images: [] // Stocke les objets Fichier ou URLs pour l'aperçu
   });
   const [editingAnimal, setEditingAnimal] = useState(null); // Stocke l'animal en cours d'édition
@@ -170,9 +170,14 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/${endpoint}`);
       if (!response.ok) {
-        // Tenter de lire le message d'erreur du backend
-        const errorData = await response.json();
-        throw new Error(errorData.message || errorMessage);
+        const errorText = await response.text();
+        console.error(`Erreur de réponse du serveur pour ${endpoint}:`, errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || errorMessage);
+        } catch (jsonError) {
+          throw new Error(`Réponse inattendue du serveur (non-JSON): ${errorText.substring(0, 100)}...`);
+        }
       }
       const data = await response.json();
       setter(data);
@@ -182,14 +187,14 @@ const BackOffice = () => {
     } finally {
       setLoading(false);
     }
-  }, [showFeedback]); // showFeedback est une dépendance ici car elle est utilisée
+  }, [showFeedback]);
 
   // Effet pour récupérer les données initiales au montage du composant
   useEffect(() => {
-    fetchData('animals', setAnimals, 'Échec du chargement des animaux.');
-    fetchData('users', setUsers, 'Échec du chargement des utilisateurs.');
+    fetchData('animaux', setAnimals, 'Échec du chargement des animaux.');
+    fetchData('auth/users', setUsers, 'Échec du chargement des utilisateurs.');
     fetchData('comments', setComments, 'Échec du chargement des commentaires.');
-  }, [fetchData]); // Le tableau de dépendances inclut fetchData
+  }, [fetchData]);
 
   // --- Gestionnaire de la modale de confirmation ---
   const openConfirmationModal = (title, message, onConfirmCallback, data) => {
@@ -227,11 +232,11 @@ const BackOffice = () => {
   const handleCheckboxChange = (e, field) => {
     const { value, checked } = e.target;
     setNewAnimal(prev => {
-      const currentList = prev[field];
+      const currentList = prev[field] || []; // S'assurer que c'est un tableau
       if (checked) {
-        return { ...currentList, [field]: [...currentList, value] };
+        return { ...prev, [field]: [...currentList, value] };
       } else {
-        return { ...currentList, [field]: currentList.filter(item => item !== value) };
+        return { ...prev, [field]: currentList.filter(item => item !== value) };
       }
     });
   };
@@ -242,7 +247,6 @@ const BackOffice = () => {
     const newImageFiles = [];
 
     files.forEach(file => {
-      // Limite à 3 images au total
       if (imagePreviews.length + newImageFiles.length < 3) {
         newImageFiles.push(file);
         newPreviews.push(URL.createObjectURL(file));
@@ -259,7 +263,6 @@ const BackOffice = () => {
   };
 
   const removeImagePreview = (indexToRemove) => {
-    // Révoquer l'URL de l'objet pour libérer de la mémoire (important pour les URL de blob)
     const urlToRevoke = imagePreviews[indexToRemove];
     if (urlToRevoke && urlToRevoke.startsWith('blob:')) {
       URL.revokeObjectURL(urlToRevoke);
@@ -267,9 +270,6 @@ const BackOffice = () => {
 
     setImagePreviews(prev => prev.filter((_, index) => index !== indexToRemove));
 
-    // Note: Cette logique suppose que les "images" dans newAnimal sont soit des URLs existantes, soit des objets File.
-    // Si vous envoyez des FormData avec des fichiers, vous devrez ajuster pour ne supprimer que le fichier correspondant
-    // Ou, plus simple: lors de l'envoi au backend, filtrez les images par leur type (File vs String URL).
     setNewAnimal(prev => ({
       ...prev,
       images: prev.images.filter((_, index) => index !== indexToRemove)
@@ -284,37 +284,26 @@ const BackOffice = () => {
 
     const isEditing = !!editingAnimal;
     let method = isEditing ? 'PUT' : 'POST';
-    let url = isEditing ? `${API_BASE_URL}/animals/${editingAnimal._id}` : `${API_BASE_URL}/animals`;
+    let url = isEditing ? `${API_BASE_URL}/animaux/${editingAnimal._id}` : `${API_BASE_URL}/animaux`;
 
-    // IMPORTANT: Pour la gestion des images réelles, votre backend aura besoin d'une librairie
-    // comme `multer` pour parser les FormData. Pour le moment, notre backend accepte du JSON.
-    // Pour simplifier l'intégration actuelle sans gérer l'upload de fichiers sur le backend directement depuis le front,
-    // nous allons envoyer un tableau d'URLs pour les images.
-    // Dans un scénario réel, vous enverriez les fichiers à un service de stockage (Cloudinary, S3, etc.)
-    // qui vous renverrait des URLs à stocker en DB.
-    // Pour cette démo, nous allons juste stocker les URLs des aperçus ou les URLs existantes comme si elles étaient finales.
-    const imagesToSave = imagePreviews.filter(url => !url.startsWith('blob:')).concat(
-      newAnimal.images.map(file => {
-        // Pour les nouvelles images (objets File), nous ne pouvons pas les envoyer directement
-        // en JSON. Dans un vrai cas, il faudrait les uploader séparemment et obtenir des URLs.
-        // Ici, nous allons simuler en ne prenant que les URLs existantes ou les noms de fichier pour la démo.
-        // Adaptez ceci si votre backend gère un upload direct de fichiers via FormData.
-        return file instanceof File ? file.name : file; // Garde les noms de fichiers ou les URLs existantes
-      }).filter(Boolean) // Filtrer les valeurs null ou undefined si certains éléments sont vides
-    );
+    // Ici, nous supposons que les images sont des URLs, pas des objets File
+    // Dans un vrai scénario, vous uploaderiez les fichiers à un service de stockage (ex: Cloudinary)
+    // et stockeriez les URLs retournées dans la base de données.
+    // Pour cette démo, nous envoyons simplement les URLs de l'aperçu si ce ne sont pas des blobs.
+    const imagesToSave = imagePreviews.filter(url => !url.startsWith('blob:'));
 
 
     // Assurez-vous que l'âge est un nombre
     const animalData = {
       ...newAnimal,
       age: Number(newAnimal.age),
-      images: imagesToSave // Envoi des URLs d'images au lieu des objets File
+      images: imagesToSave, // Envoi des URLs d'images au lieu des objets File
+      // Renommer les champs pour correspondre au modèle Animal si nécessaire (déjà fait dans setNewAnimal)
     };
     // Supprimer la propriété '_id' si elle existe pour un POST (MongoDB la générera)
     if (!isEditing && animalData._id) {
       delete animalData._id;
     }
-
 
     try {
       const response = await fetch(url, {
@@ -326,8 +315,14 @@ const BackOffice = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Erreur lors de ${isEditing ? 'la modification' : 'l\'ajout'} de l'animal.`);
+        const errorText = await response.text();
+        console.error(`Erreur de réponse du serveur lors de l'envoi de données pour animaux:`, errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || `Erreur lors de ${isEditing ? 'la modification' : 'l\'ajout'} de l'animal.`);
+        } catch (jsonError) {
+          throw new Error(`Réponse inattendue du serveur (non-JSON) lors de l'envoi de données: ${errorText.substring(0, 100)}...`);
+        }
       }
 
       const resultAnimal = await response.json();
@@ -352,9 +347,9 @@ const BackOffice = () => {
 
   const handleAddAnimalClick = () => {
     setNewAnimal({
-      name: '', species: '', breed: '', age: '', gender: '', size: '',
-      generalDescription: '', adoptionDescription: '', arrivalDate: '',
-      isRescue: false, behaviors: [], compatibilities: [], images: []
+      nom: '', espece: '', race: '', age: '', sexe: '', taille: '',
+      description: '', descriptionAdoption: '', dateArrivee: '',
+      isRescue: false, comportement: [], ententeAvec: [], images: []
     });
     setImagePreviews([]);
     setEditingAnimal(null);
@@ -364,28 +359,26 @@ const BackOffice = () => {
   const handleEditAnimal = (animal) => {
     setEditingAnimal(animal);
     setNewAnimal({
-      // Utilisez l'ID de MongoDB (_id) comme identifiant
-      name: animal.name,
-      species: animal.species,
-      breed: animal.breed,
-      age: animal.age,
-      gender: animal.gender,
-      size: animal.size,
-      generalDescription: animal.generalDescription,
-      adoptionDescription: animal.adoptionDescription,
+      nom: animal.nom || '',
+      espece: animal.espece || '',
+      race: animal.race || '',
+      age: animal.age || '',
+      sexe: animal.sexe || '',
+      taille: animal.taille || '',
+      description: animal.description || '',
+      descriptionAdoption: animal.descriptionAdoption || '',
       // Formater la date en 'YYYY-MM-DD' pour l'input type="date"
-      arrivalDate: animal.arrivalDate ? new Date(animal.arrivalDate).toISOString().split('T')[0] : '',
-      isRescue: animal.isRescue,
-      behaviors: [...animal.behaviors], // Copie profonde pour les cases à cocher
-      compatibilities: [...animal.compatibilities], // Copie profonde
-      images: [] // Les nouvelles images seront gérées par input type="file"
+      dateArrivee: animal.dateArrivee ? new Date(animal.dateArrivee).toISOString().split('T')[0] : '',
+      isRescue: animal.isRescue || false,
+      comportement: [...(animal.comportement || [])], // Copie profonde pour les cases à cocher
+      ententeAvec: [...(animal.ententeAvec || [])], // Copie profonde
+      images: [...(animal.images || [])] // Afficher les images existantes (URL), les nouvelles seront ajoutées par l'input
     });
-    setImagePreviews([...animal.images]); // Afficher les images existantes (URL)
+    setImagePreviews([...(animal.images || [])]); // Afficher les images existantes (URL)
     setIsAnimalFormModalOpen(true);
   };
 
   const closeAnimalFormModal = () => {
-    // Révoquer toutes les URL de blob restantes lors de la fermeture de la modale pour éviter les fuites de mémoire
     imagePreviews.forEach(url => {
       if (url.startsWith('blob:')) {
         URL.revokeObjectURL(url);
@@ -394,9 +387,9 @@ const BackOffice = () => {
     setIsAnimalFormModalOpen(false);
     setEditingAnimal(null);
     setNewAnimal({
-      name: '', species: '', breed: '', age: '', gender: '', size: '',
-      generalDescription: '', adoptionDescription: '', arrivalDate: '',
-      isRescue: false, behaviors: [], compatibilities: [], images: []
+      nom: '', espece: '', race: '', age: '', sexe: '', taille: '',
+      description: '', descriptionAdoption: '', dateArrivee: '',
+      isRescue: false, comportement: [], ententeAvec: [], images: []
     });
     setImagePreviews([]);
   };
@@ -414,12 +407,18 @@ const BackOffice = () => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      const response = await fetch(`${API_BASE_URL}/animals/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/animaux/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Échec de la suppression de l\'animal.');
+        const errorText = await response.text();
+        console.error(`Erreur de réponse du serveur lors de la suppression d'animal:`, errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || 'Échec de la suppression de l\'animal.');
+        } catch (jsonError) {
+          throw new Error(`Réponse inattendue du serveur (non-JSON) lors de la suppression: ${errorText.substring(0, 100)}...`);
+        }
       }
 
       setAnimals(prev => prev.filter(animal => animal._id !== id));
@@ -432,35 +431,44 @@ const BackOffice = () => {
     }
   };
 
-  const handleChangeAnimalStatus = async (id, currentStatus) => {
-    const newStatus = currentStatus === 'Available' ? 'Adopted' : 'Available';
+  const handleChangeAnimalStatus = async (id, currentAdopteStatus) => {
+    // Inverser le statut 'adopte'
+    const newAdopteStatus = !currentAdopteStatus;
+    const statusText = newAdopteStatus ? 'Adopté' : 'Disponible';
+
     openConfirmationModal(
       `Changer le statut de l'animal ?`,
-      `Voulez-vous vraiment changer le statut de cet animal en "${newStatus === 'Available' ? 'Disponible' : 'Adopté'}" ?`,
+      `Voulez-vous vraiment changer le statut de cet animal en "${statusText}" ?`,
       executeChangeAnimalStatus,
-      { id, newStatus }
+      { id, newAdopteStatus }
     );
   };
 
-  const executeChangeAnimalStatus = async ({ id, newStatus }) => {
+  const executeChangeAnimalStatus = async ({ id, newAdopteStatus }) => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      const response = await fetch(`${API_BASE_URL}/animals/${id}/status`, {
-        method: 'PATCH', // Utilisez PATCH pour une mise à jour partielle
+      const response = await fetch(`${API_BASE_URL}/animaux/${id}/status`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status: newStatus })
+        body: JSON.stringify({ adopte: newAdopteStatus }) // Envoyer le booléen 'adopte'
       });
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Échec de la mise à jour du statut.');
+        const errorText = await response.text();
+        console.error(`Erreur de réponse du serveur lors du changement de statut:`, errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || 'Échec de la mise à jour du statut.');
+        } catch (jsonError) {
+          throw new Error(`Réponse inattendue du serveur (non-JSON) lors du changement de statut: ${errorText.substring(0, 100)}...`);
+        }
       }
 
       const updatedAnimal = await response.json();
       setAnimals(prev => prev.map(animal => animal._id === id ? updatedAnimal : animal));
-      showFeedback('success', `Statut de l'animal mis à jour en "${newStatus === 'Available' ? 'Disponible' : 'Adopté'}" !`);
+      showFeedback('success', `Statut de l'animal mis à jour en "${newAdopteStatus ? 'Adopté' : 'Disponible'}" !`);
     } catch (error) {
       console.error('Erreur API:', error);
       showFeedback('error', `Erreur: ${error.message}`);
@@ -487,12 +495,18 @@ const BackOffice = () => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      const response = await fetch(`${API_BASE_URL}/users/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/auth/users/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Échec de la suppression de l\'utilisateur.');
+        const errorText = await response.text();
+        console.error(`Erreur de réponse du serveur lors de la suppression d'utilisateur:`, errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || 'Échec de la suppression de l\'utilisateur.');
+        } catch (jsonError) {
+          throw new Error(`Réponse inattendue du serveur (non-JSON) lors de la suppression d'utilisateur: ${errorText.substring(0, 100)}...`);
+        }
       }
 
       setUsers(prev => prev.filter(user => user._id !== id));
@@ -523,8 +537,14 @@ const BackOffice = () => {
         method: 'DELETE',
       });
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Échec de la suppression du commentaire.');
+        const errorText = await response.text();
+        console.error(`Erreur de réponse du serveur lors de la suppression de commentaire:`, errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || 'Échec de la suppression du commentaire.');
+        } catch (jsonError) {
+          throw new Error(`Réponse inattendue du serveur (non-JSON) lors de la suppression de commentaire: ${errorText.substring(0, 100)}...`);
+        }
       }
 
       setComments(prev => prev.filter(comment => comment._id !== id));
@@ -543,20 +563,22 @@ const BackOffice = () => {
 
   // Animaux filtrés pour l'affichage (recherche côté client)
   const filteredAnimals = animals.filter(animal =>
-    animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    animal.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    animal.breed.toLowerCase().includes(searchTerm.toLowerCase())
+    (animal.nom || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (animal.espece || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (animal.race || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Utilisateurs filtrés pour l'affichage (recherche côté client)
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(userSearchTerm.toLowerCase())
+    (user.nom || '').toLowerCase().includes(userSearchTerm.toLowerCase()) ||
+    (user.prenom || '').toLowerCase().includes(userSearchTerm.toLowerCase()) ||
+    (user.email || '').toLowerCase().includes(userSearchTerm.toLowerCase())
   );
 
-  // Options communes pour les cases à cocher (behaviors et compatibilities)
-  const commonBehaviors = ['Joueur', 'Calme', 'Énergique', 'Timide', 'Curieux', 'Indépendant', 'Affectueux', 'Protecteur'];
-  const commonCompatibilities = ['Enfants', 'Chiens', 'Chats', 'Petits animaux', 'Adultes', 'Séniors'];
+  // Options communes pour les cases à cocher (comportement et ententeAvec)
+  // Noms exacts de l'énumération de votre modèle Animal
+  const commonBehaviors = ['calme', 'actif', 'affectueux', 'independant', 'sociable', 'joueur', 'curieux', 'calin'];
+  const commonCompatibilities = ['enfants', 'chiens', 'chats', 'familles'];
 
   return (
     <div className="back-office-container">
@@ -643,17 +665,17 @@ const BackOffice = () => {
                   <tbody>
                     {filteredAnimals.length > 0 ? (
                       filteredAnimals.map(animal => (
-                        <tr key={animal._id}> {/* Utilisez _id de MongoDB */}
-                          <td>{animal._id.substring(0, 6)}...</td> {/* Tronquer l'ID pour l'affichage */}
-                          <td>{animal.name}</td>
-                          <td>{animal.species}</td>
-                          <td>{animal.breed}</td>
+                        <tr key={animal._id}>
+                          <td>{animal._id.substring(0, 6)}...</td>
+                          <td>{animal.nom}</td> {/* Utilise 'nom' */}
+                          <td>{animal.espece}</td> {/* Utilise 'espece' */}
+                          <td>{animal.race}</td> {/* Utilise 'race' */}
                           <td>{animal.age} ans</td>
                           <td>
                             <Chip
-                              label={animal.status === 'Available' ? 'Disponible' : 'Adopté'}
-                              icon={animal.status === 'Available' ? <PetsIcon /> : <CheckIcon />}
-                              color={animal.status === 'Available' ? 'primary' : 'success'}
+                              label={animal.adopte ? 'Adopté' : 'Disponible'}
+                              icon={animal.adopte ? <CheckIcon /> : <PetsIcon />}
+                              color={animal.adopte ? 'success' : 'primary'}
                               size="small"
                               sx={{ fontWeight: 'bold' }}
                             />
@@ -669,11 +691,11 @@ const BackOffice = () => {
                               <DeleteIcon />
                             </IconButton>
                             <IconButton
-                              className={`btn-icon ${animal.status === 'Available' ? 'btn-adopt' : 'btn-unadopt'}`}
-                              onClick={() => handleChangeAnimalStatus(animal._id, animal.status)}
-                              title={animal.status === 'Available' ? 'Marquer Adopté' : 'Marquer Disponible'}
+                              className={`btn-icon ${animal.adopte ? 'btn-unadopt' : 'btn-adopt'}`}
+                              onClick={() => handleChangeAnimalStatus(animal._id, animal.adopte)}
+                              title={animal.adopte ? 'Marquer Disponible' : 'Marquer Adopté'}
                             >
-                              {animal.status === 'Available' ? <CheckIcon /> : <PetsIcon />}
+                              {animal.adopte ? <PetsIcon /> : <CheckIcon />}
                             </IconButton>
                           </td>
                         </tr>
@@ -710,7 +732,7 @@ const BackOffice = () => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Nom</th>
+                      <th>Nom Complet</th> {/* Changé pour "Nom Complet" */}
                       <th>Email</th>
                       <th>Rôle</th>
                       <th>Date d'inscription</th>
@@ -720,20 +742,20 @@ const BackOffice = () => {
                   <tbody>
                     {filteredUsers.length > 0 ? (
                       filteredUsers.map(user => (
-                        <tr key={user._id}> {/* Utilisez _id de MongoDB */}
+                        <tr key={user._id}>
                           <td>{user._id.substring(0, 6)}...</td>
-                          <td>{user.name}</td>
+                          <td>{(user.nom || '') + ' ' + (user.prenom || '')}</td> {/* Concatène nom et prenom */}
                           <td>{user.email}</td>
                           <td>
                             <Chip
                               label={user.role}
                               icon={<PersonIcon />}
-                              color={user.role === 'Admin' ? 'secondary' : 'default'}
+                              color={user.role === 'admin' ? 'secondary' : 'default'}
                               size="small"
                               sx={{ fontWeight: 'bold' }}
                             />
                           </td>
-                          <td>{new Date(user.createdAt).toLocaleDateString()}</td> {/* Afficher la date formatée */}
+                          <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                           <td className="actions-cell">
                             <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteUser(user._id)} title="Supprimer utilisateur">
                               <DeleteIcon />
@@ -764,22 +786,20 @@ const BackOffice = () => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Auteur</th>
-                      <th>Email</th>
-                      <th>Contenu</th>
-                      <th>Date</th>
+                      <th>Auteur</th> {/* Affiche username */}
+                      <th>Contenu</th> {/* Affiche commentText */}
+                      <th>Date</th> {/* Affiche createdAt */}
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {comments.length > 0 ? (
                       comments.map(comment => (
-                        <tr key={comment._id}> {/* Utilisez _id de MongoDB */}
+                        <tr key={comment._id}>
                           <td>{comment._id.substring(0, 6)}...</td>
-                          <td>{comment.author}</td>
-                          <td>{comment.email}</td>
-                          <td className="comment-content-cell" title={comment.content}>{comment.content}</td>
-                          <td>{new Date(comment.date).toLocaleDateString()}</td> {/* Afficher la date formatée */}
+                          <td>{comment.username}</td> {/* Utilise 'username' */}
+                          <td className="comment-content-cell" title={comment.commentText}>{comment.commentText}</td> {/* Utilise 'commentText' */}
+                          <td>{new Date(comment.createdAt).toLocaleDateString()}</td> {/* Utilise 'createdAt' */}
                           <td className="actions-cell">
                             <IconButton className="btn-icon btn-view" onClick={() => handleViewCommentDetails(comment)} title="Voir le commentaire complet">
                               <VisibilityIcon />
@@ -792,7 +812,7 @@ const BackOffice = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="6" className="no-data">Aucun commentaire reçu.</td>
+                        <td colSpan="5" className="no-data">Aucun commentaire reçu.</td>
                       </tr>
                     )}
                   </tbody>
@@ -805,15 +825,15 @@ const BackOffice = () => {
 
       {/* Modale du formulaire d'animal */}
       {isAnimalFormModalOpen && (
-        <SimpleModal onClose={closeAnimalFormModal} title={editingAnimal ? `Modifier l'animal : ${editingAnimal.name}` : 'Ajouter un nouvel animal'}>
+        <SimpleModal onClose={closeAnimalFormModal} title={editingAnimal ? `Modifier l'animal : ${editingAnimal.nom}` : 'Ajouter un nouvel animal'}>
           <form onSubmit={handleSubmitAnimal} className="modal-form animal-form">
-            <Grid container spacing={3}> {/* Utilisation de MUI Grid pour la mise en page */}
+            <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={4}>
                 <TextField
                   fullWidth
                   label="Nom"
-                  name="name"
-                  value={newAnimal.name}
+                  name="nom" // Correspond au modèle
+                  value={newAnimal.nom}
                   onChange={handleAnimalChange}
                   required
                   variant="outlined"
@@ -823,8 +843,8 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Espèce"
-                  name="species"
-                  value={newAnimal.species}
+                  name="espece" // Correspond au modèle
+                  value={newAnimal.espece}
                   onChange={handleAnimalChange}
                   required
                   variant="outlined"
@@ -834,8 +854,8 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Race"
-                  name="breed"
-                  value={newAnimal.breed}
+                  name="race" // Correspond au modèle
+                  value={newAnimal.race}
                   onChange={handleAnimalChange}
                   variant="outlined"
                 />
@@ -856,8 +876,8 @@ const BackOffice = () => {
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Sexe</InputLabel>
                   <Select
-                    name="gender"
-                    value={newAnimal.gender}
+                    name="sexe" // Correspond au modèle
+                    value={newAnimal.sexe}
                     onChange={handleAnimalChange}
                     label="Sexe"
                     required
@@ -865,30 +885,38 @@ const BackOffice = () => {
                     <MenuItem value="">Sélectionner</MenuItem>
                     <MenuItem value="Mâle">Mâle</MenuItem>
                     <MenuItem value="Femelle">Femelle</MenuItem>
+                    <MenuItem value="Inconnu">Inconnu</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Taille</InputLabel>
+                  <Select
+                    name="taille" // Correspond au modèle
+                    value={newAnimal.taille}
+                    onChange={handleAnimalChange}
+                    label="Taille"
+                    required
+                  >
+                    <MenuItem value="">Sélectionner</MenuItem>
+                    <MenuItem value="petit">Petit</MenuItem>
+                    <MenuItem value="moyen">Moyen</MenuItem>
+                    <MenuItem value="grand">Grand</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 <TextField
                   fullWidth
-                  label="Taille"
-                  name="size"
-                  value={newAnimal.size}
-                  onChange={handleAnimalChange}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <TextField
-                  fullWidth
                   label="Date d'arrivée"
-                  name="arrivalDate"
+                  name="dateArrivee" // Correspond au modèle
                   type="date"
-                  value={newAnimal.arrivalDate}
+                  value={newAnimal.dateArrivee}
                   onChange={handleAnimalChange}
                   required
                   variant="outlined"
-                  InputLabelProps={{ shrink: true }} // Toujours réduire le libellé pour l'input de date
+                  InputLabelProps={{ shrink: true }}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
@@ -910,8 +938,8 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Description générale"
-                  name="generalDescription"
-                  value={newAnimal.generalDescription}
+                  name="description" // Correspond au modèle
+                  value={newAnimal.description}
                   onChange={handleAnimalChange}
                   multiline
                   rows={3}
@@ -923,8 +951,8 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Description d'adoption"
-                  name="adoptionDescription"
-                  value={newAnimal.adoptionDescription}
+                  name="descriptionAdoption" // Correspond au modèle
+                  value={newAnimal.descriptionAdoption}
                   onChange={handleAnimalChange}
                   multiline
                   rows={3}
@@ -945,8 +973,8 @@ const BackOffice = () => {
                         control={
                           <Checkbox
                             value={behavior}
-                            checked={newAnimal.behaviors.includes(behavior)}
-                            onChange={(e) => handleCheckboxChange(e, 'behaviors')}
+                            checked={newAnimal.comportement.includes(behavior)} // Correspond au modèle
+                            onChange={(e) => handleCheckboxChange(e, 'comportement')} // Correspond au modèle
                             color="primary"
                           />
                         }
@@ -969,8 +997,8 @@ const BackOffice = () => {
                         control={
                           <Checkbox
                             value={compatibility}
-                            checked={newAnimal.compatibilities.includes(compatibility)}
-                            onChange={(e) => handleCheckboxChange(e, 'compatibilities')}
+                            checked={newAnimal.ententeAvec.includes(compatibility)} // Correspond au modèle
+                            onChange={(e) => handleCheckboxChange(e, 'ententeAvec')} // Correspond au modèle
                             color="primary"
                           />
                         }
@@ -1049,12 +1077,12 @@ const BackOffice = () => {
 
       {/* Modale des détails de l'animal */}
       {animalDetailModal && (
-        <SimpleModal onClose={() => setAnimalDetailModal(null)} title={`Détails de ${animalDetailModal.name}`}>
+        <SimpleModal onClose={() => setAnimalDetailModal(null)} title={`Détails de ${animalDetailModal.nom}`}>
           <div className="animal-details-modal-content">
             <div className="detail-images">
-              {animalDetailModal.images.length > 0 ? (
+              {animalDetailModal.images && animalDetailModal.images.length > 0 ? (
                 animalDetailModal.images.map((img, index) => (
-                  <img key={index} src={img} alt={`${animalDetailModal.name} image ${index + 1}`} onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/150x150/EEEEEE/888888?text=Image+introuvable"; }} />
+                  <img key={index} src={img} alt={`${animalDetailModal.nom} image ${index + 1}`} onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/150x150/EEEEEE/888888?text=Image+introuvable"; }} />
                 ))
               ) : (
                 <p>Aucune image disponible.</p>
@@ -1062,20 +1090,20 @@ const BackOffice = () => {
             </div>
             <div className="detail-info-grid">
               <div className="detail-item"><strong>ID:</strong> {animalDetailModal._id}</div>
-              <div className="detail-item"><strong>Nom:</strong> {animalDetailModal.name}</div>
-              <div className="detail-item"><strong>Espèce:</strong> {animalDetailModal.species}</div>
-              <div className="detail-item"><strong>Race:</strong> {animalDetailModal.breed || 'N/A'}</div>
+              <div className="detail-item"><strong>Nom:</strong> {animalDetailModal.nom}</div>
+              <div className="detail-item"><strong>Espèce:</strong> {animalDetailModal.espece}</div>
+              <div className="detail-item"><strong>Race:</strong> {animalDetailModal.race || 'N/A'}</div>
               <div className="detail-item"><strong>Âge:</strong> {animalDetailModal.age} ans</div>
-              <div className="detail-item"><strong>Sexe:</strong> {animalDetailModal.gender}</div>
-              <div className="detail-item"><strong>Taille:</strong> {animalDetailModal.size || 'N/A'}</div>
-              <div className="detail-item"><strong>Date d'arrivée:</strong> {new Date(animalDetailModal.arrivalDate).toLocaleDateString()}</div>
+              <div className="detail-item"><strong>Sexe:</strong> {animalDetailModal.sexe}</div>
+              <div className="detail-item"><strong>Taille:</strong> {animalDetailModal.taille || 'N/A'}</div>
+              <div className="detail-item"><strong>Date d'arrivée:</strong> {new Date(animalDetailModal.dateArrivee).toLocaleDateString()}</div>
               <div className="detail-item"><strong>Sauvetage:</strong> {animalDetailModal.isRescue ? 'Oui' : 'Non'}</div>
               <div className="detail-item">
                 <strong>Statut:</strong>
                 <Chip
-                  label={animalDetailModal.status === 'Available' ? 'Disponible' : 'Adopté'}
-                  icon={animalDetailModal.status === 'Available' ? <PetsIcon /> : <CheckIcon />}
-                  color={animalDetailModal.status === 'Available' ? 'primary' : 'success'}
+                  label={animalDetailModal.adopte ? 'Adopté' : 'Disponible'}
+                  icon={animalDetailModal.adopte ? <CheckIcon /> : <PetsIcon />}
+                  color={animalDetailModal.adopte ? 'success' : 'primary'}
                   size="small"
                   sx={{ fontWeight: 'bold' }}
                 />
@@ -1083,19 +1111,19 @@ const BackOffice = () => {
             </div>
             <div className="detail-section full-width">
               <strong>Description générale:</strong>
-              <p>{animalDetailModal.generalDescription}</p>
+              <p>{animalDetailModal.description}</p>
             </div>
             <div className="detail-section full-width">
               <strong>Description d'adoption:</strong>
-              <p>{animalDetailModal.adoptionDescription}</p>
+              <p>{animalDetailModal.descriptionAdoption}</p>
             </div>
             <div className="detail-section">
               <strong>Comportements:</strong>
-              <p>{animalDetailModal.behaviors.length > 0 ? animalDetailModal.behaviors.join(', ') : 'Aucun'}</p>
+              <p>{animalDetailModal.comportement && animalDetailModal.comportement.length > 0 ? animalDetailModal.comportement.join(', ') : 'Aucun'}</p>
             </div>
             <div className="detail-section">
               <strong>Ententes avec:</strong>
-              <p>{animalDetailModal.compatibilities.length > 0 ? animalDetailModal.compatibilities.join(', ') : 'Aucune'}</p>
+              <p>{animalDetailModal.ententeAvec && animalDetailModal.ententeAvec.length > 0 ? animalDetailModal.ententeAvec.join(', ') : 'Aucune'}</p>
             </div>
           </div>
         </SimpleModal>
@@ -1103,14 +1131,14 @@ const BackOffice = () => {
 
       {/* Modale des détails du commentaire */}
       {commentDetailModal && (
-        <SimpleModal onClose={() => setCommentDetailModal(null)} title={`Détails du commentaire de ${commentDetailModal.author}`}>
+        <SimpleModal onClose={() => setCommentDetailModal(null)} title={`Détails du commentaire de ${commentDetailModal.username}`}>
           <div className="comment-details-modal-content">
-            <p><strong>Auteur:</strong> {commentDetailModal.author}</p>
-            <p><strong>Email:</strong> {commentDetailModal.email}</p>
-            <p><strong>Date:</strong> {new Date(commentDetailModal.date).toLocaleDateString()}</p>
+            <p><strong>Auteur:</strong> {commentDetailModal.username}</p> {/* Utilise 'username' */}
+            <p><strong>Date:</strong> {new Date(commentDetailModal.createdAt).toLocaleDateString()}</p> {/* Utilise 'createdAt' */}
+            <p><strong>Note:</strong> {commentDetailModal.rating} / 5</p> {/* Affiche le rating */}
             <div className="comment-full-content-section">
               <strong>Contenu:</strong>
-              <p>{commentDetailModal.content}</p>
+              <p>{commentDetailModal.commentText}</p> {/* Utilise 'commentText' */}
             </div>
           </div>
         </SimpleModal>
