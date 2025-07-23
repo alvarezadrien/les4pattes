@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Slider from 'react-slick';
-import CommentFormPopup from './CommentFormPopup'; // adapte le chemin si besoin
+import CommentFormPopup from '../../Pages/Profil/Compte/Popup/CommentFormPopup';
 import './Avis.css';
 
 const Avis = () => {
