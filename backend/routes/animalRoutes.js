@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Animal = require('../models/Animal'); // ✅ Corrigé ici
+const Animal = require('../models/Animals'); // ✅ Corrigé ici
 
 // ✅ Compte des non-adoptés
 router.get('/count/non-adoptes', async (req, res) => {
