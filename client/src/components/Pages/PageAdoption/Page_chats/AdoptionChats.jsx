@@ -33,9 +33,8 @@ function AdoptionChats() {
         if (ententeFilter) params.append("ententeAvec", ententeFilter);
         if (dureeRefugeFilter) params.append("dureeRefuge", dureeRefugeFilter);
 
-        const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/animaux?${params.toString()}`
-        );
+        const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
+        const res = await fetch(`${baseUrl}/api/animaux?${params.toString()}`);
         const data = await res.json();
         setDogs(data);
         setCurrentPage(1);
@@ -68,11 +67,15 @@ function AdoptionChats() {
   };
 
   const getAnimalImage = (dog) => {
-    const base = process.env.REACT_APP_API_URL;
-    if (dog.images?.length > 0) return `${base}/${dog.images[0]}`;
-    if (dog.image) return `${base}/${dog.image}`;
-    if (dog.image2) return `${base}/${dog.image2}`;
-    if (dog.image3) return `${base}/${dog.image3}`;
+    const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
+
+    let imgPath = "";
+    if (dog.images?.length > 0) imgPath = dog.images[0];
+    else if (dog.image) imgPath = dog.image;
+    else if (dog.image2) imgPath = dog.image2;
+    else if (dog.image3) imgPath = dog.image3;
+
+    if (imgPath) return `${base}/${imgPath.replace(/^\/+/, "")}`;
     return "/img/default.jpg";
   };
 
