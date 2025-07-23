@@ -329,7 +329,7 @@ const BackOffice = () => {
       formData.append('ententeAvec', JSON.stringify(newAnimal.ententeAvec || []));
       formData.append('dossier', newAnimal.espece?.toLowerCase() === 'chat' ? 'Chats' : 'Chiens');
 
-      // ✅ Ajout des images dans les bons champs image1 / image2 / image3
+      // ✅ Ajout des images image1 / image2 / image3
       if (!isEditing || newAnimal.images.length > 0) {
         if (newAnimal.images[0]) formData.append('image1', newAnimal.images[0]);
         if (newAnimal.images[1]) formData.append('image2', newAnimal.images[1]);
@@ -377,7 +377,6 @@ const BackOffice = () => {
       setLoading(false);
     }
   };
-
 
   const handleAddAnimalClick = () => {
     setNewAnimal({
@@ -878,7 +877,7 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Nom"
-                  name="nom" // Correspond au modèle
+                  name="nom"
                   value={newAnimal.nom}
                   onChange={handleAnimalChange}
                   required
@@ -889,7 +888,7 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Espèce"
-                  name="espece" // Correspond au modèle
+                  name="espece"
                   value={newAnimal.espece}
                   onChange={handleAnimalChange}
                   required
@@ -900,7 +899,7 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Race"
-                  name="race" // Correspond au modèle
+                  name="race"
                   value={newAnimal.race}
                   onChange={handleAnimalChange}
                   variant="outlined"
@@ -922,7 +921,7 @@ const BackOffice = () => {
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Sexe</InputLabel>
                   <Select
-                    name="sexe" // Correspond au modèle
+                    name="sexe"
                     value={newAnimal.sexe}
                     onChange={handleAnimalChange}
                     label="Sexe"
@@ -939,7 +938,7 @@ const BackOffice = () => {
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Taille</InputLabel>
                   <Select
-                    name="taille" // Correspond au modèle
+                    name="taille"
                     value={newAnimal.taille}
                     onChange={handleAnimalChange}
                     label="Taille"
@@ -956,7 +955,7 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Date d'arrivée"
-                  name="dateArrivee" // Correspond au modèle
+                  name="dateArrivee"
                   type="date"
                   value={newAnimal.dateArrivee}
                   onChange={handleAnimalChange}
@@ -984,7 +983,7 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Description générale"
-                  name="description" // Correspond au modèle
+                  name="description"
                   value={newAnimal.description}
                   onChange={handleAnimalChange}
                   multiline
@@ -997,7 +996,7 @@ const BackOffice = () => {
                 <TextField
                   fullWidth
                   label="Description d'adoption"
-                  name="descriptionAdoption" // Correspond au modèle
+                  name="descriptionAdoption"
                   value={newAnimal.descriptionAdoption}
                   onChange={handleAnimalChange}
                   multiline
@@ -1008,18 +1007,18 @@ const BackOffice = () => {
 
               <Grid item xs={12} sm={6}>
                 <Paper elevation={1} sx={{ p: 2, borderRadius: '8px' }}>
-                  <Typography variant="h6" component="div" sx={{ mb: 2, color: '#3f51b5' }}>
+                  <Typography variant="h6" sx={{ mb: 2, color: '#3f51b5' }}>
                     Comportements
                   </Typography>
                   <FormGroup>
-                    {commonBehaviors.map(behavior => (
+                    {commonBehaviors.map((behavior) => (
                       <FormControlLabel
                         key={behavior}
                         control={
                           <Checkbox
                             value={behavior}
-                            checked={newAnimal.comportement.includes(behavior)} // Correspond au modèle
-                            onChange={(e) => handleCheckboxChange(e, 'comportement')} // Correspond au modèle
+                            checked={newAnimal.comportement.includes(behavior)}
+                            onChange={(e) => handleCheckboxChange(e, 'comportement')}
                             color="primary"
                           />
                         }
@@ -1032,18 +1031,18 @@ const BackOffice = () => {
 
               <Grid item xs={12} sm={6}>
                 <Paper elevation={1} sx={{ p: 2, borderRadius: '8px' }}>
-                  <Typography variant="h6" component="div" sx={{ mb: 2, color: '#3f51b5' }}>
+                  <Typography variant="h6" sx={{ mb: 2, color: '#3f51b5' }}>
                     Ententes avec
                   </Typography>
                   <FormGroup>
-                    {commonCompatibilities.map(compatibility => (
+                    {commonCompatibilities.map((compatibility) => (
                       <FormControlLabel
                         key={compatibility}
                         control={
                           <Checkbox
                             value={compatibility}
-                            checked={newAnimal.ententeAvec.includes(compatibility)} // Correspond au modèle
-                            onChange={(e) => handleCheckboxChange(e, 'ententeAvec')} // Correspond au modèle
+                            checked={newAnimal.ententeAvec.includes(compatibility)}
+                            onChange={(e) => handleCheckboxChange(e, 'ententeAvec')}
                             color="primary"
                           />
                         }
@@ -1055,10 +1054,11 @@ const BackOffice = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant="h6" component="div" sx={{ mb: 2, color: '#344767' }}>
+                <Typography variant="h6" sx={{ mb: 2, color: '#344767' }}>
                   Images (max 3)
                 </Typography>
                 <input
+                  name="images" // ✅ nécessaire pour multer
                   accept="image/*"
                   style={{ display: 'none' }}
                   id="animal-image-upload"
@@ -1078,11 +1078,30 @@ const BackOffice = () => {
                     Télécharger des images
                   </Button>
                 </label>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, p: 2, border: '1px dashed #e0e0e0', borderRadius: '8px', backgroundColor: '#fafafa' }}>
+                <Box sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 2,
+                  p: 2,
+                  border: '1px dashed #e0e0e0',
+                  borderRadius: '8px',
+                  backgroundColor: '#fafafa'
+                }}>
                   {imagePreviews.length > 0 ? (
                     imagePreviews.map((src, index) => (
-                      <Box key={index} sx={{ position: 'relative', width: 100, height: 100, border: '1px solid #ddd', borderRadius: '6px', overflow: 'hidden' }}>
-                        <img src={src} alt={`Aperçu ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <Box key={index} sx={{
+                        position: 'relative',
+                        width: 100,
+                        height: 100,
+                        border: '1px solid #ddd',
+                        borderRadius: '6px',
+                        overflow: 'hidden'
+                      }}>
+                        <img src={src} alt={`Aperçu ${index}`} style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }} />
                         <IconButton
                           size="small"
                           onClick={() => removeImagePreview(index)}
@@ -1100,7 +1119,11 @@ const BackOffice = () => {
                       </Box>
                     ))
                   ) : (
-                    <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1
+                    }}>
                       <ImageOutlinedIcon /> Aucune image sélectionnée. Téléchargez jusqu'à 3 images pour l'animal.
                     </Typography>
                   )}
@@ -1109,14 +1132,28 @@ const BackOffice = () => {
             </Grid>
 
             <DialogActions sx={{ justifyContent: 'flex-end', pt: 3, borderTop: '1px solid #eee', mt: 3 }}>
-              <Button type="submit" variant="contained" className="btn-primary" disabled={loading} startIcon={editingAnimal ? <EditIcon /> : <AddIcon />}>
+              <Button
+                type="submit"
+                variant="contained"
+                className="btn-primary"
+                disabled={loading}
+                startIcon={editingAnimal ? <EditIcon /> : <AddIcon />}
+              >
                 {editingAnimal ? 'Modifier l\'animal' : 'Ajouter l\'animal'}
               </Button>
-              <Button type="button" variant="outlined" className="btn-secondary" onClick={closeAnimalFormModal} disabled={loading} startIcon={<CloseIcon />}>
+              <Button
+                type="button"
+                variant="outlined"
+                className="btn-secondary"
+                onClick={closeAnimalFormModal}
+                disabled={loading}
+                startIcon={<CloseIcon />}
+              >
                 Annuler
               </Button>
             </DialogActions>
           </form>
+
         </SimpleModal>
       )}
 

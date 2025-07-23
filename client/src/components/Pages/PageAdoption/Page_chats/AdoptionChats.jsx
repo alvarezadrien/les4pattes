@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "../Page_chiens/AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
-import Loading from "../../../Widgets/Loading/Loading"; // ✅ Import Loading
+import Loading from "../../../Widgets/Loading/Loading";
 
 function AdoptionChats() {
   const navigate = useNavigate();
   const [dogs, setDogs] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ État de loading
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 12;
 
@@ -67,6 +67,15 @@ function AdoptionChats() {
     }
   };
 
+  const getAnimalImage = (dog) => {
+    const base = process.env.REACT_APP_API_URL;
+    if (dog.images?.length > 0) return `${base}${dog.images[0]}`;
+    if (dog.image) return `${base}${dog.image}`;
+    if (dog.image2) return `${base}${dog.image2}`;
+    if (dog.image3) return `${base}${dog.image3}`;
+    return "/img/default.jpg";
+  };
+
   return (
     <div className="adoption-chiens-page">
       <header className="adoption-hero-container cat-hero">
@@ -111,9 +120,7 @@ function AdoptionChats() {
                   key={dog._id}
                   className="adoption-card"
                   style={{
-                    backgroundImage: `url(${process.env.REACT_APP_API_URL}${
-                      dog.images?.[0] || "/img/default.jpg"
-                    })`,
+                    backgroundImage: `url(${getAnimalImage(dog)})`,
                   }}
                 >
                   <div className="adoption-card-name">{dog.nom}</div>

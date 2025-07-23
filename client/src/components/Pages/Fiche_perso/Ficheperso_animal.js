@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Ficheperso_animal.css";
 import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
-import Loading from "../../Widgets/Loading/Loading"; // ✅ Import de Loading
+import Loading from "../../Widgets/Loading/Loading";
 
 const Ficheperso_animal = () => {
   const { id } = useParams();
@@ -13,38 +13,41 @@ const Ficheperso_animal = () => {
   const [mainImg, setMainImg] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API_URL}/api/animaux/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Animal non trouvé");
-        return res.json();
-      })
-      .then((data) => {
-        setAnimal(data);
-        const allImages = [];
+    const fetchAnimal = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux/${id}`);
+        if (!response.ok) throw new Error("Animal non trouvé");
+        const data = await response.json();
 
+        const baseUrl = process.env.REACT_APP_API_URL;
+        const images = [];
+
+        // ✅ Préférence aux images multiples (nouveau système)
         if (data.images && data.images.length > 0) {
-          data.images.forEach((img) => {
-            allImages.push(`${process.env.REACT_APP_API_URL}${img}`);
+          data.images.forEach(imgPath => {
+            if (imgPath) images.push(`${baseUrl}${imgPath}`);
           });
         } else {
-          if (data.image) allImages.push(`${process.env.REACT_APP_API_URL}${data.image}`);
-          if (data.image2) allImages.push(`${process.env.REACT_APP_API_URL}${data.image2}`);
-          if (data.image3) allImages.push(`${process.env.REACT_APP_API_URL}${data.image3}`);
+          // ✅ Ancien système
+          if (data.image) images.push(`${baseUrl}${data.image}`);
+          if (data.image2) images.push(`${baseUrl}${data.image2}`);
+          if (data.image3) images.push(`${baseUrl}${data.image3}`);
         }
 
-        setMainImg(allImages[0] || null);
-        setAnimal((prev) => ({ ...prev, _processedImages: allImages }));
+        setAnimal({ ...data, _processedImages: images });
+        setMainImg(images[0] || null);
         setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         setError(err.message);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchAnimal();
   }, [id]);
 
-  if (loading) return <Loading />; // ✅ Remplacement par Loading
-
+  if (loading) return <Loading />;
   if (error || !animal) {
     return (
       <div className="animal-details-container">
@@ -55,7 +58,6 @@ const Ficheperso_animal = () => {
   }
 
   const thumbnails = animal._processedImages?.slice(0, 3) || [];
-
   const handleImageClick = (img) => setMainImg(img);
 
   const handleAdoptClick = () => {
