@@ -335,7 +335,6 @@
   letter-spacing: 0.7px;
   position: sticky; /* Fait coller les en-têtes */
   top: 0;
-  z-index: 10;
 }
 
 .data-table tbody tr:nth-child(even) {
