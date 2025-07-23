@@ -329,10 +329,11 @@ const BackOffice = () => {
       formData.append('ententeAvec', JSON.stringify(newAnimal.ententeAvec || []));
       formData.append('dossier', newAnimal.espece?.toLowerCase() === 'chat' ? 'Chats' : 'Chiens');
 
+      // ✅ Ajout des images dans les bons champs image1 / image2 / image3
       if (!isEditing || newAnimal.images.length > 0) {
-        newAnimal.images.forEach((file, index) => {
-          formData.append(`image${index + 1}`, file);
-        });
+        if (newAnimal.images[0]) formData.append('image1', newAnimal.images[0]);
+        if (newAnimal.images[1]) formData.append('image2', newAnimal.images[1]);
+        if (newAnimal.images[2]) formData.append('image3', newAnimal.images[2]);
       }
 
       const response = await fetch(url, {
@@ -376,6 +377,7 @@ const BackOffice = () => {
       setLoading(false);
     }
   };
+
 
   const handleAddAnimalClick = () => {
     setNewAnimal({
