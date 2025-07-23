@@ -114,7 +114,6 @@ router.put('/profile', auth, async (req, res) => {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
 
-        // ✅ Ne pas bloquer si l'email est identique à l'utilisateur actuel
         const existingUser = await User.findOne({ email });
         if (existingUser && existingUser._id.toString() !== user._id.toString()) {
             return res.status(400).json({ msg: "Cet email est déjà utilisé." });
@@ -222,6 +221,31 @@ router.put('/profile/avatar-url', auth, async (req, res) => {
         res.json({ msg: "Avatar mis à jour avec succès", avatarUrl: user.avatar });
     } catch (err) {
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour de l'avatar." });
+    }
+});
+
+
+
+// Récupérer tous les utilisateurs (admin uniquement)
+router.get('/users', auth, isAdmin, async (req, res) => {
+    try {
+        const users = await User.find().select('-password'); // Exclure le mot de passe
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ msg: 'Erreur lors de la récupération des utilisateurs.' });
+    }
+});
+
+// Supprimer un utilisateur (admin uniquement)
+router.delete('/users/:id', auth, isAdmin, async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        if (!deletedUser) {
+            return res.status(404).json({ msg: 'Utilisateur non trouvé.' });
+        }
+        res.json({ msg: 'Utilisateur supprimé avec succès.' });
+    } catch (err) {
+        res.status(500).json({ msg: 'Erreur serveur lors de la suppression.' });
     }
 });
 
