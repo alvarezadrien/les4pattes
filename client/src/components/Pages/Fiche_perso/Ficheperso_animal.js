@@ -20,7 +20,7 @@ const Ficheperso_animal = () => {
         if (!response.ok) throw new Error("Animal non trouvé");
         const data = await response.json();
 
-        const baseUrl = process.env.REACT_APP_API_URL;
+        const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, ""); // Enlève les '/' à la fin
         const images = [];
 
         if (data.images && data.images.length > 0) {
@@ -34,7 +34,7 @@ const Ficheperso_animal = () => {
         }
 
         setAnimal({ ...data, _processedImages: images });
-        setMainImg(images[0] || "/img/default.jpg");
+        setMainImg(images[0] || `${baseUrl}/img/default.jpg`);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -72,7 +72,7 @@ const Ficheperso_animal = () => {
             alt={`Photo de ${animal.nom}`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "/img/default.jpg";
+              e.target.src = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
             }}
           />
           <div className="small-images">
@@ -85,7 +85,7 @@ const Ficheperso_animal = () => {
                 onClick={() => handleImageClick(img)}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/img/default.jpg";
+                  e.target.src = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
                 }}
               />
             ))}
