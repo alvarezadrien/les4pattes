@@ -32,8 +32,8 @@ const Page404 = () => {
           ❤️ Adoptez un ami
           {showDropdown && (
             <div className="dropdown-menu">
-              <a href="/Galeriechien">🐶 Chiens</a>
-              <a href="/Galeriechat">🐱 Chats</a>
+              <a href="/Adoptionchiens">🐶 Chiens</a>
+              <a href="/Adoptionchats">🐱 Chats</a>
             </div>
           )}
         </div>
