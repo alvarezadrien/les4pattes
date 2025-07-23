@@ -163,21 +163,27 @@ const BackOffice = () => {
     setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000); // Le message disparaît après 3 secondes
   }, []);
 
-  // Fonction pour obtenir les headers avec le token
+  // Fonction pour obtenir les headers (revue : inclut le token de localStorage)
   const getAuthHeaders = useCallback(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token'); // Récupérer le token du localStorage
+    if (token) {
+      return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Ajouter le header d'autorisation
+      };
+    }
+    // Si pas de token, retourner seulement Content-Type, le backend devrait gérer l'erreur 401
     return {
       'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` })
     };
-  }, []);
+  }, []); // Aucune dépendance car localStorage est global
 
   // Fonction générique pour récupérer les données de l'API
   const fetchData = useCallback(async (endpoint, setter, errorMessage) => {
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-        headers: getAuthHeaders() // Utilisez les headers avec le token
+        headers: getAuthHeaders() // Utilisez les headers (maintenant avec le token si disponible)
       });
 
       if (!response.ok) {
@@ -185,6 +191,12 @@ const BackOffice = () => {
         console.error(`Erreur de réponse du serveur pour ${endpoint}:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
+          // Si le message d'erreur indique un problème de token, cela peut être géré ici
+          if (response.status === 401 || response.status === 403) {
+            showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
+            // Ici, vous voudriez peut-être rediriger l'utilisateur vers la page de connexion
+            // Par exemple: history.push('/login');
+          }
           throw new Error(errorData.message || errorMessage);
         } catch (jsonError) {
           throw new Error(`Réponse inattendue du serveur (non-JSON): ${errorText.substring(0, 100)}...`);
@@ -198,10 +210,11 @@ const BackOffice = () => {
     } finally {
       setLoading(false);
     }
-  }, [showFeedback, getAuthHeaders]);
+  }, [showFeedback, getAuthHeaders]); // getAuthHeaders est une dépendance car elle est utilisée à l'intérieur
 
   // Effet pour récupérer les données initiales au montage du composant
   useEffect(() => {
+    // Ces appels nécessiteront toujours les droits appropriés côté serveur
     fetchData('animaux', setAnimals, 'Échec du chargement des animaux.');
     fetchData('auth/users', setUsers, 'Échec du chargement des utilisateurs.');
     fetchData('comments', setComments, 'Échec du chargement des commentaires.');
@@ -268,7 +281,10 @@ const BackOffice = () => {
 
     setNewAnimal(prev => ({
       ...prev,
-      images: [...prev.images, ...newImageFiles] // Ajoute les objets File
+      // Important: Ici, `images` stocke les objets `File` pour l'upload,
+      // mais votre backend attendra probablement des URLs après un upload réel vers un service de stockage.
+      // Pour l'instant, on ajoute les fichiers bruts.
+      images: [...prev.images, ...newImageFiles]
     }));
     setImagePreviews(prev => [...prev, ...newPreviews]); // Ajoute les URLs pour l'aperçu
   };
@@ -296,18 +312,31 @@ const BackOffice = () => {
     let method = isEditing ? 'PUT' : 'POST';
     let url = isEditing ? `${API_BASE_URL}/animaux/${editingAnimal._id}` : `${API_BASE_URL}/animaux`;
 
-    // Ici, nous supposons que les images sont des URLs, pas des objets File
-    // Dans un vrai scénario, vous uploaderiez les fichiers à un service de stockage (ex: Cloudinary)
-    // et stockeriez les URLs retournées dans la base de données.
-    // Pour cette démo, nous envoyons simplement les URLs de l'aperçu si ce ne sont pas des blobs.
-    const imagesToSave = imagePreviews.filter(url => !url.startsWith('blob:'));
+    // ATTENTION: Votre backend doit gérer l'upload d'images
+    // Si votre API attend des URLs d'images directement (comme votre code actuel semble le faire),
+    // vous devrez avoir un service d'upload (ex: Cloudinary, S3) qui renvoie des URLs.
+    // Actuellement, `newAnimal.images` contient des objets `File` ou des URLs existantes.
+    // Pour que votre code actuel fonctionne *directement* avec votre backend sans un service d'upload
+    // qui retourne des URLs, le backend devrait être capable de recevoir des fichiers via FormData.
+    // Si votre backend attend des URLs, vous devriez UPLOADER les fichiers ici D'ABORD,
+    // puis envoyer les URLs retournées par le service d'upload dans `animalData.images`.
 
+    // Pour cette démo et pour coller à votre code actuel qui envoie `imagePreviews`,
+    // je vais faire l'hypothèse que les `images` dans `newAnimal` sont déjà des URLs ou seront gérées
+    // côté backend comme des références. Si `newAnimal.images` contient des objets `File`,
+    // une requête FormData est généralement nécessaire.
+    // Pour simplifier et correspondre à votre envoi actuel de JSON avec `images: imagesToSave`,
+    // nous considérons que `imagePreviews` contient les URLs à sauvegarder.
 
-    // Assurez-vous que l'âge est un nombre
+    const imagesToSave = imagePreviews.filter(url => !url.startsWith('blob:')); // Exclut les aperçus locaux temporaires
+
     const animalData = {
       ...newAnimal,
       age: Number(newAnimal.age),
-      images: imagesToSave, // Envoi des URLs d'images au lieu des objets File
+      // Si `newAnimal.images` contient des objets `File`, il faut les uploader séparément.
+      // Pour l'instant, nous envoyons ce qui est dans `imagesToSave` (qui sont les URLs existantes).
+      // Si vous avez de nouvelles images à uploader, la logique ici doit être repensée pour un `FormData`.
+      images: imagesToSave,
     };
     // Supprimer la propriété '_id' si elle existe pour un POST (MongoDB la générera)
     if (!isEditing && animalData._id) {
@@ -317,8 +346,8 @@ const BackOffice = () => {
     try {
       const response = await fetch(url, {
         method: method,
-        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
-        body: JSON.stringify(animalData),
+        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
+        body: JSON.stringify(animalData), // Si vous uploadez des fichiers, ce doit être FormData
       });
 
       if (!response.ok) {
@@ -326,6 +355,9 @@ const BackOffice = () => {
         console.error(`Erreur de réponse du serveur lors de l'envoi de données pour animaux:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
+          if (response.status === 401 || response.status === 403) {
+            showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
+          }
           throw new Error(errorData.message || `Erreur lors de ${isEditing ? 'la modification' : 'l\'ajout'} de l'animal.`);
         } catch (jsonError) {
           throw new Error(`Réponse inattendue du serveur (non-JSON) lors de l'envoi de données: ${errorText.substring(0, 100)}...`);
@@ -416,13 +448,16 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/animaux/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
+        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
       });
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Erreur de réponse du serveur lors de la suppression d'animal:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
+          if (response.status === 401 || response.status === 403) {
+            showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
+          }
           throw new Error(errorData.message || 'Échec de la suppression de l\'animal.');
         } catch (jsonError) {
           throw new Error(`Réponse inattendue du serveur (non-JSON) lors de la suppression: ${errorText.substring(0, 100)}...`);
@@ -458,7 +493,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/animaux/${id}/status`, {
         method: 'PATCH',
-        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
+        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
         body: JSON.stringify({ adopte: newAdopteStatus }) // Envoyer le booléen 'adopte'
       });
       if (!response.ok) {
@@ -466,6 +501,9 @@ const BackOffice = () => {
         console.error(`Erreur de réponse du serveur lors du changement de statut:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
+          if (response.status === 401 || response.status === 403) {
+            showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
+          }
           throw new Error(errorData.message || 'Échec de la mise à jour du statut.');
         } catch (jsonError) {
           throw new Error(`Réponse inattendue du serveur (non-JSON) lors du changement de statut: ${errorText.substring(0, 100)}...`);
@@ -503,13 +541,16 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/users/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
+        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
       });
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Erreur de réponse du serveur lors de la suppression d'utilisateur:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
+          if (response.status === 401 || response.status === 403) {
+            showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
+          }
           throw new Error(errorData.message || 'Échec de la suppression de l\'utilisateur.');
         } catch (jsonError) {
           throw new Error(`Réponse inattendue du serveur (non-JSON) lors de la suppression d'utilisateur: ${errorText.substring(0, 100)}...`);
@@ -542,13 +583,16 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/comments/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(), // Incluez les headers d'authentification ici
+        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
       });
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Erreur de réponse du serveur lors de la suppression de commentaire:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
+          if (response.status === 401 || response.status === 403) {
+            showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
+          }
           throw new Error(errorData.message || 'Échec de la suppression du commentaire.');
         } catch (jsonError) {
           throw new Error(`Réponse inattendue du serveur (non-JSON) lors de la suppression de commentaire: ${errorText.substring(0, 100)}...`);
