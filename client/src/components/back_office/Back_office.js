@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './Back_office.css';
+import './Back_office.css'; // Assurez-vous que ce fichier CSS est correct et à jour
 
 // --- Importation des composants Material-UI ---
 import {
@@ -7,7 +7,7 @@ import {
   Button, IconButton, CircularProgress, Box, Chip,
   TextField, FormControl, InputLabel, Select, MenuItem,
   RadioGroup, FormControlLabel, Radio, Checkbox, FormGroup,
-  Grid, Typography, Paper // Ajout de Paper pour mieux structurer les sections
+  Grid, Typography, Paper
 } from '@mui/material';
 
 // --- Importation des Icônes Material-UI ---
@@ -22,12 +22,16 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import CloseIcon from '@mui/icons-material/Close';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CheckIcon from '@mui/icons-material/Check'; // Pour le statut 'Adopté'
-import PersonIcon from '@mui/icons-material/Person'; // Pour le rôle 'User'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'; // Plus approprié pour la confirmation
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined'; // Pour le téléchargement d'images
-import UploadFileIcon from '@mui/icons-material/UploadFile'; // Pour le bouton de téléchargement
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'; // Pour supprimer l'aperçu d'image
+import CheckIcon from '@mui/icons-material/Check';
+import PersonIcon from '@mui/icons-material/Person';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
+// --- URL de base de votre API Backend ---
+// C'est la SEULE LIGNE À MODIFIER pour pointer vers votre API Render !
+const API_BASE_URL = 'https://les4pattes-backend.onrender.com/api';
 
 // --- Composant Modal de Confirmation Réutilisable (Utilise MUI Dialog) ---
 const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = "Confirmer", cancelText = "Annuler" }) => {
@@ -37,10 +41,10 @@ const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confir
       onClose={onCancel}
       aria-labelledby="confirmation-dialog-title"
       aria-describedby="confirmation-dialog-description"
-      sx={{ '& .MuiPaper-root': { borderRadius: '12px', padding: '20px' } }} // Styles pour la modale
+      sx={{ '& .MuiPaper-root': { borderRadius: '12px', padding: '20px' } }}
     >
       <DialogTitle id="confirmation-dialog-title" sx={{ textAlign: 'center', pb: 1 }}>
-        <WarningAmberIcon sx={{ fontSize: 48, color: '#ff9800', mb: 1 }} /> {/* Icône d'avertissement */}
+        <WarningAmberIcon sx={{ fontSize: 48, color: '#ff9800', mb: 1 }} />
         <Box component="span" sx={{ display: 'block', fontSize: '1.5rem', fontWeight: 'bold', color: '#3f51b5' }}>
           {title}
         </Box>
@@ -55,11 +59,11 @@ const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confir
           onClick={onConfirm}
           variant="contained"
           sx={{
-            backgroundColor: '#f44336', // Rouge pour les actions dangereuses
+            backgroundColor: '#f44336',
             '&:hover': { backgroundColor: '#d32f2f' },
             px: 3, py: 1.2, fontSize: '1rem', borderRadius: '8px'
           }}
-          startIcon={<DeleteIcon />} // Icône de suppression
+          startIcon={<DeleteIcon />}
         >
           {confirmText}
         </Button>
@@ -67,12 +71,12 @@ const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confir
           onClick={onCancel}
           variant="outlined"
           sx={{
-            borderColor: '#90a4ae', // Bordure grise pour annuler
+            borderColor: '#90a4ae',
             color: '#90a4ae',
             '&:hover': { backgroundColor: '#e0e0e0', borderColor: '#78909c' },
             px: 3, py: 1.2, fontSize: '1rem', borderRadius: '8px'
           }}
-          startIcon={<CloseIcon />} // Icône de fermeture
+          startIcon={<CloseIcon />}
         >
           {cancelText}
         </Button>
@@ -81,15 +85,14 @@ const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confir
   );
 };
 
-
 // --- Composant Modal Simple Réutilisable (Utilise MUI Dialog) ---
 const SimpleModal = ({ children, onClose, title }) => {
   return (
     <Dialog
-      open={true} // Toujours ouvert lorsqu'il est rendu
+      open={true}
       onClose={onClose}
       aria-labelledby="simple-modal-title"
-      maxWidth="md" // Modale de taille moyenne
+      maxWidth="md"
       fullWidth={true}
       sx={{ '& .MuiPaper-root': { borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', maxHeight: '90vh' } }}
     >
@@ -107,7 +110,6 @@ const SimpleModal = ({ children, onClose, title }) => {
     </Dialog>
   );
 };
-
 
 // --- Composant principal du BackOffice ---
 const BackOffice = () => {
@@ -129,7 +131,7 @@ const BackOffice = () => {
     isRescue: false,
     behaviors: [],
     compatibilities: [],
-    images: [] // Stocke les objets Fichier directement pour l'upload
+    images: [] // Stocke les objets Fichier ou URLs pour l'aperçu
   });
   const [editingAnimal, setEditingAnimal] = useState(null); // Stocke l'animal en cours d'édition
   const [searchTerm, setSearchTerm] = useState('');
@@ -156,50 +158,38 @@ const BackOffice = () => {
     data: null // Pour passer l'ID/objet de l'élément au gestionnaire de confirmation
   });
 
-  // Effet pour récupérer les données initiales (s'exécute toujours car il n'y a pas d'authentification)
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setFeedbackMessage({ type: '', message: '' }); // Efface tout commentaire précédent
+  // Fonction générique pour afficher les messages de feedback
+  const showFeedback = useCallback((type, message) => {
+    setFeedbackMessage({ type, message });
+    setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000); // Le message disparaît après 3 secondes
+  }, []);
 
-      try {
-        // Dans une vraie application, vous récupéreriez les données de votre API ici.
-        // Exemple pour les animaux :
-        // const animalsResponse = await fetch('https://les4pattes-backend.onrender.com/api/animals');
-        // if (!animalsResponse.ok) throw new Error('Échec du chargement des animaux.');
-        // const animalsData = await animalsResponse.json();
-        // setAnimals(animalsData);
-
-        // Données factices pour la démonstration (à remplacer par des appels API réels)
-        setTimeout(() => {
-          setAnimals([
-            { id: 1, name: 'Fido', species: 'Chien', breed: 'Golden Retriever', age: 3, gender: 'Mâle', size: 'Grand', generalDescription: 'Chien amical, adore les enfants et les longues promenades.', adoptionDescription: 'A besoin d\'un foyer aimant avec un jardin et une famille active.', arrivalDate: '2023-01-15', isRescue: true, behaviors: ['Joueur', 'Énergique'], compatibilities: ['Enfants', 'Chiens'], images: ['https://via.placeholder.com/150/87CEEB/FFFFFF?text=Fido1', 'https://via.placeholder.com/150/4682B4/FFFFFF?text=Fido2', 'https://via.placeholder.com/150/6495ED/FFFFFF?text=Fido3'], status: 'Available' },
-            { id: 2, name: 'Whiskers', species: 'Chat', breed: 'Siamois', age: 2, gender: 'Femelle', size: 'Moyen', generalDescription: 'Chat calme et indépendant, apprécie les soirées tranquilles.', adoptionDescription: 'Parfait pour un foyer calme, aime faire la sieste au soleil.', arrivalDate: '2023-03-20', isRescue: false, behaviors: ['Calme', 'Indépendant'], compatibilities: ['Adultes'], images: ['https://via.placeholder.com/150/87CEEB/FFFFFF?text=Whisker1'], status: 'Adopted' },
-            { id: 3, name: 'Pipsqueak', species: 'Hamster', breed: 'Syrien', age: 0.5, gender: 'Femelle', size: 'Petit', generalDescription: 'Minuscule et actif, adore sa roue.', adoptionDescription: 'Excellent premier animal de compagnie, a besoin d\'une cage spacieuse.', arrivalDate: '2024-01-10', isRescue: false, behaviors: ['Énergique', 'Nocturne'], compatibilities: ['Aucune'], images: ['https://via.placeholder.com/150/87CEEB/FFFFFF?text=Pipsqueak1'], status: 'Available' }
-          ]);
-          setUsers([
-            { id: 1, name: 'Alice Smith', email: 'alice@example.com', role: 'Admin', registeredDate: '2022-11-01' },
-            { id: 2, name: 'Bob Johnson', email: 'bob@example.com', role: 'Utilisateur', registeredDate: '2023-02-15' },
-            { id: 3, name: 'Carol White', email: 'carol@example.com', role: 'Utilisateur', registeredDate: '2023-07-20' }
-          ]);
-          setComments([
-            { id: 1, author: 'Charlie Brown', email: 'charlie@example.com', content: 'Super site web ! J\'adore la mission. Ceci est un très long commentaire pour tester l\'habillage et la troncature dans le tableau. J\'espère que cela fonctionne bien et démontre la fonctionnalité comme prévu.', date: '2023-05-10' },
-            { id: 2, author: 'Diana Prince', email: 'diana@example.com', content: 'Les animaux ont tous l\'air si heureux. Je cherche à adopter !', date: '2023-06-01' },
-            { id: 3, author: 'Bruce Wayne', email: 'bruce@example.com', content: 'Fantastique ressource pour les amoureux des animaux.', date: '2024-01-20' }
-          ]);
-          setLoading(false);
-        }, 1000);
-
-      } catch (error) {
-        console.error('Erreur lors du chargement initial des données:', error);
-        setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message}. Impossible de charger les données.` });
-      } finally {
-        setLoading(false);
+  // Fonction générique pour récupérer les données de l'API
+  const fetchData = useCallback(async (endpoint, setter, errorMessage) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/${endpoint}`);
+      if (!response.ok) {
+        // Tenter de lire le message d'erreur du backend
+        const errorData = await response.json();
+        throw new Error(errorData.message || errorMessage);
       }
-    };
+      const data = await response.json();
+      setter(data);
+    } catch (error) {
+      console.error(`Erreur lors du chargement des ${endpoint}:`, error);
+      showFeedback('error', `Erreur: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  }, [showFeedback]); // showFeedback est une dépendance ici car elle est utilisée
 
-    fetchData();
-  }, []); // Le tableau de dépendances vide signifie qu'il ne s'exécute qu'une seule fois au montage
+  // Effet pour récupérer les données initiales au montage du composant
+  useEffect(() => {
+    fetchData('animals', setAnimals, 'Échec du chargement des animaux.');
+    fetchData('users', setUsers, 'Échec du chargement des utilisateurs.');
+    fetchData('comments', setComments, 'Échec du chargement des commentaires.');
+  }, [fetchData]); // Le tableau de dépendances inclut fetchData
 
   // --- Gestionnaire de la modale de confirmation ---
   const openConfirmationModal = (title, message, onConfirmCallback, data) => {
@@ -239,34 +229,33 @@ const BackOffice = () => {
     setNewAnimal(prev => {
       const currentList = prev[field];
       if (checked) {
-        return { ...prev, [field]: [...currentList, value] };
+        return { ...currentList, [field]: [...currentList, value] };
       } else {
-        return { ...prev, [field]: currentList.filter(item => item !== value) };
+        return { ...currentList, [field]: currentList.filter(item => item !== value) };
       }
     });
   };
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    const newImageFiles = [];
     const newPreviews = [];
+    const newImageFiles = [];
 
     files.forEach(file => {
+      // Limite à 3 images au total
       if (imagePreviews.length + newImageFiles.length < 3) {
         newImageFiles.push(file);
-        // Pour prévisualiser les fichiers nouvellement sélectionnés immédiatement
         newPreviews.push(URL.createObjectURL(file));
       } else {
-        setFeedbackMessage({ type: 'error', message: 'Vous pouvez télécharger un maximum de 3 images.' });
-        setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
+        showFeedback('error', 'Vous pouvez télécharger un maximum de 3 images.');
       }
     });
 
     setNewAnimal(prev => ({
       ...prev,
-      images: [...prev.images, ...newImageFiles]
+      images: [...prev.images, ...newImageFiles] // Ajoute les objets File
     }));
-    setImagePreviews(prev => [...prev, ...newPreviews]);
+    setImagePreviews(prev => [...prev, ...newPreviews]); // Ajoute les URLs pour l'aperçu
   };
 
   const removeImagePreview = (indexToRemove) => {
@@ -277,7 +266,10 @@ const BackOffice = () => {
     }
 
     setImagePreviews(prev => prev.filter((_, index) => index !== indexToRemove));
-    // Supprimer également le fichier correspondant de newAnimal.images s'il s'agit d'un fichier nouvellement ajouté
+
+    // Note: Cette logique suppose que les "images" dans newAnimal sont soit des URLs existantes, soit des objets File.
+    // Si vous envoyez des FormData avec des fichiers, vous devrez ajuster pour ne supprimer que le fichier correspondant
+    // Ou, plus simple: lors de l'envoi au backend, filtrez les images par leur type (File vs String URL).
     setNewAnimal(prev => ({
       ...prev,
       images: prev.images.filter((_, index) => index !== indexToRemove)
@@ -291,69 +283,79 @@ const BackOffice = () => {
     setFeedbackMessage({ type: '', message: '' });
 
     const isEditing = !!editingAnimal;
+    let method = isEditing ? 'PUT' : 'POST';
+    let url = isEditing ? `${API_BASE_URL}/animals/${editingAnimal._id}` : `${API_BASE_URL}/animals`;
+
+    // IMPORTANT: Pour la gestion des images réelles, votre backend aura besoin d'une librairie
+    // comme `multer` pour parser les FormData. Pour le moment, notre backend accepte du JSON.
+    // Pour simplifier l'intégration actuelle sans gérer l'upload de fichiers sur le backend directement depuis le front,
+    // nous allons envoyer un tableau d'URLs pour les images.
+    // Dans un scénario réel, vous enverriez les fichiers à un service de stockage (Cloudinary, S3, etc.)
+    // qui vous renverrait des URLs à stocker en DB.
+    // Pour cette démo, nous allons juste stocker les URLs des aperçus ou les URLs existantes comme si elles étaient finales.
+    const imagesToSave = imagePreviews.filter(url => !url.startsWith('blob:')).concat(
+      newAnimal.images.map(file => {
+        // Pour les nouvelles images (objets File), nous ne pouvons pas les envoyer directement
+        // en JSON. Dans un vrai cas, il faudrait les uploader séparemment et obtenir des URLs.
+        // Ici, nous allons simuler en ne prenant que les URLs existantes ou les noms de fichier pour la démo.
+        // Adaptez ceci si votre backend gère un upload direct de fichiers via FormData.
+        return file instanceof File ? file.name : file; // Garde les noms de fichiers ou les URLs existantes
+      }).filter(Boolean) // Filtrer les valeurs null ou undefined si certains éléments sont vides
+    );
+
+
+    // Assurez-vous que l'âge est un nombre
+    const animalData = {
+      ...newAnimal,
+      age: Number(newAnimal.age),
+      images: imagesToSave // Envoi des URLs d'images au lieu des objets File
+    };
+    // Supprimer la propriété '_id' si elle existe pour un POST (MongoDB la générera)
+    if (!isEditing && animalData._id) {
+      delete animalData._id;
+    }
+
 
     try {
-      // Dans une vraie application, vous créeriez FormData pour envoyer des fichiers et des données
-      // const formData = new FormData();
-      // formData.append('name', newAnimal.name);
-      // ... ajouter d'autres champs ...
-      // newAnimal.images.forEach(file => {
-      //     if (file instanceof File) { // N'ajouter que les objets Fichier réels pour l'upload
-      //         formData.append('images', file);
-      //     }
-      // });
-      // Si vous modifiez, gérez les URL d'images existantes séparément ou en fonction de la logique de votre backend
-      // (par exemple, envoyez un tableau d'URL existantes + de nouveaux fichiers)
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(animalData),
+      });
 
-      // Pour la démonstration, nous allons simuler la gestion des données
-      const dataToSave = { ...newAnimal };
-      if (isEditing) {
-        dataToSave.id = editingAnimal.id;
-        // Lors de l'édition, filtrez les URL de blob si elles n'étaient que des aperçus de nouveaux téléchargements
-        // Ne conservez que les URL d'images originales (qui ne commencent pas par 'blob:')
-        // et tous les nouveaux objets Fichier de newAnimal.images
-        dataToSave.images = imagePreviews.filter(url => !url.startsWith('blob:')).concat(newAnimal.images);
-      } else {
-        // Pour les nouveaux animaux, assurez-vous que les images ne sont que les objets fichier ou leurs URL temporaires si vous les envoyez de cette façon
-        dataToSave.images = imagePreviews; // Pour l'affichage de données factices, nous utiliserons des aperçus
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Erreur lors de ${isEditing ? 'la modification' : 'l\'ajout'} de l'animal.`);
       }
 
+      const resultAnimal = await response.json();
+
       if (!isEditing) {
-        // Simuler l'appel API pour l'ajout
-        // const response = await fetch('https://les4pattes-backend.onrender.com/api/animals', {
-        //     method: 'POST',
-        //     body: formData // Utiliser formData pour les fichiers
-        // });
-        // if (!response.ok) throw new Error('Échec de l\'ajout de l\'animal.');
-        // const addedAnimal = await response.json();
-        const newId = Math.max(0, ...animals.map(a => a.id)) + 1; // Gérer le tableau vide
-        setAnimals(prev => [...prev, { ...dataToSave, id: newId, status: 'Available' }]);
-        setFeedbackMessage({ type: 'success', message: 'Animal ajouté avec succès !' });
+        setAnimals(prev => [...prev, resultAnimal]);
+        showFeedback('success', 'Animal ajouté avec succès !');
       } else {
-        // Simuler l'appel API pour la mise à jour
-        // const response = await fetch(`https://les4pattes-backend.onrender.com/api/animals/${editingAnimal.id}`, {
-        //     method: 'PUT', // Ou PATCH
-        //     body: formData // Utiliser formData pour les fichiers
-        // });
-        // if (!response.ok) throw new Error('Échec de la modification de l\'animal.');
-        // const updatedAnimal = await response.json();
-        setAnimals(prev => prev.map(animal => animal.id === editingAnimal.id ? { ...animal, ...dataToSave, status: animal.status } : animal));
-        setFeedbackMessage({ type: 'success', message: 'Animal mis à jour avec succès !' });
+        setAnimals(prev => prev.map(animal => animal._id === resultAnimal._id ? resultAnimal : animal));
+        showFeedback('success', 'Animal mis à jour avec succès !');
       }
 
       closeAnimalFormModal(); // Fermer et réinitialiser le formulaire
 
     } catch (error) {
       console.error('Erreur API:', error);
-      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue.'}` });
+      showFeedback('error', `Erreur: ${error.message}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
 
   const handleAddAnimalClick = () => {
-    setNewAnimal({ name: '', species: '', breed: '', age: '', gender: '', size: '', generalDescription: '', adoptionDescription: '', arrivalDate: '', isRescue: false, behaviors: [], compatibilities: [], images: [] });
+    setNewAnimal({
+      name: '', species: '', breed: '', age: '', gender: '', size: '',
+      generalDescription: '', adoptionDescription: '', arrivalDate: '',
+      isRescue: false, behaviors: [], compatibilities: [], images: []
+    });
     setImagePreviews([]);
     setEditingAnimal(null);
     setIsAnimalFormModalOpen(true);
@@ -362,6 +364,7 @@ const BackOffice = () => {
   const handleEditAnimal = (animal) => {
     setEditingAnimal(animal);
     setNewAnimal({
+      // Utilisez l'ID de MongoDB (_id) comme identifiant
       name: animal.name,
       species: animal.species,
       breed: animal.breed,
@@ -370,7 +373,8 @@ const BackOffice = () => {
       size: animal.size,
       generalDescription: animal.generalDescription,
       adoptionDescription: animal.adoptionDescription,
-      arrivalDate: animal.arrivalDate,
+      // Formater la date en 'YYYY-MM-DD' pour l'input type="date"
+      arrivalDate: animal.arrivalDate ? new Date(animal.arrivalDate).toISOString().split('T')[0] : '',
       isRescue: animal.isRescue,
       behaviors: [...animal.behaviors], // Copie profonde pour les cases à cocher
       compatibilities: [...animal.compatibilities], // Copie profonde
@@ -389,7 +393,11 @@ const BackOffice = () => {
     });
     setIsAnimalFormModalOpen(false);
     setEditingAnimal(null);
-    setNewAnimal({ name: '', species: '', breed: '', age: '', gender: '', size: '', generalDescription: '', adoptionDescription: '', arrivalDate: '', isRescue: false, behaviors: [], compatibilities: [], images: [] });
+    setNewAnimal({
+      name: '', species: '', breed: '', age: '', gender: '', size: '',
+      generalDescription: '', adoptionDescription: '', arrivalDate: '',
+      isRescue: false, behaviors: [], compatibilities: [], images: []
+    });
     setImagePreviews([]);
   };
 
@@ -406,26 +414,26 @@ const BackOffice = () => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      // Simuler l'appel API pour la suppression
-      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/animals/${id}`, {
-      //     method: 'DELETE',
-      // });
-      // if (!response.ok) throw new Error('Échec de la suppression de l\'animal.');
+      const response = await fetch(`${API_BASE_URL}/animals/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Échec de la suppression de l\'animal.');
+      }
 
-      setAnimals(prev => prev.filter(animal => animal.id !== id));
-      setFeedbackMessage({ type: 'success', message: 'Animal supprimé avec succès !' });
+      setAnimals(prev => prev.filter(animal => animal._id !== id));
+      showFeedback('success', 'Animal supprimé avec succès !');
     } catch (error) {
       console.error('Erreur API:', error);
-      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la suppression.'}` });
+      showFeedback('error', `Erreur: ${error.message}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
 
   const handleChangeAnimalStatus = async (id, currentStatus) => {
     const newStatus = currentStatus === 'Available' ? 'Adopted' : 'Available';
-    // Vous pourriez également utiliser une modale de confirmation ici pour le changement de statut si vous le souhaitez
     openConfirmationModal(
       `Changer le statut de l'animal ?`,
       `Voulez-vous vraiment changer le statut de cet animal en "${newStatus === 'Available' ? 'Disponible' : 'Adopté'}" ?`,
@@ -438,22 +446,26 @@ const BackOffice = () => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      // Simuler l'appel API pour la mise à jour du statut
-      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/animals/${id}/status`, {
-      //     method: 'PATCH',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify({ status: newStatus })
-      // });
-      // if (!response.ok) throw new Error('Échec de la mise à jour du statut.');
+      const response = await fetch(`${API_BASE_URL}/animals/${id}/status`, {
+        method: 'PATCH', // Utilisez PATCH pour une mise à jour partielle
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Échec de la mise à jour du statut.');
+      }
 
-      setAnimals(prev => prev.map(animal => animal.id === id ? { ...animal, status: newStatus } : animal));
-      setFeedbackMessage({ type: 'success', message: `Statut de l'animal mis à jour en "${newStatus}" !` });
+      const updatedAnimal = await response.json();
+      setAnimals(prev => prev.map(animal => animal._id === id ? updatedAnimal : animal));
+      showFeedback('success', `Statut de l'animal mis à jour en "${newStatus === 'Available' ? 'Disponible' : 'Adopté'}" !`);
     } catch (error) {
       console.error('Erreur API:', error);
-      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la mise à jour du statut.'}` });
+      showFeedback('error', `Erreur: ${error.message}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
 
@@ -475,20 +487,21 @@ const BackOffice = () => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      // Simuler l'appel API pour la suppression de l'utilisateur
-      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/users/${id}`, {
-      //     method: 'DELETE',
-      // });
-      // if (!response.ok) throw new Error('Échec de la suppression de l\'utilisateur.');
+      const response = await fetch(`${API_BASE_URL}/users/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Échec de la suppression de l\'utilisateur.');
+      }
 
-      setUsers(prev => prev.filter(user => user.id !== id));
-      setFeedbackMessage({ type: 'success', message: 'Utilisateur supprimé avec succès !' });
+      setUsers(prev => prev.filter(user => user._id !== id));
+      showFeedback('success', 'Utilisateur supprimé avec succès !');
     } catch (error) {
       console.error('Erreur API:', error);
-      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la suppression de l\'utilisateur.'}` });
+      showFeedback('error', `Erreur: ${error.message}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
 
@@ -506,20 +519,21 @@ const BackOffice = () => {
     setLoading(true);
     setFeedbackMessage({ type: '', message: '' });
     try {
-      // Simuler l'appel API pour la suppression du commentaire
-      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/comments/${id}`, {
-      //     method: 'DELETE',
-      // });
-      // if (!response.ok) throw new Error('Échec de la suppression du commentaire.');
+      const response = await fetch(`${API_BASE_URL}/comments/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Échec de la suppression du commentaire.');
+      }
 
-      setComments(prev => prev.filter(comment => comment.id !== id));
-      setFeedbackMessage({ type: 'success', message: 'Commentaire supprimé avec succès !' });
+      setComments(prev => prev.filter(comment => comment._id !== id));
+      showFeedback('success', 'Commentaire supprimé avec succès !');
     } catch (error) {
       console.error('Erreur API:', error);
-      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la suppression du commentaire.'}` });
+      showFeedback('error', `Erreur: ${error.message}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
 
@@ -527,20 +541,20 @@ const BackOffice = () => {
     setCommentDetailModal(comment);
   };
 
-
-  // Animaux filtrés pour l'affichage
+  // Animaux filtrés pour l'affichage (recherche côté client)
   const filteredAnimals = animals.filter(animal =>
     animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     animal.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
     animal.breed.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Utilisateurs filtrés pour l'affichage (recherche côté client)
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(userSearchTerm.toLowerCase())
   );
 
-  // Options communes pour les cases à cocher
+  // Options communes pour les cases à cocher (behaviors et compatibilities)
   const commonBehaviors = ['Joueur', 'Calme', 'Énergique', 'Timide', 'Curieux', 'Indépendant', 'Affectueux', 'Protecteur'];
   const commonCompatibilities = ['Enfants', 'Chiens', 'Chats', 'Petits animaux', 'Adultes', 'Séniors'];
 
@@ -550,6 +564,7 @@ const BackOffice = () => {
         <PetsIcon sx={{ fontSize: 'inherit', verticalAlign: 'middle', mr: 2 }} /> Back Office - Les 4 Pattes
       </h1>
 
+      {/* Section des messages de feedback */}
       {feedbackMessage.message && (
         <div className={`feedback-message ${feedbackMessage.type}`}>
           {feedbackMessage.type === 'success' ? <CheckCircleIcon /> : <ErrorIcon />}
@@ -557,6 +572,7 @@ const BackOffice = () => {
         </div>
       )}
 
+      {/* Overlay de chargement */}
       {loading && (
         <div className="loading-overlay">
           <CircularProgress color="inherit" size={60} />
@@ -627,8 +643,8 @@ const BackOffice = () => {
                   <tbody>
                     {filteredAnimals.length > 0 ? (
                       filteredAnimals.map(animal => (
-                        <tr key={animal.id}>
-                          <td>{animal.id}</td>
+                        <tr key={animal._id}> {/* Utilisez _id de MongoDB */}
+                          <td>{animal._id.substring(0, 6)}...</td> {/* Tronquer l'ID pour l'affichage */}
                           <td>{animal.name}</td>
                           <td>{animal.species}</td>
                           <td>{animal.breed}</td>
@@ -649,12 +665,12 @@ const BackOffice = () => {
                             <IconButton className="btn-icon btn-edit" onClick={() => handleEditAnimal(animal)} title="Modifier">
                               <EditIcon />
                             </IconButton>
-                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteAnimal(animal.id)} title="Supprimer">
+                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteAnimal(animal._id)} title="Supprimer">
                               <DeleteIcon />
                             </IconButton>
                             <IconButton
                               className={`btn-icon ${animal.status === 'Available' ? 'btn-adopt' : 'btn-unadopt'}`}
-                              onClick={() => handleChangeAnimalStatus(animal.id, animal.status)}
+                              onClick={() => handleChangeAnimalStatus(animal._id, animal.status)}
                               title={animal.status === 'Available' ? 'Marquer Adopté' : 'Marquer Disponible'}
                             >
                               {animal.status === 'Available' ? <CheckIcon /> : <PetsIcon />}
@@ -704,8 +720,8 @@ const BackOffice = () => {
                   <tbody>
                     {filteredUsers.length > 0 ? (
                       filteredUsers.map(user => (
-                        <tr key={user.id}>
-                          <td>{user.id}</td>
+                        <tr key={user._id}> {/* Utilisez _id de MongoDB */}
+                          <td>{user._id.substring(0, 6)}...</td>
                           <td>{user.name}</td>
                           <td>{user.email}</td>
                           <td>
@@ -717,9 +733,9 @@ const BackOffice = () => {
                               sx={{ fontWeight: 'bold' }}
                             />
                           </td>
-                          <td>{user.registeredDate}</td>
+                          <td>{new Date(user.createdAt).toLocaleDateString()}</td> {/* Afficher la date formatée */}
                           <td className="actions-cell">
-                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteUser(user.id)} title="Supprimer utilisateur">
+                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteUser(user._id)} title="Supprimer utilisateur">
                               <DeleteIcon />
                             </IconButton>
                           </td>
@@ -758,17 +774,17 @@ const BackOffice = () => {
                   <tbody>
                     {comments.length > 0 ? (
                       comments.map(comment => (
-                        <tr key={comment.id}>
-                          <td>{comment.id}</td>
+                        <tr key={comment._id}> {/* Utilisez _id de MongoDB */}
+                          <td>{comment._id.substring(0, 6)}...</td>
                           <td>{comment.author}</td>
                           <td>{comment.email}</td>
                           <td className="comment-content-cell" title={comment.content}>{comment.content}</td>
-                          <td>{comment.date}</td>
+                          <td>{new Date(comment.date).toLocaleDateString()}</td> {/* Afficher la date formatée */}
                           <td className="actions-cell">
                             <IconButton className="btn-icon btn-view" onClick={() => handleViewCommentDetails(comment)} title="Voir le commentaire complet">
                               <VisibilityIcon />
                             </IconButton>
-                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteComment(comment.id)} title="Supprimer commentaire">
+                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteComment(comment._id)} title="Supprimer commentaire">
                               <DeleteIcon />
                             </IconButton>
                           </td>
@@ -886,7 +902,7 @@ const BackOffice = () => {
                     />
                   }
                   label="Animal de sauvetage"
-                  sx={{ mt: 1 }} // Marge supérieure pour l'aligner avec les autres champs
+                  sx={{ mt: 1 }}
                 />
               </Grid>
 
@@ -1045,14 +1061,14 @@ const BackOffice = () => {
               )}
             </div>
             <div className="detail-info-grid">
-              <div className="detail-item"><strong>ID:</strong> {animalDetailModal.id}</div>
+              <div className="detail-item"><strong>ID:</strong> {animalDetailModal._id}</div>
               <div className="detail-item"><strong>Nom:</strong> {animalDetailModal.name}</div>
               <div className="detail-item"><strong>Espèce:</strong> {animalDetailModal.species}</div>
               <div className="detail-item"><strong>Race:</strong> {animalDetailModal.breed || 'N/A'}</div>
               <div className="detail-item"><strong>Âge:</strong> {animalDetailModal.age} ans</div>
               <div className="detail-item"><strong>Sexe:</strong> {animalDetailModal.gender}</div>
               <div className="detail-item"><strong>Taille:</strong> {animalDetailModal.size || 'N/A'}</div>
-              <div className="detail-item"><strong>Date d'arrivée:</strong> {animalDetailModal.arrivalDate}</div>
+              <div className="detail-item"><strong>Date d'arrivée:</strong> {new Date(animalDetailModal.arrivalDate).toLocaleDateString()}</div>
               <div className="detail-item"><strong>Sauvetage:</strong> {animalDetailModal.isRescue ? 'Oui' : 'Non'}</div>
               <div className="detail-item">
                 <strong>Statut:</strong>
@@ -1091,7 +1107,7 @@ const BackOffice = () => {
           <div className="comment-details-modal-content">
             <p><strong>Auteur:</strong> {commentDetailModal.author}</p>
             <p><strong>Email:</strong> {commentDetailModal.email}</p>
-            <p><strong>Date:</strong> {commentDetailModal.date}</p>
+            <p><strong>Date:</strong> {new Date(commentDetailModal.date).toLocaleDateString()}</p>
             <div className="comment-full-content-section">
               <strong>Contenu:</strong>
               <p>{commentDetailModal.content}</p>
