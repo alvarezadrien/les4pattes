@@ -74,20 +74,7 @@ const Avis = () => {
         return <div className="avis-container error-message">{error}</div>;
     }
 
-    if (comments.length === 0) {
-        return (
-            <div className="avis-container no-comments">
-                <p>Aucun avis pour le moment. Soyez le premier à commenter !</p>
-                <button onClick={() => setShowPopup(true)} className="open-comment-btn">Laisser un commentaire</button>
-                {showPopup && (
-                    <CommentFormPopup
-                        onClose={() => setShowPopup(false)}
-                        onCommentSubmitSuccess={handleNewComment}
-                    />
-                )}
-            </div>
-        );
-    }
+
 
     return (
         <div className="avis-section">
