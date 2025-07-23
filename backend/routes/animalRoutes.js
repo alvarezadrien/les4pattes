@@ -5,15 +5,13 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// ✅ Configuration Multer avec dossier backend/uploads/Chats ou Chiens
+// ✅ Configuration Multer avec dossier dynamique (Chiens ou Chats)
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        const dossier = req.body.dossier || 'Chiens'; // Par défaut "Chiens"
+        const espece = req.body.espece?.toLowerCase();
+        const dossier = espece === 'chat' ? 'Chats' : 'Chiens';
         const dir = path.join(__dirname, '..', 'uploads', dossier);
-
-        // Créer le dossier si nécessaire
         fs.mkdirSync(dir, { recursive: true });
-
         cb(null, dir);
     },
     filename: function (req, file, cb) {
@@ -27,7 +25,7 @@ const upload = multer({ storage });
 
 // ✅ POST /api/animaux – Ajouter un animal avec images
 router.post('/', upload.fields([
-    { name: 'image', maxCount: 1 },
+    { name: 'image1', maxCount: 1 },
     { name: 'image2', maxCount: 1 },
     { name: 'image3', maxCount: 1 }
 ]), async (req, res) => {
@@ -44,15 +42,14 @@ router.post('/', upload.fields([
             dateArrivee,
             comportement,
             ententeAvec,
-            isRescue,
-            dossier
+            isRescue
         } = req.body;
 
-        const dossierFinal = dossier || 'Chiens';
-        const basePath = path.join('uploads', dossierFinal);
+        const dossier = espece?.toLowerCase() === 'chat' ? 'Chats' : 'Chiens';
+        const basePath = path.join('uploads', dossier);
 
         const images = [];
-        if (req.files.image) images.push(path.join(basePath, req.files.image[0].filename));
+        if (req.files.image1) images.push(path.join(basePath, req.files.image1[0].filename));
         if (req.files.image2) images.push(path.join(basePath, req.files.image2[0].filename));
         if (req.files.image3) images.push(path.join(basePath, req.files.image3[0].filename));
 
@@ -60,7 +57,7 @@ router.post('/', upload.fields([
             nom,
             espece,
             race,
-            age,
+            age: Number(age),
             sexe,
             taille,
             description,
@@ -68,11 +65,11 @@ router.post('/', upload.fields([
             dateArrivee,
             comportement: comportement ? JSON.parse(comportement) : [],
             ententeAvec: ententeAvec ? JSON.parse(ententeAvec) : [],
-            isRescue: isRescue === 'true',
+            isRescue: isRescue === 'true' || isRescue === true,
             images,
-            image: images[0] || null,
-            image2: images[1] || null,
-            image3: images[2] || null
+            image: images[0] || '',
+            image2: images[1] || '',
+            image3: images[2] || ''
         });
 
         await newAnimal.save();
@@ -95,7 +92,7 @@ router.get('/count/non-adoptes', async (req, res) => {
     }
 });
 
-// ✅ GET /api/animaux avec filtres
+// ✅ GET /api/animaux (avec filtres)
 router.get('/', async (req, res) => {
     try {
         const { espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge } = req.query;
@@ -142,7 +139,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// ✅ GET /api/animaux/:id
+// ✅ GET par ID
 router.get('/:id', async (req, res) => {
     try {
         const animal = await Animal.findById(req.params.id);
@@ -153,7 +150,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// ✅ PUT /api/animaux/:id
+// ✅ PUT mise à jour
 router.put('/:id', async (req, res) => {
     try {
         const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -164,7 +161,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// ✅ PATCH /api/animaux/:id/status – Changer le statut adopté
+// ✅ PATCH statut adopté
 router.patch('/:id/status', async (req, res) => {
     try {
         const { adopte } = req.body;
@@ -176,7 +173,7 @@ router.patch('/:id/status', async (req, res) => {
     }
 });
 
-// ✅ DELETE /api/animaux/:id
+// ✅ DELETE un animal
 router.delete('/:id', async (req, res) => {
     try {
         const result = await Animal.findByIdAndDelete(req.params.id);
