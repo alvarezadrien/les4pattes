@@ -33,10 +33,8 @@ const Ficheperso_animal = () => {
           if (data.image3) images.push(`${baseUrl}/${data.image3.replace(/^\/+/, "")}`);
         }
 
-        const defaultImg = `${baseUrl}/img/default.jpg`;
-
         setAnimal({ ...data, _processedImages: images });
-        setMainImg(images[0] || defaultImg);
+        setMainImg(images[0] || "/img/default.jpg");
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -60,8 +58,6 @@ const Ficheperso_animal = () => {
 
   const thumbnails = animal._processedImages?.slice(0, 3) || [];
   const handleImageClick = (img) => setMainImg(img);
-  const defaultImgUrl = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
-
   const handleAdoptClick = () => {
     navigate("/Formulaire d'adoption", { state: { animalData: animal } });
   };
@@ -76,7 +72,7 @@ const Ficheperso_animal = () => {
             alt={`Photo de ${animal.nom}`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = defaultImgUrl;
+              e.target.src = "/img/default.jpg";
             }}
           />
           <div className="small-images">
@@ -89,7 +85,7 @@ const Ficheperso_animal = () => {
                 onClick={() => handleImageClick(img)}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = defaultImgUrl;
+                  e.target.src = "/img/default.jpg";
                 }}
               />
             ))}
