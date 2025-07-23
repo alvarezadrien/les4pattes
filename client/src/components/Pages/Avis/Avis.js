@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Slider from 'react-slick';
-import CommentFormPopup from './chemin/vers/CommentFormPopup'; // adapte selon ton projet
+import CommentFormPopup from './CommentFormPopup'; // adapte le chemin si besoin
 import './Avis.css';
 
 const Avis = () => {
@@ -18,6 +18,7 @@ const Avis = () => {
             const uniqueComments = Array.from(
                 new Map(data.map(item => [item.commentText, item])).values()
             );
+
             setComments(uniqueComments);
         } catch (err) {
             console.error("Erreur lors de la récupération des avis:", err);
@@ -45,14 +46,48 @@ const Avis = () => {
         autoplaySpeed: 3000,
         cssEase: "linear",
         responsive: [
-            { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-            { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } }
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1
+                }
+            }
         ]
     };
 
-    if (loading) return <div className="avis-container">Chargement des avis...</div>;
-    if (error) return <div className="avis-container error-message">{error}</div>;
-    if (comments.length === 0) return <div className="avis-container no-comments">Aucun avis pour le moment. Soyez le premier à commenter !</div>;
+    if (loading) {
+        return <div className="avis-container">Chargement des avis...</div>;
+    }
+
+    if (error) {
+        return <div className="avis-container error-message">{error}</div>;
+    }
+
+    if (comments.length === 0) {
+        return (
+            <div className="avis-container no-comments">
+                <p>Aucun avis pour le moment. Soyez le premier à commenter !</p>
+                <button onClick={() => setShowPopup(true)} className="open-comment-btn">Laisser un commentaire</button>
+                {showPopup && (
+                    <CommentFormPopup
+                        onClose={() => setShowPopup(false)}
+                        onCommentSubmitSuccess={handleNewComment}
+                    />
+                )}
+            </div>
+        );
+    }
 
     return (
         <div className="avis-section">
