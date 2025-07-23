@@ -53,25 +53,22 @@ router.get('/', async (req, res) => {
             }
         }
 
-        // ✅ DEBUG : afficher les filtres dans les logs Render
-        console.log("🔍 Filtres appliqués :", filter);
-
         const animaux = await Animal.find(filter);
         res.json(animaux);
     } catch (err) {
-        console.error("❌ Erreur lors de la récupération des animaux :", err);
+        console.error("Erreur lors de la récupération des animaux :", err);
         res.status(500).json({ message: "Erreur serveur lors de la récupération des animaux.", error: err.message });
     }
 });
 
-// 🛠️ Route désactivée temporairement (upload image)
+// 🛠️ Route désactivée temporairement (problème avec multer)
 router.post('/', async (req, res) => {
     res.status(501).json({
         message: "Ajout d'animal avec image désactivé temporairement (upload non configuré)."
     });
 });
 
-// ✅ GET un animal par ID
+// ✅ GET par ID
 router.get('/:id', async (req, res) => {
     try {
         const animal = await Animal.findById(req.params.id);
@@ -82,7 +79,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// ✅ PUT mise à jour d’un animal
+// ✅ PUT mise à jour
 router.put('/:id', async (req, res) => {
     try {
         const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
