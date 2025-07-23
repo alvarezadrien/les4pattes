@@ -102,7 +102,6 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
-// ✅ Modifier les données personnelles
 router.put('/profile', auth, async (req, res) => {
     const { nom, prenom, email } = req.body;
 
@@ -114,16 +113,26 @@ router.put('/profile', auth, async (req, res) => {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
 
+        // (Optionnel) Vérifier doublon email
+        const existingUser = await User.findOne({ email });
+        if (existingUser && existingUser._id.toString() !== req.user.id) {
+            return res.status(400).json({ msg: "Cet email est déjà utilisé." });
+        }
+
         user.nom = nom;
         user.prenom = prenom;
         user.email = email;
 
+        console.log("🔧 Mise à jour utilisateur:", user);
+
         await user.save();
         res.json({ msg: "Profil mis à jour avec succès.", user });
     } catch (err) {
+        console.error("❌ Erreur lors de la mise à jour du profil:", err);
         res.status(500).json({ msg: "Erreur serveur lors de la mise à jour du profil." });
     }
 });
+
 
 // ✅ Mettre à jour l'adresse
 router.put('/profile/address', auth, async (req, res) => {
