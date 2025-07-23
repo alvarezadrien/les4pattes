@@ -1,1231 +1,974 @@
-import React, { useState, useEffect } from "react";
-import "./Back_office.css";
+import React, { useState, useEffect, useCallback } from 'react';
+import './Back_office.css';
 
-function Back_office() {
-  const [animals, setAnimals] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [newAnimal, setNewAnimal] = useState({
-    nom: "",
-    espece: "Chien",
-    race: "",
-    age: "",
-    sexe: "Mâle",
-    taille: "moyen",
-    description: "",
-    descriptionAdoption: "",
-    dateArrivee: "",
-    image: "", // Primaire
-    image2: "", // Secondaire
-    image3: "", // Tertiaire
-    images: [], // Pour le stockage des chemins en BDD (tableau)
-    comportement: [], // Nouveau champ: tableau vide par default
-    ententeAvec: [], // Nouveau champ: tableau vide par default
-    isRescue: false, // NOUVEAU CHAMP : pour indiquer si c'est un sauvetage (isRescue)
-  });
+// --- Importation des composants Material-UI ---
+import {
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, IconButton, CircularProgress, Box, Chip
+} from '@mui/material';
 
-  const [openAccordion, setOpenAccordion] = useState({
-    animals: false, // Changed to false
-    users: false, // Changed to false
-    comments: false, // Changed to false
-    newAnimalComportement: false,
-    newAnimalEntente: false,
-    editAnimalComportement: false,
-    editAnimalEntente: false,
-  });
+// --- Importation des Icônes Material-UI ---
+import PetsIcon from '@mui/icons-material/Pets';
+import GroupIcon from '@mui/icons-material/Group';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SearchIcon from '@mui/icons-material/Search';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import CloseIcon from '@mui/icons-material/Close';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CheckIcon from '@mui/icons-material/Check'; // For 'Adopted' status
+import PersonIcon from '@mui/icons-material/Person'; // For 'User' role
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'; // More appropriate for confirmation
 
-  // États pour la pop-up de confirmation
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
-  const [popupAction, setPopupAction] = useState(null); // Fonction à exécuter si confirmé
-
-  // New state for search term
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const apiUrl = `${process.env.REACT_APP_API_URL}/api/animaux`;
-  const usersApiUrl = `${process.env.REACT_APP_API_URL}/api/auth/users`;
-  const commentsApiUrl = `${process.env.REACT_APP_API_URL}/api/comments`;
-
-  // Fonction pour récupérer les commentaires, peut être appelée après une suppression
-  const fetchComments = async () => {
-    try {
-      const response = await fetch(commentsApiUrl);
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setComments(data);
-      } else {
-        console.warn("API returned non-array data for comments:", data);
-        setComments([]);
-      }
-    } catch (err) {
-      console.error("Erreur chargement commentaires:", err);
-      setComments([]); // Ensure comments is an array even on fetch error
-    }
-  };
-
-  useEffect(() => {
-    fetch(apiUrl)
-      .then((res) => {
-        if (!res.ok) {
-          return res.json().then(errorData => { throw new Error(errorData.message || `HTTP error! status: ${res.status}`); });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setAnimals(data);
-        } else {
-          console.warn("API returned non-array data for animals:", data);
-          setAnimals([]);
-        }
-      })
-      .catch((err) => {
-        console.error("Erreur chargement animaux:", err);
-        setAnimals([]);
-      });
-
-    fetch(usersApiUrl)
-      .then((res) => {
-        if (!res.ok) {
-          // Handle non-2xx responses (e.g., 401, 404, 500)
-          return res.json().then(errorData => { throw new Error(errorData.message || `HTTP error! status: ${res.status}`); });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // Ensure data is an array before setting the state
-        if (Array.isArray(data)) {
-          setUsers(data);
-        } else {
-          console.warn("API returned non-array data for users:", data);
-          setUsers([]); // Fallback to an empty array
-        }
-      })
-      .catch((err) => {
-        console.error("Erreur chargement utilisateurs:", err);
-        setUsers([]); // Ensure users is an array even on fetch error
-      });
-
-    // Initial fetch for comments
-    fetchComments();
-  }, []); // Empty dependency array means this runs once on component mount
-
-  // Filter animals based on search term
-  const filteredAnimals = animals.filter((animal) =>
-    animal.nom.toLowerCase().includes(searchTerm.toLowerCase())
+// --- Reusable Confirmation Modal Component (Utilise MUI Dialog) ---
+const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = "Confirmer", cancelText = "Annuler" }) => {
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={onCancel}
+      aria-labelledby="confirmation-dialog-title"
+      aria-describedby="confirmation-dialog-description"
+      sx={{ '& .MuiPaper-root': { borderRadius: '12px', padding: '20px' } }} // Styles pour la modale
+    >
+      <DialogTitle id="confirmation-dialog-title" sx={{ textAlign: 'center', pb: 1 }}>
+        <WarningAmberIcon sx={{ fontSize: 48, color: '#ff9800', mb: 1 }} /> {/* Icône d'avertissement */}
+        <Box component="span" sx={{ display: 'block', fontSize: '1.5rem', fontWeight: 'bold', color: '#3f51b5' }}>
+          {title}
+        </Box>
+      </DialogTitle>
+      <DialogContent sx={{ textAlign: 'center' }}>
+        <DialogContentText id="confirmation-dialog-description" sx={{ fontSize: '1.1rem', color: '#555', lineHeight: 1.6 }}>
+          {message}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions sx={{ justifyContent: 'center', pt: 3 }}>
+        <Button
+          onClick={onConfirm}
+          variant="contained"
+          sx={{
+            backgroundColor: '#f44336', // Red for delete/confirm dangerous action
+            '&:hover': { backgroundColor: '#d32f2f' },
+            px: 3, py: 1.2, fontSize: '1rem', borderRadius: '8px'
+          }}
+          startIcon={<DeleteIcon />} // Icône de suppression
+        >
+          {confirmText}
+        </Button>
+        <Button
+          onClick={onCancel}
+          variant="outlined"
+          sx={{
+            borderColor: '#90a4ae', // Grey border for cancel
+            color: '#90a4ae',
+            '&:hover': { backgroundColor: '#e0e0e0', borderColor: '#78909c' },
+            px: 3, py: 1.2, fontSize: '1rem', borderRadius: '8px'
+          }}
+          startIcon={<CloseIcon />} // Icône de fermeture
+        >
+          {cancelText}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
+};
 
-  const handleAddAnimal = () => {
-    if (!newAnimal.nom || !newAnimal.espece || !newAnimal.age) return;
 
-    const animalToSend = {
-      ...newAnimal,
-      images: [newAnimal.image, newAnimal.image2, newAnimal.image3].filter(
-        Boolean
-      ),
+// --- Reusable Simple Modal Component (Utilise MUI Dialog) ---
+const SimpleModal = ({ children, onClose, title }) => {
+  return (
+    <Dialog
+      open={true} // Always open when rendered
+      onClose={onClose}
+      aria-labelledby="simple-modal-title"
+      maxWidth="md" // Medium size modal
+      fullWidth={true}
+      sx={{ '& .MuiPaper-root': { borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', maxHeight: '90vh' } }}
+    >
+      <DialogTitle id="simple-modal-title" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 1, borderBottom: '1px solid #e0e0e0', mb: 2 }}>
+        <Box component="span" sx={{ fontSize: '1.8rem', fontWeight: 'bold', color: '#344767' }}>
+          {title}
+        </Box>
+        <IconButton onClick={onClose} sx={{ color: '#6c757d' }}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent sx={{ p: 0, flexGrow: 1, overflowY: 'auto' }}>
+        {children}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+
+// --- Main BackOffice Component ---
+const BackOffice = () => {
+  // State for managing active section visibility in the grid
+  const [activeView, setActiveView] = useState('animals'); // 'animals', 'users', 'comments'
+
+  // Animal Management States
+  const [animals, setAnimals] = useState([]);
+  const [newAnimal, setNewAnimal] = useState({
+    name: '',
+    species: '',
+    breed: '',
+    age: '',
+    gender: '',
+    size: '',
+    generalDescription: '',
+    adoptionDescription: '',
+    arrivalDate: '',
+    isRescue: false,
+    behaviors: [],
+    compatibilities: [],
+    images: [] // Storing File objects directly for upload
+  });
+  const [editingAnimal, setEditingAnimal] = useState(null); // Stores the animal being edited
+  const [searchTerm, setSearchTerm] = useState('');
+  const [imagePreviews, setImagePreviews] = useState([]); // Stores URL.createObjectURL strings for new files or existing URLs
+  const [isAnimalFormModalOpen, setIsAnimalFormModalOpen] = useState(false);
+  const [animalDetailModal, setAnimalDetailModal] = useState(null); // For viewing animal details
+
+  // User Management States
+  const [users, setUsers] = useState([]);
+  const [userSearchTerm, setUserSearchTerm] = useState('');
+
+  // Comment Management States
+  const [comments, setComments] = useState([]);
+  const [commentDetailModal, setCommentDetailModal] = useState(null); // For viewing comment details
+
+  // Global UI States
+  const [loading, setLoading] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState({ type: '', message: '' });
+  const [confirmationModal, setConfirmationModal] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    onConfirm: null,
+    data: null // To pass item ID/object to confirmation handler
+  });
+
+  // Effect to fetch initial data (always runs as there's no auth)
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setFeedbackMessage({ type: '', message: '' }); // Clear any previous feedback
+
+      try {
+        // In a real app, you would fetch data from your API here.
+        // Example for animals:
+        // const animalsResponse = await fetch('https://les4pattes-backend.onrender.com/api/animals');
+        // if (!animalsResponse.ok) throw new Error('Échec du chargement des animaux.');
+        // const animalsData = await animalsResponse.json();
+        // setAnimals(animalsData);
+
+        // Dummy Data for demonstration (replace with actual API calls)
+        setTimeout(() => {
+          setAnimals([
+            { id: 1, name: 'Fido', species: 'Dog', breed: 'Golden Retriever', age: 3, gender: 'Male', size: 'Large', generalDescription: 'Friendly dog, loves kids and long walks.', adoptionDescription: 'Needs a loving home with a yard and active family.', arrivalDate: '2023-01-15', isRescue: true, behaviors: ['Playful', 'Energetic'], compatibilities: ['Kids', 'Dogs'], images: ['https://via.placeholder.com/150/87CEEB/FFFFFF?text=Fido1', 'https://via.placeholder.com/150/4682B4/FFFFFF?text=Fido2', 'https://via.placeholder.com/150/6495ED/FFFFFF?text=Fido3'], status: 'Available' },
+            { id: 2, name: 'Whiskers', species: 'Cat', breed: 'Siamese', age: 2, gender: 'Female', size: 'Medium', generalDescription: 'Calm and independent cat, enjoys quiet evenings.', adoptionDescription: 'Perfect for a quiet household, loves to nap in sunbeams.', arrivalDate: '2023-03-20', isRescue: false, behaviors: ['Quiet', 'Independent'], compatibilities: ['Adults'], images: ['https://via.placeholder.com/150/87CEEB/FFFFFF?text=Whisker1'], status: 'Adopted' },
+            { id: 3, name: 'Pipsqueak', species: 'Hamster', breed: 'Syrian', age: 0.5, gender: 'Female', size: 'Small', generalDescription: 'Tiny and active, loves her wheel.', adoptionDescription: 'Great first pet, needs a spacious cage.', arrivalDate: '2024-01-10', isRescue: false, behaviors: ['Energetic', 'Nocturnal'], compatibilities: ['None'], images: ['https://via.placeholder.com/150/87CEEB/FFFFFF?text=Pipsqueak1'], status: 'Available' }
+          ]);
+          setUsers([
+            { id: 1, name: 'Alice Smith', email: 'alice@example.com', role: 'Admin', registeredDate: '2022-11-01' },
+            { id: 2, name: 'Bob Johnson', email: 'bob@example.com', role: 'User', registeredDate: '2023-02-15' },
+            { id: 3, name: 'Carol White', email: 'carol@example.com', role: 'User', registeredDate: '2023-07-20' }
+          ]);
+          setComments([
+            { id: 1, author: 'Charlie Brown', email: 'charlie@example.com', content: 'Great website! I love the mission. This is a very long comment to test the wrapping and truncation in the table. I hope it works well and demonstrates the functionality as expected.', date: '2023-05-10' },
+            { id: 2, author: 'Diana Prince', email: 'diana@example.com', content: 'The animals all look so happy. Looking to adopt!', date: '2023-06-01' },
+            { id: 3, author: 'Bruce Wayne', email: 'bruce@example.com', content: 'Fantastic resource for animal lovers.', date: '2024-01-20' }
+          ]);
+          setLoading(false);
+        }, 1000);
+
+      } catch (error) {
+        console.error('Erreur lors du chargement initial des données:', error);
+        setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message}. Impossible de charger les données.` });
+      } finally {
+        setLoading(false);
+      }
     };
 
-    // Get the authentication token
-    const authToken = localStorage.getItem('userToken'); // Assuming 'userToken' is your key
+    fetchData();
+  }, []); // Empty dependency array means it runs once on mount
 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${authToken}`, // Include Authorization header
+  // --- Confirmation Modal Handler ---
+  const openConfirmationModal = (title, message, onConfirmCallback, data) => {
+    setConfirmationModal({
+      isOpen: true,
+      title,
+      message,
+      onConfirm: () => {
+        onConfirmCallback(data);
+        closeConfirmationModal();
       },
-      body: JSON.stringify(animalToSend),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((newAddedAnimal) => {
-        setAnimals([...animals, newAddedAnimal]);
-        setNewAnimal({
-          nom: "",
-          espece: "Chien",
-          race: "",
-          age: "",
-          sexe: "Mâle",
-          taille: "moyen",
-          description: "",
-          descriptionAdoption: "",
-          dateArrivee: "",
-          image: "",
-          image2: "",
-          image3: "",
-          images: [],
-          comportement: [], // Réinitialiser le comportement
-          ententeAvec: [], // Réinitialiser l'entente
-          isRescue: false, // Réinitialiser le champ isRescue
-        });
-      })
-      .catch((err) => {
-        console.error("Erreur ajout animal:", err);
-        // Removed specific 401 alert
-        alert(`Échec de l'ajout de l'animal: ${err.message}`);
-      });
-  };
-
-  // Fonctions de suppression avec confirmation
-  const confirmDeleteAnimal = (id) => {
-    setPopupMessage("Voulez-vous vraiment supprimer cet animal ?");
-    setPopupAction(() => {
-      return async () => {
-        try {
-          const authToken = localStorage.getItem('userToken');
-          const response = await fetch(`${apiUrl}/${id}`, {
-            method: "DELETE",
-            headers: {
-              'Authorization': `Bearer ${authToken}`,
-            }
-          });
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.msg || `Erreur HTTP! statut: ${response.status}`);
-          }
-          setAnimals(animals.filter((a) => a._id !== id));
-          setShowPopup(false);
-        } catch (err) {
-          console.error("Erreur suppression animal:", err);
-          // Removed specific 401 alert
-          alert(`Échec de la suppression de l'animal: ${err.message}`);
-          setShowPopup(false);
-        }
-      };
+      data
     });
-    setShowPopup(true);
   };
 
-  const confirmDeleteUser = (id) => {
-    setPopupMessage("Voulez-vous vraiment supprimer cet utilisateur ?");
-    setPopupAction(() => {
-      return async () => {
-        try {
-          const authToken = localStorage.getItem('userToken');
-          const response = await fetch(`${usersApiUrl}/${id}`, {
-            method: "DELETE",
-            headers: {
-              'Authorization': `Bearer ${authToken}`,
-            }
-          });
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.msg || `Erreur HTTP! statut: ${response.status}`);
-          }
-          setUsers(users.filter((u) => u._id !== id));
-          setShowPopup(false);
-        } catch (err) {
-          console.error("Erreur suppression utilisateur:", err);
-          // Removed specific 401 alert
-          alert(`Échec de la suppression de l'utilisateur: ${err.message}`);
-          setShowPopup(false);
-        }
-      };
+  const closeConfirmationModal = () => {
+    setConfirmationModal({
+      isOpen: false,
+      title: '',
+      message: '',
+      onConfirm: null,
+      data: null
     });
-    setShowPopup(true);
   };
 
-  // Fonction de confirmation pour la suppression d'un commentaire
-  const confirmDeleteComment = (id) => {
-    setPopupMessage("Voulez-vous vraiment supprimer ce commentaire ?");
-    setPopupAction(() => async () => {
-      try {
-        const authToken = localStorage.getItem('userToken'); // Retrieve the authentication token
-
-        const response = await fetch(`${commentsApiUrl}/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${authToken}`, // Add the Authorization header
-          },
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.msg || `Erreur HTTP! statut: ${response.status}`
-          );
-        }
-
-        // Si la suppression est réussie côté serveur, mettez à jour l'état local
-        setComments(comments.filter((c) => c._id !== id));
-        setShowPopup(false);
-      } catch (err) {
-        console.error("Erreur suppression commentaire:", err);
-        // Removed specific 401 alert
-        alert(`Échec de la suppression du commentaire: ${err.message}`); // Afficher une alerte utilisateur
-        setShowPopup(false);
-      }
-    });
-    setShowPopup(true);
-  };
-
-  const handleToggleAdoption = (id, currentStatus) => {
-    const authToken = localStorage.getItem('userToken');
-    fetch(`${apiUrl}/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ adopte: !currentStatus }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((updatedAnimal) => {
-        setAnimals(animals.map((a) => (a._id === id ? updatedAnimal : a)));
-      })
-      .catch((err) => {
-        console.error("Erreur mise à jour adoption:", err);
-        // Removed specific 401 alert
-        alert(`Échec de la mise à jour du statut d'adoption: ${err.message}`);
-      });
-  };
-
-  const handleUpdateDescription = (id, description) => {
-    const authToken = localStorage.getItem('userToken');
-    fetch(`${apiUrl}/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ description }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(() =>
-        setAnimals(
-          animals.map((a) => (a._id === id ? { ...a, description } : a))
-        )
-      )
-      .catch((err) => {
-        console.error("Erreur mise à jour description:", err);
-        // Removed specific 401 alert
-        alert(`Échec de la mise à jour de la description: ${err.message}`);
-      });
-  };
-
-  // New handler for descriptionAdoption
-  const handleUpdateDescriptionAdoption = (id, descriptionAdoption) => {
-    const authToken = localStorage.getItem('userToken');
-    fetch(`${apiUrl}/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ descriptionAdoption }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(() =>
-        setAnimals(
-          animals.map((a) =>
-            a._id === id ? { ...a, descriptionAdoption } : a
-          )
-        )
-      )
-      .catch((err) => {
-        console.error("Erreur mise à jour description d'adoption:", err);
-        // Removed specific 401 alert
-        alert(`Échec de la mise à jour de la description d'adoption: ${err.message}`);
-      });
-  };
-
-  const toggleAccordion = (section) => {
-    setOpenAccordion((prev) => ({
+  // --- Animal Management Functions ---
+  const handleAnimalChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setNewAnimal(prev => ({
       ...prev,
-      [section]: !prev[section],
+      [name]: type === 'checkbox' ? checked : value
     }));
   };
 
-  // Updated handleImageChange to accept a state setter function
-  const handleImageChange = (e, field, setter) => {
-    const file = e.target.files[0];
-    if (file) {
-      // For simplicity, we are using createObjectURL for immediate preview.
-      // In a real application, you would upload the file to a server
-      // and get a persistent URL back.
-      const imageUrl = URL.createObjectURL(file);
-      setter((prev) => ({ ...prev, [field]: imageUrl }));
-    }
-  };
-
-  const [editAnimalId, setEditAnimalId] = useState(null);
-  const [editAnimalData, setEditAnimalData] = useState({});
-
-  const handleEditAnimal = (animal) => {
-    setEditAnimalId(animal._id);
-    // Initialise editAnimalData avec les valeurs existantes, y compris les images
-    setEditAnimalData({
-      nom: animal.nom || "",
-      espece: animal.espece || "Chien",
-      race: animal.race || "",
-      age: animal.age || "",
-      sexe: animal.sexe || "Mâle",
-      taille: animal.taille || "moyen",
-      description: animal.description || "",
-      descriptionAdoption: animal.descriptionAdoption || "",
-      dateArrivee: animal.dateArrivee ? animal.dateArrivee.slice(0, 10) : "",
-      // Assurez-vous que les champs image sont initialisés avec les images existantes
-      image: animal.images && animal.images[0] ? animal.images[0] : "",
-      image2: animal.images && animal.images[1] ? animal.images[1] : "",
-      image3: animal.images && animal.images[2] ? animal.images[2] : "",
-      images: animal.images || [], // Copie du tableau d'images existant
-      comportement: animal.comportement || [], // Initialiser le comportement
-      ententeAvec: animal.ententeAvec || [], // Initialiser l'entente
-      isRescue: animal.isRescue || false, // NOUVEAU : Initialiser le champ isRescue
+  const handleCheckboxChange = (e, field) => {
+    const { value, checked } = e.target;
+    setNewAnimal(prev => {
+      const currentList = prev[field];
+      if (checked) {
+        return { ...prev, [field]: [...currentList, value] };
+      } else {
+        return { ...prev, [field]: currentList.filter(item => item !== value) };
+      }
     });
   };
 
-  const handleCancelEdit = () => {
-    setEditAnimalId(null);
-    setEditAnimalData({});
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    const newImageFiles = [];
+    const newPreviews = [];
+
+    files.forEach(file => {
+      if (imagePreviews.length + newImageFiles.length < 3) {
+        newImageFiles.push(file);
+        // For previewing newly selected files immediately
+        newPreviews.push(URL.createObjectURL(file));
+      } else {
+        setFeedbackMessage({ type: 'error', message: 'Vous pouvez télécharger un maximum de 3 images.' });
+        setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
+      }
+    });
+
+    setNewAnimal(prev => ({
+      ...prev,
+      images: [...prev.images, ...newImageFiles]
+    }));
+    setImagePreviews(prev => [...prev, ...newPreviews]);
   };
 
-  const handleSaveEditAnimal = (id) => {
-    // Reconstruire le tableau 'images' à partir des champs individuels (image, image2, image3)
-    const updatedImages = [
-      editAnimalData.image,
-      editAnimalData.image2,
-      editAnimalData.image3,
-    ].filter(Boolean); // Filtrer les valeurs vides/nulles
-
-    const animalToUpdate = {
-      ...editAnimalData,
-      images: updatedImages, // Mettre à jour le tableau d'images
-    };
-    // Supprimer les champs individuels pour éviter les doublons ou erreurs côté backend si non nécessaires
-    delete animalToUpdate.image;
-    delete animalToUpdate.image2;
-    delete animalToUpdate.image3;
-
-    const authToken = localStorage.getItem('userToken');
-
-    fetch(`${apiUrl}/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${authToken}`,
-      },
-      body: JSON.stringify(animalToUpdate),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((updatedAnimal) => {
-        setAnimals(animals.map((a) => (a._id === id ? updatedAnimal : a)));
-        setEditAnimalId(null);
-        setEditAnimalData({});
-      })
-      .catch((err) => {
-        console.error("Erreur modification animal:", err);
-        // Removed specific 401 alert
-        alert(`Échec de la modification de l'animal: ${err.message}`);
-      });
-  };
-
-  const handlePopupConfirm = () => {
-    if (popupAction) {
-      popupAction(); // Exécuter l'action de suppression
+  const removeImagePreview = (indexToRemove) => {
+    // Revoke the object URL to free up memory (important for blob URLs)
+    const urlToRevoke = imagePreviews[indexToRemove];
+    if (urlToRevoke && urlToRevoke.startsWith('blob:')) {
+      URL.revokeObjectURL(urlToRevoke);
     }
+
+    setImagePreviews(prev => prev.filter((_, index) => index !== indexToRemove));
+    // Also remove the corresponding file from newAnimal.images if it's a newly added file
+    setNewAnimal(prev => ({
+      ...prev,
+      images: prev.images.filter((_, index) => index !== indexToRemove)
+    }));
   };
 
-  const handlePopupCancel = () => {
-    setShowPopup(false); // Simplement fermer la pop-up
-    setPopupAction(null); // Réinitialiser l'action
-  };
 
-  // Helper function to get base file name
-  const getFileName = (url) => {
-    if (!url) return "";
+  const handleSubmitAnimal = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setFeedbackMessage({ type: '', message: '' });
+
+    const isEditing = !!editingAnimal;
+
     try {
-      const parts = url.split("/");
-      return parts[parts.length - 1];
-    } catch (e) {
-      return url; // Fallback if URL parsing fails
+      // In a real app, you'd create FormData to send files and data
+      // const formData = new FormData();
+      // formData.append('name', newAnimal.name);
+      // ... append other fields ...
+      // newAnimal.images.forEach(file => {
+      //     if (file instanceof File) { // Only append actual File objects for upload
+      //         formData.append('images', file);
+      //     }
+      // });
+      // If editing, handle existing image URLs separately or based on your backend logic
+      // (e.g., send an array of existing URLs + new files)
+
+      // For demonstration, we'll mimic data handling
+      const dataToSave = { ...newAnimal };
+      if (isEditing) {
+        dataToSave.id = editingAnimal.id;
+        // When editing, filter out blob URLs if they were just previews of new uploads
+        // Keep only the original image URLs (which don't start with 'blob:')
+        // and any new File objects from newAnimal.images
+        dataToSave.images = imagePreviews.filter(url => !url.startsWith('blob:')).concat(newAnimal.images);
+      } else {
+        // For new animals, ensure images are just the file objects or their temporary URLs if you send them that way
+        dataToSave.images = imagePreviews; // For dummy data display, we'll use previews
+      }
+
+      if (!isEditing) {
+        // Simulate API call for adding
+        // const response = await fetch('https://les4pattes-backend.onrender.com/api/animals', {
+        //     method: 'POST',
+        //     body: formData // Use formData for files
+        // });
+        // if (!response.ok) throw new Error('Échec de l\'ajout de l\'animal.');
+        // const addedAnimal = await response.json();
+        const newId = Math.max(0, ...animals.map(a => a.id)) + 1; // Handle empty array
+        setAnimals(prev => [...prev, { ...dataToSave, id: newId, status: 'Available' }]);
+        setFeedbackMessage({ type: 'success', message: 'Animal ajouté avec succès !' });
+      } else {
+        // Simulate API call for updating
+        // const response = await fetch(`https://les4pattes-backend.onrender.com/api/animals/${editingAnimal.id}`, {
+        //     method: 'PUT', // Or PATCH
+        //     body: formData // Use formData for files
+        // });
+        // if (!response.ok) throw new Error('Échec de la modification de l\'animal.');
+        // const updatedAnimal = await response.json();
+        setAnimals(prev => prev.map(animal => animal.id === editingAnimal.id ? { ...animal, ...dataToSave, status: animal.status } : animal));
+        setFeedbackMessage({ type: 'success', message: 'Animal mis à jour avec succès !' });
+      }
+
+      closeAnimalFormModal(); // Close and reset form
+
+    } catch (error) {
+      console.error('API Error:', error);
+      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue.'}` });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
 
-  // Options pour les select 'comportement' et 'ententeAvec'
-  const comportementOptions = [
-    "calme",
-    "actif",
-    "affectueux",
-    "independant",
-    "sociable",
-    "joueur",
-    "curieux",
-    "calin",
-  ];
+  const handleAddAnimalClick = () => {
+    setNewAnimal({ name: '', species: '', breed: '', age: '', gender: '', size: '', generalDescription: '', adoptionDescription: '', arrivalDate: '', isRescue: false, behaviors: [], compatibilities: [], images: [] });
+    setImagePreviews([]);
+    setEditingAnimal(null);
+    setIsAnimalFormModalOpen(true);
+  };
 
-  const ententeAvecOptions = ["enfants", "chiens", "chats", "familles"];
+  const handleEditAnimal = (animal) => {
+    setEditingAnimal(animal);
+    setNewAnimal({
+      name: animal.name,
+      species: animal.species,
+      breed: animal.breed,
+      age: animal.age,
+      gender: animal.gender,
+      size: animal.size,
+      generalDescription: animal.generalDescription,
+      adoptionDescription: animal.adoptionDescription,
+      arrivalDate: animal.arrivalDate,
+      isRescue: animal.isRescue,
+      behaviors: [...animal.behaviors], // Deep copy for checkboxes
+      compatibilities: [...animal.compatibilities], // Deep copy
+      images: [] // New images will be handled by input type="file"
+    });
+    setImagePreviews([...animal.images]); // Display existing images (URLs)
+    setIsAnimalFormModalOpen(true);
+  };
 
-  // Handle checkbox change for NEW animal form
-  const handleCheckboxChange = (e, field, currentValues, setter) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setter({ ...currentValues, [field]: [...currentValues[field], value] });
-    } else {
-      setter({
-        ...currentValues,
-        [field]: currentValues[field].filter((item) => item !== value),
-      });
+  const closeAnimalFormModal = () => {
+    // Revoke any remaining blob URLs when closing the modal to prevent memory leaks
+    imagePreviews.forEach(url => {
+      if (url.startsWith('blob:')) {
+        URL.revokeObjectURL(url);
+      }
+    });
+    setIsAnimalFormModalOpen(false);
+    setEditingAnimal(null);
+    setNewAnimal({ name: '', species: '', breed: '', age: '', gender: '', size: '', generalDescription: '', adoptionDescription: '', arrivalDate: '', isRescue: false, behaviors: [], compatibilities: [], images: [] });
+    setImagePreviews([]);
+  };
+
+  const confirmDeleteAnimal = (animalId) => {
+    openConfirmationModal(
+      'Supprimer cet animal ?',
+      'Êtes-vous certain de vouloir supprimer cet animal définitivement ? Cette action est irréversible.',
+      executeDeleteAnimal,
+      animalId
+    );
+  };
+
+  const executeDeleteAnimal = async (id) => {
+    setLoading(true);
+    setFeedbackMessage({ type: '', message: '' });
+    try {
+      // Simulate API call for deleting
+      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/animals/${id}`, {
+      //     method: 'DELETE',
+      // });
+      // if (!response.ok) throw new Error('Échec de la suppression de l\'animal.');
+
+      setAnimals(prev => prev.filter(animal => animal.id !== id));
+      setFeedbackMessage({ type: 'success', message: 'Animal supprimé avec succès !' });
+    } catch (error) {
+      console.error('API Error:', error);
+      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la suppression.'}` });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
     }
   };
+
+  const handleChangeAnimalStatus = async (id, currentStatus) => {
+    const newStatus = currentStatus === 'Available' ? 'Adopted' : 'Available';
+    // You could also use a confirmation modal here for status change if desired
+    openConfirmationModal(
+      `Changer le statut de l'animal ?`,
+      `Voulez-vous vraiment changer le statut de cet animal en "${newStatus === 'Available' ? 'Disponible' : 'Adopté'}" ?`,
+      executeChangeAnimalStatus,
+      { id, newStatus }
+    );
+  };
+
+  const executeChangeAnimalStatus = async ({ id, newStatus }) => {
+    setLoading(true);
+    setFeedbackMessage({ type: '', message: '' });
+    try {
+      // Simulate API call for status update
+      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/animals/${id}/status`, {
+      //     method: 'PATCH',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify({ status: newStatus })
+      // });
+      // if (!response.ok) throw new Error('Échec de la mise à jour du statut.');
+
+      setAnimals(prev => prev.map(animal => animal.id === id ? { ...animal, status: newStatus } : animal));
+      setFeedbackMessage({ type: 'success', message: `Statut de l'animal mis à jour en "${newStatus}" !` });
+    } catch (error) {
+      console.error('API Error:', error);
+      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la mise à jour du statut.'}` });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
+    }
+  };
+
+  const handleViewAnimalDetails = (animal) => {
+    setAnimalDetailModal(animal);
+  };
+
+  // --- User Management Functions ---
+  const confirmDeleteUser = (userId) => {
+    openConfirmationModal(
+      'Supprimer cet utilisateur ?',
+      'Êtes-vous certain de vouloir supprimer cet utilisateur définitivement ? Toutes les données associées seront perdues.',
+      executeDeleteUser,
+      userId
+    );
+  };
+
+  const executeDeleteUser = async (id) => {
+    setLoading(true);
+    setFeedbackMessage({ type: '', message: '' });
+    try {
+      // Simulate API call for deleting user
+      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/users/${id}`, {
+      //     method: 'DELETE',
+      // });
+      // if (!response.ok) throw new Error('Échec de la suppression de l\'utilisateur.');
+
+      setUsers(prev => prev.filter(user => user.id !== id));
+      setFeedbackMessage({ type: 'success', message: 'Utilisateur supprimé avec succès !' });
+    } catch (error) {
+      console.error('API Error:', error);
+      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la suppression de l\'utilisateur.'}` });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
+    }
+  };
+
+  // --- Comment Management Functions ---
+  const confirmDeleteComment = (commentId) => {
+    openConfirmationModal(
+      'Supprimer ce commentaire ?',
+      'Êtes-vous certain de vouloir supprimer ce commentaire définitivement ?',
+      executeDeleteComment,
+      commentId
+    );
+  };
+
+  const executeDeleteComment = async (id) => {
+    setLoading(true);
+    setFeedbackMessage({ type: '', message: '' });
+    try {
+      // Simulate API call for deleting comment
+      // const response = await fetch(`https://les4pattes-backend.onrender.com/api/comments/${id}`, {
+      //     method: 'DELETE',
+      // });
+      // if (!response.ok) throw new Error('Échec de la suppression du commentaire.');
+
+      setComments(prev => prev.filter(comment => comment.id !== id));
+      setFeedbackMessage({ type: 'success', message: 'Commentaire supprimé avec succès !' });
+    } catch (error) {
+      console.error('API Error:', error);
+      setFeedbackMessage({ type: 'error', message: `Erreur: ${error.message || 'Une erreur est survenue lors de la suppression du commentaire.'}` });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
+    }
+  };
+
+  const handleViewCommentDetails = (comment) => {
+    setCommentDetailModal(comment);
+  };
+
+
+  // Filtered Animals for display
+  const filteredAnimals = animals.filter(animal =>
+    animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    animal.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    animal.breed.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(userSearchTerm.toLowerCase())
+  );
+
+  // Common Checkbox Options
+  const commonBehaviors = ['Playful', 'Calm', 'Energetic', 'Shy', 'Curious', 'Independent', 'Affectionate', 'Protective'];
+  const commonCompatibilities = ['Kids', 'Dogs', 'Cats', 'Small Animals', 'Adults', 'Seniors'];
 
   return (
-    <div className="back-office">
-      <h1 className="h1_office">Back Office - Gestion du Refuge</h1>
+    <div className="back-office-container">
+      <h1 className="back-office-title">
+        <PetsIcon sx={{ fontSize: 'inherit', verticalAlign: 'middle', mr: 2 }} /> Back Office - Les 4 Pattes
+      </h1>
 
-      {/* Pop-up de confirmation */}
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <p>{popupMessage}</p>
-            <div className="popup-buttons">
-              <button onClick={handlePopupConfirm} className="btn_confirm">
-                Confirmer
-              </button>
-              <button onClick={handlePopupCancel} className="btn_cancel">
-                Annuler
-              </button>
-            </div>
-          </div>
+      {feedbackMessage.message && (
+        <div className={`feedback-message ${feedbackMessage.type}`}>
+          {feedbackMessage.type === 'success' ? <CheckCircleIcon /> : <ErrorIcon />}
+          <span>{feedbackMessage.message}</span>
         </div>
       )}
 
-      <section className="section">
-        <h2>Ajouter un animal</h2>
-        <form
-          className="form-animal"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleAddAnimal();
-          }}
-        >
-          <label>Nom</label>
-          <input
-            value={newAnimal.nom}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, nom: e.target.value })
-            }
-          />
+      {loading && (
+        <div className="loading-overlay">
+          <CircularProgress color="inherit" size={60} />
+        </div>
+      )}
 
-          <label>Espèce</label>
-          <select
-            value={newAnimal.espece}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, espece: e.target.value })
-            }
+      <div className="header-actions">
+        <nav className="main-nav-buttons">
+          <button
+            className={`nav-btn ${activeView === 'animals' ? 'active' : ''}`}
+            onClick={() => setActiveView('animals')}
           >
-            <option value="Chien">Chien</option>
-            <option value="Chat">Chat</option>
-          </select>
-
-          <label>Race</label>
-          <input
-            value={newAnimal.race}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, race: e.target.value })
-            }
-          />
-
-          <label>Âge</label>
-          <input
-            type="number"
-            value={newAnimal.age}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, age: e.target.value })
-            }
-          />
-
-          <label>Sexe</label>
-          <select
-            value={newAnimal.sexe}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, sexe: e.target.value })
-            }
+            <PetsIcon /> Animaux ({animals.length})
+          </button>
+          <button
+            className={`nav-btn ${activeView === 'users' ? 'active' : ''}`}
+            onClick={() => setActiveView('users')}
           >
-            <option value="Mâle">Mâle</option>
-            <option value="Femelle">Femelle</option>
-            <option value="Inconnu">Inconnu</option>
-          </select>
-
-          <label>Taille</label>
-          <select
-            value={newAnimal.taille}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, taille: e.target.value })
-            }
+            <GroupIcon /> Utilisateurs ({users.length})
+          </button>
+          <button
+            className={`nav-btn ${activeView === 'comments' ? 'active' : ''}`}
+            onClick={() => setActiveView('comments')}
           >
-            <option value="petit">Petit</option>
-            <option value="moyen">Moyen</option>
-            <option value="grand">Grand</option>
-          </select>
+            <ChatBubbleIcon /> Commentaires ({comments.length})
+          </button>
+        </nav>
+      </div>
 
-          {/* NOUVEAU CHAMP : Sauvetage (isRescue) */}
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              id="isRescueNew"
-              checked={newAnimal.isRescue}
-              onChange={(e) =>
-                setNewAnimal({ ...newAnimal, isRescue: e.target.checked })
-              }
-            />
-            <label htmlFor="isRescueNew">Sauvetage ?</label>
-          </div>
 
-          {/* NOUVEAUX CHAMPS ACCORDION : COMPORTEMENT ET ENTENTE AVEC */}
-          <h3
-            onClick={() => toggleAccordion("newAnimalComportement")}
-            className="accordion-header"
-          >
-            Comportement(s) {openAccordion.newAnimalComportement ? "▲" : "▼"}
-          </h3>
-          {openAccordion.newAnimalComportement && (
-            <div className="accordion-content checkbox-options">
-              <p>Sélectionner un ou plusieurs comportements</p>
-              {comportementOptions.map((option) => (
-                <div key={`new-comportement-${option}`}>
-                  <input
-                    type="checkbox"
-                    id={`new-comportement-${option}`}
-                    value={option}
-                    checked={newAnimal.comportement.includes(option)}
-                    onChange={(e) =>
-                      handleCheckboxChange(e, "comportement", newAnimal, setNewAnimal)
-                    }
-                  />
-                  <label htmlFor={`new-comportement-${option}`}>{option}</label>
-                </div>
-              ))}
+      <div className="dashboard-grid">
+        {activeView === 'animals' && (
+          <div className="grid-card grid-card-animals">
+            <div className="card-header">
+              <h3>Gestion des Animaux</h3>
+              <button className="btn btn-add" onClick={handleAddAnimalClick}>
+                <AddIcon /> Ajouter un animal
+              </button>
             </div>
-          )}
-
-          <h3
-            onClick={() => toggleAccordion("newAnimalEntente")}
-            className="accordion-header"
-          >
-            Entente(s) avec {openAccordion.newAnimalEntente ? "▲" : "▼"}
-          </h3>
-          {openAccordion.newAnimalEntente && (
-            <div className="accordion-content checkbox-options">
-              <p>Sélectionner un ou plusieurs types d'entente</p>
-              {ententeAvecOptions.map((option) => (
-                <div key={`new-entente-${option}`}>
-                  <input
-                    type="checkbox"
-                    id={`new-entente-${option}`}
-                    value={option}
-                    checked={newAnimal.ententeAvec.includes(option)}
-                    onChange={(e) =>
-                      handleCheckboxChange(e, "ententeAvec", newAnimal, setNewAnimal)
-                    }
-                  />
-                  <label htmlFor={`new-entente-${option}`}>{option}</label>
-                </div>
-              ))}
+            <div className="card-content">
+              <div className="search-bar">
+                <SearchIcon />
+                <input
+                  type="text"
+                  placeholder="Rechercher un animal par nom, espèce, race..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <div className="table-responsive">
+                <table className="data-table animals-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom</th>
+                      <th>Espèce</th>
+                      <th>Race</th>
+                      <th>Âge</th>
+                      <th>Statut</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredAnimals.length > 0 ? (
+                      filteredAnimals.map(animal => (
+                        <tr key={animal.id}>
+                          <td>{animal.id}</td>
+                          <td>{animal.name}</td>
+                          <td>{animal.species}</td>
+                          <td>{animal.breed}</td>
+                          <td>{animal.age} ans</td>
+                          <td>
+                            <Chip
+                              label={animal.status === 'Available' ? 'Disponible' : 'Adopté'}
+                              icon={animal.status === 'Available' ? <PetsIcon /> : <CheckIcon />}
+                              color={animal.status === 'Available' ? 'primary' : 'success'}
+                              size="small"
+                              sx={{ fontWeight: 'bold' }}
+                            />
+                          </td>
+                          <td className="actions-cell">
+                            <IconButton className="btn-icon btn-view" onClick={() => handleViewAnimalDetails(animal)} title="Voir détails">
+                              <VisibilityIcon />
+                            </IconButton>
+                            <IconButton className="btn-icon btn-edit" onClick={() => handleEditAnimal(animal)} title="Modifier">
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteAnimal(animal.id)} title="Supprimer">
+                              <DeleteIcon />
+                            </IconButton>
+                            <IconButton
+                              className={`btn-icon ${animal.status === 'Available' ? 'btn-adopt' : 'btn-unadopt'}`}
+                              onClick={() => handleChangeAnimalStatus(animal.id, animal.status)}
+                              title={animal.status === 'Available' ? 'Marquer Adopté' : 'Marquer Disponible'}
+                            >
+                              {animal.status === 'Available' ? <CheckIcon /> : <PetsIcon />}
+                            </IconButton>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="7" className="no-data">Aucun animal trouvé.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          )}
-          {/* FIN NOUVEAUX CHAMPS ACCORDION */}
-
-          <label>Description</label>
-          <textarea
-            value={newAnimal.description}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, description: e.target.value })
-            }
-          />
-
-          <label>Description Adoption</label>
-          <textarea
-            value={newAnimal.descriptionAdoption}
-            onChange={(e) =>
-              setNewAnimal({
-                ...newAnimal,
-                descriptionAdoption: e.target.value,
-              })
-            }
-          />
-
-          <label htmlFor="newAnimalDateArrivee">Date d'arrivée</label>
-          <input
-            id="newAnimalDateArrivee" // Added ID for specific styling
-            type="date"
-            value={newAnimal.dateArrivee}
-            onChange={(e) =>
-              setNewAnimal({ ...newAnimal, dateArrivee: e.target.value })
-            }
-            className="date-input" // Added class for styling
-          />
-
-          {/* Styled file inputs for NEW animal */}
-          <div className="file-input-wrapper">
-            <label htmlFor="image1" className="file-input-label">
-              Choisir Image 1
-            </label>
-            <input
-              id="image1"
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleImageChange(e, "image", setNewAnimal)}
-              className="hidden-file-input"
-            />
-            {newAnimal.image && (
-              <span className="file-name">{getFileName(newAnimal.image)}</span>
-            )}
           </div>
-          {newAnimal.image && (
-            <img
-              src={newAnimal.image}
-              alt="Preview"
-              style={{ maxWidth: "150px", marginTop: "5px" }}
-            />
-          )}
+        )}
 
-          <div className="file-input-wrapper">
-            <label htmlFor="image2" className="file-input-label">
-              Choisir Image 2
-            </label>
-            <input
-              id="image2"
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleImageChange(e, "image2", setNewAnimal)}
-              className="hidden-file-input"
-            />
-            {newAnimal.image2 && (
-              <span className="file-name">
-                {getFileName(newAnimal.image2)}
-              </span>
-            )}
+        {activeView === 'users' && (
+          <div className="grid-card grid-card-users">
+            <div className="card-header">
+              <h3>Gestion des Utilisateurs</h3>
+            </div>
+            <div className="card-content">
+              <div className="search-bar">
+                <SearchIcon />
+                <input
+                  type="text"
+                  placeholder="Rechercher un utilisateur par nom, email..."
+                  value={userSearchTerm}
+                  onChange={(e) => setUserSearchTerm(e.target.value)}
+                />
+              </div>
+              <div className="table-responsive">
+                <table className="data-table users-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom</th>
+                      <th>Email</th>
+                      <th>Rôle</th>
+                      <th>Date d'inscription</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredUsers.length > 0 ? (
+                      filteredUsers.map(user => (
+                        <tr key={user.id}>
+                          <td>{user.id}</td>
+                          <td>{user.name}</td>
+                          <td>{user.email}</td>
+                          <td>
+                            <Chip
+                              label={user.role}
+                              icon={<PersonIcon />}
+                              color={user.role === 'Admin' ? 'secondary' : 'default'}
+                              size="small"
+                              sx={{ fontWeight: 'bold' }}
+                            />
+                          </td>
+                          <td>{user.registeredDate}</td>
+                          <td className="actions-cell">
+                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteUser(user.id)} title="Supprimer utilisateur">
+                              <DeleteIcon />
+                            </IconButton>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6" className="no-data">Aucun utilisateur enregistré.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          {newAnimal.image2 && (
-            <img
-              src={newAnimal.image2}
-              alt="Preview"
-              style={{ maxWidth: "150px", marginTop: "5px" }}
-            />
-          )}
+        )}
 
-          <div className="file-input-wrapper">
-            <label htmlFor="image3" className="file-input-label">
-              Choisir Image 3
-            </label>
-            <input
-              id="image3"
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleImageChange(e, "image3", setNewAnimal)}
-              className="hidden-file-input"
-            />
-            {newAnimal.image3 && (
-              <span className="file-name">
-                {getFileName(newAnimal.image3)}
-              </span>
-            )}
+        {activeView === 'comments' && (
+          <div className="grid-card grid-card-comments">
+            <div className="card-header">
+              <h3>Gestion des Commentaires</h3>
+            </div>
+            <div className="card-content">
+              <div className="table-responsive">
+                <table className="data-table comments-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Auteur</th>
+                      <th>Email</th>
+                      <th>Contenu</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {comments.length > 0 ? (
+                      comments.map(comment => (
+                        <tr key={comment.id}>
+                          <td>{comment.id}</td>
+                          <td>{comment.author}</td>
+                          <td>{comment.email}</td>
+                          <td className="comment-content-cell" title={comment.content}>{comment.content}</td>
+                          <td>{comment.date}</td>
+                          <td className="actions-cell">
+                            <IconButton className="btn-icon btn-view" onClick={() => handleViewCommentDetails(comment)} title="Voir le commentaire complet">
+                              <VisibilityIcon />
+                            </IconButton>
+                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteComment(comment.id)} title="Supprimer commentaire">
+                              <DeleteIcon />
+                            </IconButton>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6" className="no-data">Aucun commentaire reçu.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          {newAnimal.image3 && (
-            <img
-              src={newAnimal.image3}
-              alt="Preview"
-              style={{ maxWidth: "150px", marginTop: "5px" }}
-            />
-          )}
+        )}
+      </div>
 
-          <button type="submit">Ajouter</button>
-        </form>
-      </section>
-
-      <section className="section accordion-section">
-        <h2 onClick={() => toggleAccordion("animals")} className="accordion-header">
-          Animaux enregistrés {openAccordion.animals ? "▲" : "▼"}
-        </h2>
-        {openAccordion.animals && (
-          <>
-            {/* Search input for animals */}
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Rechercher par le nom d'animal..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
+      {/* Animal Form Modal */}
+      {isAnimalFormModalOpen && (
+        <SimpleModal onClose={closeAnimalFormModal} title={editingAnimal ? `Modifier l'animal : ${editingAnimal.name}` : 'Ajouter un nouvel animal'}>
+          <form onSubmit={handleSubmitAnimal} className="modal-form animal-form">
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Nom:</label>
+                <input type="text" name="name" value={newAnimal.name} onChange={handleAnimalChange} required />
+              </div>
+              <div className="form-group">
+                <label>Espèce:</label>
+                <input type="text" name="species" value={newAnimal.species} onChange={handleAnimalChange} required />
+              </div>
+              <div className="form-group">
+                <label>Race:</label>
+                <input type="text" name="breed" value={newAnimal.breed} onChange={handleAnimalChange} />
+              </div>
+              <div className="form-group">
+                <label>Âge (ans):</label>
+                <input type="number" name="age" value={newAnimal.age} onChange={handleAnimalChange} min="0" />
+              </div>
+              <div className="form-group">
+                <label>Sexe:</label>
+                <select name="gender" value={newAnimal.gender} onChange={handleAnimalChange} required>
+                  <option value="">Sélectionner</option>
+                  <option value="Male">Mâle</option>
+                  <option value="Female">Femelle</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Taille:</label>
+                <input type="text" name="size" value={newAnimal.size} onChange={handleAnimalChange} />
+              </div>
+              <div className="form-group">
+                <label>Date d'arrivée:</label>
+                <input type="date" name="arrivalDate" value={newAnimal.arrivalDate} onChange={handleAnimalChange} required />
+              </div>
+              <div className="form-group checkbox-group">
+                <label>Sauvetage:</label>
+                <input type="checkbox" name="isRescue" checked={newAnimal.isRescue} onChange={handleAnimalChange} />
+              </div>
             </div>
 
-            {filteredAnimals.length === 0 && <p>Aucun animal trouvé.</p>}
-            {filteredAnimals.map((a) => (
-              <div key={a._id} className="animal-card">
-                {editAnimalId === a._id ? (
-                  // Edit Form for Animal
-                  <div className="edit-animal-form">
-                    <label>Nom</label>
-                    <input
-                      value={editAnimalData.nom}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, nom: e.target.value })
-                      }
-                    />
+            <div className="form-group full-width">
+              <label>Description générale:</label>
+              <textarea name="generalDescription" value={newAnimal.generalDescription} onChange={handleAnimalChange} rows="3" required></textarea>
+            </div>
+            <div className="form-group full-width">
+              <label>Description d'adoption:</label>
+              <textarea name="adoptionDescription" value={newAnimal.adoptionDescription} onChange={handleAnimalChange} rows="3" required></textarea>
+            </div>
 
-                    <label>Espèce</label>
-                    <select
-                      value={editAnimalData.espece}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, espece: e.target.value })
-                      }
-                    >
-                      <option value="Chien">Chien</option>
-                      <option value="Chat">Chat</option>
-                    </select>
-
-                    <label>Race</label>
-                    <input
-                      value={editAnimalData.race}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, race: e.target.value })
-                      }
-                    />
-
-                    <label>Âge</label>
-                    <input
-                      type="number"
-                      value={editAnimalData.age}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, age: e.target.value })
-                      }
-                    />
-
-                    <label>Sexe</label>
-                    <select
-                      value={editAnimalData.sexe}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, sexe: e.target.value })
-                      }
-                    >
-                      <option value="Mâle">Mâle</option>
-                      <option value="Femelle">Femelle</option>
-                      <option value="Inconnu">Inconnu</option>
-                    </select>
-
-                    <label>Taille</label>
-                    <select
-                      value={editAnimalData.taille}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, taille: e.target.value })
-                      }
-                    >
-                      <option value="petit">Petit</option>
-                      <option value="moyen">Moyen</option>
-                      <option value="grand">Grand</option>
-                    </select>
-
-                    {/* NOUVEAU CHAMP EDIT : Sauvetage (isRescue) */}
-                    <div className="checkbox-group">
+            <div className="form-grid checkbox-selection-grid">
+              <div className="form-group checkbox-section">
+                <label>Comportements:</label>
+                <div className="checkbox-list">
+                  {commonBehaviors.map(behavior => (
+                    <label key={behavior}>
                       <input
                         type="checkbox"
-                        id="isRescueEdit"
-                        checked={editAnimalData.isRescue}
-                        onChange={(e) =>
-                          setEditAnimalData({ ...editAnimalData, isRescue: e.target.checked })
-                        }
+                        value={behavior}
+                        checked={newAnimal.behaviors.includes(behavior)}
+                        onChange={(e) => handleCheckboxChange(e, 'behaviors')}
                       />
-                      <label htmlFor="isRescueEdit">Est un sauvetage ?</label>
-                    </div>
+                      {behavior}
+                    </label>
+                  ))}
+                </div>
+              </div>
 
-                    {/* CHAMPS DE MODIFICATION ACCORDION : COMPORTEMENT ET ENTENTE AVEC */}
-                    <h3
-                      onClick={() => toggleAccordion("editAnimalComportement")}
-                      className="accordion-header"
-                    >
-                      Comportement(s) {openAccordion.editAnimalComportement ? "▲" : "▼"}
-                    </h3>
-                    {openAccordion.editAnimalComportement && (
-                      <div className="accordion-content checkbox-options">
-                        <p>Sélectionner un ou plusieurs comportements</p>
-                        {comportementOptions.map((option) => (
-                          <div key={`edit-comportement-${option}`}>
-                            <input
-                              type="checkbox"
-                              id={`edit-comportement-${option}`}
-                              value={option}
-                              checked={editAnimalData.comportement.includes(option)}
-                              onChange={(e) =>
-                                handleCheckboxChange(e, "comportement", editAnimalData, setEditAnimalData)
-                              }
-                            />
-                            <label htmlFor={`edit-comportement-${option}`}>{option}</label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+              <div className="form-group checkbox-section">
+                <label>Ententes avec:</label>
+                <div className="checkbox-list">
+                  {commonCompatibilities.map(compatibility => (
+                    <label key={compatibility}>
+                      <input
+                        type="checkbox"
+                        value={compatibility}
+                        checked={newAnimal.compatibilities.includes(compatibility)}
+                        onChange={(e) => handleCheckboxChange(e, 'compatibilities')}
+                      />
+                      {compatibility}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
 
-                    <h3
-                      onClick={() => toggleAccordion("editAnimalEntente")}
-                      className="accordion-header"
-                    >
-                      Entente(s) avec {openAccordion.editAnimalEntente ? "▲" : "▼"}
-                    </h3>
-                    {openAccordion.editAnimalEntente && (
-                      <div className="accordion-content checkbox-options">
-                        <p>Sélectionner un ou plusieurs types d'entente</p>
-                        {ententeAvecOptions.map((option) => (
-                          <div key={`edit-entente-${option}`}>
-                            <input
-                              type="checkbox"
-                              id={`edit-entente-${option}`}
-                              value={option}
-                              checked={editAnimalData.ententeAvec.includes(option)}
-                              onChange={(e) =>
-                                handleCheckboxChange(e, "ententeAvec", editAnimalData, setEditAnimalData)
-                              }
-                            />
-                            <label htmlFor={`edit-entente-${option}`}>{option}</label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {/* FIN CHAMPS DE MODIFICATION ACCORDION */}
-
-                    <label>Description</label>
-                    <textarea
-                      value={editAnimalData.description}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, description: e.target.value })
-                      }
-                    />
-
-                    <label>Description Adoption</label>
-                    <textarea
-                      value={editAnimalData.descriptionAdoption}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, descriptionAdoption: e.target.value })
-                      }
-                    />
-
-                    <label htmlFor="editAnimalDateArrivee">Date d'arrivée</label>
-                    <input
-                      id="editAnimalDateArrivee" // Added ID for specific styling
-                      type="date"
-                      value={editAnimalData.dateArrivee}
-                      onChange={(e) =>
-                        setEditAnimalData({ ...editAnimalData, dateArrivee: e.target.value })
-                      }
-                      className="date-input" // Added class for styling
-                    />
-
-                    {/* Image modification fields */}
-                    <div className="image-edit-section">
-                      <h4>Modifier les images :</h4>
-                      <div className="file-input-wrapper">
-                        <label htmlFor="editImage1" className="file-input-label">
-                          Image 1
-                        </label>
-                        <input
-                          id="editImage1"
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleImageChange(e, "image", setEditAnimalData)}
-                          className="hidden-file-input"
-                        />
-                        {editAnimalData.image && (
-                          <span className="file-name">{getFileName(editAnimalData.image)}</span>
-                        )}
-                      </div>
-                      {editAnimalData.image && (
-                        <img
-                          src={editAnimalData.image}
-                          alt="Preview 1"
-                          className="image-preview-edit"
-                        />
-                      )}
-                      <button
-                        type="button"
-                        className="btn_clear_image"
-                        onClick={() => setEditAnimalData((prev) => ({ ...prev, image: "" }))}
-                      >
-                        Supprimer Image 1
-                      </button>
-
-                      <div className="file-input-wrapper">
-                        <label htmlFor="editImage2" className="file-input-label">
-                          Image 2
-                        </label>
-                        <input
-                          id="editImage2"
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleImageChange(e, "image2", setEditAnimalData)}
-                          className="hidden-file-input"
-                        />
-                        {editAnimalData.image2 && (
-                          <span className="file-name">{getFileName(editAnimalData.image2)}</span>
-                        )}
-                      </div>
-                      {editAnimalData.image2 && (
-                        <img
-                          src={editAnimalData.image2}
-                          alt="Preview 2"
-                          className="image-preview-edit"
-                        />
-                      )}
-                      <button
-                        type="button"
-                        className="btn_clear_image"
-                        onClick={() => setEditAnimalData((prev) => ({ ...prev, image2: "" }))}
-                      >
-                        Supprimer Image 2
-                      </button>
-
-                      <div className="file-input-wrapper">
-                        <label htmlFor="editImage3" className="file-input-label">
-                          Image 3
-                        </label>
-                        <input
-                          id="editImage3"
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleImageChange(e, "image3", setEditAnimalData)}
-                          className="hidden-file-input"
-                        />
-                        {editAnimalData.image3 && (
-                          <span className="file-name">{getFileName(editAnimalData.image3)}</span>
-                        )}
-                      </div>
-                      {editAnimalData.image3 && (
-                        <img
-                          src={editAnimalData.image3}
-                          alt="Preview 3"
-                          className="image-preview-edit"
-                        />
-                      )}
-                      <button
-                        type="button"
-                        className="btn_clear_image"
-                        onClick={() => setEditAnimalData((prev) => ({ ...prev, image3: "" }))}
-                      >
-                        Supprimer Image 3
-                      </button>
-                    </div> {/* End image-edit-section */}
-
-                    <div className="buttons">
-                      <button onClick={() => handleSaveEditAnimal(a._id)} className="btn_save">
-                        Sauvegarder
-                      </button>
-                      <button onClick={handleCancelEdit} className="btn_cancel">
-                        Annuler
-                      </button>
-                    </div>
+            <div className="form-group full-width">
+              <label>Images (max 3):</label>
+              <input type="file" accept="image/*" multiple onChange={handleImageUpload} disabled={imagePreviews.length >= 3} />
+              <div className="image-previews">
+                {imagePreviews.map((src, index) => (
+                  <div key={index} className="image-preview-item">
+                    <img src={src} alt={`preview ${index}`} />
+                    <button type="button" onClick={() => removeImagePreview(index)} title="Supprimer l'image">X</button>
                   </div>
-                ) : (
-                  // Display Mode for Animal
-                  <div className="animal-display-info">
-                    <h3>{a.nom}</h3>
-                    <p>
-                      <span className="info-label">Espèce :</span> {a.espece}
-                    </p>
-                    <p>
-                      <span className="info-label">Race :</span> {a.race}
-                    </p>
-                    <p>
-                      <span className="info-label">Âge :</span> {a.age} ans
-                    </p>
-                    <p>
-                      <span className="info-label">Sexe :</span> {a.sexe}
-                    </p>
-                    <p>
-                      <span className="info-label">Taille :</span> {a.taille}
-                    </p>
-                    {/* Affichage des nouveaux champs */}
-                    <p>
-                      <span className="info-label">Comportement(s) :</span>{" "}
-                      {a.comportement && a.comportement.length > 0
-                        ? a.comportement.join(", ")
-                        : "Non spécifié"}
-                    </p>
-                    <p>
-                      <span className="info-label">Entente(s) avec :</span>{" "}
-                      {a.ententeAvec && a.ententeAvec.length > 0
-                        ? a.ententeAvec.join(", ")
-                        : "Non spécifié"}
-                    </p>
-                    {/* NOUVEAU : Affichage du statut de sauvetage (isRescue) */}
-                    <p>
-                      <span className="info-label">Sauvetage :</span>{" "}
-                      {a.isRescue ? (
-                        <span className="tag-rescue">Oui</span>
-                      ) : (
-                        <span className="tag-not-rescue">Non</span>
-                      )}
-                    </p>
-                    {/* Fin affichage nouveaux champs */}
-                    <p>
-                      <span className="info-label">Statut :</span>{" "}
-                      <span className={`status-${a.adopte ? "adopted" : "available"}`}>
-                        {a.adopte ? "Adopté" : "Disponible"}
-                      </span>
-                    </p>
-                    <p>
-                      <span className="info-label">Date d'arrivée :</span>{" "}
-                      {a.dateArrivee
-                        ? new Date(a.dateArrivee).toLocaleDateString("fr-FR")
-                        : "-"}
-                    </p>
-                    <div className="description-section">
-                      <span className="info-label">Description :</span>
-                      <textarea
-                        value={a.description || ""}
-                        onChange={(e) => handleUpdateDescription(a._id, e.target.value)}
-                        placeholder="Ajouter une description..."
-                      />
-                    </div>
-                    <div className="description-section">
-                      <span className="info-label">Description Adoption :</span>
-                      <textarea
-                        value={a.descriptionAdoption || ""}
-                        onChange={(e) => handleUpdateDescriptionAdoption(a._id, e.target.value)}
-                        placeholder="Ajouter une description d'adoption..."
-                      />
-                    </div>
-
-                    <div className="image-display-section">
-                      {a.images && a.images.length > 0 && (
-                        <>
-                          <h4>Images :</h4>
-                          <div className="image-previews">
-                            {a.images.map((img, index) => (
-                              <img
-                                key={index}
-                                src={img}
-                                alt={`Animal ${a.nom} - ${index + 1}`}
-                                className="animal-image-preview"
-                              />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    <div className="buttons">
-                      <button
-                        onClick={() => handleToggleAdoption(a._id, a.adopte)}
-                        className={`btn_toggle_adoption ${a.adopte ? "btn_available" : "btn_adopted"
-                          }`}
-                      >
-                        Marquer comme {a.adopte ? "Disponible" : "Adopté"}
-                      </button>
-                      <button
-                        onClick={() => handleEditAnimal(a)}
-                        className="btn_edit"
-                      >
-                        Modifier
-                      </button>
-                      <button
-                        onClick={() => confirmDeleteAnimal(a._id)}
-                        className="btn_delete"
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-                  </div>
-                )}
+                ))}
               </div>
-            ))}
-          </>
-        )}
-      </section>
+              {imagePreviews.length === 0 && <p className="help-text">Téléchargez jusqu'à 3 images pour l'animal.</p>}
+            </div>
 
-      {/* Accordion for Users */}
-      <section className="section accordion-section">
-        <h2 onClick={() => toggleAccordion("users")} className="accordion-header">
-          Utilisateurs enregistrés {openAccordion.users ? "▲" : "▼"}
-        </h2>
-        {openAccordion.users && (
-          <div className="accordion-content">
-            {users.length === 0 && <p>Aucun utilisateur trouvé.</p>}
-            {users.map((user) => (
-              <div key={user._id} className="user-card">
-                <h3>{user.email}</h3>
-                <p>
-                  <span className="info-label">Rôle :</span> {user.role}
-                </p>
-                <button
-                  onClick={() => confirmDeleteUser(user._id)}
-                  className="btn_delete"
-                >
-                  Supprimer
-                </button>
+            <div className="modal-actions">
+              <Button type="submit" variant="contained" className="btn-primary" disabled={loading} startIcon={editingAnimal ? <EditIcon /> : <AddIcon />}>
+                {editingAnimal ? 'Modifier l\'animal' : 'Ajouter l\'animal'}
+              </Button>
+              <Button type="button" variant="outlined" className="btn-secondary" onClick={closeAnimalFormModal} disabled={loading} startIcon={<CloseIcon />}>
+                Annuler
+              </Button>
+            </div>
+          </form>
+        </SimpleModal>
+      )}
+
+      {/* Animal Detail Modal */}
+      {animalDetailModal && (
+        <SimpleModal onClose={() => setAnimalDetailModal(null)} title={`Détails de ${animalDetailModal.name}`}>
+          <div className="animal-details-modal-content">
+            <div className="detail-images">
+              {animalDetailModal.images.length > 0 ? (
+                animalDetailModal.images.map((img, index) => (
+                  <img key={index} src={img} alt={`${animalDetailModal.name} image ${index + 1}`} onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/150x150/EEEEEE/888888?text=Image+introuvable"; }} />
+                ))
+              ) : (
+                <p>Aucune image disponible.</p>
+              )}
+            </div>
+            <div className="detail-info-grid">
+              <div className="detail-item"><strong>ID:</strong> {animalDetailModal.id}</div>
+              <div className="detail-item"><strong>Nom:</strong> {animalDetailModal.name}</div>
+              <div className="detail-item"><strong>Espèce:</strong> {animalDetailModal.species}</div>
+              <div className="detail-item"><strong>Race:</strong> {animalDetailModal.breed || 'N/A'}</div>
+              <div className="detail-item"><strong>Âge:</strong> {animalDetailModal.age} ans</div>
+              <div className="detail-item"><strong>Sexe:</strong> {animalDetailModal.gender}</div>
+              <div className="detail-item"><strong>Taille:</strong> {animalDetailModal.size || 'N/A'}</div>
+              <div className="detail-item"><strong>Date d'arrivée:</strong> {animalDetailModal.arrivalDate}</div>
+              <div className="detail-item"><strong>Sauvetage:</strong> {animalDetailModal.isRescue ? 'Oui' : 'Non'}</div>
+              <div className="detail-item">
+                <strong>Statut:</strong>
+                <Chip
+                  label={animalDetailModal.status === 'Available' ? 'Disponible' : 'Adopté'}
+                  icon={animalDetailModal.status === 'Available' ? <PetsIcon /> : <CheckIcon />}
+                  color={animalDetailModal.status === 'Available' ? 'primary' : 'success'}
+                  size="small"
+                  sx={{ fontWeight: 'bold' }}
+                />
               </div>
-            ))}
+            </div>
+            <div className="detail-section full-width">
+              <strong>Description générale:</strong>
+              <p>{animalDetailModal.generalDescription}</p>
+            </div>
+            <div className="detail-section full-width">
+              <strong>Description d'adoption:</strong>
+              <p>{animalDetailModal.adoptionDescription}</p>
+            </div>
+            <div className="detail-section">
+              <strong>Comportements:</strong>
+              <p>{animalDetailModal.behaviors.length > 0 ? animalDetailModal.behaviors.join(', ') : 'Aucun'}</p>
+            </div>
+            <div className="detail-section">
+              <strong>Ententes avec:</strong>
+              <p>{animalDetailModal.compatibilities.length > 0 ? animalDetailModal.compatibilities.join(', ') : 'Aucune'}</p>
+            </div>
           </div>
-        )}
-      </section>
+        </SimpleModal>
+      )}
 
-      {/* Accordion for Comments */}
-      <section className="section accordion-section">
-        <h2 onClick={() => toggleAccordion("comments")} className="accordion-header">
-          Commentaires {openAccordion.comments ? "▲" : "▼"}
-        </h2>
-        {openAccordion.comments && (
-          <div className="accordion-content">
-            {comments.length === 0 && <p>Aucun commentaire trouvé.</p>}
-            {comments.map((comment) => (
-              <div key={comment._id} className="comment-card">
-                <p>
-                  <span className="info-label">De :</span> {comment.nom}
-                </p>
-                <p>
-                  <span className="info-label">Email :</span> {comment.email}
-                </p>
-                <p>
-                  <span className="info-label">Message :</span>{" "}
-                  {comment.message}
-                </p>
-                <p>
-                  <span className="info-label">Reçu le :</span>{" "}
-                  {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
-                </p>
-                <button
-                  onClick={() => confirmDeleteComment(comment._id)}
-                  className="btn_delete"
-                >
-                  Supprimer
-                </button>
-              </div>
-            ))}
+      {/* Comment Detail Modal */}
+      {commentDetailModal && (
+        <SimpleModal onClose={() => setCommentDetailModal(null)} title={`Détails du commentaire de ${commentDetailModal.author}`}>
+          <div className="comment-details-modal-content">
+            <p><strong>Auteur:</strong> {commentDetailModal.author}</p>
+            <p><strong>Email:</strong> {commentDetailModal.email}</p>
+            <p><strong>Date:</strong> {commentDetailModal.date}</p>
+            <div className="comment-full-content-section">
+              <strong>Contenu:</strong>
+              <p>{commentDetailModal.content}</p>
+            </div>
           </div>
-        )}
-      </section>
+        </SimpleModal>
+      )}
+
+      {/* General Confirmation Modal (uses MUI Dialog internally) */}
+      <ConfirmationModal
+        isOpen={confirmationModal.isOpen}
+        title={confirmationModal.title}
+        message={confirmationModal.message}
+        onConfirm={confirmationModal.onConfirm}
+        onCancel={closeConfirmationModal}
+      />
     </div>
   );
-}
+};
 
-export default Back_office;
+export default BackOffice;

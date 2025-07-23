@@ -1,842 +1,778 @@
-/* Back_office.css */
-
-.back-office {
-  padding: 2rem;
-  background-color: #ebeaea;
-  color: #333;
-  margin: 0 auto;
-  margin-top: 7rem;
+.app-root {
+  background-color: #f0f2f5;
+  color: #344767;
+  line-height: 1.6;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.back-office img {
-  width: 200px;
-  height: 200px;
-  margin: 0.3rem;
+.back-office-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.MuiSvgIcon-root {
+  vertical-align: middle;
+}
+
+.back-office-title {
+  text-align: center;
+  color: #344767;
+  margin-bottom: 50px;
+  font-size: 3em;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  border-bottom: 4px solid #3f51b5;
+  padding-bottom: 20px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.05em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: #2196f3;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #1976d2;
+}
+
+.btn-secondary {
+  background-color: #90a4ae; /* Muted grey */
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #78909c;
+}
+
+.btn-add {
+  background-color: #4caf50; /* Green for add */
+  color: white;
+}
+.btn-add:hover {
+  background-color: #43a047;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%; /* Circular buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 4px; /* Space between icon buttons */
+  background-color: var(--button-bg-color, transparent); /* Fallback */
+  color: var(--button-color, currentColor); /* Fallback */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+.btn-icon:hover {
+  transform: translateY(-1px); /* Slight lift on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-edit {
+  --button-bg-color: #2196f3; /* Blue */
+  --button-color: white;
+}
+.btn-edit:hover {
+  background-color: #1976d2;
+}
+
+.btn-delete {
+  --button-bg-color: #f44336; /* Red */
+  --button-color: white;
+}
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+.btn-adopt {
+  /* For marking available -> adopted */
+  --button-bg-color: #00bcd4; /* Cyan blue */
+  --button-color: white;
+}
+.btn-adopt:hover {
+  background-color: #0097a7;
+}
+
+.btn-unadopt {
+  /* For marking adopted -> available */
+  --button-bg-color: #64b5f6; /* Light Blue */
+  --button-color: white;
+}
+.btn-unadopt:hover {
+  background-color: #42a5f5;
+}
+
+.btn-view {
+  --button-bg-color: #673ab7; /* Deep Purple */
+  --button-color: white;
+}
+.btn-view:hover {
+  background-color: #512da8;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.header-actions .main-nav-buttons {
+  flex-grow: 1;
+  margin-bottom: 0; /* Override default margin */
+}
+
+.logout-btn {
+  white-space: nowrap; /* Prevent text wrapping */
+  padding: 12px 20px;
+  font-size: 1em;
+}
+
+/* Main Navigation Buttons (Top Tabs) */
+.main-nav-buttons {
+  display: flex;
+  justify-content: center;
+  background-color: #e3f2fd; /* Light blue background for tabs */
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.main-nav-buttons .nav-btn {
+  flex: 1;
+  max-width: 300px;
+  background-color: transparent;
+  color: #3f51b5; /* Deeper blue text */
+  font-size: 1.15em;
+  font-weight: 700;
+  padding: 15px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: none; /* Override default btn shadow */
+  display: flex; /* Ensure icon and text align */
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+.main-nav-buttons .nav-btn .MuiSvgIcon-root {
+  font-size: 1.3em; /* Larger icons for nav buttons */
+}
+
+.main-nav-buttons .nav-btn:hover {
+  background-color: #bbdefb; /* Lighter blue on hover */
+  color: #1a237e; /* Even deeper blue on hover */
+  transform: none; /* No lift effect for tabs */
+  box-shadow: none;
+}
+
+.main-nav-buttons .nav-btn.active {
+  background-color: #3f51b5; /* Primary blue for active tab */
+  color: white;
+  box-shadow: 0 4px 10px rgba(63, 81, 181, 0.3); /* Blue shadow */
+}
+
+.main-nav-buttons .nav-btn.active:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column by default */
+  gap: 30px;
+  min-height: 600px; /* Ensure content area has some height */
+}
+
+.grid-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+  padding: 30px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 2em;
+  color: #344767;
+  font-weight: 700;
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f7f9fc;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 25px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar .MuiSvgIcon-root {
+  /* Targeting the MUI SearchIcon */
+  margin-right: 12px;
+  color: #888;
+  font-size: 1.3em; /* Slightly larger */
+}
+
+.search-bar input {
+  flex-grow: 1;
+  border: none;
+  background-color: transparent;
+  font-size: 1em;
+  color: #333;
+  outline: none;
+}
+.search-bar input::placeholder {
+  color: #aab8c2;
+}
+
+/* Table Styling */
+.table-responsive {
+  overflow-x: auto;
+  flex-grow: 1; /* Allow table to take available height */
+  margin-top: 15px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: separate; /* For rounded corners on cells */
+  border-spacing: 0;
+  min-width: 800px; /* Minimum width to prevent squishing */
+}
+
+.data-table th,
+.data-table td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #e7ebf0;
+  color: #495057;
+}
+
+.data-table th {
+  background-color: #f7f9fc;
+  color: #607d8b;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.7px;
+  position: sticky; /* Make headers stick */
+  top: 0;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #fcfcfd;
+}
+
+.data-table tbody tr:hover {
+  background-color: #edf2f7;
+  transition: background-color 0.2s ease;
+}
+
+.data-table td {
+  vertical-align: middle;
+  font-size: 0.95em;
+}
+
+.data-table .actions-cell {
+  white-space: nowrap; /* Prevent actions buttons from wrapping */
+  text-align: right; /* Align action buttons to the right */
+}
+
+.no-data {
+  text-align: center;
+  padding: 30px;
+  color: #90a4ae;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+/* Specific Table cells */
+.comment-content-cell {
+  max-width: 300px; /* Limit width for long comments */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: help; /* Indicate that it's truncated */
+}
+
+/* Modal Form Styling (for SimpleModal body content) */
+.modal-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.modal-form .form-group {
+  margin-bottom: 0; /* Handled by grid gap */
+}
+
+.modal-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.modal-form input[type="text"],
+.modal-form input[type="number"],
+.modal-form input[type="date"],
+.modal-form select,
+.modal-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  background-color: #fdfdfd;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-form input[type="text"]:focus,
+.modal-form input[type="number"]:focus,
+.modal-form input[type="date"]:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+  border-color: #2196f3; /* Blue focus */
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+  outline: none;
+}
+
+.modal-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modal-form .full-width {
+  grid-column: 1 / -1; /* Make element span all columns */
+}
+
+.modal-form .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-form .checkbox-group label {
+  margin-bottom: 0;
+}
+.modal-form .checkbox-group input[type="checkbox"] {
+  transform: scale(1.1);
+  accent-color: #2196f3; /* Blue accent for checkboxes */
+}
+
+.modal-form .checkbox-section {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fcfcfc;
+}
+.modal-form .checkbox-section label:first-child {
+  font-size: 1.05em;
+  color: #344767;
+  margin-bottom: 15px;
+}
+.modal-form .checkbox-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.modal-form .checkbox-list label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+  color: #495057;
+  margin-bottom: 0;
+}
+
+/* Image Previews in Modal */
+.modal-form .image-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px dashed #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.modal-form .image-preview-item {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e9eff2;
+}
+
+.modal-form .image-preview-item img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-.h1_office {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #2c3e50;
-  border: 3px solid #3498db;
-  padding: 6px;
-  width: fit-content;
-  justify-self: center;
-  margin-left: auto; /* Center the element */
-  margin-right: auto; /* Center the element */
+.modal-form .image-preview-item button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 0.7em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  line-height: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+.modal-form .image-preview-item button:hover {
+  background-color: #d32f2f;
 }
 
-.section {
-  background-color: #fff;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.modal-form .help-text {
+  font-size: 0.85em;
+  color: #888;
+  margin-top: 10px;
 }
 
-.section h2 {
-  color: #3498db;
-  margin-bottom: 1rem;
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+  margin-top: 25px;
 }
 
-.form-animal {
+/* Animal Details Modal Specifics */
+.animal-details-modal-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 25px;
 }
 
-.form-animal label {
-  font-weight: bold;
-  margin-top: 0.5rem; /* Add some space above labels */
-}
-
-.form-animal input,
-.form-animal select,
-.form-animal textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form-animal button {
-  padding: 0.6rem 1rem;
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-  margin-top: 1rem; /* Space above the submit button */
-}
-
-.form-animal button:hover {
-  background-color: #219150;
-}
-
-.animal-card,
-.user-card,
-.comment-card {
-  border: 1px solid #ddd;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  background-color: #fafafa;
-}
-
-.animal-card strong {
-  font-size: 1.1rem;
-  color: #2c3e50;
-}
-
-/* Updated Styles for ALL Textareas */
-textarea {
-  padding: 0.8rem; /* Slightly more padding */
-  border: 1px solid #c0c0c0; /* Softer border color */
-  border-radius: 8px; /* More rounded corners */
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 120px; /* Increased minimum height for more space */
-  resize: vertical; /* Allow only vertical resizing */
-  background-color: #fcfcfc; /* Very light background */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #3498db; /* Blue border on focus */
-  box-shadow: 0 0 6px rgba(52, 152, 219, 0.4); /* Subtle blue glow on focus */
-  background-color: #ffffff; /* White background on focus */
-}
-
-.buttons {
+.detail-images {
   display: flex;
-  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
-  gap: 0.5rem;
-  margin-top: 1rem; /* Space above action buttons */
-  justify-content: flex-end; /* Align buttons to the right */
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.detail-images img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.buttons button {
-  background-color: #3498db;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  border: 1px solid #e9eff2;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f7f9fc;
 }
 
-.buttons button:hover {
-  background-color: #2980b9;
+.detail-item {
+  padding: 8px 0;
+  font-size: 0.95em;
+  color: #555;
+}
+.detail-item strong {
+  color: #344767;
+  margin-right: 5px;
 }
 
-.comment-card,
-.user-card {
+.detail-section {
+  padding-top: 15px;
+  border-top: 1px dashed #e0e0e0;
+  margin-top: 15px;
+}
+.detail-section:first-of-type {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+.detail-section strong {
+  font-size: 1.1em;
+  color: #344767;
+  margin-bottom: 10px;
+  display: block;
+}
+.detail-section p {
+  margin-top: 8px;
+  line-height: 1.8;
+}
+
+/* Comment Detail Modal Specifics */
+.comment-details-modal-content {
+  padding: 10px 0;
+}
+.comment-details-modal-content p {
+  margin-bottom: 10px;
+}
+.comment-full-content-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #e0e0e0;
+}
+.comment-full-content-section strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #344767;
+}
+.comment-full-content-section p {
+  white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+  word-wrap: break-word; /* Break long words */
+  max-height: 300px; /* Limit height if comment is super long */
+  overflow-y: auto; /* Add scroll if needed */
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+/* Feedback Messages */
+.feedback-message {
+  padding: 18px 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  animation: fadeIn 0.5s ease-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.comment-card button,
-.user-card button {
-  background-color: #e74c3c;
-  border: none;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.feedback-message .MuiSvgIcon-root {
+  /* Targeting the MUI Icon components */
+  margin-right: 15px;
+  font-size: 1.5em;
 }
 
-.comment-card button:hover,
-.user-card button:hover {
-  background-color: #c0392b;
+.feedback-message.success {
+  background-color: #e8f5e9; /* Light green */
+  color: #2e7d32; /* Dark green */
+  border: 1px solid #a5d6a7; /* Border green */
+}
+.feedback-message.success .MuiSvgIcon-root {
+  color: #4caf50;
 }
 
-button.btn_delete {
-  background-color: #e74c3c;
+.feedback-message.error {
+  background-color: #ffebee; /* Light red */
+  color: #c62828; /* Dark red */
+  border: 1px solid #ef9a9a; /* Border red */
+}
+.feedback-message.error .MuiSvgIcon-root {
+  color: #f44336;
 }
 
-.popup-overlay {
+/* Loading Overlay */
+.loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001; /* Above modals */
+  backdrop-filter: blur(3px); /* Glassmorphism effect */
 }
 
-.popup-content {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  max-width: 450px;
-  width: 90%;
-  transform: translateY(-20px);
-  animation: fadeInPop 0.3s ease-out forwards;
-}
+/* MUI CircularProgress component is directly styled via props, no need for .spinner-icon */
 
-.popup-content p {
-  margin-bottom: 30px;
-  font-size: 1.2em;
-  color: #333;
-  line-height: 1.5;
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.popup-buttons button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.05em;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.btn_confirm {
-  background-color: #e74c3c;
-  color: white;
-}
-
-.btn_confirm:hover {
-  background-color: #c0392b;
-  transform: translateY(-1px);
-}
-
-.btn_cancel {
-  background-color: #3498db;
-  color: white;
-}
-
-.btn_cancel:hover {
-  background-color: #2980b9;
-  transform: translateY(-1px);
-}
-
-@keyframes fadeInPop {
+/* Keyframe Animations */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-40px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+  }
+}
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
-/* --- Styles for File Inputs --- */
-
-.file-input-wrapper {
-  display: flex; /* Aligns the label and file name */
-  align-items: center; /* Vertically centers them */
-  gap: 10px; /* Space between the button and file name */
-  margin-top: 1rem;
-}
-
-.hidden-file-input {
-  /* Hide the actual file input */
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-.file-input-label {
-  display: inline-block;
-  background-color: #3498db; /* A pleasant blue, matching other buttons */
-  color: white;
-  padding: 0.8rem 1.2rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  white-space: nowrap; /* Prevent text wrapping */
-}
-
-.file-input-label:hover {
-  background-color: #2980b9;
-  transform: translateY(-1px);
-}
-
-.file-name {
-  font-size: 0.9em;
-  color: #555;
-  white-space: nowrap; /* Prevent text wrapping for long file names */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis for long file names */
-  max-width: calc(100% - 150px); /* Adjust max-width based on label width */
-}
-
-/* Style for accordion headers */
-.accordion-header {
-  cursor: pointer;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.2s ease;
-}
-
-.accordion-header:hover {
-  background-color: #e7e6e6;
-}
-
-.edit-animal-form {
-  background-color: #e8f4f8; /* A light, calming blue to indicate edit mode */
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #aed6f1; /* A slightly darker blue border */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.8rem; /* Slightly reduced gap for a more compact form */
-}
-
-.edit-animal-form label {
-  font-weight: bold;
-  color: #2c3e50; /* Darker text for labels */
-  margin-top: 0.7rem; /* More space above labels */
-  margin-bottom: 0.2rem; /* Less space below labels to keep them close to inputs */
-  display: block; /* Ensure label takes full width */
-}
-
-/* Specific styling for inputs/selects/textareas within edit form */
-.edit-animal-form input,
-.edit-animal-form select,
-.edit-animal-form textarea {
-  padding: 0.7rem; /* Slightly more padding for easier interaction */
-  border: 1px solid #95a5a6; /* A neutral gray border */
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #ffffff; /* White background for inputs */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.edit-animal-form input:focus,
-.edit-animal-form select:focus,
-.edit-animal-form textarea:focus {
-  outline: none;
-  border-color: #3498db; /* Blue border on focus */
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Blue glow on focus */
-}
-
-.edit-animal-form textarea {
-  min-height: 20px;
-  resize: vertical; /* Allow vertical resizing */
-}
-
-.edit-animal-form .buttons {
-  margin-top: 1.5rem; /* More space above the action buttons in edit mode */
-  justify-content: flex-end; /* Align buttons to the right */
-}
-
-.edit-animal-form .btn_save {
-  background-color: #27ae60; /* Green for save */
-}
-
-.edit-animal-form .btn_save:hover {
-  background-color: #219150;
-}
-
-.edit-animal-form .btn_cancel {
-  background-color: #e74c3c; /* Red for cancel */
-}
-
-.edit-animal-form .btn_cancel:hover {
-  background-color: #c0392b;
-}
-
-/* --- New Styles for Animal Display Info --- */
-.animal-display-info h3 {
-  color: #2c3e50; /* Darker title for the animal name */
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #3498db; /* Blue underline */
-  padding-bottom: 0.5rem;
-  display: inline-block; /* To make border-bottom fit content */
-}
-
-.animal-display-info p {
-  margin-bottom: 0.5rem; /* Spacing between info lines */
-  line-height: 1.4;
-  color: #555;
-}
-
-.animal-display-info .info-label {
-  font-weight: bold;
-  color: #34495e; /* Slightly darker label color */
-  margin-right: 0.5rem; /* Space between label and value */
-  min-width: 120px; /* Ensure labels align */
-  display: inline-block;
-}
-
-.animal-display-info .description-section {
-  margin-top: 1rem;
-}
-
-.animal-display-info .description-section .info-label {
-  display: block; /* Label on its own line for description */
-  margin-bottom: 0.5rem;
-}
-
-/* Specific styling for textareas in display mode (editable) */
-.animal-display-info .description-section textarea {
-  background-color: #f8f8f8; /* Lighter background for description textarea */
-  border: 1px solid #ccc;
-  padding: 0.7rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  width: calc(100% - 1.4rem); /* Account for padding */
-  box-sizing: border-box;
-  min-height: 100px; /* Taller by default for descriptions */
-  resize: vertical; /* Allow vertical resizing */
-}
-
-.animal-display-info .status-adopted {
-  color: #e74c3c; /* Red for adopted */
-  font-weight: bold;
-}
-
-.animal-display-info .status-available {
-  color: #27ae60; /* Green for available */
-  font-weight: bold;
-}
-
-.animal-display-info .animal-images-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 1.5rem;
-  border-top: 1px dashed #ccc; /* Separator for images */
-  padding-top: 1rem;
-}
-
-.animal-display-info .animal-images-preview img {
-  width: 10px;
-  height: 10px;
-  object-fit: cover; /* Cover the area, crop if necessary */
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.animal-display-info .no-images {
-  font-style: italic;
-  color: #777;
-  text-align: center;
-  width: 100%;
-}
-
-/* --- Styles for Date Input --- */
-.date-input {
-  /* Resetting default browser styles for date input */
-  -webkit-appearance: none; /* For Chrome, Safari, Edge */
-  -moz-appearance: none; /* For Firefox */
-  appearance: none; /* Standard property */
-
-  /* Apply consistent form styling */
-  padding: 0.7rem;
-  border: 1px solid #95a5a6;
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  color: #333; /* Ensure text color is readable */
-
-  /* Add padding-right to make space for custom icon/clear default arrow */
-  padding-right: 2.5rem; /* Adjust as needed based on your icon size */
-
-  /* Position for custom icon (if you want one, otherwise browser default will show) */
-  position: relative;
-}
-
-/* On focus */
-.date-input:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-}
-
-/* For custom calendar icon (optional, and may not work on all browsers due to shadow DOM) */
-/* This aims to remove the default calendar icon. You might need to add a custom background-image for a universal icon. */
-.date-input::-webkit-calendar-picker-indicator {
-  color: rgba(0, 0, 0, 0); /* Make default icon transparent */
-  opacity: 0; /* Hide the default icon */
-  display: block; /* Ensure it takes up space */
-  width: 100%; /* Make it clickable across the input */
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: transparent; /* Ensure no background interferes */
-  cursor: pointer;
-}
-
-/* Fallback/custom icon for date input. You might use a Font Awesome icon or an SVG. */
-/* Example using a basic calendar icon. You can replace this with a better SVG or FontAwesome. */
-.date-input {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%233498db"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 0.7rem center; /* Position the icon */
-  background-size: 1.2rem; /* Size the icon */
-}
-
-/* For Firefox, which uses a different pseudo-element */
-.date-input::-moz-calendar-picker-indicator {
-  /* Styles for Firefox picker indicator */
-  color: transparent; /* Make default icon transparent */
-  background-color: transparent; /* Ensure no background interferes */
-  cursor: pointer;
-}
-
-/* New Styles for Image Edit Section */
-.image-edit-section {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px dashed #aed6f1; /* Lighter dashed line for separation */
-}
-
-.image-edit-section h4 {
-  color: #3498db;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.image-edit-section .file-input-wrapper {
-  margin-top: 0.8rem; /* Closer to the title */
-  margin-bottom: 0.5rem; /* Space before preview */
-}
-
-.image-preview-edit {
-  max-width: 150px;
-  height: auto;
-  margin-top: 0.5rem;
-  margin-bottom: 0.8rem; /* Space before clear button */
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.btn_clear_image {
-  background-color: #f39c12; /* Orange for clear image button */
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin-left: 0.5rem; /* Space from file input */
-  margin-bottom: 1rem; /* Space between clear buttons */
-  display: block; /* Each button on its own line */
-}
-
-.btn_clear_image:hover {
-  background-color: #e67e22;
-}
-/* Back_office.css */
-
-.back-office {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding: 2rem;
-  background-color: #ebeaea;
-  color: #333;
-  max-width: 1000px;
-  margin: 0 auto;
-  margin-top: 7rem;
-}
-
-.h1_office {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #2c3e50;
-  border: 3px solid #3498db;
-  padding: 6px;
-  width: fit-content;
-  justify-self: center;
-  margin-left: auto; /* Center the element */
-  margin-right: auto; /* Center the element */
-}
-
-.section {
-  background-color: #fff;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.section h2 {
-  color: #3498db;
-  margin-bottom: 1rem;
-}
-
-.form-animal {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.form-animal label {
-  font-weight: bold;
-  margin-top: 0.5rem; /* Add some space above labels */
-}
-
-.form-animal input,
-.form-animal select,
-.form-animal textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form-animal button {
-  padding: 0.6rem 1rem;
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-  margin-top: 1rem; /* Space above the submit button */
-}
-
-.form-animal button:hover {
-  background-color: #219150;
-}
-
-.animal-card,
-.user-card,
-.comment-card {
-  border: 1px solid #ddd;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  background-color: #fafafa;
-}
-
-.animal-card strong {
-  font-size: 1.1rem;
-  color: #2c3e50;
-}
-
-/* Updated Styles for ALL Textareas */
-textarea {
-  padding: 0.8rem; /* Slightly more padding */
-  border: 1px solid #c0c0c0; /* Softer border color */
-  border-radius: 8px; /* More rounded corners */
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 120px; /* Increased minimum height for more space */
-  resize: vertical; /* Allow only vertical resizing */
-  background-color: #fcfcfc; /* Very light background */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #3498db; /* Blue border on focus */
-  box-shadow: 0 0 6px rgba(52, 152, 219, 0.4); /* Subtle blue glow on focus */
-  background-color: #ffffff; /* White background on focus */
-}
-
-.buttons {
-  display: flex;
-  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
-  gap: 0.5rem;
-  margin-top: 1rem; /* Space above action buttons */
-  justify-content: flex-end; /* Align buttons to the right */
-}
-
-.buttons button {
-  background-color: #3498db;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.buttons button:hover {
-  background-color: #2980b9;
-}
-
-.comment-card,
-.user-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.comment-card button,
-.user-card button {
-  background-color: #e74c3c;
-  border: none;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.comment-card button:hover,
-.user-card button:hover {
-  background-color: #c0392b;
-}
-
-button.btn_delete {
-  background-color: #e74c3c;
-}
-
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup-content {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  max-width: 450px;
-  width: 90%;
-  transform: translateY(-20px);
-  animation: fadeInPop 0.3s ease-out forwards;
-}
-
-.popup-content p {
-  margin-bottom: 30px;
-  font-size: 1.2em;
-  color: #333;
-  line-height: 1.5;
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.popup-buttons button {
-  padding: 12px 25px;
-}
-
-.search-bar {
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.search-input {
-  padding: 0.75rem 1rem;
-  border: 1px solid #cccccc;
-  border-radius: 25px; /* Rounded corners for a modern look */
-  font-size: 1.1rem;
-  width: 70%;
-  max-width: 400px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  background-color: #f8f8f8;
-  color: #333;
-}
-
-.search-input::placeholder {
-  color: #999;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
-  background-color: #ffffff;
-}
-
-/* Styles pour les checkboxes et leurs labels */
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem; /* Espace après le groupe */
-}
-
-.checkbox-group input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: #3498db; /* Couleur d'accentuation pour la checkbox */
-  cursor: pointer;
-  margin: 0; /* Réinitialise les marges par défaut */
-}
-
-.checkbox-group label {
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-  margin-top: 0; /* Pour bien s'aligner avec la checkbox */
-}
-
-/* Styles pour les tags "Rescue" dans la liste des animaux */
-.tag-rescue {
-  background-color: #e74c3c; /* Rouge vif pour "Rescue" */
-  color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
-  font-size: 0.85em;
-  font-weight: bold;
-  text-transform: uppercase;
-  display: inline-block; /* Pour un bon padding */
-  margin-left: 5px; /* Espace entre le label et le tag */
-}
-
-.tag-not-rescue {
-  background-color: #7f8c8d; /* Gris pour "Non Rescue" */
-  color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
-  font-size: 0.85em;
-  font-weight: bold;
-  text-transform: uppercase;
-  display: inline-block;
-  margin-left: 5px;
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .back-office-container {
+    margin: 30px 20px;
+    padding: 25px;
+  }
+  .back-office-title {
+    font-size: 2.5em;
+  }
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  .main-nav-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .main-nav-buttons .nav-btn {
+    flex-basis: calc(50% - 10px);
+    max-width: none;
+  }
+  .logout-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-office-title {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+  .grid-card {
+    padding: 20px;
+  }
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .card-header h3 {
+    font-size: 1.5em;
+  }
+  .btn {
+    width: 100%;
+  }
+  .search-bar {
+    padding: 8px 12px;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 12px 15px;
+    font-size: 0.9em;
+  }
+  /* Modal content is handled by MUI Dialog responsive settings, but direct children might need adjustment */
+  .modal-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-form .checkbox-section {
+    padding: 12px;
+  }
+  .animal-details-modal-content {
+    gap: 20px;
+  }
+  .detail-images img {
+    width: 120px;
+    height: 120px;
+  }
+  .detail-info-grid {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+  .data-table .actions-cell .MuiIconButton-root {
+    /* Target MUI IconButton for margins */
+    margin: 4px; /* Adjust spacing for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .back-office-container {
+    padding: 15px;
+  }
+  .back-office-title {
+    font-size: 1.6em;
+    margin-bottom: 25px;
+  }
+  .main-nav-buttons .nav-btn {
+    font-size: 1em;
+    padding: 12px 15px;
+  }
+  .card-header h3 {
+    font-size: 1.3em;
+  }
+  .data-table {
+    min-width: 600px; /* Still prevent too much squishing */
+  }
+  .feedback-message {
+    font-size: 0.95em;
+    padding: 15px;
+  }
 }
