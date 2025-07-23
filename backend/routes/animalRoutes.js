@@ -25,8 +25,12 @@ router.get('/', async (req, res) => {
         if (sexe) filter.sexe = sexe;
         if (taille) filter.taille = taille;
         if (adopte !== undefined) filter.adopte = adopte === 'true';
-        if (comportement) filter.comportement = { $in: [comportement] };
-        if (ententeAvec) filter.ententeAvec = { $in: [ententeAvec] };
+        if (comportement) {
+            filter.comportement = Array.isArray(comportement) ? { $in: comportement } : { $in: [comportement] };
+        }
+        if (ententeAvec) {
+            filter.ententeAvec = Array.isArray(ententeAvec) ? { $in: ententeAvec } : { $in: [ententeAvec] };
+        }
 
         if (dureeRefuge) {
             const now = new Date();
@@ -54,15 +58,20 @@ router.get('/', async (req, res) => {
             }
         }
 
+        console.log("🔍 Filtre utilisé :", filter);
+
         const animaux = await Animal.find(filter);
         res.json(animaux);
     } catch (err) {
-        console.error("Erreur lors de la récupération des animaux :", err);
-        res.status(500).json({ message: "Erreur serveur lors de la récupération des animaux.", error: err.message });
+        console.error("❌ Erreur lors de la récupération des animaux :", err);
+        res.status(500).json({
+            message: "Erreur serveur lors de la récupération des animaux.",
+            error: err.message
+        });
     }
 });
 
-// 🛠️ Route désactivée temporairement (problème avec multer)
+// ✅ Route POST désactivée (upload non encore géré)
 router.post('/', async (req, res) => {
     res.status(501).json({
         message: "Ajout d'animal avec image désactivé temporairement (upload non configuré)."
