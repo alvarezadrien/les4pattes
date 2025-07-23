@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Slider from 'react-slick';
+import CommentFormPopup from './chemin/vers/CommentFormPopup'; // adapte selon ton projet
 import './Avis.css';
 
 const Avis = () => {
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+
+    const fetchComments = useCallback(async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
+            if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+            const data = await response.json();
+
+            const uniqueComments = Array.from(
+                new Map(data.map(item => [item.commentText, item])).values()
+            );
+            setComments(uniqueComments);
+        } catch (err) {
+            console.error("Erreur lors de la récupération des avis:", err);
+            setError("Impossible de charger les avis. Veuillez réessayer plus tard.");
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
-
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                // Élimine les doublons par texte (ou remplace par item._id si nécessaire)
-                const uniqueComments = Array.from(
-                    new Map(data.map(item => [item.commentText, item])).values()
-                );
-
-                setComments(uniqueComments);
-            } catch (err) {
-                console.error("Erreur lors de la récupération des avis:", err);
-                setError("Impossible de charger les avis. Veuillez réessayer plus tard.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchComments();
-    }, []);
+    }, [fetchComments]);
+
+    const handleNewComment = (newComment) => {
+        setComments(prev => [newComment, ...prev]);
+    };
 
     const sliderSettings = {
         dots: true,
@@ -45,37 +45,14 @@ const Avis = () => {
         autoplaySpeed: 3000,
         cssEase: "linear",
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 1
-                }
-            }
+            { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+            { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } }
         ]
     };
 
-    if (loading) {
-        return <div className="avis-container">Chargement des avis...</div>;
-    }
-
-    if (error) {
-        return <div className="avis-container error-message">{error}</div>;
-    }
-
-    if (comments.length === 0) {
-        return <div className="avis-container no-comments">Aucun avis pour le moment. Soyez le premier à commenter !</div>;
-    }
+    if (loading) return <div className="avis-container">Chargement des avis...</div>;
+    if (error) return <div className="avis-container error-message">{error}</div>;
+    if (comments.length === 0) return <div className="avis-container no-comments">Aucun avis pour le moment. Soyez le premier à commenter !</div>;
 
     return (
         <div className="avis-section">
@@ -84,6 +61,18 @@ const Avis = () => {
                 Ce qu'ils disent de nous
                 <img src="/img/pattes.png" alt="Patte" width={40} height={40} />
             </h2>
+
+            <button onClick={() => setShowPopup(true)} className="open-comment-btn">
+                Laisser un commentaire
+            </button>
+
+            {showPopup && (
+                <CommentFormPopup
+                    onClose={() => setShowPopup(false)}
+                    onCommentSubmitSuccess={handleNewComment}
+                />
+            )}
+
             <Slider {...sliderSettings} className="avis-list">
                 {comments.map((comment) => (
                     <div key={comment._id || comment.id} className="avis-item-wrapper">

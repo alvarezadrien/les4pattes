@@ -36,9 +36,9 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    commentText: commentText,
-                    rating: rating,
-                    username: user?.prenom || "Utilisateur"
+                    commentText,
+                    rating,
+                    username: user?.prenom || 'Utilisateur'
                 }),
             });
 
@@ -51,7 +51,7 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
                 } else {
                     const text = await response.text();
                     if (text.startsWith('<!DOCTYPE html>')) {
-                        errorMessage = "Le serveur a renvoyé une page HTML au lieu d'une réponse JSON. Vérifiez l'URL de l'API.";
+                        errorMessage = "Le serveur a renvoyé une page HTML. Vérifie l’URL de l’API.";
                     } else {
                         errorMessage = text;
                     }
@@ -59,15 +59,17 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
                 throw new Error(errorMessage);
             }
 
-            await response.json();
+            const data = await response.json();
             setSuccess('Commentaire soumis avec succès !');
             setCommentText('');
             setRating(0);
-            onCommentSubmitSuccess();
+            if (onCommentSubmitSuccess) {
+                onCommentSubmitSuccess(data); // On passe le nouveau commentaire
+            }
             setTimeout(onClose, 1500);
         } catch (err) {
             console.error("Erreur lors de la soumission du commentaire:", err);
-            setError(err.message || "Une erreur est survenue lors de l'envoi du commentaire.");
+            setError(err.message || "Erreur lors de l'envoi du commentaire.");
         } finally {
             setLoading(false);
         }
