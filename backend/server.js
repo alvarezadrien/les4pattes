@@ -25,16 +25,19 @@ const mongoURI =
 app.use(cors());
 app.use(express.json());
 
-// ✅ Sert les images uploadées (Chiens et Chats) avec log debug
-app.use('/uploads', (req, res, next) => {
-    console.log('🖼️ Image demandée :', req.originalUrl);
-    express.static(path.join(__dirname, 'uploads'))(req, res, next);
-});
+// ✅ Sert les images uploadées (Chiens et Chats)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ✅ Sert les images publiques (par ex. avatars, pattes, default.jpg)
 app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 
-// ✅ Routes API
+// ✅ Log les requêtes aux images uploadées (debug)
+app.use('/uploads', (req, res, next) => {
+    console.log('🖼️ Image demandée :', req.originalUrl);
+    next();
+});
+
+// ✅ Routes
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
