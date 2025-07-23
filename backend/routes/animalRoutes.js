@@ -1,8 +1,89 @@
 const express = require('express');
 const router = express.Router();
-const Animal = require('../models/Animals'); // ✅ Corrigé ici
+const Animal = require('../models/Animals');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
-// ✅ Compte des non-adoptés
+// ✅ Configuration Multer avec dossier backend/uploads/Chats ou Chiens
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const dossier = req.body.dossier || 'Chiens'; // Par défaut "Chiens"
+        const dir = path.join(__dirname, '..', 'uploads', dossier);
+
+        // Créer le dossier si nécessaire
+        fs.mkdirSync(dir, { recursive: true });
+
+        cb(null, dir);
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const filename = `${Date.now()}-${file.fieldname}${ext}`;
+        cb(null, filename);
+    }
+});
+
+const upload = multer({ storage });
+
+// ✅ POST /api/animaux – Ajouter un animal avec images
+router.post('/', upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'image2', maxCount: 1 },
+    { name: 'image3', maxCount: 1 }
+]), async (req, res) => {
+    try {
+        const {
+            nom,
+            espece,
+            race,
+            age,
+            sexe,
+            taille,
+            description,
+            descriptionAdoption,
+            dateArrivee,
+            comportement,
+            ententeAvec,
+            isRescue,
+            dossier
+        } = req.body;
+
+        const dossierFinal = dossier || 'Chiens';
+        const basePath = path.join('uploads', dossierFinal);
+
+        const images = [];
+        if (req.files.image) images.push(path.join(basePath, req.files.image[0].filename));
+        if (req.files.image2) images.push(path.join(basePath, req.files.image2[0].filename));
+        if (req.files.image3) images.push(path.join(basePath, req.files.image3[0].filename));
+
+        const newAnimal = new Animal({
+            nom,
+            espece,
+            race,
+            age,
+            sexe,
+            taille,
+            description,
+            descriptionAdoption,
+            dateArrivee,
+            comportement: comportement ? JSON.parse(comportement) : [],
+            ententeAvec: ententeAvec ? JSON.parse(ententeAvec) : [],
+            isRescue: isRescue === 'true',
+            images,
+            image: images[0] || null,
+            image2: images[1] || null,
+            image3: images[2] || null
+        });
+
+        await newAnimal.save();
+        res.status(201).json({ message: "Animal ajouté avec succès", animal: newAnimal });
+    } catch (error) {
+        console.error("❌ Erreur lors de l'ajout de l'animal :", error);
+        res.status(500).json({ message: "Erreur serveur lors de l'ajout de l'animal", error: error.message });
+    }
+});
+
+// ✅ GET /api/animaux/count/non-adoptes
 router.get('/count/non-adoptes', async (req, res) => {
     try {
         const count = await Animal.countDocuments({
@@ -14,7 +95,7 @@ router.get('/count/non-adoptes', async (req, res) => {
     }
 });
 
-// ✅ GET tous les animaux avec filtres
+// ✅ GET /api/animaux avec filtres
 router.get('/', async (req, res) => {
     try {
         const { espece, sexe, taille, adopte, comportement, ententeAvec, dureeRefuge } = req.query;
@@ -61,14 +142,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 🛠️ Route désactivée temporairement (problème avec multer)
-router.post('/', async (req, res) => {
-    res.status(501).json({
-        message: "Ajout d'animal avec image désactivé temporairement (upload non configuré)."
-    });
-});
-
-// ✅ GET par ID
+// ✅ GET /api/animaux/:id
 router.get('/:id', async (req, res) => {
     try {
         const animal = await Animal.findById(req.params.id);
@@ -79,7 +153,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// ✅ PUT mise à jour
+// ✅ PUT /api/animaux/:id
 router.put('/:id', async (req, res) => {
     try {
         const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -90,7 +164,19 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// ✅ DELETE un animal
+// ✅ PATCH /api/animaux/:id/status – Changer le statut adopté
+router.patch('/:id/status', async (req, res) => {
+    try {
+        const { adopte } = req.body;
+        const animal = await Animal.findByIdAndUpdate(req.params.id, { adopte }, { new: true });
+        if (!animal) return res.status(404).json({ message: "Animal non trouvé" });
+        res.json(animal);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// ✅ DELETE /api/animaux/:id
 router.delete('/:id', async (req, res) => {
     try {
         const result = await Animal.findByIdAndDelete(req.params.id);
