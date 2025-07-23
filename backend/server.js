@@ -4,7 +4,6 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 
-// ✅ Imports des routes
 const animalRoutes = require('./routes/animalRoutes');
 const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
@@ -28,16 +27,16 @@ app.use(express.json());
 // ✅ Sert les images uploadées (chiens, chats, etc.)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// ✅ Sert les avatars prédéfinis du dossier public/img
+// ✅ Sert les avatars et autres images du dossier public/img
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
 
-// ✅ Log en console les accès aux images pour debugging (facultatif mais utile)
+// ✅ (Facultatif) Log les requêtes d'images pour debug
 app.use('/uploads', (req, res, next) => {
     console.log('🖼️ Image demandée :', req.originalUrl);
     next();
 });
 
-// ✅ Définition des routes API
+// ✅ Routes API
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
@@ -46,7 +45,8 @@ app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/api/password', passwordRoutes);
 
 // ✅ Connexion MongoDB et lancement du serveur
-mongoose.connect(mongoURI)
+mongoose
+    .connect(mongoURI)
     .then(() => {
         console.log('✅ Connexion à MongoDB réussie');
         app.listen(PORT, () => {
