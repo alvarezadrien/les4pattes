@@ -27,8 +27,8 @@ app.use(express.json());
 
 // ✅ Sert les images uploadées
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // racine générale
-app.use('/uploads/chiens', express.static(path.join(__dirname, 'uploads/chiens')));
-app.use('/uploads/chats', express.static(path.join(__dirname, 'uploads/chats')));
+app.use('/uploads/Chiens', express.static(path.join(__dirname, 'uploads/Chiens')));
+app.use('/uploads/Chats', express.static(path.join(__dirname, 'uploads/Chats')));
 
 // ✅ Sert les avatars prédéfinis du dossier public/img
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
