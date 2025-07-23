@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Animal = require('../models/Animals');
 const path = require('path');
-const upload = require('../middlewares/uploadMiddleware'); // ✅ Middleware séparé
+const upload = require('../middleware/uploads');
 
 // ✅ POST /api/animaux – Ajouter un animal avec images
 router.post(
