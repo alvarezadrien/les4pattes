@@ -209,23 +209,28 @@ const Mon_compte = () => {
               </div>
             </div>
 
-            {userComments.length > 0 && (
-              <div className="compte-option">
-                <div className="option-content">
-                  <h4>Vos avis</h4>
+            <div className="compte-option">
+              <div className="option-content">
+                <h4 style={{ marginBottom: "1rem", color: "#444", fontSize: "1.2rem" }}>Vos avis</h4>
+                {userComments.length === 0 ? (
+                  <p style={{ color: "#999", fontStyle: "italic" }}>Aucun avis laissé pour le moment.</p>
+                ) : (
                   <ul className="user-comments-list">
                     {userComments.map((comment) => (
                       <li key={comment._id} className="comment-item">
                         <p>{comment.contenu}</p>
-                        <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment-btn">
+                        <button
+                          onClick={() => handleDeleteComment(comment._id)}
+                          className="delete-comment-btn"
+                        >
                           Supprimer
                         </button>
                       </li>
                     ))}
                   </ul>
-                </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
