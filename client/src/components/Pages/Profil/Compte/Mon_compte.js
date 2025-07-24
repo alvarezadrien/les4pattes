@@ -1,3 +1,5 @@
+// src/pages/Profil/Mon_compte.jsx
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
@@ -38,54 +40,52 @@ const Mon_compte = () => {
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
 
   const [userComments, setUserComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(true);
+
+  const fetchUserComments = async () => {
+    if (!user?._id) return;
+
+    setLoadingComments(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/comments/user/${user._id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await response.json();
+      setUserComments(data || []);
+    } catch (err) {
+      console.error('Erreur lors du chargement des commentaires :', err);
+    } finally {
+      setLoadingComments(false);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) {
       navigate('/connexion');
-    }
-  }, [user, loading, navigate]);
-
-  useEffect(() => {
-    const fetchUserComments = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/api/comments/user/${user._id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        });
-        const data = await response.json();
-        setUserComments(data || []);
-      } catch (err) {
-        console.error('Erreur lors du chargement des commentaires:', err);
-        setError("Impossible de charger vos commentaires.");
-      }
-    };
-
-    if (user && user._id) {
+    } else if (user?._id) {
       fetchUserComments();
     }
-  }, [user]);
+  }, [user, loading, navigate]);
 
   const handleDeleteComment = async (commentId) => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/api/comments/${commentId}`, {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` }
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.msg || 'Erreur lors de la suppression.');
+      if (!response.ok) throw new Error('Erreur lors de la suppression du commentaire');
 
       setUserComments(prev => prev.filter(c => c._id !== commentId));
     } catch (err) {
-      console.error('Erreur suppression :', err);
-      setError(err.message || 'Erreur lors de la suppression');
+      console.error('Erreur de suppression :', err);
     }
   };
+
+  if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
+  if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
 
   const handleLogout = () => {
     logout();
@@ -99,7 +99,6 @@ const Mon_compte = () => {
 
     try {
       const token = localStorage.getItem('token');
-
       const response = await fetch(`${API_URL}/api/auth/profile/avatar-url`, {
         method: 'PUT',
         headers: {
@@ -110,17 +109,13 @@ const Mon_compte = () => {
       });
 
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.msg || 'Erreur lors de la mise à jour de l’avatar.');
-      }
+      if (!response.ok) throw new Error(data.msg || 'Erreur mise à jour avatar');
 
       setMessage(data.msg);
       updateAvatar(data.avatarUrl || imgUrl);
-
-    } catch (error) {
-      console.error("Erreur avatar:", error);
-      setError(error.message || "Erreur lors de la mise à jour de l'avatar.");
+    } catch (err) {
+      console.error('Erreur avatar :', err);
+      setError(err.message);
       setMessage('');
     }
   };
@@ -131,6 +126,7 @@ const Mon_compte = () => {
     setShowPasswordPopup(false);
     setShowCommentPopup(false);
     setShowAdoptionPopup(false);
+    fetchUserComments();
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000);
   };
@@ -209,26 +205,31 @@ const Mon_compte = () => {
               </div>
             </div>
 
-            {userComments.length > 0 && (
-              <div className="compte-option">
-                <div className="option-content">
-                  <h4>Vos avis</h4>
+            <div className="compte-option">
+              <div className="option-content">
+                <h4>Vos avis</h4>
+                {loadingComments ? (
+                  <p className="comment-loading">Chargement des avis...</p>
+                ) : userComments.length === 0 ? (
+                  <p className="no-comments">Vous n'avez pas encore laissé d'avis.</p>
+                ) : (
                   <ul className="user-comments-list">
-                    {userComments.map((comment) => (
+                    {userComments.map(comment => (
                       <li key={comment._id} className="comment-item">
                         <p>{comment.commentText}</p>
-                        <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment-btn">
+                        <small>Note : {comment.rating} / 5</small>
+                        <button
+                          onClick={() => handleDeleteComment(comment._id)}
+                          className="delete-comment-btn"
+                        >
                           Supprimer
                         </button>
                       </li>
                     ))}
                   </ul>
-                </div>
+                )}
               </div>
-            )}
-
-            {error && <p className="error-message">{error}</p>}
-            {message && <p className="success-message">{message}</p>}
+            </div>
           </div>
         </div>
       </div>
@@ -249,11 +250,10 @@ const Mon_compte = () => {
                 />
               ))}
             </div>
-
+            {message && <p className="success-message">{message}</p>}
+            {error && <p className="error-message">{error}</p>}
             <div className="popup-buttons">
-              <button onClick={() => setShowAvatarPopup(false)} className="close-btn">
-                Fermer
-              </button>
+              <button onClick={() => setShowAvatarPopup(false)} className="close-btn">Fermer</button>
             </div>
           </div>
         </div>
