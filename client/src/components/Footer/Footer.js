@@ -66,7 +66,7 @@ const Footer = () => {
           <span>Réseaux sociaux</span>
           <a
             className="social-link"
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/VeeweydeOfficiel"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -78,7 +78,7 @@ const Footer = () => {
           </a>
           <a
             className="social-link"
-            href="https://www.instagram.com/"
+            href="https://www.instagram.com/refuge_veeweyde/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -90,7 +90,7 @@ const Footer = () => {
           </a>
           <a
             className="social-link"
-            href="https://www.youtube.com/"
+            href="https://www.youtube.com/@EspritDog"
             target="_blank"
             rel="noopener noreferrer"
           >

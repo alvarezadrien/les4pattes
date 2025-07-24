@@ -20,7 +20,7 @@ const Conditions_adoption = () => {
             <section className='contact_section'>
                 <h2 className='section_title'>Des questions ? Contactez-nous !</h2>
                 <ul className='contact_list'>
-                    <li>Appelez-nous au : <a href="tel:+32492764208" className='contact_link'>+32492764208</a></li>
+                    <li>Appelez-nous au : <a href="tel:+32492953233" className='contact_link'>+32492953233</a></li>
                     <li>Envoyez-nous un message à : <a href="mailto:adrienalvarez15@gmail.com" className='contact_link'>adrienalvarez15@gmail.com</a></li>
                     <li>Remplissez notre <a href="/Formulaire d'adoption" className='contact_link'>formulaire d’adoption</a></li>
                 </ul>
@@ -111,7 +111,7 @@ const Conditions_adoption = () => {
                     <p className='card_text'>
                         **Tous nos chiens sont :** vaccinés, traités contre la rage, stérilisés et identifiés par puce.
                     </p>
-                    <button className='call_to_action_button'><a href="/Galeriechien" className='button_link'>Nos chiens</a></button>
+                    <button className='call_to_action_button'><a href="/Adoptionchiens" className='button_link'>Nos chiens</a></button>
                 </div>
 
                 <div className='adoption_card'>
@@ -147,7 +147,7 @@ const Conditions_adoption = () => {
                     <p className='card_text'>
                         **Tous nos chats sont :** vaccinés, traités contre la rage, stérilisés et identifiés par puce.
                     </p>
-                    <button className='call_to_action_button'><a href="/Galeriechat" className='button_link'>Nos chats</a></button>
+                    <button className='call_to_action_button'><a href="/Adoptionchats" className='button_link'>Nos chats</a></button>
                 </div>
             </div>
         </div>

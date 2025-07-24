@@ -19,10 +19,10 @@ const Savoir = () => {
           </div>
           <div className="button_savoir00">
             <button>
-              <a href="/Galeriechien">Chiens</a>
+              <a href="/Adoptionchiens">Chiens</a>
             </button>
             <button>
-              <a href="Galeriechat">Chats</a>
+              <a href="Adoptionchats">Chats</a>
             </button>
           </div>
         </div>
