@@ -1183,3 +1183,59 @@
     font-size: 2rem; /* Taille des étoiles AUGMENTÉE pour mobile aussi */
   }
 }
+
+/* --- STYLES POUR LA SECTION VOS AVIS --- */
+
+.user-comments-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.comment-item {
+  background-color: #fff8e1;
+  border: 1px solid #e7dba8;
+  border-radius: 0.7rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #444;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.comment-item p {
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+.delete-comment-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-comment-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive pour la section des avis */
+@media (max-width: 768px) {
+  .comment-item {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .delete-comment-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

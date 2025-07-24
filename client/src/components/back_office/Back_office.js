@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './Back_office.css'; // Assurez-vous que ce fichier CSS est correct et à jour
 
-// --- Importation des composants Material-UI ---
+// Import de material ui (MUI)
 import {
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   Button, IconButton, CircularProgress, Box, Chip,
@@ -32,7 +32,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 // --- URL de base de votre API Backend ---
 const API_BASE_URL = 'https://les4pattes-backend.onrender.com/api';
 
-// --- Composant Modal de Confirmation Réutilisable (Utilise MUI Dialog) ---
+// Composant du modal de confirmation réutilisable
 const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = "Confirmer", cancelText = "Annuler" }) => {
   return (
     <Dialog

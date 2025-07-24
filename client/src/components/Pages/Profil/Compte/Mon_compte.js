@@ -37,11 +37,52 @@ const Mon_compte = () => {
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
 
+  const [userComments, setUserComments] = useState([]);
+
   useEffect(() => {
     if (!loading && !user) {
       navigate('/connexion');
     }
   }, [user, loading, navigate]);
+
+  useEffect(() => {
+    const fetchUserComments = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${API_URL}/api/commentaires/user/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        const data = await response.json();
+        setUserComments(data || []);
+      } catch (err) {
+        console.error('Erreur lors du chargement des commentaires:', err);
+      }
+    };
+
+    if (user && user._id) {
+      fetchUserComments();
+    }
+  }, [user]);
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/commentaires/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      if (!response.ok) throw new Error('Erreur lors de la suppression.');
+
+      setUserComments(prev => prev.filter(c => c._id !== commentId));
+    } catch (err) {
+      console.error('Erreur suppression :', err);
+    }
+  };
 
   if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
   if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
@@ -78,7 +119,7 @@ const Mon_compte = () => {
       updateAvatar(data.avatarUrl || imgUrl);
 
     } catch (error) {
-      console.error("Erreur lors de la sélection de l'avatar prédéfini:", error);
+      console.error("Erreur avatar:", error);
       setError(error.message || "Erreur lors de la mise à jour de l'avatar.");
       setMessage('');
     }
@@ -98,18 +139,12 @@ const Mon_compte = () => {
     setMessage('');
     setError('');
     switch (option) {
-      case "donnees":
-        setShowDataPopup(true); break;
-      case "adresse":
-        setShowAddressPopup(true); break;
-      case "motdepasse":
-        setShowPasswordPopup(true); break;
-      case "deconnexion":
-        handleLogout(); break;
-      case "commentaires":
-        setShowCommentPopup(true); break;
-      case "adoption":
-        setShowAdoptionPopup(true); break;
+      case "donnees": setShowDataPopup(true); break;
+      case "adresse": setShowAddressPopup(true); break;
+      case "motdepasse": setShowPasswordPopup(true); break;
+      case "deconnexion": handleLogout(); break;
+      case "commentaires": setShowCommentPopup(true); break;
+      case "adoption": setShowAdoptionPopup(true); break;
       default: break;
     }
   };
@@ -136,8 +171,7 @@ const Mon_compte = () => {
             </div>
           </div>
           <div className="intro-texte">
-            Bienvenue sur votre espace personnel dédié à la gestion de votre
-            compte dans notre refuge pour chiens et chats.
+            Bienvenue sur votre espace personnel dédié à la gestion de votre compte.
           </div>
         </div>
 
@@ -174,10 +208,29 @@ const Mon_compte = () => {
                 </button>
               </div>
             </div>
+
+            {userComments.length > 0 && (
+              <div className="compte-option">
+                <div className="option-content">
+                  <h4>Vos avis</h4>
+                  <ul className="user-comments-list">
+                    {userComments.map((comment) => (
+                      <li key={comment._id} className="comment-item">
+                        <p>{comment.contenu}</p>
+                        <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment-btn">
+                          Supprimer
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
+      {/* Popups */}
       {showAvatarPopup && (
         <div className="avatar-popup">
           <div className="popup-content">
