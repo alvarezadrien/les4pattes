@@ -20,7 +20,7 @@ const Ficheperso_animal = () => {
         if (!response.ok) throw new Error("Animal non trouvé");
         const data = await response.json();
 
-        const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, ""); // Enlève les '/' à la fin
+        const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
         const images = [];
 
         if (data.images && data.images.length > 0) {
@@ -34,7 +34,7 @@ const Ficheperso_animal = () => {
         }
 
         setAnimal({ ...data, _processedImages: images });
-        setMainImg(images[0] || `${baseUrl}/img/default.jpg`);
+        setMainImg(images[0] || null);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -66,15 +66,18 @@ const Ficheperso_animal = () => {
     <div>
       <div className="animal-details-container">
         <div className="image-section">
-          <img
-            className="main-image"
-            src={mainImg}
-            alt={`Photo de ${animal.nom}`}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
-            }}
-          />
+          {mainImg && (
+            <img
+              className="main-image"
+              src={mainImg}
+              alt={`Photo de ${animal.nom}`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.style.display = "none";
+              }}
+            />
+          )}
+
           <div className="small-images">
             {thumbnails.map((img, idx) => (
               <img
@@ -85,7 +88,7 @@ const Ficheperso_animal = () => {
                 onClick={() => handleImageClick(img)}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = `${process.env.REACT_APP_API_URL}/img/default.jpg`;
+                  e.target.style.display = "none";
                 }}
               />
             ))}
