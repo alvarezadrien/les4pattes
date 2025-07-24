@@ -68,15 +68,14 @@ function AdoptionChiens() {
 
   const getAnimalImage = (dog) => {
     const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
-
     let imgPath = "";
+
     if (dog.images?.length > 0) imgPath = dog.images[0];
     else if (dog.image) imgPath = dog.image;
     else if (dog.image2) imgPath = dog.image2;
     else if (dog.image3) imgPath = dog.image3;
 
-    if (imgPath) return `${base}/${imgPath.replace(/^\/+/, "")}`;
-    return "/img/default.jpg";
+    return imgPath ? `${base}/${imgPath.replace(/^\/+/, "")}` : null;
   };
 
   return (
@@ -118,29 +117,36 @@ function AdoptionChiens() {
               id="adoption-dog-cards-section"
               className="adoption-dog-grid"
             >
-              {currentDogs.map((dog) => (
-                <div
-                  key={dog._id}
-                  className="adoption-card"
-                  style={{
-                    backgroundImage: `url(${getAnimalImage(dog)})`,
-                  }}
-                >
-                  <div className="adoption-card-name">{dog.nom}</div>
-                  {dog.isRescue && <div className="rescue-tag">Sauvetage</div>}
-                  <div className="adoption-card-content">
-                    <h2>{dog.nom}</h2>
-                    <p>Âge : {dog.age} ans</p>
-                    <p>Sexe : {dog.sexe}</p>
-                    <p>Race : {dog.race || "Non spécifiée"}</p>
-                    <button
-                      onClick={() => navigate(`/Ficheperso_animal/${dog._id}`)}
-                    >
-                      Voir
-                    </button>
+              {currentDogs.map((dog) => {
+                const imageUrl = getAnimalImage(dog);
+                if (!imageUrl) return null;
+
+                return (
+                  <div
+                    key={dog._id}
+                    className="adoption-card"
+                    style={{ backgroundImage: `url(${imageUrl})` }}
+                  >
+                    <div className="adoption-card-name">{dog.nom}</div>
+                    {dog.isRescue && (
+                      <div className="rescue-tag">Sauvetage</div>
+                    )}
+                    <div className="adoption-card-content">
+                      <h2>{dog.nom}</h2>
+                      <p>Âge : {dog.age} ans</p>
+                      <p>Sexe : {dog.sexe}</p>
+                      <p>Race : {dog.race || "Non spécifiée"}</p>
+                      <button
+                        onClick={() =>
+                          navigate(`/Ficheperso_animal/${dog._id}`)
+                        }
+                      >
+                        Voir
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </section>
 
             {totalPages > 1 && (
