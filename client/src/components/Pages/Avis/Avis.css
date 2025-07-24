@@ -1,389 +1,130 @@
-/* src/Components/Avis/Avis.css */
-
-/* Section Générale des Avis */
 .avis-section {
-  padding: 60px 0; /* Padding réduit */
-  background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
-  color: #333;
+  padding: 40px 20px;
+  background-color: #f3f7f2;
   text-align: center;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Titre Accrocheur */
-.avis-title {
-  font-size: 2.5em; /* Taille du titre réduite */
-  color: #5d6d5d;
-  margin-bottom: 40px; /* Marge réduite */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  text-shadow: 20px 20px 9px rgba(0, 0, 0, 0.3);
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-
-.slick-prev:before,
-.slick-next:before {
-  color: #5f6f5f !important;
-  font-size: 35px !important;
-}
-
-.avis-title img {
-  width: 40px;
-  height: 40px;
-  filter: drop-shadow(0 4px 8px rgba(93, 109, 93, 0.3)); /* Ombre plus légère */
-  animation: bounce 1.8s infinite ease-in-out; /* Animation plus rapide */
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px); /* Bond moins haut */
-  }
-}
-
-/* Conteneur de la liste des avis (maintenant géré par react-slick) */
-.avis-list {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 40px; /* Padding latéral pour les flèches */
-}
-
-/* Wrapper pour chaque carte d'avis à l'intérieur du carrousel */
-.avis-item-wrapper {
-  padding: 0 15px; /* Espacement réduit entre les cartes */
-  box-sizing: border-box;
-}
-
-/* Chaque Carte d'Avis - Taille Réduite */
-.avis-item {
-  background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
-  border-radius: 15px; /* Rayon des bords légèrement réduit */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* Ombre plus légère */
-  padding: 25px; /* Rembourrage interne réduit */
-  width: 100%;
-  max-width: none;
-  text-align: left;
-  /* Transition plus subtile pour l'effet de survol */
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition plus rapide et standard */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 200px; /* Hauteur minimale réduite */
+  align-items: center;
+  min-height: 100vh;
+}
+
+.avis-title {
+  font-size: 2.8rem;
+  color: #2e3d27;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+.avis-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.avis-card-v2 {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  padding: 90px 25px 40px;
   position: relative;
-  border: 1px solid #e0e0e0; /* Bordure plus fine et discrète */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
-  z-index: 1;
+  max-height: 450px;
 }
 
-.avis-item::before {
-  content: "";
+.avis-avatar-wrapper {
   position: absolute;
-  top: -10px; /* Position ajustée */
-  right: -10px; /* Position ajustée */
-  width: 60px; /* Taille de l'éclat réduite */
-  height: 60px; /* Taille de l'éclat réduite */
-  background: #e6b88b;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
   border-radius: 50%;
-  filter: blur(10px); /* Flou plus léger */
-  opacity: 0.2; /* Opacité réduite */
-  z-index: 0;
+  padding: 5px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 }
 
-.avis-item:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Ombre modérée au survol */
-  border-color: #a08c7e;
-  z-index: 2; /* Garde la carte survolée au-dessus */
+.avis-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-/* Texte du Commentaire */
-.avis-text {
-  font-size: 1em; /* Taille du texte légèrement réduite */
-  line-height: 1.5;
-  margin-bottom: 15px; /* Marge réduite */
+.avis-card-body {
+  text-align: center;
+  overflow-y: auto;
+  padding: 0 10px;
+  max-height: 260px;
+}
+
+.avis-texte {
+  font-size: 1.1rem;
   color: #444;
-  font-style: italic;
-  quotes: "“" "”";
-  position: relative;
-  z-index: 1;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
 }
 
-.avis-text::before {
-  content: open-quote;
-  font-size: 1.6em; /* Guillemets plus petits */
-  color: #5d6d5d;
-  margin-right: 5px;
-  vertical-align: -0.2em;
+.avis-nom {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2e3d27;
+  margin-bottom: 1rem;
 }
 
-.avis-text::after {
-  content: close-quote;
-  font-size: 1.6em;
-  color: #5d6d5d;
-  margin-left: 5px;
-  vertical-align: -0.2em;
-  font-family: "Georgia", serif;
-}
-
-/* Section des Étoiles */
 .avis-rating {
-  margin-top: 10px; /* Marge réduite */
-  margin-bottom: 10px; /* Marge réduite */
   display: flex;
   justify-content: center;
+  gap: 6px;
 }
 
-.avis-rating .star {
-  font-size: 1.8em; /* Taille des étoiles réduite */
+.star {
+  font-size: 1.8rem;
   color: #dcdcdc;
-  margin: 0 2px;
-  transition: color 0.3s ease-in-out;
 }
 
-.avis-rating .star.filled {
-  color: #d4ac0d;
-  text-shadow: 0 0 10px rgba(212, 172, 13, 0.5); /* Effet lumineux plus léger */
+.star.filled {
+  color: #f5b301;
 }
 
-/* Nom de l'Auteur */
-.avis-author {
-  font-size: 0.95em; /* Taille du nom de l'auteur réduite */
-  font-weight: 700;
-  color: #7b6859;
-  text-align: right;
-  margin-top: auto;
-  position: relative;
-  padding-top: 10px;
-}
-
-/* Ligne décorative sous le nom de l'auteur */
-.avis-author::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px; /* Ligne plus courte */
-  height: 2px; /* Plus fine */
-  background: linear-gradient(to right, #d4ac0d, #a08c7e);
-  border-radius: 5px;
-}
-
-/* Styles pour les messages d'état */
-.avis-container {
-  text-align: center;
-  padding: 40px 20px; /* Padding réduit */
-  font-size: 1.2em; /* Taille ajustée */
-  color: #555;
+.add-comment-button {
+  margin-top: 3rem;
+  padding: 12px 28px;
+  background-color: #6a994e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
-.avis-container.error-message {
-  color: #c0392b;
-  font-weight: bold;
+.add-comment-button:hover {
+  background-color: #5a8441;
+  transform: translateY(-2px);
 }
 
-.avis-container.no-comments {
-  color: #95a5a6;
-  font-style: italic;
+.add-comment-button:active {
+  transform: translateY(0);
 }
 
-/* Styles des flèches et des points de navigation de react-slick */
-.slick-prev:before,
-.slick-next:before {
-  color: #a08c7e;
-  font-size: 30px; /* Taille des flèches réduite */
-}
-
-.slick-prev {
-  left: -30px; /* Position ajustée */
-  z-index: 10;
-}
-
-.slick-next {
-  right: -30px; /* Position ajustée */
-  z-index: 10;
-}
-
-.slick-dots li button:before {
-  font-size: 10px; /* Taille des points réduite */
-  color: #d4ac0d;
-  opacity: 0.75;
-}
-
-.slick-dots li.slick-active button:before {
-  color: #5d6d5d;
-  opacity: 1;
-}
-
-.slick-dots {
-  bottom: -30px; /* Position ajustée */
-}
-
-/* Responsive : Jusqu'à 480px */
-@media screen and (max-width: 480px) {
-  .avis-section {
-    max-width: 100%;
+@media (max-width: 768px) {
+  .avis-card-v2 {
+    padding: 70px 20px 30px;
   }
 
-  .container_img {
-    height: auto;
-    padding: 2rem 0;
+  .avis-avatar {
+    width: 75px;
+    height: 75px;
   }
 
-  .h1_titre {
-    font-size: 2rem;
-    text-align: center;
-  }
-
-  #content {
-    font-size: 1.1rem;
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .circle_img0 {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .circle_img1 img,
-  .circle_img2 img,
-  .circle_img3 img {
-    width: 120px;
-    height: 120px;
-  }
-
-  .button_propos {
-    font-size: 1.1rem;
-    display: block;
-    margin: 2rem auto;
-  }
-}
-
-/* Responsive : 481px à 768px */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .container_img {
-    height: auto;
-    padding: 2rem 0;
-  }
-
-  .h1_titre {
+  .avis-title {
     font-size: 2.2rem;
-    text-align: center;
-  }
-
-  #content {
-    font-size: 1.2rem;
-    width: 20rem;
-    margin: 0 auto;
-  }
-
-  .circle_img0 {
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .circle_img1 img,
-  .circle_img2 img,
-  .circle_img3 img {
-    width: 150px;
-    height: 150px;
-  }
-
-  .button_propos {
-    font-size: 1.2rem;
-    display: block;
-    margin: 1rem auto;
-  }
-}
-
-/* Responsive : 769px à 1024px */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .container_img {
-    height: 40rem;
-  }
-
-  .h1_titre {
-    font-size: 2.5rem;
-  }
-
-  #content {
-    font-size: 1.3rem;
-    width: 22rem;
-  }
-
-  .circle_img1 img,
-  .circle_img2 img,
-  .circle_img3 img {
-    width: 180px;
-    height: 180px;
-  }
-
-  .button_propos {
-    font-size: 1.3rem;
-  }
-}
-
-/* Responsive : 1025px à 1280px */
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .container_img {
-    height: 45rem;
-  }
-
-  .h1_titre {
-    font-size: 2.8rem;
-  }
-
-  #content {
-    font-size: 1.4rem;
-    width: 23rem;
-  }
-
-  .circle_img1 img,
-  .circle_img2 img,
-  .circle_img3 img {
-    width: 200px;
-    height: 200px;
-  }
-
-  .button_propos {
-    font-size: 1.4rem;
-  }
-}
-
-/* Responsive : 1281px à 1440px */
-@media screen and (min-width: 1281px) and (max-width: 1440px) {
-  .container_img {
-    height: 50rem;
-  }
-
-  .h1_titre {
-    font-size: 3rem;
-  }
-
-  #content {
-    font-size: 1.5rem;
-    width: 25rem;
-  }
-
-  .circle_img1 img,
-  .circle_img2 img,
-  .circle_img3 img {
-    width: 220px;
-    height: 220px;
-  }
-
-  .button_propos {
-    font-size: 1.5rem;
   }
 }

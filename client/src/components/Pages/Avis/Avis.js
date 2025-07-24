@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import Slider from 'react-slick';
 import CommentFormPopup from '../../Pages/Profil/Compte/Popup/CommentFormPopup';
 import './Avis.css';
 
@@ -15,7 +14,6 @@ const Avis = () => {
             if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
             const data = await response.json();
 
-            // ✅ Élimine les doublons par (texte nettoyé + username nettoyé)
             const seen = new Set();
             const uniques = [];
 
@@ -52,48 +50,22 @@ const Avis = () => {
         }
     };
 
-    const sliderSettings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        cssEase: "linear",
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                }
-            }
-        ]
+    const getAvatarUrl = (avatar) => {
+        if (!avatar) {
+            return '/img/avatar_comment.png';
+        }
+        if (avatar.startsWith('http://') || avatar.startsWith('https://')) {
+            return avatar;
+        }
+        return `${process.env.REACT_APP_API_URL}/${avatar}`;
     };
 
-    if (loading) {
-        return <div className="avis-container">Chargement des avis...</div>;
-    }
-
-    if (error) {
-        return <div className="avis-container error-message">{error}</div>;
-    }
+    if (loading) return <div className="avis-section">Chargement des avis...</div>;
+    if (error) return <div className="avis-section error-message">{error}</div>;
 
     return (
         <div className="avis-section">
-            <h2 className="avis-title">
-                <img src="/img/pattes.png" alt="Patte" width={40} height={40} />
-                Ce qu'ils disent de nous
-                <img src="/img/pattes.png" alt="Patte" width={40} height={40} />
-            </h2>
+            <h2 className="avis-title">Ce qu'ils disent de nous</h2>
 
             {showPopup && (
                 <CommentFormPopup
@@ -102,23 +74,33 @@ const Avis = () => {
                 />
             )}
 
-            <Slider {...sliderSettings} className="avis-list">
+            <div className="avis-grid-v2">
                 {comments.map((comment) => (
-                    <div key={comment._id || comment.id} className="avis-item-wrapper">
-                        <div className="avis-item">
-                            <p className="avis-text">"{comment.commentText}"</p>
+                    <div key={comment._id || comment.id} className="avis-card-v2">
+                        <div className="avis-avatar-wrapper">
+                            <img
+                                src={getAvatarUrl(comment.avatar)}
+                                alt="Avatar utilisateur"
+                                className="avis-avatar"
+                            />
+                        </div>
+
+                        <div className="avis-card-body">
+                            <p className="avis-texte">{comment.commentText}</p>
+                            <p className="avis-nom">{comment.username}</p>
                             <div className="avis-rating">
                                 {[...Array(5)].map((_, i) => (
-                                    <span key={i} className={`star ${i < comment.rating ? 'filled' : ''}`}>
-                                        &#9733;
-                                    </span>
+                                    <span key={i} className={`star ${i < comment.rating ? 'filled' : ''}`}>&#9733;</span>
                                 ))}
                             </div>
-                            <p className="avis-author">- {comment.username}</p>
                         </div>
                     </div>
                 ))}
-            </Slider>
+            </div>
+
+            <button className="add-comment-button" onClick={() => setShowPopup(true)}>
+                Ajouter un avis
+            </button>
         </div>
     );
 };
