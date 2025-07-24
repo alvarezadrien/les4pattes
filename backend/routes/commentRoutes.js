@@ -96,10 +96,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
             return res.status(404).json({ msg: 'Commentaire non trouvé' });
         }
 
-        if (comment.userId.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'Non autorisé : vous n\'êtes pas le propriétaire de ce commentaire' });
-        }
-
+        // 🧹 Vérification supprimée volontairement ici
         comment = await Comment.findByIdAndUpdate(
             req.params.id,
             { $set: commentFields },
@@ -116,8 +113,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     }
 });
 
-// ✅ Supprimer un commentaire
-// DELETE /api/comments/:id
+// ✅ Supprimer un commentaire (sans vérification de propriétaire)
 router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.id);
@@ -125,10 +121,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
             return res.status(404).json({ msg: 'Commentaire non trouvé' });
         }
 
-        if (comment.userId.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'Non autorisé : vous n\'êtes pas le propriétaire de ce commentaire' });
-        }
-
+        // ⚠️ Vérification supprimée → tout utilisateur connecté peut supprimer
         await Comment.findByIdAndDelete(req.params.id);
         res.json({ msg: 'Commentaire supprimé avec succès' });
     } catch (err) {
