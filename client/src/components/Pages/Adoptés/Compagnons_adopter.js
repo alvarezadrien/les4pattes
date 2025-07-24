@@ -20,8 +20,14 @@ const Compagnons_adopter = () => {
                     throw new Error(`Erreur HTTP : ${response.status}`);
                 }
                 const data = await response.json();
-                const animauxArray = Array.isArray(data) ? data : data.animaux || [];
-                setAnimaux(animauxArray);
+                if (Array.isArray(data)) {
+                    setAnimaux(data);
+                } else if (data.animaux && Array.isArray(data.animaux)) {
+                    setAnimaux(data.animaux);
+                } else {
+                    setAnimaux([]);
+                    setError("Structure de données inattendue.");
+                }
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -31,20 +37,6 @@ const Compagnons_adopter = () => {
 
         fetchAnimaux();
     }, []);
-
-    const getAnimalImage = (animal) => {
-        const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
-        if (animal.images?.length > 0) {
-            return `${base}/${animal.images[0].replace(/^\/+/, "")}`;
-        } else if (animal.image) {
-            return `${base}/${animal.image.replace(/^\/+/, "")}`;
-        } else if (animal.image2) {
-            return `${base}/${animal.image2.replace(/^\/+/, "")}`;
-        } else if (animal.image3) {
-            return `${base}/${animal.image3.replace(/^\/+/, "")}`;
-        }
-        return null;
-    };
 
     if (loading) return <Loading />;
     if (error) return <p className="error-message">Erreur : {error}</p>;
@@ -65,28 +57,27 @@ const Compagnons_adopter = () => {
 
             <section className="container_compagnons">
                 <div className="animal_group_compagnons">
-                    {animaux.map((animal) => {
-                        const imageUrl = getAnimalImage(animal);
-                        return (
-                            <div
-                                key={animal._id}
-                                className="adoption-card"
-                                style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : {}}
-                            >
-                                <div className="adoption-card-name">{animal.nom}</div>
-                                <div className="adoption-card-content">
-                                    <h2>{animal.nom}</h2>
-                                    {animal.descriptionAdoption?.trim() ? (
-                                        <p>{animal.descriptionAdoption}</p>
-                                    ) : (
-                                        <p>
-                                            Ce merveilleux compagnon a trouvé une famille aimante pour la vie ! <br /> Nous lui souhaitons beaucoup de bonheur. ♥
-                                        </p>
-                                    )}
-                                </div>
+                    {animaux.map((animal) => (
+                        <div
+                            key={animal._id}
+                            className="adoption-card"
+                            style={{
+                                backgroundImage: `url(${animal.images?.[0] || "/img/chat_galeriefiche.jpg"})`,
+                            }}
+                        >
+                            <div className="adoption-card-name">{animal.nom}</div>
+                            <div className="adoption-card-content">
+                                <h2>{animal.nom}</h2>
+                                {animal.descriptionAdoption && animal.descriptionAdoption.trim() !== "" ? (
+                                    <p>{animal.descriptionAdoption}</p>
+                                ) : (
+                                    <p>
+                                        Ce merveilleux compagnon a trouvé une famille aimante pour la vie ! <br /> Nous lui souhaitons beaucoup de bonheur. ♥
+                                    </p>
+                                )}
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
             </section>
         </div>
