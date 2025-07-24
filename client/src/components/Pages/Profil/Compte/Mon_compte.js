@@ -16,10 +16,14 @@ const avatarOptions = [
   "/img/Avatar/avatar_chat2.jpg",
   "/img/Avatar/avatar_chat3.jpg",
   "/img/Avatar/avatar_chat4.jpg",
+  "/img/Avatar/avatar_chat5.png",
+  "/img/Avatar/avatar_chat6.png",
   "/img/Avatar/avatar_chien1.jpg",
   "/img/Avatar/avatar_chien2.jpg",
   "/img/Avatar/avatar_chien3.jpg",
   "/img/Avatar/avatar_chien4.jpg",
+  "/img/Avatar/avatar_chien5.png",
+  "/img/Avatar/avatar_chien6.png",
 ];
 
 const API_URL = process.env.REACT_APP_API_URL;
