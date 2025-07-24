@@ -173,7 +173,7 @@ const Mon_compte = () => {
 
         <div className="compte-right">
           <div className="compte-options-grid">
-            <div className="compte-option green-border-option" data-title="Mon Compte">
+            <div className="compte-option green-border-option" data-title="Mes données">
               <ul className="ul_compte">
                 <li onClick={() => handleOptionClick("donnees")}>
                   <img src="/img/ressources.png" alt="Données" /> Gérer les données personnelles
