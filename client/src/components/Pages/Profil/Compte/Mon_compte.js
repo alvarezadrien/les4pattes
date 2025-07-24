@@ -36,7 +36,6 @@ const Mon_compte = () => {
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
-
   const [userComments, setUserComments] = useState([]);
 
   useEffect(() => {
@@ -49,13 +48,13 @@ const Mon_compte = () => {
     const fetchUserComments = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/api/commentaires/user/${user._id}`, {
+        const response = await fetch(`${API_URL}/api/comments/user/${user._id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
         });
         const data = await response.json();
-        setUserComments(data || []);
+        setUserComments(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error('Erreur lors du chargement des commentaires:', err);
       }
@@ -69,7 +68,7 @@ const Mon_compte = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/api/commentaires/${commentId}`, {
+      const response = await fetch(`${API_URL}/api/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -99,7 +98,6 @@ const Mon_compte = () => {
 
     try {
       const token = localStorage.getItem('token');
-
       const response = await fetch(`${API_URL}/api/auth/profile/avatar-url`, {
         method: 'PUT',
         headers: {
@@ -117,7 +115,6 @@ const Mon_compte = () => {
 
       setMessage(data.msg);
       updateAvatar(data.avatarUrl || imgUrl);
-
     } catch (error) {
       console.error("Erreur avatar:", error);
       setError(error.message || "Erreur lors de la mise à jour de l'avatar.");
@@ -211,18 +208,16 @@ const Mon_compte = () => {
 
             <div className="compte-option">
               <div className="option-content">
-                <h4 style={{ marginBottom: "1rem", color: "#444", fontSize: "1.2rem" }}>Vos avis</h4>
+                <h4>Vos avis</h4>
                 {userComments.length === 0 ? (
-                  <p style={{ color: "#999", fontStyle: "italic" }}>Aucun avis laissé pour le moment.</p>
+                  <p className="no-comments">Vous n'avez pas encore laissé d'avis.</p>
                 ) : (
                   <ul className="user-comments-list">
                     {userComments.map((comment) => (
                       <li key={comment._id} className="comment-item">
-                        <p>{comment.contenu}</p>
-                        <button
-                          onClick={() => handleDeleteComment(comment._id)}
-                          className="delete-comment-btn"
-                        >
+                        <p>{comment.commentText}</p>
+                        <p>Note : {comment.rating} / 5</p>
+                        <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment-btn">
                           Supprimer
                         </button>
                       </li>

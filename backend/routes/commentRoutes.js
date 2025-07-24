@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 router.post('/', authMiddleware, async (req, res) => {
     const { commentText, rating } = req.body;
     const userId = req.user.id;
-    const username = req.user.prenom || req.user.nom || "Utilisateur"; // ✅ Corrigé ici
+    const username = req.user.prenom || req.user.nom || "Utilisateur";
 
     if (!commentText || !rating) {
         return res.status(400).json({ msg: 'Veuillez saisir un commentaire et une note.' });
@@ -27,6 +27,17 @@ router.post('/', authMiddleware, async (req, res) => {
 
         const comment = await newComment.save();
         res.status(201).json(comment);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+// GET /api/comments/user/:userId ✅ Ajoutée
+router.get('/user/:userId', authMiddleware, async (req, res) => {
+    try {
+        const comments = await Comment.find({ userId: req.params.userId }).sort({ createdAt: -1 });
+        res.json(comments);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Erreur serveur');

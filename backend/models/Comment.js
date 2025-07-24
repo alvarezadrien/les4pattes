@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId, // Référence à l'ID de l'utilisateur
-        ref: 'User', // Fais attention à ce que 'User' corresponde au nom de ton modèle d'utilisateur si tu en as un
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     username: {
         type: String,
         required: true
     },
-    commentText: { // Renommé pour correspondre à commentText dans ton frontend
+    commentText: {
         type: String,
         required: true,
         trim: true
@@ -25,6 +25,9 @@ const commentSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    updatedAt: {
+        type: Date
     }
 });
 
