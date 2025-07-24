@@ -1,5 +1,3 @@
-// src/pages/Profil/Mon_compte.jsx
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
@@ -38,6 +36,7 @@ const Mon_compte = () => {
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
+  const [showMagazinePopup, setShowMagazinePopup] = useState(false); // State for magazine popup
 
   const [userComments, setUserComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
@@ -126,7 +125,7 @@ const Mon_compte = () => {
     setShowPasswordPopup(false);
     setShowCommentPopup(false);
     setShowAdoptionPopup(false);
-    fetchUserComments();
+    fetchUserComments(); // Refresh comments after a successful submission
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000);
   };
@@ -141,6 +140,7 @@ const Mon_compte = () => {
       case "deconnexion": handleLogout(); break;
       case "commentaires": setShowCommentPopup(true); break;
       case "adoption": setShowAdoptionPopup(true); break;
+      case "magazine": setShowMagazinePopup(true); break;
       default: break;
     }
   };
@@ -173,7 +173,7 @@ const Mon_compte = () => {
 
         <div className="compte-right">
           <div className="compte-options-grid">
-            <div className="compte-option">
+            <div className="compte-option green-border-option" data-title="Mon Compte">
               <ul className="ul_compte">
                 <li onClick={() => handleOptionClick("donnees")}>
                   <img src="/img/ressources.png" alt="Données" /> Gérer les données personnelles
@@ -190,14 +190,14 @@ const Mon_compte = () => {
               </ul>
             </div>
 
-            <div className="compte-option">
+            <div className="compte-option green-border-option clickable" onClick={() => handleOptionClick("magazine")} data-title="Découvrir">
               <div className="option-content">
                 <img src="/img/magazine.png" alt="Magazine" className="option-img" />
                 <span>Notre magazine</span>
               </div>
             </div>
 
-            <div className="compte-option">
+            <div className="compte-option green-border-option" data-title="Commentaires">
               <div className="option-content">
                 <button className="comment-button" onClick={() => handleOptionClick("commentaires")}>
                   Laisser un commentaire
@@ -205,7 +205,7 @@ const Mon_compte = () => {
               </div>
             </div>
 
-            <div className="compte-option">
+            <div className="compte-option green-border-option" data-title="Vos Avis">
               <div className="option-content">
                 <h4>Vos avis</h4>
                 {loadingComments ? (
@@ -254,6 +254,20 @@ const Mon_compte = () => {
             {error && <p className="error-message">{error}</p>}
             <div className="popup-buttons">
               <button onClick={() => setShowAvatarPopup(false)} className="close-btn">Fermer</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showMagazinePopup && (
+        <div className="magazine-popup popup-overlay">
+          <div className="popup-modal">
+            <div className="popup-header">
+              <h3>Notre magazine</h3>
+              <button onClick={() => setShowMagazinePopup(false)} className="close-popup-btn">&times;</button>
+            </div>
+            <div className="popup-body">
+              <img src="/img/magazine.png" alt="Magazine en grand" className="large-magazine-img" />
             </div>
           </div>
         </div>
