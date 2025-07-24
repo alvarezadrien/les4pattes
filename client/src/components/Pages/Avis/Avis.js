@@ -15,16 +15,19 @@ const Avis = () => {
             if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
             const data = await response.json();
 
-            // Supprimer les doublons : même texte ET même auteur
-            const uniqueMap = new Map();
-            data.forEach((comment) => {
-                const key = `${comment.username}-${comment.commentText}`;
-                if (!uniqueMap.has(key)) {
-                    uniqueMap.set(key, comment);
-                }
-            });
+            // ✅ Élimine les doublons par (texte nettoyé + username nettoyé)
+            const seen = new Set();
+            const uniques = [];
 
-            setComments(Array.from(uniqueMap.values()));
+            for (const comment of data) {
+                const key = `${comment.username?.trim().toLowerCase()}-${comment.commentText?.trim().toLowerCase()}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniques.push(comment);
+                }
+            }
+
+            setComments(uniques);
         } catch (err) {
             console.error("Erreur lors de la récupération des avis:", err);
             setError("Impossible de charger les avis. Veuillez réessayer plus tard.");
@@ -38,11 +41,15 @@ const Avis = () => {
     }, [fetchComments]);
 
     const handleNewComment = (newComment) => {
-        const key = `${newComment.username}-${newComment.commentText}`;
-        setComments(prev => {
-            const exists = prev.some(c => `${c.username}-${c.commentText}` === key);
-            return exists ? prev : [newComment, ...prev];
+        const key = `${newComment.username?.trim().toLowerCase()}-${newComment.commentText?.trim().toLowerCase()}`;
+        const alreadyExists = comments.some(c => {
+            const existingKey = `${c.username?.trim().toLowerCase()}-${c.commentText?.trim().toLowerCase()}`;
+            return existingKey === key;
         });
+
+        if (!alreadyExists) {
+            setComments(prev => [newComment, ...prev]);
+        }
     };
 
     const sliderSettings = {
@@ -60,8 +67,6 @@ const Avis = () => {
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
-                    infinite: true,
-                    dots: true
                 }
             },
             {
@@ -69,7 +74,6 @@ const Avis = () => {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    initialSlide: 1
                 }
             }
         ]
@@ -120,4 +124,3 @@ const Avis = () => {
 };
 
 export default Avis;
-    

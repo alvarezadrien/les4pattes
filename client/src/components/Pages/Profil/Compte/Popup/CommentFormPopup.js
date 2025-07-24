@@ -22,13 +22,13 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
             return;
         }
 
-        try {
-            if (!token) {
-                setError("Vous devez être connecté pour laisser un commentaire.");
-                setLoading(false);
-                return;
-            }
+        if (!token) {
+            setError("Vous devez être connecté pour laisser un commentaire.");
+            setLoading(false);
+            return;
+        }
 
+        try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`, {
                 method: 'POST',
                 headers: {
@@ -45,17 +45,17 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
             if (!response.ok) {
                 const contentType = response.headers.get('content-type');
                 let errorMessage = `Erreur serveur (${response.status})`;
+
                 if (contentType && contentType.includes('application/json')) {
                     const errorData = await response.json();
-                    errorMessage = errorData.message || errorMessage;
+                    errorMessage = errorData.msg || errorData.message || errorMessage;
                 } else {
                     const text = await response.text();
-                    if (text.startsWith('<!DOCTYPE html>')) {
-                        errorMessage = "Le serveur a renvoyé une page HTML. Vérifie l’URL de l’API.";
-                    } else {
-                        errorMessage = text;
-                    }
+                    errorMessage = text.startsWith('<!DOCTYPE html>')
+                        ? "Erreur de l’API : HTML inattendu."
+                        : text;
                 }
+
                 throw new Error(errorMessage);
             }
 
@@ -64,7 +64,7 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
             setCommentText('');
             setRating(0);
             if (onCommentSubmitSuccess) {
-                onCommentSubmitSuccess(data); // On passe le nouveau commentaire
+                onCommentSubmitSuccess(data);
             }
             setTimeout(onClose, 1500);
         } catch (err) {
@@ -80,9 +80,7 @@ const CommentFormPopup = ({ onClose, onCommentSubmitSuccess }) => {
             <div className="popup-modal">
                 <div className="popup-header">
                     <h3>Laisser un commentaire</h3>
-                    <button className="close-popup-btn" onClick={onClose}>
-                        &times;
-                    </button>
+                    <button className="close-popup-btn" onClick={onClose}>&times;</button>
                 </div>
                 <form onSubmit={handleSubmit} className="popup-form">
                     <div className="form-group">
