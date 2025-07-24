@@ -48,7 +48,6 @@ function Navbar() {
       title: "Membres",
       propositions: [
         { text: "Notre équipe", link: "/Notre équipe" },
-        { text: "Adhésions", link: "/Adhésions" },
         { text: "Nos partenaires", link: "/Nos partenaires" },
       ],
     },
