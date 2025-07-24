@@ -849,9 +849,6 @@ const BackOffice = () => {
                             <IconButton className="btn-icon btn-view" onClick={() => handleViewCommentDetails(comment)} title="Voir le commentaire complet">
                               <VisibilityIcon />
                             </IconButton>
-                            <IconButton className="btn-icon btn-delete" onClick={() => confirmDeleteComment(comment._id)} title="Supprimer commentaire">
-                              <DeleteIcon />
-                            </IconButton>
                           </td>
                         </tr>
                       ))
