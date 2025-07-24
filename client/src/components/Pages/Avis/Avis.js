@@ -15,11 +15,16 @@ const Avis = () => {
             if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
             const data = await response.json();
 
-            const uniqueComments = Array.from(
-                new Map(data.map(item => [item.commentText, item])).values()
-            );
+            // Supprimer les doublons : même texte ET même auteur
+            const uniqueMap = new Map();
+            data.forEach((comment) => {
+                const key = `${comment.username}-${comment.commentText}`;
+                if (!uniqueMap.has(key)) {
+                    uniqueMap.set(key, comment);
+                }
+            });
 
-            setComments(uniqueComments);
+            setComments(Array.from(uniqueMap.values()));
         } catch (err) {
             console.error("Erreur lors de la récupération des avis:", err);
             setError("Impossible de charger les avis. Veuillez réessayer plus tard.");
@@ -33,7 +38,11 @@ const Avis = () => {
     }, [fetchComments]);
 
     const handleNewComment = (newComment) => {
-        setComments(prev => [newComment, ...prev]);
+        const key = `${newComment.username}-${newComment.commentText}`;
+        setComments(prev => {
+            const exists = prev.some(c => `${c.username}-${c.commentText}` === key);
+            return exists ? prev : [newComment, ...prev];
+        });
     };
 
     const sliderSettings = {
@@ -74,8 +83,6 @@ const Avis = () => {
         return <div className="avis-container error-message">{error}</div>;
     }
 
-
-
     return (
         <div className="avis-section">
             <h2 className="avis-title">
@@ -113,3 +120,4 @@ const Avis = () => {
 };
 
 export default Avis;
+    
