@@ -621,6 +621,7 @@
 .magazine-popup .popup-modal {
   max-width: 600px; /* Adjusted for better size, not too large */
   width: 90%;
+  height: 40rem;
 }
 
 .magazine-popup .popup-body {
