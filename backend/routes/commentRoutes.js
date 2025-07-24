@@ -3,6 +3,7 @@ const router = express.Router();
 const Comment = require('../models/Comment');
 const authMiddleware = require('../middleware/authMiddleware');
 
+// ✅ Ajouter un commentaire
 // POST /api/comments
 router.post('/', authMiddleware, async (req, res) => {
     const { commentText, rating } = req.body;
@@ -33,17 +34,7 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-// GET /api/comments/user/:userId ✅ Ajoutée
-router.get('/user/:userId', authMiddleware, async (req, res) => {
-    try {
-        const comments = await Comment.find({ userId: req.params.userId }).sort({ createdAt: -1 });
-        res.json(comments);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Erreur serveur');
-    }
-});
-
+// ✅ Récupérer tous les commentaires
 // GET /api/comments
 router.get('/', async (req, res) => {
     try {
@@ -55,6 +46,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// ✅ Récupérer un commentaire par ID
 // GET /api/comments/:id
 router.get('/:id', async (req, res) => {
     try {
@@ -72,6 +64,19 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// ✅ Récupérer les commentaires d’un utilisateur spécifique
+// GET /api/comments/user/:userId
+router.get('/user/:userId', authMiddleware, async (req, res) => {
+    try {
+        const comments = await Comment.find({ userId: req.params.userId }).sort({ createdAt: -1 });
+        res.json(comments);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+// ✅ Modifier un commentaire
 // PUT /api/comments/:id
 router.put('/:id', authMiddleware, async (req, res) => {
     const { commentText, rating } = req.body;
@@ -111,6 +116,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     }
 });
 
+// ✅ Supprimer un commentaire
 // DELETE /api/comments/:id
 router.delete('/:id', authMiddleware, async (req, res) => {
     try {

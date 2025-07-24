@@ -36,6 +36,7 @@ const Mon_compte = () => {
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
+
   const [userComments, setUserComments] = useState([]);
 
   useEffect(() => {
@@ -54,9 +55,10 @@ const Mon_compte = () => {
           }
         });
         const data = await response.json();
-        setUserComments(Array.isArray(data) ? data : []);
+        setUserComments(data || []);
       } catch (err) {
         console.error('Erreur lors du chargement des commentaires:', err);
+        setError("Impossible de charger vos commentaires.");
       }
     };
 
@@ -72,19 +74,18 @@ const Mon_compte = () => {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
 
-      if (!response.ok) throw new Error('Erreur lors de la suppression.');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.msg || 'Erreur lors de la suppression.');
 
       setUserComments(prev => prev.filter(c => c._id !== commentId));
     } catch (err) {
       console.error('Erreur suppression :', err);
+      setError(err.message || 'Erreur lors de la suppression');
     }
   };
-
-  if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
-  if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
 
   const handleLogout = () => {
     logout();
@@ -98,6 +99,7 @@ const Mon_compte = () => {
 
     try {
       const token = localStorage.getItem('token');
+
       const response = await fetch(`${API_URL}/api/auth/profile/avatar-url`, {
         method: 'PUT',
         headers: {
@@ -115,6 +117,7 @@ const Mon_compte = () => {
 
       setMessage(data.msg);
       updateAvatar(data.avatarUrl || imgUrl);
+
     } catch (error) {
       console.error("Erreur avatar:", error);
       setError(error.message || "Erreur lors de la mise à jour de l'avatar.");
@@ -206,26 +209,26 @@ const Mon_compte = () => {
               </div>
             </div>
 
-            <div className="compte-option">
-              <div className="option-content">
-                <h4>Vos avis</h4>
-                {userComments.length === 0 ? (
-                  <p className="no-comments">Vous n'avez pas encore laissé d'avis.</p>
-                ) : (
+            {userComments.length > 0 && (
+              <div className="compte-option">
+                <div className="option-content">
+                  <h4>Vos avis</h4>
                   <ul className="user-comments-list">
                     {userComments.map((comment) => (
                       <li key={comment._id} className="comment-item">
                         <p>{comment.commentText}</p>
-                        <p>Note : {comment.rating} / 5</p>
                         <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment-btn">
                           Supprimer
                         </button>
                       </li>
                     ))}
                   </ul>
-                )}
+                </div>
               </div>
-            </div>
+            )}
+
+            {error && <p className="error-message">{error}</p>}
+            {message && <p className="success-message">{message}</p>}
           </div>
         </div>
       </div>
@@ -246,9 +249,6 @@ const Mon_compte = () => {
                 />
               ))}
             </div>
-
-            {message && <p className="success-message">{message}</p>}
-            {error && <p className="error-message">{error}</p>}
 
             <div className="popup-buttons">
               <button onClick={() => setShowAvatarPopup(false)} className="close-btn">
