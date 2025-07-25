@@ -12,27 +12,30 @@ import CommentFormPopup from './Popup/CommentFormPopup';
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
 import UserCommentsListPopup from './Popup/UserCommentsListPopup';
 
-const avatarOptions = [
-  "/img/Avatar/avatar_chat1.jpg",
-  "/img/Avatar/avatar_chat2.jpg",
-  "/img/Avatar/avatar_chat3.jpg",
-  "/img/Avatar/avatar_chat4.jpg",
-  "/img/Avatar/avatar_chat5.png",
-  "/img/Avatar/avatar_chat6.png",
-  "/img/Avatar/avatar_chien1.jpg",
-  "/img/Avatar/avatar_chien2.jpg",
-  "/img/Avatar/avatar_chien3.jpg",
-  "/img/Avatar/avatar_chien4.jpg",
-  "/img/Avatar/avatar_chien5.png",
-  "/img/Avatar/avatar_chien6.png",
-];
-
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const SuccessPopup = ({ message, onClose }) => (
   <div className="success-popup">
     <div className="success-popup-content">
       <span>{message}</span>
+    </div>
+  </div>
+);
+
+// ✅ Popup intégré ici directement
+const ReadMorePopup = ({ commentText, onClose }) => (
+  <div className="popup-overlay">
+    <div className="popup-modal read-more-modal">
+      <div className="popup-header">
+        <h3>Commentaire complet</h3>
+        <button onClick={onClose} className="close-popup-btn">&times;</button>
+      </div>
+      <div className="popup-body">
+        <p className="full-comment-text">{commentText}</p>
+      </div>
+      <div className="popup-buttons">
+        <button onClick={onClose} className="close-btn">Fermer</button>
+      </div>
     </div>
   </div>
 );
@@ -115,7 +118,6 @@ const Mon_compte = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.msg || 'Erreur modification');
 
-      // Met à jour le commentaire dans le state
       setUserComments(prev => prev.map(comment =>
         comment._id === commentId ? { ...comment, commentText: newText, rating: newRating } : comment
       ));
@@ -217,6 +219,12 @@ const Mon_compte = () => {
           onEditComment={handleEditComment}
           onReadMoreClick={(text) => { setCurrentReadMoreComment(text); setShowReadMorePopup(true); }}
           loading={loadingComments}
+        />
+      )}
+      {showReadMorePopup && (
+        <ReadMorePopup
+          commentText={currentReadMoreComment}
+          onClose={() => setShowReadMorePopup(false)}
         />
       )}
     </div>
