@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const PasswordFormPopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
@@ -31,7 +31,8 @@ const PasswordFormPopup = ({ onClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${API_URL}/api/auth/profile`, {
+
+            const response = await fetch(`${API_URL}/api/auth/password`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,13 +44,12 @@ const PasswordFormPopup = ({ onClose }) => {
                 }),
             });
 
-            const data = await res.json();
+            const data = await response.json();
 
-            if (!res.ok) {
-                throw new Error(data.msg || 'Erreur lors du changement de mot de passe.');
-            }
+            if (!response.ok) throw new Error(data.msg || 'Erreur serveur');
 
             setMessage(data.msg || 'Mot de passe mis à jour avec succès !');
+            setError('');
             setFormData({
                 currentPassword: '',
                 newPassword: '',
@@ -57,7 +57,8 @@ const PasswordFormPopup = ({ onClose }) => {
             });
         } catch (err) {
             console.error("Erreur lors du changement de mot de passe:", err);
-            setError(err.message);
+            setError(err.message || 'Erreur lors du changement de mot de passe.');
+            setMessage('');
         } finally {
             setLoading(false);
         }
