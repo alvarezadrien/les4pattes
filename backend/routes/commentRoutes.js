@@ -26,7 +26,7 @@ router.post('/', authMiddleware, async (req, res) => {
         const newComment = new Comment({
             userId,
             username,
-            avatar, // ✅ Ajout de l’avatar réel de l’utilisateur
+            avatar,
             commentText,
             rating
         });
@@ -39,10 +39,10 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-// ✅ Récupérer tous les commentaires
+// ✅ Récupérer tous les commentaires avec userId visible
 router.get('/', async (req, res) => {
     try {
-        const comments = await Comment.find().sort({ createdAt: -1 });
+        const comments = await Comment.find({}, '-__v').sort({ createdAt: -1 });
         res.json(comments);
     } catch (err) {
         console.error(err.message);
