@@ -568,113 +568,6 @@
   margin-top: 1rem;
 }
 
-/* Styles responsive pour les popups */
-@media (max-width: 480px) {
-  .popup-modal,
-  .comments-list-modal,
-  .read-more-modal,
-  .magazine-modal {
-    padding: 1.5rem;
-    width: 95%;
-  }
-  .popup-header h3 {
-    font-size: 1.5rem;
-  }
-  .close-popup-btn {
-    font-size: 2rem;
-  }
-  .form-group label {
-    font-size: 1rem;
-  }
-  .form-group input,
-  .form-group textarea {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.9rem;
-  }
-  .submit-btn {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-  }
-  .magazine-modal .large-magazine-img {
-    width: 100%;
-  }
-}
-@media (min-width: 481px) and (max-width: 768px) {
-  .popup-modal,
-  .comments-list-modal,
-  .read-more-modal,
-  .magazine-modal {
-    padding: 2rem;
-    width: 90%;
-  }
-  .popup-header h3 {
-    font-size: 1.6rem;
-  }
-  .magazine-modal .large-magazine-img {
-    width: 90%;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .popup-modal,
-  .comments-list-modal,
-  .read-more-modal,
-  .magazine-modal {
-    padding: 2.2rem;
-    width: 80%;
-    max-width: 600px;
-  }
-  .popup-header h3 {
-    font-size: 1.7rem;
-  }
-  .magazine-modal {
-    max-width: 650px;
-  }
-  .magazine-modal .large-magazine-img {
-    width: 80%;
-  }
-}
-
-@media (min-width: 1025px) and (max-width: 1280px) {
-  .popup-modal,
-  .comments-list-modal,
-  .read-more-modal,
-  .magazine-modal {
-    padding: 2.5rem;
-    width: 70%;
-    max-width: 700px;
-  }
-  .popup-header h3 {
-    font-size: 1.8rem;
-  }
-  .magazine-modal {
-    max-width: 750px;
-  }
-  .magazine-modal .large-magazine-img {
-    width: 70%;
-  }
-}
-
-@media (min-width: 1281px) and (max-width: 1440px) {
-  .popup-modal,
-  .comments-list-modal,
-  .read-more-modal,
-  .magazine-modal {
-    padding: 2.8rem;
-    width: 60%;
-    max-width: 800px;
-  }
-  .popup-header h3 {
-    font-size: 1.9rem;
-  }
-  .magazine-modal {
-    max-width: 850px;
-  }
-  .magazine-modal .large-magazine-img {
-    width: 60%;
-  }
-}
-
 /* Styles pour le système d'étoiles */
 .star-rating {
   display: flex;
@@ -1610,4 +1503,116 @@
 .password-input-wrapper input {
   flex: 1;
   padding-right: 2.5rem; /* espace pour l'icône */
+}
+
+/* Styles responsive pour les popups */
+@media (max-width: 480px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 1.5rem;
+    width: 80%;
+  }
+
+  .comment-item-popup:last-child {
+    width: 95%;
+  }
+
+  .popup-header h3 {
+    font-size: 1.5rem;
+  }
+  .close-popup-btn {
+    font-size: 2rem;
+  }
+  .form-group label {
+    font-size: 1rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  .submit-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 100%;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2rem;
+    width: 90%;
+  }
+  .popup-header h3 {
+    font-size: 1.6rem;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 90%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2.2rem;
+    width: 80%;
+    max-width: 600px;
+  }
+  .popup-header h3 {
+    font-size: 1.7rem;
+  }
+  .magazine-modal {
+    max-width: 650px;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2.5rem;
+    width: 70%;
+    max-width: 700px;
+  }
+  .popup-header h3 {
+    font-size: 1.8rem;
+  }
+  .magazine-modal {
+    max-width: 750px;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2.8rem;
+    width: 60%;
+    max-width: 800px;
+  }
+  .popup-header h3 {
+    font-size: 1.9rem;
+  }
+  .magazine-modal {
+    max-width: 850px;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 60%;
+  }
 }
