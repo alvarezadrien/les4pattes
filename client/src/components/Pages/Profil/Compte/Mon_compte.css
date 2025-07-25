@@ -515,6 +515,7 @@
 
 .form-group input,
 .form-group textarea {
+  width: 95%;
   padding: 0.8rem 1rem;
   border: 1px solid #e0d39f;
   border-radius: 0.5rem;
@@ -1517,7 +1518,7 @@
 }
 
 .edit-comment-textarea {
-  width: 100%;
+  width: 95%;
   padding: 0.8rem;
   font-size: 1rem;
   border: 2px solid #ccc;
