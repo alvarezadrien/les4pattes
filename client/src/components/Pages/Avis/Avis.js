@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useAuth } from '../../../../src/context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import CommentFormPopup from '../../Pages/Profil/Compte/Popup/CommentFormPopup';
 import './Avis.css';
 
@@ -62,19 +62,15 @@ const Avis = () => {
 
     const getAvatarUrl = (comment) => {
         if (!user || !comment.userId) return null;
-
         const isOwner = comment.userId?.toString() === user._id;
-
         if (isOwner && user.avatar) {
             if (user.avatar.startsWith('http')) return user.avatar;
             return `${process.env.REACT_APP_API_URL}${user.avatar.startsWith('/') ? '' : '/'}${user.avatar}`;
         }
-
         if (comment.avatar && comment.avatar.trim() !== '') {
             if (comment.avatar.startsWith('http')) return comment.avatar;
             return `${process.env.REACT_APP_API_URL}${comment.avatar.startsWith('/') ? '' : '/'}${comment.avatar}`;
         }
-
         return null;
     };
 

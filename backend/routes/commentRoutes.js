@@ -39,7 +39,7 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-// ✅ Récupérer tous les commentaires avec userId visible
+// ✅ Récupérer tous les commentaires avec userId
 router.get('/', async (req, res) => {
     try {
         const comments = await Comment.find({}, '-__v').sort({ createdAt: -1 });
