@@ -101,6 +101,32 @@ const Mon_compte = () => {
     }
   };
 
+  const handleEditComment = async (commentId, newText, newRating) => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/api/comments/${commentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ commentText: newText, rating: newRating })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.msg || 'Erreur modification');
+
+      // Met à jour le commentaire dans le state
+      setUserComments(prev => prev.map(comment =>
+        comment._id === commentId ? { ...comment, commentText: newText, rating: newRating } : comment
+      ));
+      setShowPopupSuccess(true);
+      setTimeout(() => setShowPopupSuccess(false), 3000);
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
+
   const displayAvatarUrl = user.avatar
     ? user.avatar.startsWith('/uploads/')
       ? `${API_URL}${user.avatar}`
@@ -175,7 +201,7 @@ const Mon_compte = () => {
         </div>
       </div>
 
-      {showPopupSuccess && <SuccessPopup message="Commentaire supprimé avec succès !" />}
+      {showPopupSuccess && <SuccessPopup message="Action réalisée avec succès !" />}
       {error && <p className="error-message">{error}</p>}
 
       {showDataPopup && <DataFormPopup onClose={() => setShowDataPopup(false)} user={user} onUpdateSuccess={fetchUserComments} />}
@@ -188,6 +214,7 @@ const Mon_compte = () => {
           comments={userComments}
           onClose={() => setShowUserCommentsListPopup(false)}
           onDeleteComment={handleDeleteComment}
+          onEditComment={handleEditComment}
           onReadMoreClick={(text) => { setCurrentReadMoreComment(text); setShowReadMorePopup(true); }}
           loading={loadingComments}
         />
