@@ -39,11 +39,44 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-// ✅ Récupérer tous les commentaires avec userId
+// ✅ Récupérer tous les commentaires
 router.get('/', async (req, res) => {
     try {
         const comments = await Comment.find({}, '-__v').sort({ createdAt: -1 });
         res.json(comments);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+// ✅ Récupérer les commentaires d'un utilisateur spécifique
+router.get('/user/:userId', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const comments = await Comment.find({ userId }).sort({ createdAt: -1 });
+        res.json(comments);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+// ✅ Supprimer un commentaire par son ID
+router.delete('/:commentId', authMiddleware, async (req, res) => {
+    try {
+        const comment = await Comment.findById(req.params.commentId);
+        if (!comment) {
+            return res.status(404).json({ msg: 'Commentaire non trouvé.' });
+        }
+
+        // Vérifie que l'utilisateur connecté est bien l'auteur
+        if (comment.userId.toString() !== req.user.id) {
+            return res.status(403).json({ msg: 'Non autorisé à supprimer ce commentaire.' });
+        }
+
+        await Comment.findByIdAndDelete(req.params.commentId);
+        res.status(200).json({ msg: 'Commentaire supprimé.' });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Erreur serveur');

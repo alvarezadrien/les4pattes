@@ -40,14 +40,13 @@ const Mon_compte = () => {
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
-  const [showMagazinePopup, setShowMagazinePopup] = useState(false); // State for magazine popup
+  const [showMagazinePopup, setShowMagazinePopup] = useState(false);
 
   const [userComments, setUserComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
 
   const fetchUserComments = async () => {
     if (!user?._id) return;
-
     setLoadingComments(true);
     try {
       const token = localStorage.getItem('token');
@@ -86,9 +85,6 @@ const Mon_compte = () => {
       console.error('Erreur de suppression :', err);
     }
   };
-
-  if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
-  if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
 
   const handleLogout = () => {
     logout();
@@ -129,7 +125,7 @@ const Mon_compte = () => {
     setShowPasswordPopup(false);
     setShowCommentPopup(false);
     setShowAdoptionPopup(false);
-    fetchUserComments(); // Refresh comments after a successful submission
+    fetchUserComments(); // Refresh
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000);
   };
@@ -154,6 +150,9 @@ const Mon_compte = () => {
       ? `${API_URL}${user.avatar}`
       : user.avatar
     : '/img/Avatar/avatar_chat1.jpg';
+
+  if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
+  if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
 
   return (
     <div className="mon-compte-container">
