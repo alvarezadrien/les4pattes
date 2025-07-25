@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -32,18 +31,25 @@ const PasswordFormPopup = ({ onClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-
-            const response = await axios.put(`${API_URL}/api/auth/profile`, {
-                currentPassword: formData.currentPassword,
-                newPassword: formData.newPassword,
-            }, {
+            const res = await fetch(`${API_URL}/api/auth/profile`, {
+                method: 'PUT',
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
+                body: JSON.stringify({
+                    currentPassword: formData.currentPassword,
+                    newPassword: formData.newPassword,
+                }),
             });
 
-            setMessage(response.data.msg || 'Mot de passe mis à jour avec succès !');
-            setError('');
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.msg || 'Erreur lors du changement de mot de passe.');
+            }
+
+            setMessage(data.msg || 'Mot de passe mis à jour avec succès !');
             setFormData({
                 currentPassword: '',
                 newPassword: '',
@@ -51,8 +57,7 @@ const PasswordFormPopup = ({ onClose }) => {
             });
         } catch (err) {
             console.error("Erreur lors du changement de mot de passe:", err);
-            setError(err.response?.data?.msg || 'Erreur lors du changement de mot de passe.');
-            setMessage('');
+            setError(err.message);
         } finally {
             setLoading(false);
         }
