@@ -1,7 +1,7 @@
 .mon-compte-container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,7 @@
 }
 
 .compte-left {
-  background-color: #fff5d9;
+  background-color: var(--tertiary-color);
   flex: 1;
   padding: 2rem;
   display: flex;
@@ -40,7 +40,8 @@
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #d1b980;
+  border: 2px solid var(--primary-color);
+  cursor: pointer; /* Added cursor for clickable avatar */
 }
 
 .user-names {
@@ -52,7 +53,12 @@
 .user-nom,
 .user-prenom {
   font-size: 1.2rem;
-  color: #444;
+  color: var(--quaternary-color);
+}
+
+.user-fullname {
+  font-size: 1.2rem;
+  color: var(--quaternary-color);
 }
 
 .intro-texte {
@@ -95,10 +101,42 @@
   border-radius: 1rem;
   padding: 1.5rem;
   display: flex;
+  flex-direction: column; /* Changed to column to stack title above content */
   justify-content: center;
   align-items: center;
   min-height: 150px;
   transition: box-shadow 0.3s ease;
+  position: relative; /* Needed for absolute positioning of ::before */
+  padding-top: 2.5rem; /* Space for the title */
+  overflow: visible; /* Allow pseudo-element to extend */
+}
+
+/* NOUVEAUX STYLES POUR LE TITRE DES CONTENAIRS */
+.compte-option::before {
+  content: attr(data-title); /* Utilise le contenu de l'attribut data-title */
+  position: absolute;
+  top: -18px; /* Ajuste la position au-dessus du conteneur */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-color); /* Couleur de fond verte */
+  color: #fff;
+  padding: 0.2rem 1.2rem;
+  border-radius: 1rem 1rem 0 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2; /* S'assure qu'il est au-dessus du conteneur */
+  white-space: nowrap; /* Empêche le texte de revenir à la ligne */
+}
+
+/* Ajustement spécifique pour le conteneur du magazine si nécessaire, bien que le ::before général devrait suffire */
+/* Si vous aviez un ::after spécifique pour le magazine, le ::before générique le remplacera ou devrez être ajusté */
+.compte-option.magazine {
+  border: 2px solid var(--primary-color);
+  background: linear-gradient(120deg, #fffbe6 60%, #f4eaca 100%);
+  box-shadow: 0 6px 18px rgba(210, 185, 128, 0.12);
+  /* Le titre ::before est géré par la règle générale */
 }
 
 .compte-option:hover {
@@ -109,6 +147,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%; /* Ensure it takes full width */
 }
 
 .ul_compte li {
@@ -144,6 +183,7 @@
   color: var(--quaternary-color);
   height: 100%;
   justify-content: center;
+  width: 100%; /* Ensure content takes full width */
 }
 
 .option-content img,
@@ -158,12 +198,10 @@
   background: #f8f4e6;
 }
 
-/* Nouveau style pour le bouton de commentaire */
 .comment-button,
 .adoption-button,
 .view-comments-button {
-  /* Added .view-comments-button */
-  background-color: var(--primary-color, #d1b980);
+  background-color: var(--primary-color);
   color: white;
   padding: 0.6rem 1.2rem;
   border: none;
@@ -171,40 +209,15 @@
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: bold;
-  margin-top: 0.5rem; /* Espace au-dessus du bouton */
+  margin-top: 0.5rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .comment-button:hover,
 .adoption-button:hover,
 .view-comments-button:hover {
-  /* Added .view-comments-button */
   background-color: #bfa570;
   transform: translateY(-2px);
-}
-
-.compte-option.magazine {
-  border: 2px solid var(--primary-color, #d1b980);
-  background: linear-gradient(120deg, #fffbe6 60%, #f4eaca 100%);
-  box-shadow: 0 6px 18px rgba(210, 185, 128, 0.12);
-  position: relative;
-  overflow: visible;
-}
-
-.compte-option.magazine::after {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary-color, #d1b980);
-  color: #fff;
-  padding: 0.2rem 1.2rem;
-  border-radius: 1rem 1rem 0 0;
-  font-weight: bold;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 6px rgba(210, 185, 128, 0.12);
-  z-index: 2;
 }
 
 .avatar-popup {
@@ -254,12 +267,11 @@
 
 .avatar-option:hover {
   transform: scale(1.1);
-  border-color: #d1b980;
+  border-color: var(--primary-color);
 }
 
-/* Ajout : Avatar sélectionné */
 .avatar-option.selected {
-  border-color: #d1b980;
+  border-color: var(--primary-color);
 }
 
 .popup-buttons {
@@ -270,7 +282,7 @@
 
 .save-btn,
 .close-btn {
-  background-color: #f4eaca;
+  background-color: var(--secondary-color);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
@@ -284,620 +296,84 @@
   background-color: #e0d39f;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .mon-compte-container {
-    margin-top: 6rem;
-  }
-
-  .compte-background {
-    flex-direction: column;
-    width: 100%;
-    min-width: 0;
-    box-shadow: none;
-    border-radius: 0.5rem;
-  }
-
-  .compte-left {
-    padding: 1rem;
-    border-right: none;
-    border-bottom: 2px solid #f1e1b8;
-  }
-
-  .user-info {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .user-avatar {
-    width: 50px;
-    height: 50px;
-  }
-
-  .user-nom,
-  .user-prenom {
-    font-size: 1rem;
-  }
-
-  .intro-texte {
-    font-size: 1.1rem;
-    margin-top: 2rem;
-    text-align: center;
-  }
-
-  .user-actions {
-    gap: 0.5rem;
-  }
-
-  .action-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .compte-right {
-    padding: 1rem;
-  }
-
-  .compte-options-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .compte-option {
-    min-height: 100px;
-    padding: 1rem;
-  }
-
-  .option-content img,
-  .option-img {
-    width: 250px;
-    height: 150px;
-    margin-bottom: 0.3rem;
-  }
-
-  .popup-content {
-    padding: 1rem;
-    max-width: 95vw;
-  }
-
-  .avatar-option {
-    width: 40px;
-    height: 40px;
-  }
-
-  .popup-buttons {
-    gap: 1rem;
-  }
-
-  .comment-button,
-  .view-comments-button {
-    /* Added .view-comments-button */
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
-
-  .magazine-popup .popup-modal {
-    padding: 1rem;
-    width: 95%;
-  }
-
-  .magazine-popup .large-magazine-img {
-    max-width: 100%;
-    height: auto;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .mon-compte-container {
-    margin-top: 6rem;
-  }
-
-  .compte-background {
-    flex-direction: column;
-    width: 100%;
-    min-width: 0;
-    box-shadow: none;
-    border-radius: 0.5rem;
-  }
-
-  .compte-left {
-    padding: 1rem;
-    border-right: none;
-    border-bottom: 2px solid #f1e1b8;
-  }
-
-  .user-info {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .user-avatar {
-    width: 50px;
-    height: 50px;
-  }
-
-  .user-nom,
-  .user-prenom {
-    font-size: 1rem;
-  }
-
-  .intro-texte {
-    font-size: 1.1rem;
-    margin-top: 2rem;
-    text-align: center;
-  }
-
-  .user-actions {
-    gap: 0.5rem;
-  }
-
-  .action-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .compte-right {
-    padding: 1rem;
-  }
-
-  .compte-options-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .compte-option {
-    min-height: 100px;
-    padding: 1rem;
-  }
-
-  .option-content img,
-  .option-img {
-    width: 250px;
-    height: 150px;
-    margin-bottom: 0.3rem;
-  }
-
-  .popup-content {
-    padding: 1rem;
-  }
-
-  .avatar-options {
-    gap: 0.5rem;
-  }
-
-  .avatar-option {
-    width: 40px;
-    height: 40px;
-  }
-
-  .popup-buttons {
-    gap: 1rem;
-  }
-
-  .comment-button,
-  .view-comments-button {
-    /* Added .view-comments-button */
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
-
-  .magazine-popup .popup-modal {
-    padding: 1.5rem;
-    width: 90%;
-  }
-
-  .magazine-popup .large-magazine-img {
-    max-width: 90%;
-    height: auto;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .mon-compte-container {
-    margin-top: 6rem;
-  }
-
-  .compte-background {
-    width: 98%;
-    max-width: 900px;
-    border-radius: 0.7rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-
-  .compte-left {
-    padding: 1.5rem;
-    border-right: none;
-    border-bottom: 2px solid #f1e1b8;
-  }
-
-  .user-info {
-    flex-direction: row;
-    gap: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
-
-  .user-avatar {
-    width: 60px;
-    height: 60px;
-  }
-
-  .user-nom,
-  .user-prenom {
-    font-size: 1.05rem;
-  }
-
-  .intro-texte {
-    font-size: 1.2rem;
-    margin-top: 3rem;
-    text-align: center;
-  }
-
-  .user-actions {
-    gap: 0.7rem;
-  }
-
-  .action-icon {
-    width: 26px;
-    height: 26px;
-  }
-
-  .compte-right {
-    padding: 1.2rem;
-  }
-
-  .compte-options-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-  }
-
-  .compte-option {
-    min-height: 120px;
-    padding: 1.2rem;
-  }
-
-  .option-content img,
-  .option-img {
-    width: 180px;
-    height: 110px;
-    margin-bottom: 0.3rem;
-  }
-
-  .popup-content {
-    padding: 1.2rem;
-    max-width: 90vw;
-  }
-
-  .avatar-options {
-    gap: 0.7rem;
-  }
-
-  .avatar-option {
-    width: 50px;
-    height: 50px;
-  }
-
-  .popup-buttons {
-    gap: 1.2rem;
-  }
-
-  .comment-button,
-  .view-comments-button {
-    /* Added .view-comments-button */
-    padding: 0.6rem 1.1rem;
-    font-size: 0.85rem;
-  }
-
-  .magazine-popup .popup-modal {
-    padding: 2rem;
-    width: 70%;
-  }
-
-  .magazine-popup .large-magazine-img {
-    max-width: 80%;
-    height: auto;
-  }
-}
-
-@media (min-width: 1025px) and (max-width: 1280px) {
-  .mon-compte-container {
-    margin-top: 6rem;
-  }
-
-  .compte-background {
-    width: 94%;
-    max-width: 1200px;
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .compte-left {
-    padding: 2rem;
-    border-right: 2px solid #f1e1b8;
-    border-bottom: none;
-  }
-
-  .user-info {
-    flex-direction: row;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .user-avatar {
-    width: 70px;
-    height: 70px;
-  }
-
-  .user-nom,
-  .user-prenom {
-    font-size: 1.2rem;
-  }
-
-  .intro-texte {
-    font-size: 1.5rem;
-    margin-top: 5rem;
-    text-align: left;
-  }
-
-  .user-actions {
-    gap: 1rem;
-  }
-
-  .action-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .compte-right {
-    padding: 2rem;
-  }
-
-  .compte-options-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .compte-option {
-    min-height: 150px;
-    padding: 1.5rem;
-  }
-
-  .option-content img,
-  .option-img {
-    width: 260px;
-    height: 170px;
-    margin-bottom: 0.5rem;
-  }
-
-  .popup-content {
-    padding: 2rem;
-    max-width: 70vw;
-  }
-
-  .avatar-options {
-    gap: 1rem;
-  }
-
-  .avatar-option {
-    width: 60px;
-    height: 60px;
-  }
-
-  .popup-buttons {
-    gap: 2rem;
-  }
-
-  .comment-button,
-  .view-comments-button {
-    /* Added .view-comments-button */
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-  }
-
-  .magazine-popup .popup-modal {
-    padding: 2.2rem;
-    width: 60%;
-  }
-
-  .magazine-popup .large-magazine-img {
-    max-width: 70%;
-    height: auto;
-  }
-}
-
-@media (min-width: 1281px) and (max-width: 1440px) {
-  .mon-compte-container {
-    margin-top: 6rem;
-  }
-
-  .compte-background {
-    width: 92%;
-    max-width: 1350px;
-    border-radius: 1.1rem;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.13);
-  }
-
-  .compte-left {
-    padding: 2.3rem;
-    border-right: 2.5px solid #f1e1b8;
-    border-bottom: none;
-  }
-
-  .user-info {
-    flex-direction: row;
-    gap: 1.2rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .user-avatar {
-    width: 85px;
-    height: 85px;
-  }
-
-  .user-nom,
-  .user-prenom {
-    font-size: 1.35rem;
-  }
-
-  .intro-texte {
-    font-size: 1.7rem;
-    margin-top: 5.5rem;
-    text-align: left;
-  }
-
-  .user-actions {
-    gap: 1.2rem;
-  }
-
-  .action-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .compte-right {
-    padding: 2.3rem;
-  }
-
-  .compte-options-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.7rem;
-  }
-
-  .compte-option {
-    min-height: 180px;
-    padding: 1.7rem;
-  }
-
-  .option-content img,
-  .option-img {
-    width: 320px;
-    height: 200px;
-    margin-bottom: 0.7rem;
-  }
-
-  .popup-content {
-    padding: 2.3rem;
-    max-width: 60vw;
-  }
-
-  .avatar-options {
-    gap: 1.2rem;
-  }
-
-  .avatar-option {
-    width: 75px;
-    height: 75px;
-  }
-
-  .popup-buttons {
-    gap: 2.3rem;
-  }
-
-  .comment-button,
-  .view-comments-button {
-    /* Added .view-comments-button */
-    padding: 0.7rem 1.4rem;
-    font-size: 1rem;
-  }
-
-  .magazine-popup .popup-modal {
-    padding: 2.5rem;
-    width: 50%;
-  }
-
-  .magazine-popup .large-magazine-img {
-    max-width: 60%;
-    height: auto;
-  }
-}
-
 /* --- NOUVEAUX STYLES POUR LE BOUTON DE TÉLÉVERSEMENT ET LES MESSAGES --- */
 
 .upload-section {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #eee; /* Ligne de séparation légère */
+  border-top: 1px solid #eee;
   text-align: center;
 }
 
 .upload-section h4 {
-  color: var(
-    --primary-color,
-    #444
-  ); /* Utilise ta couleur primaire ou un gris foncé */
+  color: var(--quaternary-color);
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
 .custom-file-upload-button {
   display: inline-block;
-  background-color: var(
-    --primary-color,
-    #d1b980
-  ); /* Couleur bouton basée sur ton thème */
+  background-color: var(--primary-color);
   color: white;
   padding: 0.8rem 1.8rem;
   border: none;
-  border-radius: 0.8rem; /* Bords légèrement arrondis */
+  border-radius: 0.8rem;
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.2s ease,
     box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Légère ombre pour donner du relief */
-  text-transform: uppercase; /* Texte en majuscules pour un look plus prononcé */
-  letter-spacing: 0.05em; /* Espacement des lettres */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .custom-file-upload-button:hover {
-  background-color: #bfa570; /* Teinte plus foncée au survol */
-  transform: translateY(-3px); /* Petit effet de soulèvement */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  background-color: #bfa570;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .custom-file-upload-button:active {
-  transform: translateY(0); /* Retour à la position normale au clic */
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Effet d'enfoncement */
+  transform: translateY(0);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .selected-file-name {
-  display: block; /* Prend une nouvelle ligne */
+  display: block;
   margin-top: 0.8rem;
   font-size: 0.95rem;
   color: #777;
-  font-style: italic;
-  white-space: nowrap; /* Empêche le retour à la ligne */
-  overflow: hidden; /* Cache le texte qui dépasse */
-  text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
-  max-width: 90%; /* Limite la largeur pour éviter les débordements */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
 
 .success-message {
-  color: #28a745; /* Vert pour le succès */
+  color: #28a745;
   margin-top: 1.5rem;
   font-weight: bold;
   font-size: 1.1rem;
 }
 
 .error-message {
-  color: #dc3545; /* Rouge pour l'erreur */
+  color: #dc3545;
   margin-top: 1.5rem;
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-/* Ajustement des boutons du popup pour qu'ils s'intègrent mieux */
 .popup-buttons {
-  margin-top: 2rem; /* Plus d'espace au-dessus */
+  margin-top: 2rem;
 }
 
 .save-btn,
 .close-btn {
-  padding: 0.8rem 1.8rem; /* Rendre les boutons plus grands */
-  border-radius: 0.8rem; /* Unifier les bords arrondis */
+  padding: 0.8rem 1.8rem;
+  border-radius: 0.8rem;
   font-size: 1.1rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -908,7 +384,7 @@
 }
 
 .close-btn {
-  background-color: #e0d39f; /* Couleur basée sur ton thème pour "Fermer" */
+  background-color: #e0d39f;
   color: var(--primary-color);
 }
 
@@ -925,20 +401,18 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000; /* Plus élevé que l'avatar popup */
+  z-index: 2000;
   animation: fadeIn 0.3s ease-out;
 }
 
 .popup-modal,
 .comments-list-modal,
-/* Added for the comments list popup */
 .read-more-modal,
 .magazine-modal {
-  /* Added for the read more popup and magazine popup */
   background-color: white;
   padding: 2.5rem;
   border-radius: 1.2rem;
@@ -951,19 +425,17 @@
   flex-direction: column;
 }
 
-/* Specific adjustments for comments list modal */
 .comments-list-modal {
-  max-width: 600px; /* Slightly wider for better comment display */
+  max-width: 600px;
 }
 
-/* Specific adjustments for magazine modal */
 .magazine-modal {
-  max-width: 700px; /* Adjust as needed for the image */
-  align-items: center; /* Center content horizontally */
+  max-width: 700px;
+  align-items: center;
 }
 
 .magazine-modal .popup-body {
-  text-align: center; /* Center the image within the body */
+  text-align: center;
 }
 
 .large-magazine-img {
@@ -1000,12 +472,12 @@
   margin-bottom: 1.5rem;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
-  width: 100%; /* Ensure header takes full width within the modal */
+  width: 100%;
 }
 
 .popup-header h3 {
   margin: 0;
-  color: var(--primary-color, #444);
+  color: var(--primary-color);
   font-size: 1.8rem;
 }
 
@@ -1038,32 +510,30 @@
 .form-group label {
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: var(--primary-color, #555);
+  color: var(--quaternary-color);
   font-size: 1.1rem;
 }
 
 .form-group input,
 .form-group textarea {
-  /* Ajout de textarea ici */
   padding: 0.8rem 1rem;
-  border: 1px solid #e0d39f; /* Bordure basée sur ton thème */
+  border: 1px solid #e0d39f;
   border-radius: 0.5rem;
   font-size: 1rem;
   color: #333;
-  background-color: #fffaf0; /* Un léger fond crème */
+  background-color: #fffaf0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  /* Ajout de textarea ici */
-  border-color: var(--primary-color, #d1b980); /* Bordure accentuée au focus */
-  box-shadow: 0 0 0 3px rgba(209, 185, 128, 0.2); /* Ombre de focus légère */
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(209, 185, 128, 0.2);
   outline: none;
 }
 
 .submit-btn {
-  background-color: var(--primary-color, #d1b980);
+  background-color: var(--primary-color);
   color: white;
   padding: 1rem 2rem;
   border: none;
@@ -1098,243 +568,6 @@
   margin-top: 1rem;
 }
 
-/* Styles pour le système d'étoiles */
-.star-rating {
-  display: flex;
-  justify-content: center; /* Centre les étoiles */
-  direction: rtl; /* Inverse l'ordre pour que 5 soit à gauche */
-  font-size: 3rem; /* Taille des étoiles AUGMENTÉE */
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.star-rating input[type="radio"] {
-  display: none; /* Cache les radios boutons */
-}
-
-.star-rating label {
-  color: #ccc; /* Couleur par défaut des étoiles non sélectionnées */
-  cursor: pointer;
-  padding: 0 0.2rem; /* Petit espacement entre les étoiles */
-  transition: color 0.2s ease-in-out;
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  color: #ffc107; /* Couleur des étoiles au survol */
-}
-
-.star-rating input[type="radio"]:checked ~ label {
-  color: #ffc107; /* Couleur des étoiles sélectionnées */
-}
-
-/* Corriger l'ordre pour les visuels */
-.star-rating > label:before {
-  content: "★";
-  display: inline-block;
-  font-size: 4rem;
-}
-
-/* Alignement pour les écrans plus petits */
-@media (max-width: 480px) {
-  .star-rating {
-    font-size: 2rem; /* Taille des étoiles AUGMENTÉE pour mobile aussi */
-  }
-}
-
-/* NOUVEAUX Styles pour l'affichage des étoiles (DISPLAY ONLY) */
-.display-star-rating {
-  display: flex;
-  justify-content: center; /* Centrer les étoiles */
-  font-size: 1.5rem; /* Taille des étoiles pour l'affichage */
-  margin-top: 0.5rem;
-  color: #ffc107; /* Couleur par défaut pour les étoiles remplies */
-}
-
-.display-star-rating .empty-star {
-  color: #ccc; /* Couleur pour les étoiles vides */
-}
-
-/* Style for the 'Vos Avis' heading to match popup headers if desired */
-.compte-option[data-title="Vos Avis"] h2 {
-  margin: 0 0 1rem 0; /* Adjust margin */
-  color: var(--primary-color, #444);
-  font-size: 1.8rem; /* Match popup header size */
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-  text-align: center; /* Center the title */
-}
-
-/* Adjust the margin of "Vos Avis" content to give more space from the h2 */
-.compte-option[data-title="Vos Avis"] .option-content {
-  margin-top: 1rem; /* Add some top margin to separate from the H2 */
-}
-
-/* Adjustments for comments list */
-.user-comments-list {
-  padding-top: 1rem; /* Space from the "Vos Avis" title */
-  margin: 0;
-  list-style: none;
-  width: 100%; /* Ensure it takes full width */
-}
-
-.comment-item {
-  background-color: #fcf6e8; /* Lighter background for each comment */
-  border: 1px solid #e7dba8;
-  border-radius: 0.8rem;
-  padding: 1rem;
-  margin-bottom: 1rem; /* Space between comments */
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  align-items: flex-start; /* Align text to the left */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow */
-  position: relative;
-}
-
-.comment-item .comment-text-truncated,
-.comment-item .comment-text {
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-}
-
-.comment-item .read-more-btn {
-  background-color: transparent;
-  color: var(--primary-color, #d1b980);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-decoration: underline;
-  margin-top: 0.2rem;
-}
-
-.comment-item .read-more-btn:hover {
-  color: #bfa570;
-}
-
-.comment-item .delete-comment-btn {
-  background-color: #dc3545; /* Red for delete */
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: bold;
-  align-self: flex-end; /* Align to the right bottom */
-  margin-top: 0.8rem;
-  transition: background-color 0.2s ease;
-}
-
-.comment-item .delete-comment-btn:hover {
-  background-color: #c82333;
-}
-
-/* Responsive adjustments for display-star-rating */
-@media (max-width: 480px) {
-  .display-star-rating {
-    font-size: 1.2rem;
-  }
-  .compte-option[data-title="Vos Avis"] h2 {
-    font-size: 1.5rem;
-  }
-}
-
-/* Styles for comments within the UserCommentsListPopup */
-.user-comments-list-popup {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0; /* Space from header */
-  max-height: 400px; /* Limit height for scrollability */
-  overflow-y: auto; /* Enable scrolling */
-  padding-right: 10px; /* Space for scrollbar */
-}
-
-.comment-item-popup {
-  background-color: #fcf6e8;
-  border: 1px solid #e7dba8;
-  border-radius: 0.8rem;
-  padding: 1rem;
-  margin-bottom: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.comment-item-popup:last-child {
-  margin-bottom: 0;
-}
-
-.comment-text-content-popup {
-  cursor: pointer; /* Indicate clickable area for read more */
-}
-
-.comment-text-truncated-popup,
-.comment-text-popup,
-.full-comment-text {
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-}
-
-.read-more-btn-popup {
-  background-color: transparent;
-  color: var(--primary-color, #d1b980);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-decoration: underline;
-  margin-top: 0.2rem;
-}
-
-.read-more-btn-popup:hover {
-  color: #bfa570;
-}
-
-.comment-rating-popup {
-  display: flex;
-  justify-content: flex-start; /* Align stars to the left */
-  font-size: 1.2rem; /* Size for stars in popup list */
-  color: #ffc107;
-  margin-top: 0.5rem;
-  margin-bottom: 0.8rem;
-}
-
-.comment-rating-popup .empty-star {
-  color: #ccc;
-}
-
-.delete-comment-btn-popup {
-  background-color: #dc3545;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: bold;
-  align-self: flex-end; /* Align to bottom right */
-  margin-top: 0.8rem;
-  transition: background-color 0.2s ease;
-}
-
-.delete-comment-btn-popup:hover {
-  background-color: #c82333;
-}
-
-.no-comments {
-  text-align: center;
-  color: #666;
-  font-style: italic;
-  padding: 20px;
-}
-
 /* Styles responsive pour les popups */
 @media (max-width: 480px) {
   .popup-modal,
@@ -1355,7 +588,6 @@
   }
   .form-group input,
   .form-group textarea {
-    /* Ajout de textarea ici */
     padding: 0.6rem 0.8rem;
     font-size: 0.9rem;
   }
@@ -1364,7 +596,7 @@
     font-size: 1rem;
   }
   .magazine-modal .large-magazine-img {
-    width: 100%; /* Assure que l'image remplit la largeur disponible */
+    width: 100%;
   }
 }
 @media (min-width: 481px) and (max-width: 768px) {
@@ -1440,5 +672,806 @@
   }
   .magazine-modal .large-magazine-img {
     width: 60%;
+  }
+}
+
+/* Styles pour le système d'étoiles */
+.star-rating {
+  display: flex;
+  justify-content: center;
+  direction: rtl;
+  font-size: 3rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #ffc107;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+  color: #ffc107;
+}
+
+.star-rating > label:before {
+  content: "★";
+  display: inline-block;
+  font-size: 4rem;
+}
+
+@media (max-width: 480px) {
+  .star-rating {
+    font-size: 2rem;
+  }
+  .star-rating > label:before {
+    font-size: 2.5rem; /* Ajuste la taille de l'étoile individuelle pour mobile */
+  }
+}
+
+/* NOUVEAUX Styles pour l'affichage des étoiles (DISPLAY ONLY) */
+.display-star-rating {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  color: #ffc107;
+}
+
+.display-star-rating .empty-star {
+  color: #ccc;
+}
+
+/* Style for the 'Vos Avis' heading to match popup headers if desired */
+/* This style is no longer needed because the ::before pseudo-element handles all titles */
+/*
+.compte-option[data-title="Vos Avis"] h2 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+*/
+
+/* Adjust the margin of "Vos Avis" content to give more space from the h2 */
+.compte-option[data-title="Vos Avis"] .option-content {
+  margin-top: 0rem; /* Adjusted, as ::before handles title now */
+}
+
+/* Adjustments for comments list */
+.user-comments-list {
+  padding-top: 1rem;
+  margin: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.comment-item {
+  background-color: #fcf6e8;
+  border: 1px solid #e7dba8;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.comment-item .comment-text-truncated,
+.comment-item .comment-text {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.comment-item .read-more-btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 0.2rem;
+}
+
+.comment-item .read-more-btn:hover {
+  color: #bfa570;
+}
+
+.comment-item .delete-comment-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  align-self: flex-end;
+  margin-top: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.comment-item .delete-comment-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive adjustments for display-star-rating */
+@media (max-width: 480px) {
+  .display-star-rating {
+    font-size: 1.2rem;
+  }
+}
+
+/* Styles for comments within the UserCommentsListPopup */
+.user-comments-list-popup {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.comment-item-popup {
+  background-color: #fcf6e8;
+  border: 1px solid #e7dba8;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.comment-item-popup:last-child {
+  margin-bottom: 0;
+}
+
+.comment-text-content-popup {
+  cursor: pointer;
+}
+
+.comment-text-truncated-popup,
+.comment-text-popup,
+.full-comment-text {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.read-more-btn-popup {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 0.2rem;
+}
+
+.read-more-btn-popup:hover {
+  color: #bfa570;
+}
+
+.comment-rating-popup {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  color: #ffc107;
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.comment-rating-popup .empty-star {
+  color: #ccc;
+}
+
+.delete-comment-btn-popup {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  align-self: flex-end;
+  margin-top: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.delete-comment-btn-popup:hover {
+  background-color: #c82333;
+}
+
+.no-comments {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .mon-compte-container {
+    margin-top: 6rem;
+  }
+
+  .compte-background {
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    box-shadow: none;
+    border-radius: 0.5rem;
+  }
+
+  .compte-left {
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 2px solid #f1e1b8;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .user-nom,
+  .user-prenom,
+  .user-fullname {
+    font-size: 1rem;
+  }
+
+  .intro-texte {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .user-actions {
+    gap: 0.5rem;
+  }
+
+  .action-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .compte-right {
+    padding: 1rem;
+  }
+
+  .compte-options-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .compte-option {
+    min-height: 100px;
+    padding: 1rem;
+    padding-top: 2.5rem; /* Maintain space for title */
+  }
+
+  .compte-option::before {
+    font-size: 0.9rem;
+    padding: 0.15rem 0.8rem;
+    top: -15px;
+  }
+
+  .option-content img,
+  .option-img {
+    width: 250px;
+    height: 150px;
+    margin-bottom: 0.3rem;
+  }
+
+  .popup-content {
+    padding: 1rem;
+    max-width: 95vw;
+  }
+
+  .avatar-option {
+    width: 40px;
+    height: 40px;
+  }
+
+  .popup-buttons {
+    gap: 1rem;
+  }
+
+  .comment-button,
+  .view-comments-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .mon-compte-container {
+    margin-top: 6rem;
+  }
+
+  .compte-background {
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    box-shadow: none;
+    border-radius: 0.5rem;
+  }
+
+  .compte-left {
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 2px solid #f1e1b8;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .user-nom,
+  .user-prenom,
+  .user-fullname {
+    font-size: 1rem;
+  }
+
+  .intro-texte {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .user-actions {
+    gap: 0.5rem;
+  }
+
+  .action-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .compte-right {
+    padding: 1rem;
+  }
+
+  .compte-options-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .compte-option {
+    min-height: 100px;
+    padding: 1rem;
+    padding-top: 2.5rem; /* Maintain space for title */
+  }
+
+  .compte-option::before {
+    font-size: 0.9rem;
+    padding: 0.15rem 0.8rem;
+    top: -15px;
+  }
+
+  .option-content img,
+  .option-img {
+    width: 250px;
+    height: 150px;
+    margin-bottom: 0.3rem;
+  }
+
+  .popup-content {
+    padding: 1rem;
+  }
+
+  .avatar-options {
+    gap: 0.5rem;
+  }
+
+  .avatar-option {
+    width: 40px;
+    height: 40px;
+  }
+
+  .popup-buttons {
+    gap: 1rem;
+  }
+
+  .comment-button,
+  .view-comments-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 1.5rem;
+    width: 90%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mon-compte-container {
+    margin-top: 6rem;
+  }
+
+  .compte-background {
+    width: 98%;
+    max-width: 900px;
+    border-radius: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .compte-left {
+    padding: 1.5rem;
+    border-right: none;
+    border-bottom: 2px solid #f1e1b8;
+  }
+
+  .user-info {
+    flex-direction: row;
+    gap: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .user-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .user-nom,
+  .user-prenom,
+  .user-fullname {
+    font-size: 1.05rem;
+  }
+
+  .intro-texte {
+    font-size: 1.2rem;
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .user-actions {
+    gap: 0.7rem;
+  }
+
+  .action-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .compte-right {
+    padding: 1.2rem;
+  }
+
+  .compte-options-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .compte-option {
+    min-height: 120px;
+    padding: 1.2rem;
+    padding-top: 2.5rem; /* Maintain space for title */
+  }
+
+  .compte-option::before {
+    font-size: 1rem;
+    padding: 0.2rem 1rem;
+    top: -16px;
+  }
+
+  .option-content img,
+  .option-img {
+    width: 180px;
+    height: 110px;
+    margin-bottom: 0.3rem;
+  }
+
+  .popup-content {
+    padding: 1.2rem;
+    max-width: 90vw;
+  }
+
+  .avatar-options {
+    gap: 0.7rem;
+  }
+
+  .avatar-option {
+    width: 50px;
+    height: 50px;
+  }
+
+  .popup-buttons {
+    gap: 1.2rem;
+  }
+
+  .comment-button,
+  .view-comments-button {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 2rem;
+    width: 70%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 80%;
+    height: auto;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .mon-compte-container {
+    margin-top: 6rem;
+  }
+
+  .compte-background {
+    width: 94%;
+    max-width: 1200px;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .compte-left {
+    padding: 2rem;
+    border-right: 2px solid #f1e1b8;
+    border-bottom: none;
+  }
+
+  .user-info {
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .user-nom,
+  .user-prenom,
+  .user-fullname {
+    font-size: 1.2rem;
+  }
+
+  .intro-texte {
+    font-size: 1.5rem;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .user-actions {
+    gap: 1rem;
+  }
+
+  .action-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .compte-right {
+    padding: 2rem;
+  }
+
+  .compte-options-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .compte-option {
+    min-height: 150px;
+    padding: 1.5rem;
+    padding-top: 2.5rem; /* Maintain space for title */
+  }
+
+  .compte-option::before {
+    font-size: 1.1rem;
+    padding: 0.2rem 1.2rem;
+    top: -18px;
+  }
+
+  .option-content img,
+  .option-img {
+    width: 260px;
+    height: 170px;
+    margin-bottom: 0.5rem;
+  }
+
+  .popup-content {
+    padding: 2rem;
+    max-width: 70vw;
+  }
+
+  .avatar-options {
+    gap: 1rem;
+  }
+
+  .avatar-option {
+    width: 60px;
+    height: 60px;
+  }
+
+  .popup-buttons {
+    gap: 2rem;
+  }
+
+  .comment-button,
+  .view-comments-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 2.2rem;
+    width: 60%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 70%;
+    height: auto;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .mon-compte-container {
+    margin-top: 6rem;
+  }
+
+  .compte-background {
+    width: 92%;
+    max-width: 1350px;
+    border-radius: 1.1rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.13);
+  }
+
+  .compte-left {
+    padding: 2.3rem;
+    border-right: 2.5px solid #f1e1b8;
+    border-bottom: none;
+  }
+
+  .user-info {
+    flex-direction: row;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .user-avatar {
+    width: 85px;
+    height: 85px;
+  }
+
+  .user-nom,
+  .user-prenom,
+  .user-fullname {
+    font-size: 1.35rem;
+  }
+
+  .intro-texte {
+    font-size: 1.7rem;
+    margin-top: 5.5rem;
+    text-align: left;
+  }
+
+  .user-actions {
+    gap: 1.2rem;
+  }
+
+  .action-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .compte-right {
+    padding: 2.3rem;
+  }
+
+  .compte-options-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.7rem;
+  }
+
+  .compte-option {
+    min-height: 180px;
+    padding: 1.7rem;
+    padding-top: 2.5rem; /* Maintain space for title */
+  }
+
+  .compte-option::before {
+    font-size: 1.1rem;
+    padding: 0.2rem 1.2rem;
+    top: -18px;
+  }
+
+  .option-content img,
+  .option-img {
+    width: 320px;
+    height: 200px;
+    margin-bottom: 0.7rem;
+  }
+
+  .popup-content {
+    padding: 2.3rem;
+    max-width: 60vw;
+  }
+
+  .avatar-options {
+    gap: 1.2rem;
+  }
+
+  .avatar-option {
+    width: 75px;
+    height: 75px;
+  }
+
+  .popup-buttons {
+    gap: 2.3rem;
+  }
+
+  .comment-button,
+  .view-comments-button {
+    padding: 0.7rem 1.4rem;
+    font-size: 1rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 2.5rem;
+    width: 50%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 60%;
+    height: auto;
   }
 }

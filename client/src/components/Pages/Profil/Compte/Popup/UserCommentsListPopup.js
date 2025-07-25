@@ -1,7 +1,6 @@
 import React from 'react';
 import '../Mon_compte.css';
 
-// Nouveau composant Popup pour lire la suite (déjà existant, mais inclus pour clarté si ce fichier était autonome)
 const ReadMorePopup = ({ commentText, onClose }) => {
     return (
         <div className="popup-overlay">
@@ -33,10 +32,10 @@ const UserCommentsListPopup = ({ comments, onClose, onDeleteComment, onReadMoreC
                     {comments.length === 0 ? (
                         <p className="no-comments">Vous n'avez pas encore laissé d'avis.</p>
                     ) : (
-                        <ul className="user-comments-list-popup"> {/* New class for comments in popup */}
+                        <ul className="user-comments-list-popup">
                             {comments.map(comment => (
-                                <li key={comment._id} className="comment-item-popup"> {/* New class for items in popup */}
-                                    <div className="comment-text-content-popup" onClick={() => onReadMoreClick(comment.commentText)}>
+                                <li key={comment._id} className="comment-item-popup">
+                                    <div className="comment-text-content-popup">
                                         {comment.commentText.length > 100 ? (
                                             <>
                                                 <p className="comment-text-truncated-popup">
@@ -52,7 +51,11 @@ const UserCommentsListPopup = ({ comments, onClose, onDeleteComment, onReadMoreC
                                         ) : (
                                             <p className="comment-text-popup">{comment.commentText}</p>
                                         )}
-                                        <small className="comment-rating-popup">Note : {comment.rating} / 5</small>
+                                        <div className="comment-rating-popup">
+                                            {[...Array(5)].map((_, i) => (
+                                                <span key={i} className={i < comment.rating ? '' : 'empty-star'}>★</span>
+                                            ))}
+                                        </div>
                                     </div>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onDeleteComment(comment._id); }}
