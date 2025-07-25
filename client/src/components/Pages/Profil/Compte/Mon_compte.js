@@ -4,12 +4,18 @@ import { useAuth } from '../../../../context/AuthContext';
 
 import "./Mon_compte.css";
 
-// Popups
+// Popups existantes
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
-import CommentFormPopup from './Popup/CommentFormPopup';
+import LeaveCommentPopup from './Popup/CommentFormPopup'; // Renommé pour clarté
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
+// Nouveaux imports pour les popups spécifiques aux commentaires
+import UserCommentsListPopup from './Popup/UserCommentsListPopup'; // Nouveau
+// Composant ReadMorePopup déplace à l'intérieur de Mon_compte.js ou UserCommentsListPopup.js pour gérer le state showReadMorePopup localement
+// Pour cet exemple, je le laisse dans le même fichier si vous le gardez géré par Mon_compte,
+// ou il peut être dans UserCommentsListPopup si vous voulez une gestion plus locale.
+// Pour la demande, je le laisse géré globalement ici.
 
 const avatarOptions = [
   "/img/Avatar/avatar_chat1.jpg",
@@ -28,7 +34,8 @@ const avatarOptions = [
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-// Nouveau composant Popup pour lire la suite
+// Nouveau composant Popup pour lire la suite - déplacé ici si vous voulez le contrôler depuis Mon_compte
+// Ou il peut être directement dans UserCommentsListPopup pour un contrôle plus local
 const ReadMorePopup = ({ commentText, onClose }) => {
   return (
     <div className="popup-overlay">
@@ -59,9 +66,10 @@ const Mon_compte = () => {
   const [showDataPopup, setShowDataPopup] = useState(false);
   const [showAddressPopup, setShowAddressPopup] = useState(false);
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
-  const [showCommentPopup, setShowCommentPopup] = useState(false);
+  const [showLeaveCommentPopup, setShowLeaveCommentPopup] = useState(false); // Renommé
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
   const [showMagazinePopup, setShowMagazinePopup] = useState(false);
+  const [showUserCommentsListPopup, setShowUserCommentsListPopup] = useState(false); // Nouveau state
   const [showReadMorePopup, setShowReadMorePopup] = useState(false);
   const [currentReadMoreComment, setCurrentReadMoreComment] = useState("");
 
@@ -153,9 +161,10 @@ const Mon_compte = () => {
     setShowDataPopup(false);
     setShowAddressPopup(false);
     setShowPasswordPopup(false);
-    setShowCommentPopup(false);
+    setShowLeaveCommentPopup(false); // Renommé
     setShowAdoptionPopup(false);
-    fetchUserComments(); // Refresh
+    setShowUserCommentsListPopup(false); // Fermer la liste des commentaires si ouverte
+    fetchUserComments(); // Rafraîchir les commentaires
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000);
   };
@@ -168,9 +177,10 @@ const Mon_compte = () => {
       case "adresse": setShowAddressPopup(true); break;
       case "motdepasse": setShowPasswordPopup(true); break;
       case "deconnexion": handleLogout(); break;
-      case "commentaires": setShowCommentPopup(true); break;
+      case "commentaires": setShowLeaveCommentPopup(true); break; // Renommé
       case "adoption": setShowAdoptionPopup(true); break;
       case "magazine": setShowMagazinePopup(true); break;
+      case "voirAvis": setShowUserCommentsListPopup(true); break; // Nouveau cas
       default: break;
     }
   };
@@ -245,43 +255,9 @@ const Mon_compte = () => {
 
             <div className="compte-option green-border-option" data-title="Vos Avis">
               <div className="option-content">
-                <h2>Vos avis</h2>
-                {loadingComments ? (
-                  <p className="comment-loading">Chargement des avis...</p>
-                ) : userComments.length === 0 ? (
-                  <p className="no-comments">Vous n'avez pas encore laissé d'avis.</p>
-                ) : (
-                  <ul className="user-comments-list">
-                    {userComments.map(comment => (
-                      <li key={comment._id} className="comment-item">
-                        <div>
-                          {comment.commentText.length > 100 ? (
-                            <>
-                              <p className="comment-text-truncated">
-                                {comment.commentText.substring(0, 100)}...
-                              </p>
-                              <button
-                                className="read-more-btn"
-                                onClick={() => handleReadMoreClick(comment.commentText)}
-                              >
-                                Lire la suite
-                              </button>
-                            </>
-                          ) : (
-                            <p className="comment-text">{comment.commentText}</p>
-                          )}
-                          <small className="comment-rating">Note : {comment.rating} / 5</small>
-                        </div>
-                        <button
-                          onClick={() => handleDeleteComment(comment._id)}
-                          className="delete-comment-btn"
-                        >
-                          Supprimer
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <button className="view-comments-button" onClick={() => handleOptionClick("voirAvis")}>
+                  Voir mes avis
+                </button>
               </div>
             </div>
           </div>
@@ -339,11 +315,20 @@ const Mon_compte = () => {
       {showPasswordPopup && (
         <PasswordFormPopup onClose={() => setShowPasswordPopup(false)} />
       )}
-      {showCommentPopup && (
-        <CommentFormPopup onClose={() => setShowCommentPopup(false)} onCommentSubmitSuccess={handleFormUpdateSuccess} user={user} />
+      {showLeaveCommentPopup && ( // Renommé
+        <LeaveCommentPopup onClose={() => setShowLeaveCommentPopup(false)} onCommentSubmitSuccess={handleFormUpdateSuccess} user={user} />
       )}
       {showAdoptionPopup && (
         <DemandeAdoptionPopup onClose={() => setShowAdoptionPopup(false)} user={user} />
+      )}
+
+      {showUserCommentsListPopup && ( // Nouvelle popup pour lister les commentaires
+        <UserCommentsListPopup
+          comments={userComments}
+          onClose={() => setShowUserCommentsListPopup(false)}
+          onDeleteComment={handleDeleteComment}
+          onReadMoreClick={handleReadMoreClick}
+        />
       )}
 
       {showReadMorePopup && (
