@@ -20,7 +20,7 @@ const ReadMorePopup = ({ commentText, onClose }) => {
     );
 };
 
-const UserCommentsListPopup = ({ comments, onClose, onDeleteComment, onReadMoreClick }) => {
+const UserCommentsListPopup = ({ comments, onClose, onDeleteComment, onReadMoreClick, loading }) => {
     return (
         <div className="popup-overlay">
             <div className="popup-modal comments-list-modal">
@@ -29,7 +29,9 @@ const UserCommentsListPopup = ({ comments, onClose, onDeleteComment, onReadMoreC
                     <button onClick={onClose} className="close-popup-btn">&times;</button>
                 </div>
                 <div className="popup-body">
-                    {comments.length === 0 ? (
+                    {loading ? (
+                        <p className="no-comments">Chargement de vos avis...</p>
+                    ) : comments.length === 0 ? (
                         <p className="no-comments">Vous n'avez pas encore laissé d'avis.</p>
                     ) : (
                         <ul className="user-comments-list-popup">

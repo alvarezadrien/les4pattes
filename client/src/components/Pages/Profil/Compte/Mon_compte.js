@@ -8,14 +8,9 @@ import "./Mon_compte.css";
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
-import LeaveCommentPopup from './Popup/CommentFormPopup'; // Renommé pour clarté
+import CommentFormPopup from './Popup/CommentFormPopup';
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
-// Nouveaux imports pour les popups spécifiques aux commentaires
-import UserCommentsListPopup from './Popup/UserCommentsListPopup'; // Nouveau
-// Composant ReadMorePopup déplace à l'intérieur de Mon_compte.js ou UserCommentsListPopup.js pour gérer le state showReadMorePopup localement
-// Pour cet exemple, je le laisse dans le même fichier si vous le gardez géré par Mon_compte,
-// ou il peut être dans UserCommentsListPopup si vous voulez une gestion plus locale.
-// Pour la demande, je le laisse géré globalement ici.
+import UserCommentsListPopup from './Popup/UserCommentsListPopup'; // Assurez-vous que ce chemin est correct
 
 const avatarOptions = [
   "/img/Avatar/avatar_chat1.jpg",
@@ -32,10 +27,8 @@ const avatarOptions = [
   "/img/Avatar/avatar_chien6.png",
 ];
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Assurez-vous que l'URL de votre API est correcte
 
-// Nouveau composant Popup pour lire la suite - déplacé ici si vous voulez le contrôler depuis Mon_compte
-// Ou il peut être directement dans UserCommentsListPopup pour un contrôle plus local
 const ReadMorePopup = ({ commentText, onClose }) => {
   return (
     <div className="popup-overlay">
@@ -55,6 +48,24 @@ const ReadMorePopup = ({ commentText, onClose }) => {
   );
 };
 
+const MagazinePopup = ({ onClose }) => {
+  return (
+    <div className="popup-overlay magazine-popup">
+      <div className="popup-modal magazine-modal">
+        <div className="popup-header">
+          <h3>Notre magazine</h3>
+          <button onClick={onClose} className="close-popup-btn">&times;</button>
+        </div>
+        <div className="popup-body">
+          <img src="/img/magazine.png" alt="Magazine en grand" className="large-magazine-img" />
+        </div>
+        <div className="popup-buttons">
+          <button onClick={onClose} className="close-btn">Fermer</button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Mon_compte = () => {
   const { user, logout, loading, updateAvatar } = useAuth();
@@ -66,10 +77,10 @@ const Mon_compte = () => {
   const [showDataPopup, setShowDataPopup] = useState(false);
   const [showAddressPopup, setShowAddressPopup] = useState(false);
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
-  const [showLeaveCommentPopup, setShowLeaveCommentPopup] = useState(false); // Renommé
+  const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
   const [showMagazinePopup, setShowMagazinePopup] = useState(false);
-  const [showUserCommentsListPopup, setShowUserCommentsListPopup] = useState(false); // Nouveau state
+  const [showUserCommentsListPopup, setShowUserCommentsListPopup] = useState(false);
   const [showReadMorePopup, setShowReadMorePopup] = useState(false);
   const [currentReadMoreComment, setCurrentReadMoreComment] = useState("");
 
@@ -77,18 +88,30 @@ const Mon_compte = () => {
   const [userComments, setUserComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
 
+  // Fonction pour récupérer les commentaires de l'utilisateur
   const fetchUserComments = async () => {
-    if (!user?._id) return;
+    if (!user?._id) {
+      setLoadingComments(false);
+      return;
+    }
     setLoadingComments(true);
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error("Aucun jeton d'authentification trouvé.");
+      }
       const response = await fetch(`${API_URL}/api/comments/user/${user._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.msg || 'Échec du chargement des commentaires.');
+      }
       setUserComments(data || []);
     } catch (err) {
       console.error('Erreur lors du chargement des commentaires :', err);
+      setError(err.message || "Erreur lors du chargement des commentaires.");
+      setUserComments([]); // Vider les commentaires en cas d'erreur
     } finally {
       setLoadingComments(false);
     }
@@ -102,23 +125,40 @@ const Mon_compte = () => {
     }
   }, [user, loading, navigate]);
 
+  // Fonction pour supprimer un commentaire
   const handleDeleteComment = async (commentId) => {
+    setError('');
+    setMessage('Suppression du commentaire en cours...');
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error("Aucun jeton d'authentification trouvé.");
+      }
+
       const response = await fetch(`${API_URL}/api/comments/${commentId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      if (!response.ok) throw new Error('Erreur lors de la suppression du commentaire');
+      const data = await response.json();
 
+      if (!response.ok) {
+        throw new Error(data.msg || 'Erreur lors de la suppression du commentaire');
+      }
+
+      // Mettre à jour l'état local des commentaires
       setUserComments(prev => prev.filter(c => c._id !== commentId));
       setMessage('Commentaire supprimé avec succès !');
-      setTimeout(() => setMessage(''), 3000);
+      // Re-fetch les commentaires pour s'assurer que l'état est synchronisé avec le backend
+      fetchUserComments();
     } catch (err) {
       console.error('Erreur de suppression :', err);
       setError(err.message);
-      setTimeout(() => setError(''), 3000);
+    } finally {
+      setTimeout(() => {
+        setMessage('');
+        setError('');
+      }, 3000);
     }
   };
 
@@ -158,13 +198,14 @@ const Mon_compte = () => {
   };
 
   const handleFormUpdateSuccess = () => {
+    // Fermer tous les popups pertinents
     setShowDataPopup(false);
     setShowAddressPopup(false);
     setShowPasswordPopup(false);
-    setShowLeaveCommentPopup(false); // Renommé
+    setShowCommentPopup(false);
     setShowAdoptionPopup(false);
-    setShowUserCommentsListPopup(false); // Fermer la liste des commentaires si ouverte
-    fetchUserComments(); // Rafraîchir les commentaires
+    setShowUserCommentsListPopup(false); // S'assurer que la liste des commentaires est fermée
+    fetchUserComments(); // Rafraîchir la liste des commentaires après une action réussie (ex: laisser un nouveau commentaire ou supprimer)
     setMessage("Vos informations ont été mises à jour avec succès !");
     setTimeout(() => setMessage(''), 3000);
   };
@@ -177,10 +218,10 @@ const Mon_compte = () => {
       case "adresse": setShowAddressPopup(true); break;
       case "motdepasse": setShowPasswordPopup(true); break;
       case "deconnexion": handleLogout(); break;
-      case "commentaires": setShowLeaveCommentPopup(true); break; // Renommé
+      case "commentaires": setShowCommentPopup(true); break;
       case "adoption": setShowAdoptionPopup(true); break;
       case "magazine": setShowMagazinePopup(true); break;
-      case "voirAvis": setShowUserCommentsListPopup(true); break; // Nouveau cas
+      case "voirAvis": setShowUserCommentsListPopup(true); break;
       default: break;
     }
   };
@@ -194,7 +235,7 @@ const Mon_compte = () => {
     ? user.avatar.startsWith('/uploads/')
       ? `${API_URL}${user.avatar}`
       : user.avatar
-    : '/img/Avatar/avatar_chat1.jpg';
+    : '/img/Avatar/avatar_chat1.jpg'; // Avatar par défaut
 
   if (loading) return <div className="mon-compte-container">Chargement du profil...</div>;
   if (!user) return <div className="mon-compte-container">Vous n'êtes pas connecté.</div>;
@@ -221,7 +262,7 @@ const Mon_compte = () => {
 
         <div className="compte-right">
           <div className="compte-options-grid">
-            <div className="compte-option green-border-option" data-title="Mes données">
+            <div className="compte-option" data-title="Mes données"> {/* Added data-title */}
               <ul className="ul_compte">
                 <li onClick={() => handleOptionClick("donnees")}>
                   <img src="/img/ressources.png" alt="Données" /> Gérer les données personnelles
@@ -238,14 +279,14 @@ const Mon_compte = () => {
               </ul>
             </div>
 
-            <div className="compte-option green-border-option clickable" onClick={() => handleOptionClick("magazine")} data-title="Découvrir">
+            <div className="compte-option clickable" onClick={() => handleOptionClick("magazine")} data-title="Découvrir"> {/* Added data-title */}
               <div className="option-content">
                 <img src="/img/magazine.png" alt="Magazine" className="option-img" />
                 <span>Notre magazine</span>
               </div>
             </div>
 
-            <div className="compte-option green-border-option" data-title="Commentaires">
+            <div className="compte-option" data-title="Commentaires"> {/* Added data-title */}
               <div className="option-content">
                 <button className="comment-button" onClick={() => handleOptionClick("commentaires")}>
                   Laisser un commentaire
@@ -253,7 +294,7 @@ const Mon_compte = () => {
               </div>
             </div>
 
-            <div className="compte-option green-border-option" data-title="Vos Avis">
+            <div className="compte-option" data-title="Vos Avis"> {/* Added data-title */}
               <div className="option-content">
                 <button className="view-comments-button" onClick={() => handleOptionClick("voirAvis")}>
                   Voir mes avis
@@ -263,6 +304,10 @@ const Mon_compte = () => {
           </div>
         </div>
       </div>
+
+      {/* Messages de succès/erreur */}
+      {message && <p className="success-message">{message}</p>}
+      {error && <p className="error-message">{error}</p>}
 
       {/* Popups */}
       {showAvatarPopup && (
@@ -283,8 +328,6 @@ const Mon_compte = () => {
                 />
               ))}
             </div>
-            {message && <p className="success-message">{message}</p>}
-            {error && <p className="error-message">{error}</p>}
             <div className="popup-buttons">
               <button onClick={() => setShowAvatarPopup(false)} className="close-btn">Fermer</button>
             </div>
@@ -293,17 +336,7 @@ const Mon_compte = () => {
       )}
 
       {showMagazinePopup && (
-        <div className="magazine-popup popup-overlay">
-          <div className="popup-modal">
-            <div className="popup-header">
-              <h3>Notre magazine</h3>
-              <button onClick={() => setShowMagazinePopup(false)} className="close-popup-btn">&times;</button>
-            </div>
-            <div className="popup-body">
-              <img src="/img/magazine.png" alt="Magazine en grand" className="large-magazine-img" />
-            </div>
-          </div>
-        </div>
+        <MagazinePopup onClose={() => setShowMagazinePopup(false)} />
       )}
 
       {showDataPopup && (
@@ -315,19 +348,20 @@ const Mon_compte = () => {
       {showPasswordPopup && (
         <PasswordFormPopup onClose={() => setShowPasswordPopup(false)} />
       )}
-      {showLeaveCommentPopup && ( // Renommé
-        <LeaveCommentPopup onClose={() => setShowLeaveCommentPopup(false)} onCommentSubmitSuccess={handleFormUpdateSuccess} user={user} />
+      {showCommentPopup && (
+        <CommentFormPopup onClose={() => setShowCommentPopup(false)} onCommentSubmitSuccess={handleFormUpdateSuccess} user={user} />
       )}
       {showAdoptionPopup && (
         <DemandeAdoptionPopup onClose={() => setShowAdoptionPopup(false)} user={user} />
       )}
 
-      {showUserCommentsListPopup && ( // Nouvelle popup pour lister les commentaires
+      {showUserCommentsListPopup && (
         <UserCommentsListPopup
           comments={userComments}
           onClose={() => setShowUserCommentsListPopup(false)}
-          onDeleteComment={handleDeleteComment}
+          onDeleteComment={handleDeleteComment} // Pass the delete function
           onReadMoreClick={handleReadMoreClick}
+          loading={loadingComments} // Pass loading state
         />
       )}
 
