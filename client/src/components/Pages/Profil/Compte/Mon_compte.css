@@ -160,7 +160,9 @@
 
 /* Nouveau style pour le bouton de commentaire */
 .comment-button,
-.adoption-button {
+.adoption-button,
+.view-comments-button {
+  /* Added .view-comments-button */
   background-color: var(--primary-color, #d1b980);
   color: white;
   padding: 0.6rem 1.2rem;
@@ -174,7 +176,9 @@
 }
 
 .comment-button:hover,
-.adoption-button:hover {
+.adoption-button:hover,
+.view-comments-button:hover {
+  /* Added .view-comments-button */
   background-color: #bfa570;
   transform: translateY(-2px);
 }
@@ -366,10 +370,21 @@
     gap: 1rem;
   }
 
-  .comment-button {
-    /* Responsive pour le bouton de commentaire */
+  .comment-button,
+  .view-comments-button {
+    /* Added .view-comments-button */
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -461,14 +476,25 @@
     gap: 1rem;
   }
 
-  .comment-button {
-    /* Responsive pour le bouton de commentaire */
+  .comment-button,
+  .view-comments-button {
+    /* Added .view-comments-button */
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
+
+  .magazine-popup .popup-modal {
+    padding: 1.5rem;
+    width: 90%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 90%;
+    height: auto;
+  }
 }
 
-@media (min-width: 769px) and (max-width: 1000px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .mon-compte-container {
     margin-top: 6rem;
   }
@@ -556,108 +582,25 @@
     gap: 1.2rem;
   }
 
-  .comment-button {
-    /* Responsive pour le bouton de commentaire */
+  .comment-button,
+  .view-comments-button {
+    /* Added .view-comments-button */
     padding: 0.6rem 1.1rem;
     font-size: 0.85rem;
   }
-}
-@media (min-width: 1001px) and (max-width: 1050px) {
-  .mon-compte-container {
-    margin-top: 6rem;
+
+  .magazine-popup .popup-modal {
+    padding: 2rem;
+    width: 70%;
   }
 
-  .compte-background {
-    width: 96%;
-    max-width: 1100px;
-    border-radius: 0.9rem;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.09);
-  }
-
-  .compte-left {
-    padding: 1.7rem;
-    border-right: 2px solid #f1e1b8;
-    border-bottom: none;
-  }
-
-  .user-info {
-    flex-direction: row;
-    gap: 0.9rem;
-    margin-bottom: 0.9rem;
-  }
-
-  .user-avatar {
-    width: 65px;
-    height: 65px;
-  }
-
-  .user-nom,
-  .user-prenom {
-    font-size: 1.15rem;
-  }
-
-  .intro-texte {
-    font-size: 1.35rem;
-    margin-top: 4rem;
-    text-align: left;
-  }
-
-  .user-actions {
-    gap: 0.9rem;
-  }
-
-  .action-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .compte-right {
-    padding: 1.7rem;
-  }
-
-  .compte-options-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.3rem;
-  }
-
-  .compte-option {
-    min-height: 135px;
-    padding: 1.3rem;
-  }
-
-  .option-content img,
-  .option-img {
-    width: 220px;
-    height: 140px;
-    margin-bottom: 0.4rem;
-  }
-
-  .popup-content {
-    padding: 1.5rem;
-    max-width: 80vw;
-  }
-
-  .avatar-options {
-    gap: 0.8rem;
-  }
-
-  .avatar-option {
-    width: 55px;
-    height: 55px;
-  }
-
-  .popup-buttons {
-    gap: 1.3rem;
-  }
-
-  .comment-button {
-    /* Responsive pour le bouton de commentaire */
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+  .magazine-popup .large-magazine-img {
+    max-width: 80%;
+    height: auto;
   }
 }
 
-@media (min-width: 1051px) and (max-width: 1280px) {
+@media (min-width: 1025px) and (max-width: 1280px) {
   .mon-compte-container {
     margin-top: 6rem;
   }
@@ -745,12 +688,24 @@
     gap: 2rem;
   }
 
-  .comment-button {
-    /* Responsive pour le bouton de commentaire */
+  .comment-button,
+  .view-comments-button {
+    /* Added .view-comments-button */
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
   }
+
+  .magazine-popup .popup-modal {
+    padding: 2.2rem;
+    width: 60%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 70%;
+    height: auto;
+  }
 }
+
 @media (min-width: 1281px) and (max-width: 1440px) {
   .mon-compte-container {
     margin-top: 6rem;
@@ -839,10 +794,21 @@
     gap: 2.3rem;
   }
 
-  .comment-button {
-    /* Responsive pour le bouton de commentaire */
+  .comment-button,
+  .view-comments-button {
+    /* Added .view-comments-button */
     padding: 0.7rem 1.4rem;
     font-size: 1rem;
+  }
+
+  .magazine-popup .popup-modal {
+    padding: 2.5rem;
+    width: 50%;
+  }
+
+  .magazine-popup .large-magazine-img {
+    max-width: 60%;
+    height: auto;
   }
 }
 
@@ -967,7 +933,12 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-.popup-modal {
+.popup-modal,
+.comments-list-modal,
+/* Added for the comments list popup */
+.read-more-modal,
+.magazine-modal {
+  /* Added for the read more popup and magazine popup */
   background-color: white;
   padding: 2.5rem;
   border-radius: 1.2rem;
@@ -978,6 +949,28 @@
   animation: slideIn 0.3s ease-out;
   display: flex;
   flex-direction: column;
+}
+
+/* Specific adjustments for comments list modal */
+.comments-list-modal {
+  max-width: 600px; /* Slightly wider for better comment display */
+}
+
+/* Specific adjustments for magazine modal */
+.magazine-modal {
+  max-width: 700px; /* Adjust as needed for the image */
+  align-items: center; /* Center content horizontally */
+}
+
+.magazine-modal .popup-body {
+  text-align: center; /* Center the image within the body */
+}
+
+.large-magazine-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes fadeIn {
@@ -1007,6 +1000,7 @@
   margin-bottom: 1.5rem;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+  width: 100%; /* Ensure header takes full width within the modal */
 }
 
 .popup-header h3 {
@@ -1104,42 +1098,6 @@
   margin-top: 1rem;
 }
 
-/* Styles responsive pour les popups */
-@media (max-width: 480px) {
-  .popup-modal {
-    padding: 1.5rem;
-    width: 95%;
-  }
-  .popup-header h3 {
-    font-size: 1.5rem;
-  }
-  .close-popup-btn {
-    font-size: 2rem;
-  }
-  .form-group label {
-    font-size: 1rem;
-  }
-  .form-group input,
-  .form-group textarea {
-    /* Ajout de textarea ici */
-    padding: 0.6rem 0.8rem;
-    font-size: 0.9rem;
-  }
-  .submit-btn {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-  }
-}
-@media (min-width: 481px) and (max-width: 768px) {
-  .popup-modal {
-    padding: 2rem;
-    width: 90%;
-  }
-  .popup-header h3 {
-    font-size: 1.6rem;
-  }
-}
-
 /* Styles pour le système d'étoiles */
 .star-rating {
   display: flex;
@@ -1181,5 +1139,306 @@
 @media (max-width: 480px) {
   .star-rating {
     font-size: 2rem; /* Taille des étoiles AUGMENTÉE pour mobile aussi */
+  }
+}
+
+/* NOUVEAUX Styles pour l'affichage des étoiles (DISPLAY ONLY) */
+.display-star-rating {
+  display: flex;
+  justify-content: center; /* Centrer les étoiles */
+  font-size: 1.5rem; /* Taille des étoiles pour l'affichage */
+  margin-top: 0.5rem;
+  color: #ffc107; /* Couleur par défaut pour les étoiles remplies */
+}
+
+.display-star-rating .empty-star {
+  color: #ccc; /* Couleur pour les étoiles vides */
+}
+
+/* Style for the 'Vos Avis' heading to match popup headers if desired */
+.compte-option[data-title="Vos Avis"] h2 {
+  margin: 0 0 1rem 0; /* Adjust margin */
+  color: var(--primary-color, #444);
+  font-size: 1.8rem; /* Match popup header size */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center; /* Center the title */
+}
+
+/* Adjust the margin of "Vos Avis" content to give more space from the h2 */
+.compte-option[data-title="Vos Avis"] .option-content {
+  margin-top: 1rem; /* Add some top margin to separate from the H2 */
+}
+
+/* Adjustments for comments list */
+.user-comments-list {
+  padding-top: 1rem; /* Space from the "Vos Avis" title */
+  margin: 0;
+  list-style: none;
+  width: 100%; /* Ensure it takes full width */
+}
+
+.comment-item {
+  background-color: #fcf6e8; /* Lighter background for each comment */
+  border: 1px solid #e7dba8;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 1rem; /* Space between comments */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: flex-start; /* Align text to the left */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow */
+  position: relative;
+}
+
+.comment-item .comment-text-truncated,
+.comment-item .comment-text {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.comment-item .read-more-btn {
+  background-color: transparent;
+  color: var(--primary-color, #d1b980);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 0.2rem;
+}
+
+.comment-item .read-more-btn:hover {
+  color: #bfa570;
+}
+
+.comment-item .delete-comment-btn {
+  background-color: #dc3545; /* Red for delete */
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  align-self: flex-end; /* Align to the right bottom */
+  margin-top: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.comment-item .delete-comment-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive adjustments for display-star-rating */
+@media (max-width: 480px) {
+  .display-star-rating {
+    font-size: 1.2rem;
+  }
+  .compte-option[data-title="Vos Avis"] h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Styles for comments within the UserCommentsListPopup */
+.user-comments-list-popup {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0; /* Space from header */
+  max-height: 400px; /* Limit height for scrollability */
+  overflow-y: auto; /* Enable scrolling */
+  padding-right: 10px; /* Space for scrollbar */
+}
+
+.comment-item-popup {
+  background-color: #fcf6e8;
+  border: 1px solid #e7dba8;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.comment-item-popup:last-child {
+  margin-bottom: 0;
+}
+
+.comment-text-content-popup {
+  cursor: pointer; /* Indicate clickable area for read more */
+}
+
+.comment-text-truncated-popup,
+.comment-text-popup,
+.full-comment-text {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.read-more-btn-popup {
+  background-color: transparent;
+  color: var(--primary-color, #d1b980);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 0.2rem;
+}
+
+.read-more-btn-popup:hover {
+  color: #bfa570;
+}
+
+.comment-rating-popup {
+  display: flex;
+  justify-content: flex-start; /* Align stars to the left */
+  font-size: 1.2rem; /* Size for stars in popup list */
+  color: #ffc107;
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.comment-rating-popup .empty-star {
+  color: #ccc;
+}
+
+.delete-comment-btn-popup {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  align-self: flex-end; /* Align to bottom right */
+  margin-top: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.delete-comment-btn-popup:hover {
+  background-color: #c82333;
+}
+
+.no-comments {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Styles responsive pour les popups */
+@media (max-width: 480px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .popup-header h3 {
+    font-size: 1.5rem;
+  }
+  .close-popup-btn {
+    font-size: 2rem;
+  }
+  .form-group label {
+    font-size: 1rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    /* Ajout de textarea ici */
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  .submit-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 100%; /* Assure que l'image remplit la largeur disponible */
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2rem;
+    width: 90%;
+  }
+  .popup-header h3 {
+    font-size: 1.6rem;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 90%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2.2rem;
+    width: 80%;
+    max-width: 600px;
+  }
+  .popup-header h3 {
+    font-size: 1.7rem;
+  }
+  .magazine-modal {
+    max-width: 650px;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2.5rem;
+    width: 70%;
+    max-width: 700px;
+  }
+  .popup-header h3 {
+    font-size: 1.8rem;
+  }
+  .magazine-modal {
+    max-width: 750px;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .popup-modal,
+  .comments-list-modal,
+  .read-more-modal,
+  .magazine-modal {
+    padding: 2.8rem;
+    width: 60%;
+    max-width: 800px;
+  }
+  .popup-header h3 {
+    font-size: 1.9rem;
+  }
+  .magazine-modal {
+    max-width: 850px;
+  }
+  .magazine-modal .large-magazine-img {
+    width: 60%;
   }
 }
