@@ -14,6 +14,17 @@ import UserCommentsListPopup from './Popup/UserCommentsListPopup';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+const avatarOptions = [
+  "/img/Avatar/avatar_chat1.jpg",
+  "/img/Avatar/avatar_chat2.jpg",
+  "/img/Avatar/avatar_chat3.jpg",
+  "/img/Avatar/avatar_chat4.jpg",
+  "/img/Avatar/avatar_chien1.jpg",
+  "/img/Avatar/avatar_chien2.jpg",
+  "/img/Avatar/avatar_chien3.jpg",
+  "/img/Avatar/avatar_chien4.jpg",
+];
+
 const SuccessPopup = ({ message, onClose }) => (
   <div className="success-popup">
     <div className="success-popup-content">
@@ -22,7 +33,6 @@ const SuccessPopup = ({ message, onClose }) => (
   </div>
 );
 
-// ✅ Popup intégré ici directement
 const ReadMorePopup = ({ commentText, onClose }) => (
   <div className="popup-overlay">
     <div className="popup-modal read-more-modal">
@@ -129,6 +139,25 @@ const Mon_compte = () => {
     }
   };
 
+  const handleAvatarSelection = async (url) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${API_URL}/api/auth/profile/avatar-url`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ avatarUrl: url }),
+      });
+      if (!response.ok) throw new Error("Erreur lors de la mise à jour de l'avatar.");
+      await updateAvatar(url);
+      setShowAvatarPopup(false);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   const displayAvatarUrl = user.avatar
     ? user.avatar.startsWith('/uploads/')
       ? `${API_URL}${user.avatar}`
@@ -202,6 +231,28 @@ const Mon_compte = () => {
           </div>
         </div>
       </div>
+
+      {showAvatarPopup && (
+        <div className="popup-overlay">
+          <div className="popup-modal">
+            <div className="popup-header">
+              <h3>Choisir un avatar</h3>
+              <button onClick={() => setShowAvatarPopup(false)} className="close-popup-btn">&times;</button>
+            </div>
+            <div className="popup-body avatars">
+              {avatarOptions.map((avatar, index) => (
+                <img
+                  key={index}
+                  src={avatar}
+                  alt={`Avatar ${index}`}
+                  className="avatar-option"
+                  onClick={() => handleAvatarSelection(avatar)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {showPopupSuccess && <SuccessPopup message="Action réalisée avec succès !" />}
       {error && <p className="error-message">{error}</p>}

@@ -1601,3 +1601,13 @@
   justify-content: flex-end;
   margin-top: 0.8rem;
 }
+
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  flex: 1;
+  padding-right: 2.5rem; /* espace pour l'icône */
+}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -11,10 +13,19 @@ const PasswordFormPopup = ({ onClose }) => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState({
+        current: false,
+        new: false,
+        confirm: false,
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const toggleShowPassword = (field) => {
+        setShowPassword(prev => ({ ...prev, [field]: !prev[field] }));
     };
 
     const handleSubmit = async (e) => {
@@ -74,37 +85,73 @@ const PasswordFormPopup = ({ onClose }) => {
                 <form onSubmit={handleSubmit} className="popup-form">
                     <div className="form-group">
                         <label htmlFor="currentPassword">Mot de passe actuel:</label>
-                        <input
-                            type="password"
-                            id="currentPassword"
-                            name="currentPassword"
-                            value={formData.currentPassword}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className="password-input-wrapper">
+                            <input
+                                type={showPassword.current ? "text" : "password"}
+                                id="currentPassword"
+                                name="currentPassword"
+                                value={formData.currentPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => toggleShowPassword('current')}
+                                    edge="end"
+                                    aria-label="toggle password visibility"
+                                >
+                                    {showPassword.current ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        </div>
                     </div>
+
                     <div className="form-group">
                         <label htmlFor="newPassword">Nouveau mot de passe:</label>
-                        <input
-                            type="password"
-                            id="newPassword"
-                            name="newPassword"
-                            value={formData.newPassword}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className="password-input-wrapper">
+                            <input
+                                type={showPassword.new ? "text" : "password"}
+                                id="newPassword"
+                                name="newPassword"
+                                value={formData.newPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => toggleShowPassword('new')}
+                                    edge="end"
+                                    aria-label="toggle password visibility"
+                                >
+                                    {showPassword.new ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        </div>
                     </div>
+
                     <div className="form-group">
                         <label htmlFor="confirmNewPassword">Confirmer le nouveau mot de passe:</label>
-                        <input
-                            type="password"
-                            id="confirmNewPassword"
-                            name="confirmNewPassword"
-                            value={formData.confirmNewPassword}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className="password-input-wrapper">
+                            <input
+                                type={showPassword.confirm ? "text" : "password"}
+                                id="confirmNewPassword"
+                                name="confirmNewPassword"
+                                value={formData.confirmNewPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => toggleShowPassword('confirm')}
+                                    edge="end"
+                                    aria-label="toggle password visibility"
+                                >
+                                    {showPassword.confirm ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        </div>
                     </div>
+
                     {message && <p className="success-message">{message}</p>}
                     {error && <p className="error-message">{error}</p>}
                     <div className="popup-footer">
