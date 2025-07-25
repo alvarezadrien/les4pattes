@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import CommentFormPopup from '../../Pages/Profil/Compte/Popup/CommentFormPopup';
-import './Avis.css'; // Ensure this path is correct
+import './Avis.css';
 
-// SVG for a subtle paw print icon (still used in cards)
 const PawPrintIcon = () => (
     <svg className="paw-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M11.45 2.14L9.1 4.5c-.39.39-.39 1.02 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0l2.35-2.35c.39-.39.39-1.02 0-1.41L12.86 2.14c-.39-.39-1.02-.39-1.41 0zM19.78 6.45c-.39-.39-1.02-.39-1.41 0l-1.41 1.41c-.39.39-.39 1.02 0 1.41l2.35 2.35c.39.39 1.02.39 1.41 0l1.41-1.41c-.39-.39.39-1.02 0-1.41L19.78 6.45zM4.22 6.45L2.81 7.86c-.39.39-.39 1.02 0 1.41l2.35 2.35c.39.39 1.02.39 1.41 0l1.41-1.41c-.39-.39-.39-1.02 0-1.41L4.22 6.45zM12 9c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" />
     </svg>
 );
 
-const MAX_REVIEW_LENGTH = 70; // FURTHER REDUCED: Max characters before truncating
+const MAX_REVIEW_LENGTH = 70;
 
 const Avis = () => {
     const [comments, setComments] = useState([]);
@@ -17,6 +16,7 @@ const Avis = () => {
     const [error, setError] = useState('');
     const [showCommentFormPopup, setShowCommentFormPopup] = useState(false);
     const [selectedReviewText, setSelectedReviewText] = useState(null);
+    const [showAllComments, setShowAllComments] = useState(false);
 
     const fetchComments = useCallback(async () => {
         try {
@@ -36,7 +36,7 @@ const Avis = () => {
             setComments(uniques);
         } catch (err) {
             console.error("Error fetching reviews:", err);
-            setError("Could not load stories. Please try again later.");
+            setError("Impossible de charger les témoignages. Veuillez réessayer plus tard.");
         } finally {
             setLoading(false);
         }
@@ -66,26 +66,29 @@ const Avis = () => {
 
     const openFullReviewPopup = (text) => {
         setSelectedReviewText(text);
-        document.body.classList.add('no-scroll'); // Add class to body to prevent scrolling
+        document.body.classList.add('no-scroll');
     };
 
     const closeFullReviewPopup = () => {
         setSelectedReviewText(null);
-        document.body.classList.remove('no-scroll'); // Remove class to enable scrolling
+        document.body.classList.remove('no-scroll');
     };
 
-    if (loading) return <div className="refuge-testimonials-section loading-state">Loading heartwarming stories...</div>;
+    const commentsToDisplay = showAllComments ? comments : comments.slice(0, 6);
+
+    if (loading) return <div className="refuge-testimonials-section loading-state">Chargement des témoignages...</div>;
     if (error) return <div className="refuge-testimonials-section error-state">{error}</div>;
 
     return (
         <section className="refuge-testimonials-section">
             <div className="section-content-wrapper-refuge">
                 <div className="section-header-refuge">
-                    <p className="section-overline-refuge">Our Family Stories</p>
-                    <h2 className="section-title-refuge">Heartfelt Journeys</h2>
-                    <p className="section-description-refuge">
-                        Every adoption creates a beautiful new chapter. Hear directly from those who've opened their hearts and homes.
-                    </p>
+                    <p className="section-overline-refuge">Ils témoignent</p>
+                    <h2 className="section-title-refuge">
+                        <span className="bouncing-paw">🐾</span>
+                        Leurs histoires avec Les 4 Pattes
+                        <span className="bouncing-paw">🐾</span>
+                    </h2>
                 </div>
 
                 {showCommentFormPopup && (
@@ -104,14 +107,14 @@ const Avis = () => {
                                     <line x1="6" y1="6" x2="18" y2="18"></line>
                                 </svg>
                             </button>
-                            <h3 className="popup-title">Full Story</h3>
+                            <h3 className="popup-title">Témoignage complet</h3>
                             <p className="full-review-text-fullview">{selectedReviewText}</p>
                         </div>
                     </div>
                 )}
 
                 <div className="stories-grid-refuge">
-                    {comments.map((comment) => {
+                    {commentsToDisplay.map((comment) => {
                         const avatarUrl = getAvatarUrl(comment.avatar);
                         const isLongReview = comment.commentText.length > MAX_REVIEW_LENGTH;
                         const displayedText = isLongReview
@@ -124,12 +127,13 @@ const Avis = () => {
                                     {avatarUrl ? (
                                         <img
                                             src={avatarUrl}
-                                            alt={`Avatar of ${comment.username}`}
+                                            alt={`Avatar de ${comment.username}`}
                                             className="adopter-avatar-refuge"
                                         />
                                     ) : (
                                         <div className="adopter-avatar-placeholder-refuge">
-                                            {comment.username ? comment.username.charAt(0).toUpperCase() : '?'}{comment.username && comment.username.split(' ')[1] ? comment.username.split(' ')[1].charAt(0).toUpperCase() : ''}
+                                            {comment.username ? comment.username.charAt(0).toUpperCase() : '?'}
+                                            {comment.username && comment.username.split(' ')[1] ? comment.username.split(' ')[1].charAt(0).toUpperCase() : ''}
                                         </div>
                                     )}
                                     <div className="adopter-info-refuge">
@@ -141,13 +145,10 @@ const Avis = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="story-text-refuge">{displayedText}</p>
+                                <p className={`story-text-refuge ${isLongReview ? 'long-text-refuge' : ''}`}>{displayedText}</p>
                                 {isLongReview && (
-                                    <button
-                                        className="read-more-button"
-                                        onClick={() => openFullReviewPopup(comment.commentText)}
-                                    >
-                                        Read More
+                                    <button className="read-more-button" onClick={() => openFullReviewPopup(comment.commentText)}>
+                                        Lire plus
                                     </button>
                                 )}
                                 <PawPrintIcon />
@@ -156,10 +157,28 @@ const Avis = () => {
                     })}
                 </div>
 
+                {/* BOUTON VOIR PLUS / MOINS */}
+                {comments.length > 6 && (
+                    <button
+                        className="toggle-more-comments-button"
+                        onClick={() => setShowAllComments(prev => !prev)}
+                    >
+                        {showAllComments ? 'Voir moins' : 'Voir plus'}
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </button>
+                )}
+
+                {/* BOUTON NOUVEL AVIS */}
                 <button className="share-story-button-refuge" onClick={() => setShowCommentFormPopup(true)}>
-                    Share Your Happy Story!
+                    Partagez votre histoire !
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line>
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
                     </svg>
                 </button>
             </div>
@@ -167,4 +186,4 @@ const Avis = () => {
     );
 };
 
-export default Avis;    
+export default Avis;

@@ -1,6 +1,3 @@
-/* Avis.css */
-
-/* --- Keyframes for Animations --- */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -23,7 +20,6 @@
   }
 }
 
-/* Keyframes for popup */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -37,23 +33,25 @@
   from {
     opacity: 0;
     transform: translateY(20px) scale(0.95);
-  } /* Slightly pop in from bottom */
+  }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-/* --- General Section Styling --- */
+@keyframes bouncePaw {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 .refuge-testimonials-section {
-  padding: 80px 40px 60px; /* Consistent padding */
-  background: linear-gradient(
-    160deg,
-    #e6ffe6 0%,
-    #ccf5ff 100%
-  ); /* Soft, calming green-blue gradient */
-  color: #333;
-  font-family: "Nunito", sans-serif; /* Friendly and warm font */
+  padding: 80px 40px 60px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -64,12 +62,6 @@
   justify-content: center;
 }
 
-/* Added for preventing body scroll when popup is open */
-body.no-scroll {
-  overflow: hidden;
-}
-
-/* Subtle Paw Print Background Pattern */
 .refuge-testimonials-section::before {
   content: "";
   position: absolute;
@@ -77,22 +69,18 @@ body.no-scroll {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d0ffe0' fill-opacity='0.5'%3E%3Cpath d='M20.25 15.5c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm-5 15c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm10 0c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm10 0c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zM20 20c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Faint paw prints */
   background-repeat: repeat;
   opacity: 0.8;
   z-index: 0;
 }
 
-/* --- Wrapper for main content --- */
 .section-content-wrapper-refuge {
   position: relative;
-  z-index: 10;
   max-width: 1200px;
   width: 100%;
   margin-top: 0;
 }
 
-/* --- Section Header (Titles & Description) --- */
 .section-header-refuge {
   max-width: 800px;
   margin: 0 auto 60px auto;
@@ -104,43 +92,61 @@ body.no-scroll {
 .section-overline-refuge {
   font-size: 1.1em;
   font-weight: 700;
-  color: #6d4c41; /* Earthy brown for warmth */
+  color: var(--primary-color);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 10px;
 }
 
 .section-title-refuge {
-  font-size: 3.5em;
+  font-size: 3rem;
   font-weight: 800;
-  color: #388e3c; /* Comforting green */
   margin-bottom: 20px;
   line-height: 1.2;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  color: var(--primary-color);
+  text-shadow: 9px 7px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bouncing-paw {
+  animation: bouncePaw 3s infinite;
+  display: inline-block;
+  font-size: 3rem;
+  transform-origin: bottom center;
+}
+
+.bouncing-paw:first-child {
+  animation-delay: 0s;
+}
+
+.bouncing-paw:last-child {
+  animation-delay: 0.3s;
 }
 
 .section-description-refuge {
   font-size: 1.2em;
-  color: #795548; /* Slightly lighter earthy brown */
   line-height: 1.7;
   max-width: 700px;
   margin: 0 auto;
 }
 
-/* --- Loading and Error States --- */
 .loading-state,
 .error-state {
   font-size: 1.5em;
   padding: 150px 40px;
-  color: #388e3c;
   font-weight: 500;
 }
 
 .error-state {
-  color: #d32f2f; /* Red for errors */
+  color: #d32f2f;
 }
 
-/* --- Stories Grid --- */
+.loading-state {
+  color: #388e3c;
+}
+
 .stories-grid-refuge {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -149,15 +155,14 @@ body.no-scroll {
   margin: 0 auto 70px auto;
 }
 
-/* --- Individual Happy Story Card --- */
 .happy-story-card {
-  background-color: #ffffff;
-  border-radius: 18px; /* More rounded, friendly */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  padding: 30px; /* Padding for the card content */
+  background: linear-gradient(45deg, #f4eaca, #83a23a);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  text-align: left; /* Default text alignment for card */
+  text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -174,14 +179,12 @@ body.no-scroll {
 .happy-story-card:nth-child(3) {
   animation-delay: 0.6s;
 }
-/* ... add more delays for more cards if needed */
 
 .happy-story-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Card Top-Left Header (Avatar and Info) */
 .card-top-left-header {
   display: flex;
   align-items: center;
@@ -226,11 +229,10 @@ body.no-scroll {
 .adopter-name-refuge {
   font-size: 1.4em;
   font-weight: 700;
-  color: #4caf50;
+  color: var(--tertiary-color);
   margin: 0;
 }
 
-/* Story Rating Stars */
 .story-rating-refuge {
   margin-top: 5px;
   color: #e0e0e0;
@@ -243,36 +245,24 @@ body.no-scroll {
 }
 
 .story-rating-refuge .star-refuge.filled {
-  color: #ffc107;
+  color: #f8dd0e;
   text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
 }
 
-/* Story Text (truncated in card) */
 .story-text-refuge {
   font-size: 1.15em;
   line-height: 1.7;
-  color: #5d4037;
   margin: 0 0 20px 0;
   font-style: italic;
   flex-grow: 1;
   text-align: left;
   word-wrap: break-word;
   word-break: break-word;
-  /* Enforce a limited height and then fade out if needed for very long reviews */
-  /* If you want a specific line clamp, you'd need a polyfill or specific browser support */
-  /* Example for webkit (Chrome, Safari, Edge) for 3 lines: */
-  /*
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    */
 }
 
-/* "Read More" Button */
 .read-more-button {
   background-color: transparent;
-  color: #4caf50;
+  color: var(--tertiary-color);
   border: none;
   font-size: 0.95em;
   font-weight: 600;
@@ -282,650 +272,64 @@ body.no-scroll {
   align-self: flex-start;
   padding: 0;
   transition: color 0.2s ease;
+  margin-bottom: 0.5rem;
 }
 
 .read-more-button:hover {
-  color: #388e3c;
+  color: #bc5759;
 }
 
-/* Paw Print Icon at bottom of card */
 .happy-story-card .paw-icon {
   width: 25px;
   height: 25px;
-  color: #bcaaa4;
   opacity: 0.6;
   margin-top: auto;
   margin-right: auto;
   margin-left: 0;
 }
 
-/* --- Full Review Pop-up Styles --- */
 .full-review-popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay for focus */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease-out;
-  backdrop-filter: blur(5px); /* Subtle blur effect */
-}
-
-.full-review-popup-content {
-  background-color: #ffffff;
-  border-radius: 20px; /* More rounded corners */
-  padding: 40px; /* More padding */
-  max-width: 650px; /* Slightly wider */
-  width: 90%;
-  max-height: 85vh; /* Taller */
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Stronger, softer shadow */
-  animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy pop-in effect */
-  color: #333;
-  text-align: left;
-  font-family: "Nunito", sans-serif;
-  border: 2px solid #8bc34a; /* Green border */
-}
-
-.popup-title {
-  font-size: 1.8em;
-  color: #388e3c;
-  margin-bottom: 25px;
-  font-weight: 700;
-  border-bottom: 2px solid #e0ffe0; /* Light line separator */
-  padding-bottom: 10px;
-  text-align: center; /* Center the popup title */
-}
-
-.full-review-text-fullview {
-  /* Specific style for the text INSIDE the popup */
-  margin: 0;
-  white-space: pre-wrap; /* Preserves whitespace and wraps text */
-  word-wrap: break-word;
-  word-break: break-word;
-  font-style: italic;
-  color: #5d4037;
-  line-height: 1.8; /* Good line height for readability */
-  font-size: 1.15em;
-}
-
-.close-popup-button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #ff5252; /* Red, contrasting button */
-  border: none;
-  border-radius: 50%; /* Circular button */
-  width: 40px; /* Size */
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  line-height: 1;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.close-popup-button svg {
-  width: 24px;
-  height: 24px;
-  stroke: white; /* White X icon */
-  transition: transform 0.3s ease;
-}
-
-.close-popup-button:hover {
-  background: #e04040; /* Darker red on hover */
-  transform: rotate(90deg) scale(1.1); /* Rotate and scale */
-}
-
-/* --- Share Story Button (Refuge) --- */
-.share-story-button-refuge {
-  background: linear-gradient(45deg, #4caf50 0%, #8bc34a 100%);
-  color: white;
-  padding: 18px 40px;
-  border: none;
-  border-radius: 40px;
-  font-size: 1.25em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
-  display: inline-flex;
-  align-items: center;
-  gap: 15px;
-  letter-spacing: 0.5px;
-  text-transform: none;
-  position: relative;
-  z-index: 10;
-}
-
-.share-story-button-refuge:hover {
-  background: linear-gradient(45deg, #8bc34a 0%, #4caf50 100%);
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
-}
-
-.share-story-button-refuge:active {
-  transform: translateY(0);
-  box-shadow: 0 5px 20px rgba(76, 175, 80, 0.2);
-}
-
-.share-story-button-refuge svg {
-  margin-left: 5px;
-  stroke: white;
-  width: 26px;
-  height: 26px;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1200px) {
-  .section-title-refuge {
-    font-size: 3em;
-  }
-}
-
-@media (max-width: 992px) {
-  .refuge-testimonials-section {
-    padding: 80px 30px 50px;
-  }
-  .section-title-refuge {
-    font-size: 2.8em;
-  }
-  .section-description-refuge {
-    font-size: 1.1em;
-    margin-bottom: 50px;
-  }
-  .stories-grid-refuge {
-    gap: 25px;
-  }
-  .happy-story-card {
-    padding: 25px;
-  }
-  .adopter-avatar-refuge,
-  .adopter-avatar-placeholder-refuge {
-    width: 60px;
-    height: 60px;
-    font-size: 2em;
-  }
-  .adopter-name-refuge {
-    font-size: 1.3em;
-  }
-  .story-text-refuge {
-    font-size: 1.05em;
-  }
-  .share-story-button-refuge {
-    padding: 15px 35px;
-    font-size: 1.15em;
-  }
-  .share-story-button-refuge svg {
-    width: 24px;
-    height: 24px;
-  }
-  .full-review-popup-content {
-    padding: 30px;
-  }
-  .popup-title {
-    font-size: 1.6em;
-  }
-  .full-review-text-fullview {
-    font-size: 1.05em;
-  }
-}
-
-@media (max-width: 768px) {
-  .refuge-testimonials-section {
-    padding: 60px 20px 40px;
-  }
-  .section-title-refuge {
-    font-size: 2.2em;
-  }
-  .section-description-refuge {
-    font-size: 1em;
-    margin-bottom: 40px;
-  }
-  .stories-grid-refuge {
-    grid-template-columns: 1fr;
-    padding: 0;
-  }
-  .happy-story-card {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .adopter-avatar-refuge,
-  .adopter-avatar-placeholder-refuge {
-    width: 55px;
-    height: 55px;
-    font-size: 2em;
-  }
-  .adopter-name-refuge {
-    font-size: 1.2em;
-  }
-  .story-rating-refuge {
-    font-size: 1.2em;
-  }
-  .story-text-refuge {
-    font-size: 0.95em;
-  }
-  .share-story-button-refuge {
-    padding: 12px 30px;
-    font-size: 1.05em;
-  }
-  .full-review-popup-content {
-    padding: 25px;
-    width: 95%;
-  }
-  .popup-title {
-    font-size: 1.4em;
-    margin-bottom: 20px;
-  }
-  .full-review-text-fullview {
-    font-size: 1em;
-  }
-  .close-popup-button {
-    width: 35px;
-    height: 35px;
-  }
-  .close-popup-button svg {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .refuge-testimonials-section {
-    padding: 40px 15px 30px;
-  }
-  .section-title-refuge {
-    font-size: 1.8em;
-  }
-  .section-overline-refuge {
-    font-size: 0.9em;
-  }
-  .section-description-refuge {
-    font-size: 0.85em;
-    margin-bottom: 30px;
-  }
-  .happy-story-card {
-    padding: 20px;
-  }
-  .adopter-avatar-refuge,
-  .adopter-avatar-placeholder-refuge {
-    width: 50px;
-    height: 50px;
-    font-size: 1.8em;
-  }
-  .adopter-name-refuge {
-    font-size: 1.1em;
-  }
-  .story-text-refuge {
-    font-size: 0.9em;
-  }
-  .share-story-button-refuge {
-    padding: 10px 25px;
-    font-size: 1em;
-    gap: 10px;
-  }
-  .share-story-button-refuge svg {
-    width: 20px;
-    height: 20px;
-  }
-  .full-review-popup-content {
-    padding: 20px;
-  }
-  .popup-title {
-    font-size: 1.2em;
-  }
-  .full-review-text-fullview {
-    font-size: 0.95em;
-  }
-}
-/* Avis.css */
-
-/* --- Keyframes for Animations --- */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Keyframes for popup */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  } /* Slightly pop in from bottom */
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* --- General Section Styling --- */
-.refuge-testimonials-section {
-  padding: 80px 40px 60px; /* Consistent padding */
-  background: linear-gradient(
-    160deg,
-    #e6ffe6 0%,
-    #ccf5ff 100%
-  ); /* Soft, calming green-blue gradient */
-  color: #333;
-  font-family: "Nunito", sans-serif; /* Friendly and warm font */
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Added for preventing body scroll when popup is open */
-body.no-scroll {
-  overflow: hidden;
-}
-
-/* Subtle Paw Print Background Pattern */
-.refuge-testimonials-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d0ffe0' fill-opacity='0.5'%3E%3Cpath d='M20.25 15.5c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm-5 15c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm10 0c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm10 0c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zM20 20c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Faint paw prints */
-  background-repeat: repeat;
-  opacity: 0.8;
-  z-index: 0;
-}
-
-/* --- Wrapper for main content --- */
-.section-content-wrapper-refuge {
-  position: relative;
-  z-index: 10;
-  max-width: 1200px;
-  width: 100%;
-  margin-top: 0;
-}
-
-/* --- Section Header (Titles & Description) --- */
-.section-header-refuge {
-  max-width: 800px;
-  margin: 0 auto 60px auto;
-  animation: slideInUp 0.8s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.2s;
-}
-
-.section-overline-refuge {
-  font-size: 1.1em;
-  font-weight: 700;
-  color: #6d4c41; /* Earthy brown for warmth */
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
-}
-
-.section-title-refuge {
-  font-size: 3.5em;
-  font-weight: 800;
-  color: #388e3c; /* Comforting green */
-  margin-bottom: 20px;
-  line-height: 1.2;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-.section-description-refuge {
-  font-size: 1.2em;
-  color: #795548; /* Slightly lighter earthy brown */
-  line-height: 1.7;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-/* --- Loading and Error States --- */
-.loading-state,
-.error-state {
-  font-size: 1.5em;
-  padding: 150px 40px;
-  color: #388e3c;
-  font-weight: 500;
-}
-
-.error-state {
-  color: #d32f2f; /* Red for errors */
-}
-
-/* --- Stories Grid --- */
-.stories-grid-refuge {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto 70px auto;
-}
-
-/* --- Individual Happy Story Card --- */
-.happy-story-card {
-  background-color: #ffffff;
-  border-radius: 18px; /* More rounded, friendly */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  padding: 30px; /* Padding for the card content */
-  display: flex;
-  flex-direction: column;
-  text-align: left; /* Default text alignment for card */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  animation: fadeInScale 0.8s ease-out forwards;
-  opacity: 0;
-}
-
-.happy-story-card:nth-child(1) {
-  animation-delay: 0.4s;
-}
-.happy-story-card:nth-child(2) {
-  animation-delay: 0.5s;
-}
-.happy-story-card:nth-child(3) {
-  animation-delay: 0.6s;
-}
-/* ... add more delays for more cards if needed */
-
-.happy-story-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Card Top-Left Header (Avatar and Info) */
-.card-top-left-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.adopter-avatar-refuge {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 15px;
-  border: 4px solid #8bc34a;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-}
-
-.adopter-avatar-placeholder-refuge {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  background-color: #8bc34a;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2.2em;
-  font-weight: 700;
-  margin-right: 15px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-}
-
-.adopter-info-refuge {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex-grow: 1;
-}
-
-.adopter-name-refuge {
-  font-size: 1.4em;
-  font-weight: 700;
-  color: #4caf50;
-  margin: 0;
-}
-
-/* Story Rating Stars */
-.story-rating-refuge {
-  margin-top: 5px;
-  color: #e0e0e0;
-  font-size: 1.3em;
-}
-
-.story-rating-refuge .star-refuge {
-  margin: 0 1px;
-  transition: color 0.2s ease;
-}
-
-.story-rating-refuge .star-refuge.filled {
-  color: #ffc107;
-  text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
-}
-
-/* Story Text (truncated in card) */
-.story-text-refuge {
-  font-size: 1.15em;
-  line-height: 1.7;
-  color: #5d4037;
-  margin: 0 0 20px 0;
-  font-style: italic;
-  flex-grow: 1;
-  text-align: left;
-  word-wrap: break-word;
-  word-break: break-word;
-}
-
-/* "Read More" Button */
-.read-more-button {
-  background-color: transparent;
-  color: #4caf50;
-  border: none;
-  font-size: 0.95em;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  margin-top: 10px;
-  align-self: flex-start;
-  padding: 0;
-  transition: color 0.2s ease;
-}
-
-.read-more-button:hover {
-  color: #388e3c;
-}
-
-/* Paw Print Icon at bottom of card */
-.happy-story-card .paw-icon {
-  width: 25px;
-  height: 25px;
-  color: #bcaaa4;
-  opacity: 0.6;
-  margin-top: auto;
-  margin-right: auto;
-  margin-left: 0;
-}
-
-/* --- Full Review Pop-up Styles --- */
-.full-review-popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.75); /* Slightly darker overlay */
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out forwards;
-  backdrop-filter: blur(8px); /* More pronounced blur */
+  backdrop-filter: blur(8px);
 }
 
 .full-review-popup-content {
-  background: linear-gradient(
-    135deg,
-    #f7fcfc 0%,
-    #e8f9e8 100%
-  ); /* Subtle light green-blue gradient */
-  border-radius: 25px; /* Even more rounded corners */
-  padding: 40px 50px; /* More generous padding */
-  max-width: 700px; /* Wider for more comfortable reading */
+  background-color: var(--tertiary-color);
+  border-radius: 25px;
+  padding: 40px 50px;
+  max-width: 700px;
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35); /* Stronger, softer shadow */
-  animation: popIn 0.5s cubic-bezier(0.23, 1, 0.32, 1.2); /* Smoother, slightly springy pop-in */
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  animation: popIn 0.5s cubic-bezier(0.23, 1, 0.32, 1.2);
   color: #333;
   text-align: left;
   font-family: "Nunito", sans-serif;
-  border: 3px solid #8bc34a; /* Thicker, defined green border */
-  transform-origin: center; /* Ensures animation originates from center */
+  border: 3px solid #8bc34a;
+  transform-origin: center;
 }
 
 .popup-title {
-  font-size: 2em; /* Larger title */
-  color: #388e3c;
+  font-size: 2em;
   margin-bottom: 25px;
-  font-weight: 800; /* Bolder title */
-  border-bottom: 3px solid #cfeeda; /* Thicker, softer line separator */
-  padding-bottom: 15px; /* More space below line */
+  font-weight: 800;
+  border-bottom: 3px solid #cfeeda;
+  padding-bottom: 15px;
   text-align: center;
   letter-spacing: 0.5px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05); /* Subtle text shadow */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .full-review-text-fullview {
@@ -934,32 +338,31 @@ body.no-scroll {
   word-wrap: break-word;
   word-break: break-word;
   font-style: italic;
-  color: #5d4037;
   line-height: 1.8;
   font-size: 1.15em;
-  padding-top: 10px; /* Space from title border */
+  padding-top: 10px;
 }
 
 .close-popup-button {
   position: absolute;
-  top: 18px; /* Adjusted position */
-  right: 18px; /* Adjusted position */
+  top: 18px;
+  right: 18px;
   background: #ff5252;
   border: none;
   border-radius: 50%;
-  width: 45px; /* Larger button */
-  height: 45px;
+  height: 2rem;
+  max-width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   line-height: 1;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* More prominent shadow */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .close-popup-button svg {
-  width: 26px; /* Larger icon */
+  width: 26px;
   height: 26px;
   stroke: white;
   transition: transform 0.3s ease;
@@ -967,13 +370,12 @@ body.no-scroll {
 
 .close-popup-button:hover {
   background: #e04040;
-  transform: rotate(180deg) scale(1.15); /* More dramatic rotation and scale */
+  transform: rotate(180deg) scale(1.15);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
 }
 
-/* --- Share Story Button (Refuge) --- */
 .share-story-button-refuge {
-  background: linear-gradient(45deg, #4caf50 0%, #8bc34a 100%);
+  background: linear-gradient(45deg, #f4eaca 0%, #778d45 100%);
   color: white;
   padding: 18px 40px;
   border: none;
@@ -993,7 +395,7 @@ body.no-scroll {
 }
 
 .share-story-button-refuge:hover {
-  background: linear-gradient(45deg, #8bc34a 0%, #4caf50 100%);
+  background: linear-gradient(45deg, #f4eaca 50%, #778d45 70%);
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
 }
@@ -1009,188 +411,55 @@ body.no-scroll {
   width: 26px;
   height: 26px;
 }
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1200px) {
-  .section-title-refuge {
-    font-size: 3em;
-  }
+.toggle-more-comments-button {
+  background: linear-gradient(45deg, #f4eaca 0%, #778d45 100%);
+  color: white;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  z-index: 10;
+  margin-right: 1rem;
 }
 
-@media (max-width: 992px) {
-  .refuge-testimonials-section {
-    padding: 80px 30px 50px;
-  }
-  .section-title-refuge {
-    font-size: 2.8em;
-  }
-  .section-description-refuge {
-    font-size: 1.1em;
-    margin-bottom: 50px;
-  }
-  .stories-grid-refuge {
-    gap: 25px;
-  }
-  .happy-story-card {
-    padding: 25px;
-  }
-  .adopter-avatar-refuge,
-  .adopter-avatar-placeholder-refuge {
-    width: 60px;
-    height: 60px;
-    font-size: 2em;
-  }
-  .adopter-name-refuge {
-    font-size: 1.3em;
-  }
-  .story-text-refuge {
-    font-size: 1.05em;
-  }
-  .share-story-button-refuge {
-    padding: 15px 35px;
-    font-size: 1.15em;
-  }
-  .share-story-button-refuge svg {
-    width: 24px;
-    height: 24px;
-  }
-  .full-review-popup-content {
-    padding: 30px 40px; /* Adjusted padding */
-  }
-  .popup-title {
-    font-size: 1.6em;
-  }
-  .full-review-text-fullview {
-    font-size: 1.05em;
-  }
-  .close-popup-button {
-    width: 40px;
-    height: 40px;
-  }
-  .close-popup-button svg {
-    width: 22px;
-    height: 22px;
-  }
+.toggle-more-comments-button:hover {
+  background: linear-gradient(45deg, #f4eaca 50%, #778d45 70%);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
+}
+
+.toggle-more-comments-button:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 20px rgba(76, 175, 80, 0.2);
+}
+
+.long-text-refuge {
+  font-size: 0.95em;
 }
 
 @media (max-width: 768px) {
-  .refuge-testimonials-section {
-    padding: 60px 20px 40px;
-  }
   .section-title-refuge {
     font-size: 2.2em;
   }
-  .section-description-refuge {
-    font-size: 1em;
-    margin-bottom: 40px;
-  }
-  .stories-grid-refuge {
-    grid-template-columns: 1fr;
-    padding: 0;
-  }
-  .happy-story-card {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .adopter-avatar-refuge,
-  .adopter-avatar-placeholder-refuge {
-    width: 55px;
-    height: 55px;
-    font-size: 2em;
-  }
-  .adopter-name-refuge {
-    font-size: 1.2em;
-  }
-  .story-rating-refuge {
-    font-size: 1.2em;
-  }
-  .story-text-refuge {
-    font-size: 0.95em;
-  }
-  .share-story-button-refuge {
-    padding: 12px 30px;
-    font-size: 1.05em;
-  }
-  .full-review-popup-content {
-    padding: 25px 30px;
-    width: 95%;
-  }
-  .popup-title {
-    font-size: 1.4em;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-  }
-  .full-review-text-fullview {
-    font-size: 1em;
-  }
-  .close-popup-button {
-    width: 38px;
-    height: 38px;
-  }
-  .close-popup-button svg {
-    width: 20px;
-    height: 20px;
+  .bouncing-paw {
+    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 480px) {
-  .refuge-testimonials-section {
-    padding: 40px 15px 30px;
-  }
   .section-title-refuge {
     font-size: 1.8em;
   }
-  .section-overline-refuge {
-    font-size: 0.9em;
-  }
-  .section-description-refuge {
-    font-size: 0.85em;
-    margin-bottom: 30px;
-  }
-  .happy-story-card {
-    padding: 20px;
-  }
-  .adopter-avatar-refuge,
-  .adopter-avatar-placeholder-refuge {
-    width: 50px;
-    height: 50px;
-    font-size: 1.8em;
-  }
-  .adopter-name-refuge {
-    font-size: 1.1em;
-  }
-  .story-text-refuge {
-    font-size: 0.9em;
-  }
-  .share-story-button-refuge {
-    padding: 10px 25px;
-    font-size: 1em;
-    gap: 10px;
-  }
-  .share-story-button-refuge svg {
-    width: 20px;
-    height: 20px;
-  }
-  .full-review-popup-content {
-    padding: 20px 25px;
-  }
-  .popup-title {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-  }
-  .full-review-text-fullview {
-    font-size: 0.95em;
-  }
-  .close-popup-button {
-    width: 35px;
-    height: 35px;
-    top: 10px;
-    right: 10px;
-  }
-  .close-popup-button svg {
-    width: 18px;
-    height: 18px;
+  .bouncing-paw {
+    font-size: 1.4rem;
   }
 }
