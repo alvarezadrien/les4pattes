@@ -51,17 +51,9 @@ const Avis = () => {
     };
 
     const getAvatarUrl = (avatar) => {
-        if (!avatar) return '/img/avatar_comment.png';
-
-        if (avatar.startsWith('/uploads/')) {
-            return `${process.env.REACT_APP_API_URL}${avatar}`;
-        }
-
-        if (avatar.startsWith('http://') || avatar.startsWith('https://')) {
-            return avatar;
-        }
-
-        return avatar;
+        if (!avatar || avatar.trim() === '') return null;
+        if (avatar.startsWith('http://') || avatar.startsWith('https://')) return avatar;
+        return `${process.env.REACT_APP_API_URL}${avatar.startsWith('/') ? '' : '/'}${avatar}`;
     };
 
     if (loading) return <div className="avis-section">Chargement des avis...</div>;
@@ -79,27 +71,31 @@ const Avis = () => {
             )}
 
             <div className="avis-grid-v2">
-                {comments.map((comment) => (
-                    <div key={comment._id || comment.id} className="avis-card-v2">
-                        <div className="avis-avatar-wrapper">
-                            <img
-                                src={getAvatarUrl(comment.avatar)}
-                                alt="Avatar utilisateur"
-                                className="avis-avatar"
-                            />
-                        </div>
-
-                        <div className="avis-card-body">
-                            <p className="avis-texte">{comment.commentText}</p>
-                            <p className="avis-nom">{comment.username}</p>
-                            <div className="avis-rating">
-                                {[...Array(5)].map((_, i) => (
-                                    <span key={i} className={`star ${i < comment.rating ? 'filled' : ''}`}>&#9733;</span>
-                                ))}
+                {comments.map((comment) => {
+                    const avatarUrl = getAvatarUrl(comment.avatar);
+                    return (
+                        <div key={comment._id || comment.id} className="avis-card-v2">
+                            {avatarUrl && (
+                                <div className="avis-avatar-wrapper">
+                                    <img
+                                        src={avatarUrl}
+                                        alt="Avatar utilisateur"
+                                        className="avis-avatar"
+                                    />
+                                </div>
+                            )}
+                            <div className="avis-card-body">
+                                <p className="avis-texte">{comment.commentText}</p>
+                                <p className="avis-nom">{comment.username}</p>
+                                <div className="avis-rating">
+                                    {[...Array(5)].map((_, i) => (
+                                        <span key={i} className={`star ${i < comment.rating ? 'filled' : ''}`}>&#9733;</span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             <button className="add-comment-button" onClick={() => setShowPopup(true)}>
