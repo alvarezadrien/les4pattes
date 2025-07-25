@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// ✅ Schéma de commentaire avec avatar
 const commentSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -10,9 +11,9 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    avatar: { // ✅ Ajout du champ avatar
+    avatar: {
         type: String,
-        default: '' // ou null si tu préfères
+        default: ''
     },
     commentText: {
         type: String,

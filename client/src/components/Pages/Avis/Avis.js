@@ -51,9 +51,7 @@ const Avis = () => {
     };
 
     const getAvatarUrl = (avatar) => {
-        if (!avatar) {
-            return '/img/avatar_comment.png'; // ✅ fallback si aucun avatar défini
-        }
+        if (!avatar) return '/img/avatar_comment.png';
 
         if (avatar.startsWith('/uploads/')) {
             return `${process.env.REACT_APP_API_URL}${avatar}`;
