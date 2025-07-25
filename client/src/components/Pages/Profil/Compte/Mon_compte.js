@@ -28,6 +28,27 @@ const avatarOptions = [
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+// Nouveau composant Popup pour lire la suite
+const ReadMorePopup = ({ commentText, onClose }) => {
+  return (
+    <div className="popup-overlay">
+      <div className="popup-modal read-more-modal">
+        <div className="popup-header">
+          <h3>Commentaire complet</h3>
+          <button onClick={onClose} className="close-popup-btn">&times;</button>
+        </div>
+        <div className="popup-body">
+          <p className="full-comment-text">{commentText}</p>
+        </div>
+        <div className="popup-buttons">
+          <button onClick={onClose} className="close-btn">Fermer</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 const Mon_compte = () => {
   const { user, logout, loading, updateAvatar } = useAuth();
   const navigate = useNavigate();
@@ -41,6 +62,9 @@ const Mon_compte = () => {
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [showAdoptionPopup, setShowAdoptionPopup] = useState(false);
   const [showMagazinePopup, setShowMagazinePopup] = useState(false);
+  const [showReadMorePopup, setShowReadMorePopup] = useState(false);
+  const [currentReadMoreComment, setCurrentReadMoreComment] = useState("");
+
 
   const [userComments, setUserComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
@@ -81,8 +105,12 @@ const Mon_compte = () => {
       if (!response.ok) throw new Error('Erreur lors de la suppression du commentaire');
 
       setUserComments(prev => prev.filter(c => c._id !== commentId));
+      setMessage('Commentaire supprimé avec succès !');
+      setTimeout(() => setMessage(''), 3000);
     } catch (err) {
       console.error('Erreur de suppression :', err);
+      setError(err.message);
+      setTimeout(() => setError(''), 3000);
     }
   };
 
@@ -112,9 +140,11 @@ const Mon_compte = () => {
 
       setMessage(data.msg);
       updateAvatar(data.avatarUrl || imgUrl);
+      setTimeout(() => setMessage(''), 3000);
     } catch (err) {
       console.error('Erreur avatar :', err);
       setError(err.message);
+      setTimeout(() => setError(''), 3000);
       setMessage('');
     }
   };
@@ -143,6 +173,11 @@ const Mon_compte = () => {
       case "magazine": setShowMagazinePopup(true); break;
       default: break;
     }
+  };
+
+  const handleReadMoreClick = (commentText) => {
+    setCurrentReadMoreComment(commentText);
+    setShowReadMorePopup(true);
   };
 
   const displayAvatarUrl = user.avatar
@@ -210,7 +245,7 @@ const Mon_compte = () => {
 
             <div className="compte-option green-border-option" data-title="Vos Avis">
               <div className="option-content">
-                <h4>Vos avis</h4>
+                <h2>Vos avis</h2>
                 {loadingComments ? (
                   <p className="comment-loading">Chargement des avis...</p>
                 ) : userComments.length === 0 ? (
@@ -219,8 +254,24 @@ const Mon_compte = () => {
                   <ul className="user-comments-list">
                     {userComments.map(comment => (
                       <li key={comment._id} className="comment-item">
-                        <p>{comment.commentText}</p>
-                        <small>Note : {comment.rating} / 5</small>
+                        <div>
+                          {comment.commentText.length > 100 ? (
+                            <>
+                              <p className="comment-text-truncated">
+                                {comment.commentText.substring(0, 100)}...
+                              </p>
+                              <button
+                                className="read-more-btn"
+                                onClick={() => handleReadMoreClick(comment.commentText)}
+                              >
+                                Lire la suite
+                              </button>
+                            </>
+                          ) : (
+                            <p className="comment-text">{comment.commentText}</p>
+                          )}
+                          <small className="comment-rating">Note : {comment.rating} / 5</small>
+                        </div>
                         <button
                           onClick={() => handleDeleteComment(comment._id)}
                           className="delete-comment-btn"
@@ -239,9 +290,12 @@ const Mon_compte = () => {
 
       {/* Popups */}
       {showAvatarPopup && (
-        <div className="avatar-popup">
-          <div className="popup-content">
-            <h3>Choisissez votre avatar</h3>
+        <div className="avatar-popup popup-overlay">
+          <div className="popup-modal">
+            <div className="popup-header">
+              <h3>Choisissez votre avatar</h3>
+              <button onClick={() => setShowAvatarPopup(false)} className="close-popup-btn">&times;</button>
+            </div>
             <div className="avatar-options">
               {avatarOptions.map((img, index) => (
                 <img
@@ -290,6 +344,13 @@ const Mon_compte = () => {
       )}
       {showAdoptionPopup && (
         <DemandeAdoptionPopup onClose={() => setShowAdoptionPopup(false)} user={user} />
+      )}
+
+      {showReadMorePopup && (
+        <ReadMorePopup
+          commentText={currentReadMoreComment}
+          onClose={() => setShowReadMorePopup(false)}
+        />
       )}
     </div>
   );

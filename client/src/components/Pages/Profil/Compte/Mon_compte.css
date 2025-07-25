@@ -11,6 +11,11 @@
   box-sizing: border-box; /* Ensures padding is included in width */
 }
 
+/* Define new color variable */
+:root {
+  --quaternary-color: #3b3b3b; /* A darker, rich brown/grey for text */
+}
+
 .compte-background {
   display: flex;
   width: 90%;
@@ -172,11 +177,12 @@
   color: var(--quaternary-color);
   height: 100%;
   justify-content: center;
+  width: 100%; /* Ensure content takes full width */
 }
 
 .option-content img,
 .option-img {
-  width: 500px; /* Adjusted for larger initial display */
+  width: 100%; /* Adjusted for better responsiveness within its container */
   max-width: 260px; /* Max width constraint */
   height: 170px;
   object-fit: cover;
@@ -207,7 +213,8 @@
   transform: translateY(-2px);
 }
 
-.avatar-popup {
+/* Popup base styles for consistency */
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -218,182 +225,6 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-}
-
-.popup-content {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  max-width: 400px;
-  width: 85%;
-}
-
-.popup-content h3 {
-  margin-bottom: 1rem;
-}
-
-.avatar-options {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-}
-
-.avatar-option {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.2s, border-color 0.2s;
-}
-
-.avatar-option:hover {
-  transform: scale(1.1);
-  border-color: var(--primary-color);
-}
-
-.avatar-option.selected {
-  border-color: var(--primary-color);
-}
-
-.popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.save-btn,
-.close-btn {
-  background-color: var(--secondary-color);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
-
-.save-btn:hover,
-.close-btn:hover {
-  background-color: #e0d39f;
-}
-
-/* --- NEW STYLES FOR UPLOAD BUTTON AND MESSAGES --- */
-
-.upload-section {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #eee;
-  text-align: center;
-}
-
-.upload-section h4 {
-  color: var(--quaternary-color);
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-}
-
-.custom-file-upload-button {
-  display: inline-block;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 0.8rem 1.8rem;
-  border: none;
-  border-radius: 0.8rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease,
-    box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.custom-file-upload-button:hover {
-  background-color: #bfa570;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.custom-file-upload-button:active {
-  transform: translateY(0);
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.selected-file-name {
-  display: block;
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  color: #777;
-  font-style: italic;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.success-message {
-  color: #28a745;
-  margin-top: 1.5rem;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.error-message {
-  color: #dc3545;
-  margin-top: 1.5rem;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.popup-buttons {
-  margin-top: 2rem;
-}
-
-.save-btn,
-.close-btn {
-  padding: 0.8rem 1.8rem;
-  border-radius: 0.8rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease,
-    box-shadow 0.3s ease;
-}
-
-.close-btn {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-.close-btn:hover {
-  background-color: #cbb986;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* --- STYLES FOR FORM POPUPS (existing in your CSS) --- */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -414,7 +245,6 @@
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
@@ -425,7 +255,6 @@
     transform: translateY(-30px);
     opacity: 0;
   }
-
   to {
     transform: translateY(0);
     opacity: 1;
@@ -461,116 +290,122 @@
   color: #777;
 }
 
-.popup-form {
+/* Specific styles for Avatar Popup */
+.avatar-popup .popup-modal {
+  max-width: 400px;
+  width: 85%;
+  text-align: center;
+}
+
+.avatar-popup .popup-header {
+  justify-content: center; /* Center the title */
+  position: relative;
+}
+
+.avatar-popup .close-popup-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.avatar-options {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.8rem;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: var(--quaternary-color);
-  font-size: 1.1rem;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 0.8rem 1rem;
-  border: 1px solid #e0d39f;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  color: #333;
-  background-color: #fffaf0;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(209, 185, 128, 0.2);
-  outline: none;
-}
-
-.submit-btn {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 0.8rem;
+.avatar-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
   cursor: pointer;
-  font-size: 1.2rem;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.avatar-option:hover {
+  transform: scale(1.1);
+  border-color: var(--primary-color);
+}
+
+.avatar-option.selected {
+  border-color: var(--primary-color);
+}
+
+/* General button styles for popups */
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.save-btn,
+.close-btn {
+  padding: 0.8rem 1.8rem;
+  border-radius: 0.8rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease,
-    box-shadow 0.3s ease;
-  margin-top: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+  border: none; /* Ensure no default button border */
+  cursor: pointer;
 }
 
-.submit-btn:hover {
+.close-btn {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.close-btn:hover {
+  background-color: #cbb986;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.save-btn {
+  /* Style for save button if it exists in a popup */
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.save-btn:hover {
   background-color: #bfa570;
   transform: translateY(-3px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.submit-btn:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+/* Messages */
+.success-message {
+  color: #28a745;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
-.popup-footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-/* Styles for the star rating system */
-.star-rating {
-  display: flex;
-  justify-content: center;
-  direction: rtl; /* For right-to-left star display */
-  font-size: 3rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.star-rating input[type="radio"] {
-  display: none;
-}
-
-.star-rating label {
-  color: #ccc; /* Default star color */
-  cursor: pointer;
-  padding: 0 0.2rem;
-  transition: color 0.2s ease-in-out;
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  color: #ffc107; /* Hover star color */
-}
-
-.star-rating input[type="radio"]:checked ~ label {
-  color: #ffc107; /* Selected star color */
-}
-
-.star-rating > label:before {
-  content: "★";
-  display: inline-block;
-  font-size: 4rem; /* Larger star character */
+.error-message {
+  color: #dc3545;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 /* --- STYLES FOR YOUR REVIEWS SECTION --- */
+.compte-option h2 {
+  /* Targeting the "Vos avis" title */
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 100%;
+}
 
 .user-comments-list {
   list-style: none;
@@ -579,25 +414,53 @@
   max-height: 180px; /* Limit height and enable scrolling */
   overflow-y: auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Space between comments */
 }
 
 .comment-item {
+  max-width: 15rem;
   background-color: #fff8e1;
   border: 1px solid #e7dba8;
   border-radius: 0.7rem;
   padding: 0.8rem 1rem;
-  margin-bottom: 0.8rem;
   font-size: 0.95rem;
   color: #444;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .comment-item p {
   margin: 0;
   flex: 1; /* Allows text to take available space */
+}
+
+.comment-text {
+  margin-bottom: 0.3rem;
+  color: var(--quaternary-color);
+  font-size: 1rem;
+}
+
+.comment-text-truncated {
+  /* Style for truncated text */
+  margin-bottom: 0.3rem;
+  color: var(--quaternary-color);
+  font-size: 1rem;
+}
+
+.comment-rating {
+  font-size: 0.85rem;
+  color: #888;
+  font-style: italic;
 }
 
 .delete-comment-btn {
@@ -609,30 +472,67 @@
   font-size: 0.85rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   margin-left: 1rem; /* Space from comment text */
+  flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 .delete-comment-btn:hover {
   background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.comment-loading,
+.no-comments {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* New: Read More button */
+.read-more-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 0.2rem;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.read-more-btn:hover {
+  color: #bfa570;
 }
 
 /* Styles for the magazine popup */
 .magazine-popup .popup-modal {
   max-width: 600px; /* Adjusted for better size, not too large */
   width: 90%;
-  height: 40rem;
+  height: auto; /* Allow height to adjust */
+  max-height: 90vh; /* Prevent it from being taller than viewport */
+  display: flex;
+  flex-direction: column;
 }
 
 .magazine-popup .popup-body {
   text-align: center;
+  flex-grow: 1; /* Allows the body to take available space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
 }
 
 .large-magazine-img {
   max-width: 100%;
-  height: auto;
+  height: auto; /* Ensure aspect ratio is maintained */
   border-radius: 0.8rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  object-fit: contain; /* Ensure the whole image is visible */
 }
 
 .clickable {
@@ -643,6 +543,27 @@
   opacity: 0.8;
   transform: scale(1.02);
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* New: Read More popup specific styles */
+.read-more-modal {
+  max-width: 600px;
+  width: 90%;
+}
+
+.read-more-modal .popup-body {
+  padding: 1rem 0;
+  max-height: 400px; /* Limit height for long comments in popup */
+  overflow-y: auto;
+  text-align: left;
+}
+
+.full-comment-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--quaternary-color);
+  white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+  word-break: break-word; /* Break long words */
 }
 
 /* --- RESPONSIVE MEDIA QUERIES --- */
@@ -744,12 +665,7 @@
   }
 
   /* Popup specific styles for mobile */
-  .avatar-popup,
-  .popup-overlay {
-    padding: 0.5rem;
-  }
-
-  .popup-content,
+  .avatar-popup .popup-modal,
   .popup-modal {
     padding: 1.5rem;
     width: 95%;
@@ -779,40 +695,48 @@
     font-size: 0.9rem;
   }
 
-  .upload-section h4 {
-    font-size: 1.1rem;
-  }
-
-  .custom-file-upload-button {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-  }
-
-  .selected-file-name {
-    font-size: 0.85rem;
-  }
-
   .success-message,
   .error-message {
     font-size: 1rem;
   }
 
-  .star-rating {
-    font-size: 2rem;
+  .compte-option h2 {
+    font-size: 1.4rem;
   }
 
-  .star-rating > label:before {
-    font-size: 3rem;
+  .user-comments-list {
+    max-height: 150px; /* Adjust for smaller screens */
   }
 
   .comment-item {
+    flex-direction: column; /* Stack elements on small screens */
+    align-items: flex-start;
     font-size: 0.85rem;
     padding: 0.6rem 0.8rem;
+  }
+
+  .comment-item div {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 
   .delete-comment-btn {
     padding: 0.3rem 0.6rem;
     font-size: 0.75rem;
+    margin-left: 0;
+    width: 100%; /* Full width button */
+  }
+
+  .read-more-btn {
+    font-size: 0.75rem;
+  }
+
+  .read-more-modal .popup-body {
+    max-height: 300px;
+  }
+
+  .full-comment-text {
+    font-size: 0.9rem;
   }
 }
 
@@ -911,12 +835,7 @@
   }
 
   /* Popup specific styles for tablets */
-  .avatar-popup,
-  .popup-overlay {
-    padding: 1rem;
-  }
-
-  .popup-content,
+  .avatar-popup .popup-modal,
   .popup-modal {
     padding: 2rem;
     width: 90%;
@@ -946,30 +865,17 @@
     font-size: 1rem;
   }
 
-  .upload-section h4 {
-    font-size: 1.2rem;
-  }
-
-  .custom-file-upload-button {
-    padding: 0.7rem 1.5rem;
-    font-size: 1.05rem;
-  }
-
-  .selected-file-name {
-    font-size: 0.9rem;
-  }
-
   .success-message,
   .error-message {
     font-size: 1.05rem;
   }
 
-  .star-rating {
-    font-size: 2.5rem;
+  .compte-option h2 {
+    font-size: 1.6rem;
   }
 
-  .star-rating > label:before {
-    font-size: 3.5rem;
+  .user-comments-list {
+    max-height: 160px;
   }
 
   .comment-item {
@@ -979,6 +885,18 @@
   .delete-comment-btn {
     padding: 0.35rem 0.7rem;
     font-size: 0.8rem;
+  }
+
+  .read-more-btn {
+    font-size: 0.8rem;
+  }
+
+  .read-more-modal .popup-body {
+    max-height: 350px;
+  }
+
+  .full-comment-text {
+    font-size: 0.95rem;
   }
 }
 
@@ -1076,7 +994,7 @@
   }
 
   /* Popup specific styles for small desktops */
-  .popup-content,
+  .avatar-popup .popup-modal,
   .popup-modal {
     padding: 2.2rem;
     max-width: 450px;
@@ -1105,30 +1023,17 @@
     font-size: 1.05rem;
   }
 
-  .upload-section h4 {
-    font-size: 1.25rem;
-  }
-
-  .custom-file-upload-button {
-    padding: 0.75rem 1.6rem;
-    font-size: 1.05rem;
-  }
-
-  .selected-file-name {
-    font-size: 0.92rem;
-  }
-
   .success-message,
   .error-message {
     font-size: 1.1rem;
   }
 
-  .star-rating {
-    font-size: 2.8rem;
+  .compte-option h2 {
+    font-size: 1.7rem;
   }
 
-  .star-rating > label:before {
-    font-size: 3.8rem;
+  .user-comments-list {
+    max-height: 170px;
   }
 
   .comment-item {
@@ -1138,6 +1043,18 @@
   .delete-comment-btn {
     padding: 0.4rem 0.75rem;
     font-size: 0.85rem;
+  }
+
+  .read-more-btn {
+    font-size: 0.85rem;
+  }
+
+  .read-more-modal .popup-body {
+    max-height: 380px;
+  }
+
+  .full-comment-text {
+    font-size: 1rem;
   }
 }
 
@@ -1228,7 +1145,7 @@
   }
 
   /* Popup specific styles for large desktops */
-  .popup-content,
+  .avatar-popup .popup-modal,
   .popup-modal {
     padding: 2.5rem;
     max-width: 500px;
@@ -1257,30 +1174,17 @@
     font-size: 1.1rem;
   }
 
-  .upload-section h4 {
-    font-size: 1.3rem;
-  }
-
-  .custom-file-upload-button {
-    padding: 0.8rem 1.8rem;
-    font-size: 1.1rem;
-  }
-
-  .selected-file-name {
-    font-size: 0.95rem;
-  }
-
   .success-message,
   .error-message {
     font-size: 1.1rem;
   }
 
-  .star-rating {
-    font-size: 3rem;
+  .compte-option h2 {
+    font-size: 1.8rem;
   }
 
-  .star-rating > label:before {
-    font-size: 4rem;
+  .user-comments-list {
+    max-height: 180px;
   }
 
   .comment-item {
@@ -1290,6 +1194,18 @@
   .delete-comment-btn {
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
+  }
+
+  .read-more-btn {
+    font-size: 0.85rem;
+  }
+
+  .read-more-modal .popup-body {
+    max-height: 400px;
+  }
+
+  .full-comment-text {
+    font-size: 1rem;
   }
 }
 
@@ -1380,7 +1296,7 @@
   }
 
   /* Popup specific styles for extra large desktops */
-  .popup-content,
+  .avatar-popup .popup-modal,
   .popup-modal {
     padding: 3rem;
     max-width: 600px;
@@ -1409,30 +1325,17 @@
     font-size: 1.2rem;
   }
 
-  .upload-section h4 {
-    font-size: 1.4rem;
-  }
-
-  .custom-file-upload-button {
-    padding: 0.9rem 2rem;
-    font-size: 1.2rem;
-  }
-
-  .selected-file-name {
-    font-size: 1rem;
-  }
-
   .success-message,
   .error-message {
     font-size: 1.2rem;
   }
 
-  .star-rating {
-    font-size: 3.5rem;
+  .compte-option h2 {
+    font-size: 2rem;
   }
 
-  .star-rating > label:before {
-    font-size: 4.5rem;
+  .user-comments-list {
+    max-height: 190px;
   }
 
   .comment-item {
@@ -1442,5 +1345,17 @@
   .delete-comment-btn {
     padding: 0.5rem 0.9rem;
     font-size: 0.9rem;
+  }
+
+  .read-more-btn {
+    font-size: 0.9rem;
+  }
+
+  .read-more-modal .popup-body {
+    max-height: 450px;
+  }
+
+  .full-comment-text {
+    font-size: 1.05rem;
   }
 }
