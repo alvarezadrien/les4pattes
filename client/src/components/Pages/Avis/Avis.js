@@ -52,12 +52,18 @@ const Avis = () => {
 
     const getAvatarUrl = (avatar) => {
         if (!avatar) {
-            return '/img/avatar_comment.png';
+            return '/img/avatar_comment.png'; // ✅ fallback si aucun avatar défini
         }
+
+        if (avatar.startsWith('/uploads/')) {
+            return `${process.env.REACT_APP_API_URL}${avatar}`;
+        }
+
         if (avatar.startsWith('http://') || avatar.startsWith('https://')) {
             return avatar;
         }
-        return `${process.env.REACT_APP_API_URL}/${avatar}`;
+
+        return avatar;
     };
 
     if (loading) return <div className="avis-section">Chargement des avis...</div>;

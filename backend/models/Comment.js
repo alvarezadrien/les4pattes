@@ -10,6 +10,10 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    avatar: { // ✅ Ajout du champ avatar
+        type: String,
+        default: '' // ou null si tu préfères
+    },
     commentText: {
         type: String,
         required: true,

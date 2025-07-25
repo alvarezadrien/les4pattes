@@ -1,130 +1,208 @@
+/* --- Original .avis-section styling from your code --- */
 .avis-section {
   padding: 40px 20px;
-  background-color: #f3f7f2;
+  background-color: #f8f8f8; /* Light background as per your original code */
   text-align: center;
-  display: flex;
+  position: relative; /* For the background elements */
+  overflow: hidden; /* Hide overflowing background elements */
+  display: flex; /* To center content like the title and grid */
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px); /* Adjust min-height if needed, or remove */
 }
 
+/* Background decorative elements - Colors as per your original code */
+.avis-section::before,
+.avis-section::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background-color: #dbe4c2; /* Light green/beige color as per your original code */
+  opacity: 0.3;
+  filter: blur(80px); /* Soft blur effect */
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.avis-section::before {
+  top: -50px;
+  left: -50px;
+}
+
+.avis-section::after {
+  bottom: -50px;
+  right: -50px;
+}
+
+/* Title styling - As per your original code */
 .avis-title {
-  font-size: 2.8rem;
-  color: #2e3d27;
+  font-size: 2.5em;
+  color: #333; /* Dark color for visibility on light background */
+  margin-bottom: 50px;
   font-weight: bold;
-  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
+/* --- Card Grid Styling --- */
 .avis-grid-v2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
+  justify-content: center;
   max-width: 1200px;
-  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
+/* --- Specific Card Styling --- */
 .avis-card-v2 {
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  padding: 90px 25px 40px;
-  position: relative;
+  background-color: #fcfcfc; /* White background for the card */
+  border-radius: 25px; /* Rounded corners as in the image */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Pronounced, soft shadow */
+  padding: 80px 30px 40px; /* Top padding to push content down for avatar */
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
-  max-height: 450px;
+  position: relative; /* For the absolute positioning of the avatar */
+  text-align: center;
+  overflow: hidden; /* Important for clean borders */
+  width: 350px; /* Fixed width to match example image proportions */
+  margin-top: 50px; /* To lift the card up and allow avatar to overlap the top section */
+  z-index: 1; /* Ensure card is above background elements */
 }
 
+/* --- Quote icon styles are removed as requested --- */
+
+/* Avatar Container - This is crucial for the overlapping effect and white border */
 .avis-avatar-wrapper {
   position: absolute;
-  top: -45px;
+  top: -50px; /* Moves the avatar outside and above the card */
   left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  border-radius: 50%;
-  padding: 5px;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
-  z-index: 2;
+  transform: translateX(-50%); /* Centers the avatar */
+  z-index: 2; /* Ensures avatar is on top of everything */
+  background-color: #fcfcfc; /* White background for the "border" effect */
+  border-radius: 50%; /* Make it circular */
+  padding: 5px; /* This creates the visible white ring around the avatar image */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for the avatar itself */
 }
 
 .avis-avatar {
-  width: 90px;
+  width: 90px; /* Avatar size */
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
+  display: block; /* Removes extra space below the image */
 }
 
+/* Card Body (text content) */
 .avis-card-body {
-  text-align: center;
-  overflow-y: auto;
-  padding: 0 10px;
-  max-height: 260px;
+  position: relative; /* Ensures text is properly layered */
+  z-index: 1;
+  padding: 0 10px; /* Slight horizontal padding for text */
 }
 
 .avis-texte {
-  font-size: 1.1rem;
   color: #444;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-style: normal;
+  overflow: visible; /* ✅ Empêche toute coupure */
 }
 
 .avis-nom {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #2e3d27;
-  margin-bottom: 1rem;
+  font-size: 1.25em; /* Larger, more prominent name */
+  font-weight: 600; /* Bolder */
+  color: #333; /* Darker for emphasis */
+  margin-bottom: 20px; /* Space above stars */
 }
 
+/* Star Rating - Adjusted colors and size */
 .avis-rating {
   display: flex;
   justify-content: center;
-  gap: 6px;
+  gap: 7px; /* Slightly more space between stars */
 }
 
 .star {
-  font-size: 1.8rem;
-  color: #dcdcdc;
+  font-size: 2.2em; /* Larger stars */
+  color: #d8d8d8; /* Light gray for unfilled stars */
+  cursor: default;
 }
 
 .star.filled {
-  color: #f5b301;
+  color: #f8c83a; /* Gold color for filled stars, as seen in the image */
 }
 
+/* Button to add a comment (from your original code) */
 .add-comment-button {
-  margin-top: 3rem;
-  padding: 12px 28px;
   background-color: #6a994e;
-  color: #fff;
+  color: white;
+  padding: 12px 25px;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-top: 50px;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .add-comment-button:hover {
-  background-color: #5a8441;
+  background-color: #5c8443;
   transform: translateY(-2px);
 }
 
 .add-comment-button:active {
   transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
+  .avis-title {
+    font-size: 2em;
+  }
+
   .avis-card-v2 {
-    padding: 70px 20px 30px;
+    padding: 70px 25px 30px;
+    width: 90%; /* Make it responsive on smaller screens */
   }
 
   .avis-avatar {
-    width: 75px;
-    height: 75px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .avis-texte {
+    font-size: 1em;
+  }
+
+  .avis-nom {
+    font-size: 1.15em;
+  }
+
+  .star {
+    font-size: 1.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .avis-grid-v2 {
+    grid-template-columns: 1fr; /* Stack cards on very small screens */
   }
 
   .avis-title {
-    font-size: 2.2rem;
+    font-size: 1.8em;
+  }
+
+  .add-comment-button {
+    padding: 10px 20px;
+    font-size: 1em;
   }
 }
