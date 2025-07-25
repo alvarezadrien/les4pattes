@@ -62,7 +62,7 @@ router.get('/user/:userId', authMiddleware, async (req, res) => {
     }
 });
 
-// ✅ Supprimer un commentaire par son ID
+// ✅ Supprimer un commentaire
 router.delete('/:commentId', authMiddleware, async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.commentId);
@@ -70,13 +70,37 @@ router.delete('/:commentId', authMiddleware, async (req, res) => {
             return res.status(404).json({ msg: 'Commentaire non trouvé.' });
         }
 
-        // 🔁 Correction ici : vérifie correctement que l'utilisateur est le propriétaire
         if (String(comment.userId) !== String(req.user.id)) {
             return res.status(403).json({ msg: 'Non autorisé à supprimer ce commentaire.' });
         }
 
         await comment.deleteOne();
         res.status(200).json({ msg: 'Commentaire supprimé.' });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+// ✅ Modifier un commentaire
+router.put('/:commentId', authMiddleware, async (req, res) => {
+    const { commentText, rating } = req.body;
+
+    try {
+        const comment = await Comment.findById(req.params.commentId);
+        if (!comment) {
+            return res.status(404).json({ msg: 'Commentaire non trouvé.' });
+        }
+
+        if (String(comment.userId) !== String(req.user.id)) {
+            return res.status(403).json({ msg: 'Non autorisé à modifier ce commentaire.' });
+        }
+
+        if (commentText) comment.commentText = commentText;
+        if (rating) comment.rating = rating;
+
+        await comment.save();
+        res.status(200).json({ msg: 'Commentaire modifié avec succès.', comment });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Erreur serveur');

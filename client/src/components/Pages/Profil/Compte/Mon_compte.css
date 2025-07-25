@@ -1508,3 +1508,96 @@
     transform: translate(-50%, -40%);
   }
 }
+
+/* --- Zone d’édition du commentaire --- */
+.edit-comment-form-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.edit-comment-textarea {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  resize: vertical;
+  font-family: "Arial", sans-serif;
+}
+
+.edit-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+}
+
+.edit-rating select {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+}
+
+.edit-buttons-popup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-btn {
+  background-color: #778d45;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #5f7536;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #bbb;
+}
+
+/* --- Bouton Modifier --- */
+.edit-comment-btn-popup {
+  background-color: transparent;
+  color: #778d45;
+  font-weight: bold;
+  border: 2px solid #778d45;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 0.6rem;
+}
+
+.edit-comment-btn-popup:hover {
+  background-color: #778d45;
+  color: white;
+}
+
+/* --- Ajustement de l’ensemble des actions --- */
+.comment-actions-popup {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.8rem;
+}
