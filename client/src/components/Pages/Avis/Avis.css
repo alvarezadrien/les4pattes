@@ -391,7 +391,6 @@
   letter-spacing: 0.5px;
   text-transform: none;
   position: relative;
-  z-index: 10;
 }
 
 .share-story-button-refuge:hover {
@@ -455,8 +454,7 @@
   }
 
   .section-title-refuge {
-    font-size: 2rem;
-    flex-direction: column;
+    font-size: 1.5rem;
     text-align: center;
   }
 
@@ -473,10 +471,15 @@
     padding: 20px;
   }
 
+  .bouncing-paw:first-child,
+  .bouncing-paw:last-child {
+    font-size: 1.5rem;
+  }
+
   .share-story-button-refuge,
   .toggle-more-comments-button {
     font-size: 1em;
-    padding: 12px 24px;
+    padding: 10px 12px;
     flex-wrap: wrap;
     text-align: center;
   }
@@ -497,8 +500,7 @@
 /* 📱 481px à 768px */
 @media (min-width: 481px) and (max-width: 768px) {
   .section-title-refuge {
-    font-size: 2.2rem;
-    flex-direction: column;
+    font-size: 1.8rem;
   }
 
   .section-description-refuge {
