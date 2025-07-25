@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useAuth } from '../../../../src/context/AuthContext';
 import CommentFormPopup from '../../Pages/Profil/Compte/Popup/CommentFormPopup';
 import './Avis.css';
 
@@ -11,6 +12,7 @@ const PawPrintIcon = () => (
 const MAX_REVIEW_LENGTH = 70;
 
 const Avis = () => {
+    const { user } = useAuth();
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -58,10 +60,22 @@ const Avis = () => {
         }
     };
 
-    const getAvatarUrl = (avatar) => {
-        if (!avatar || avatar.trim() === '') return null;
-        if (avatar.startsWith('http://') || avatar.startsWith('https://')) return avatar;
-        return `${process.env.REACT_APP_API_URL}${avatar.startsWith('/') ? '' : '/'}${avatar}`;
+    const getAvatarUrl = (comment) => {
+        if (!user || !comment.userId) return null;
+
+        const isOwner = comment.userId?.toString() === user._id;
+
+        if (isOwner && user.avatar) {
+            if (user.avatar.startsWith('http')) return user.avatar;
+            return `${process.env.REACT_APP_API_URL}${user.avatar.startsWith('/') ? '' : '/'}${user.avatar}`;
+        }
+
+        if (comment.avatar && comment.avatar.trim() !== '') {
+            if (comment.avatar.startsWith('http')) return comment.avatar;
+            return `${process.env.REACT_APP_API_URL}${comment.avatar.startsWith('/') ? '' : '/'}${comment.avatar}`;
+        }
+
+        return null;
     };
 
     const openFullReviewPopup = (text) => {
@@ -95,6 +109,7 @@ const Avis = () => {
                     <CommentFormPopup
                         onClose={() => setShowCommentFormPopup(false)}
                         onCommentSubmitSuccess={handleNewComment}
+                        user={user}
                     />
                 )}
 
@@ -115,7 +130,7 @@ const Avis = () => {
 
                 <div className="stories-grid-refuge">
                     {commentsToDisplay.map((comment) => {
-                        const avatarUrl = getAvatarUrl(comment.avatar);
+                        const avatarUrl = getAvatarUrl(comment);
                         const isLongReview = comment.commentText.length > MAX_REVIEW_LENGTH;
                         const displayedText = isLongReview
                             ? comment.commentText.substring(0, MAX_REVIEW_LENGTH) + '...'
@@ -157,7 +172,6 @@ const Avis = () => {
                     })}
                 </div>
 
-                {/* BOUTON VOIR PLUS / MOINS */}
                 {comments.length > 6 && (
                     <button
                         className="toggle-more-comments-button"
@@ -172,7 +186,6 @@ const Avis = () => {
                     </button>
                 )}
 
-                {/* BOUTON NOUVEL AVIS */}
                 <button className="share-story-button-refuge" onClick={() => setShowCommentFormPopup(true)}>
                     Partagez votre histoire !
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">

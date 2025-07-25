@@ -18,7 +18,15 @@ export const AuthProvider = ({ children }) => {
                             Authorization: `Bearer ${storedToken}`
                         }
                     });
-                    setUser(response.data);
+
+                    const fetchedUser = response.data;
+
+                    // 🔐 On s'assure que l'ID est bien une string
+                    if (fetchedUser._id && typeof fetchedUser._id !== 'string') {
+                        fetchedUser._id = fetchedUser._id.toString();
+                    }
+
+                    setUser(fetchedUser);
                     setToken(storedToken);
                 } catch (error) {
                     console.error('Erreur lors du chargement du profil utilisateur:', error);
@@ -37,6 +45,12 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await api.post('/api/auth/login', { email, password });
             const { token: receivedToken, user: userData } = response.data;
+
+            // 🔐 ID en string
+            if (userData._id && typeof userData._id !== 'string') {
+                userData._id = userData._id.toString();
+            }
+
             localStorage.setItem('token', receivedToken);
             setToken(receivedToken);
             setUser(userData);
@@ -55,10 +69,10 @@ export const AuthProvider = ({ children }) => {
             const response = await api.post('/api/auth/signup', userData);
             return { success: true, message: response.data.message };
         } catch (error) {
-            console.error('Échec de l\'inscription:', error.response?.data?.message || error.message);
+            console.error("Échec de l'inscription:", error.response?.data?.message || error.message);
             return {
                 success: false,
-                message: error.response?.data?.message || 'Erreur d\'inscription'
+                message: error.response?.data?.message || "Erreur d'inscription"
             };
         }
     };
