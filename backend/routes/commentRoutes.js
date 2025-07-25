@@ -70,12 +70,12 @@ router.delete('/:commentId', authMiddleware, async (req, res) => {
             return res.status(404).json({ msg: 'Commentaire non trouvé.' });
         }
 
-        // Vérifie que l'utilisateur connecté est bien l'auteur
-        if (comment.userId.toString() !== req.user.id) {
+        // 🔁 Correction ici : vérifie correctement que l'utilisateur est le propriétaire
+        if (String(comment.userId) !== String(req.user.id)) {
             return res.status(403).json({ msg: 'Non autorisé à supprimer ce commentaire.' });
         }
 
-        await Comment.findByIdAndDelete(req.params.commentId);
+        await comment.deleteOne();
         res.status(200).json({ msg: 'Commentaire supprimé.' });
     } catch (err) {
         console.error(err.message);
