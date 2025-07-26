@@ -68,7 +68,7 @@ const Sensibilisation = () => {
           <img src="/img/chat_galerie.jpg" alt="" />
         </div>
         <div className="grid_item_sensi">
-          <img src="/img/chien_fiche1.jpg" alt="" />
+          <img src="/img/Chien_fiche1.jpg" alt="" />
         </div>
       </div>
 
