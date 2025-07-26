@@ -735,7 +735,7 @@
   }
 
   .h1_titre {
-    margin-left: 0; /* Center title */
+    margin-left: 0;
     font-size: 3rem; /* Adjusted font size */
     text-align: center;
   }

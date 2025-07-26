@@ -714,7 +714,7 @@ ul {
 
   .image_and_text_block,
   .image_and_text_block.reverse {
-    flex-direction: row;
+    flex-direction: row; /* Maintain row direction for larger tablets */
     gap: 30px;
     padding: 20px;
     margin-bottom: 35px;
@@ -760,7 +760,7 @@ ul {
 
   .adoption_card {
     min-width: 300px;
-    max-width: 48%;
+    max-width: 48%; /* Allows two cards per row */
     padding: 18px;
     border-radius: 13px;
   }
