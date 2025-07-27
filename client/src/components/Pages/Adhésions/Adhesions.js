@@ -70,19 +70,10 @@ const Adhesions = () => {
 
             <div className="ul_container_adhesions">
                 <ul className="ul_adhesions">
-                    <li>
-                        La cotisation en tant que membre adhérent : <strong>15€</strong>
-                    </li>
-                    <li>
-                        La cotisation en tant que membre sympathisant : <strong>25€</strong>
-                    </li>
-                    <li>
-                        La cotisation en tant que membre protecteur : <strong>60€</strong>
-                    </li>
-                    <li>
-                        La cotisation en tant que membre à vie : <strong>250€</strong> (à ne
-                        payer qu'une seule fois)
-                    </li>
+                    <li>La cotisation en tant que membre adhérent : <strong>15€</strong></li>
+                    <li>La cotisation en tant que membre sympathisant : <strong>25€</strong></li>
+                    <li>La cotisation en tant que membre protecteur : <strong>60€</strong></li>
+                    <li>La cotisation en tant que membre à vie : <strong>250€</strong> (à ne payer qu'une seule fois)</li>
                 </ul>
             </div>
 
@@ -123,6 +114,7 @@ const Adhesions = () => {
 
                     <ul className="ul_bank">
                         <li>Chaque soutien, quel qu’il soit, compte énormément pour nos protégés.</li>
+                        <li>Grâce à votre générosité, nous pouvons offrir soins, nourriture et amour à ceux qui en ont le plus besoin.</li>
                     </ul>
                 </div>
             </div>
@@ -146,9 +138,9 @@ const Adhesions = () => {
             </div>
 
             {showSuccessPopup && (
-                <div className="success-popup">
-                    <div className="success-content">
-                        <img src="/img/green-paw.png" alt="Succès" />
+                <div className="success-popup-adhesions">
+                    <div className="success-content-adhesions">
+                        <img src="/img/pattes_popup_paiement.png" alt="Succès" />
                         <h2>Merci pour votre soutien ❤️</h2>
                         <p>Redirection en cours vers le paiement sécurisé...</p>
                     </div>
