@@ -122,8 +122,7 @@ const Adhesions = () => {
                     </div>
 
                     <ul className="ul_bank">
-                        <li>Vous pouvez payer anonymement</li>
-                        <li>Ou avec votre numéro d'adhérent en communication</li>
+                        <li>Chaque soutien, quel qu’il soit, compte énormément pour nos protégés.</li>
                     </ul>
                 </div>
             </div>

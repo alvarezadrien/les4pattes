@@ -1,32 +1,29 @@
-/* Couleurs principales */
+/* ✅ Couleurs spécifiques à la page de succès de paiement */
 :root {
-  --primary-color: #778d45;
-  --secondary-color: #fffaf0;
-  --accent-color: #f4eaca;
-  --highlight-color: #ffd700;
-  --dark-color: #444;
-  --text-color: #333;
-  --white: #ffffff;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --success-primary: #778d45;
+  --success-secondary: #fffaf0;
+  --success-accent: #f4eaca;
+  --success-highlight: #ffd700;
+  --success-dark: #444;
+  --success-text: #333;
+  --success-white: #ffffff;
+  --success-shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* Fond animé doux */
+/* 🌟 Fond animé doux */
 .background-animation {
   margin-top: 6rem;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: radial-gradient(
     circle at top left,
-    var(--accent-color),
-    var(--secondary-color)
+    var(--success-accent),
+    var(--success-secondary)
   );
   z-index: -1;
   animation: pulseBackground 10s ease-in-out infinite;
 }
 
-/* Animation douce du fond */
 @keyframes pulseBackground {
   0%,
   100% {
@@ -37,17 +34,17 @@
   }
 }
 
-/* Conteneur principal */
+/* 🧩 Conteneur principal */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1rem;
   font-family: "Poppins", sans-serif;
-  color: var(--text-color);
+  color: var(--success-text);
   text-align: center;
 }
 
-/* Header */
+/* 🎉 Header */
 .header {
   margin-bottom: 3rem;
 }
@@ -55,16 +52,16 @@
 .main-title {
   font-family: "Great Vibes", cursive;
   font-size: 3rem;
-  color: var(--primary-color);
+  color: var(--success-primary);
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
   font-size: 1.2rem;
-  color: var(--dark-color);
+  color: var(--success-dark);
 }
 
-/* Impact section */
+/* 💚 Cartes d'impact */
 .impact-section {
   display: flex;
   flex-wrap: wrap;
@@ -74,11 +71,11 @@
 }
 
 .impact-card {
-  background-color: var(--white);
+  background-color: var(--success-white);
   border-radius: 12px;
   padding: 2rem;
   width: 300px;
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: 0 4px 12px var(--success-shadow);
   transition: transform 0.3s ease;
 }
 
@@ -88,11 +85,11 @@
 
 .icon-large {
   font-size: 2.5rem;
-  color: var(--primary-color);
+  color: var(--success-primary);
   margin-bottom: 1rem;
 }
 
-/* Animal image + cœurs */
+/* 🐾 Animal visuel avec animation */
 .animal-visual {
   position: relative;
   margin: 3rem 0;
@@ -102,7 +99,7 @@
   width: 200px;
   height: auto;
   border-radius: 50%;
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: 0 4px 12px var(--success-shadow);
   transition: opacity 1s ease-in-out;
 }
 
@@ -127,7 +124,7 @@
   }
 }
 
-/* Message */
+/* 📩 Message et texte */
 .message-box {
   font-size: 1.1rem;
   margin-bottom: 2rem;
@@ -139,7 +136,7 @@
   margin-top: 1rem;
 }
 
-/* Actions */
+/* 🔘 Boutons */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -157,12 +154,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 2px 6px var(--shadow-color);
+  box-shadow: 0 2px 6px var(--success-shadow);
 }
 
 .primary-btn {
-  background-color: var(--primary-color);
-  color: var(--white);
+  background-color: var(--success-primary);
+  color: var(--success-white);
 }
 
 .primary-btn:hover {
@@ -170,18 +167,18 @@
 }
 
 .secondary-btn {
-  background-color: var(--accent-color);
-  color: var(--text-color);
+  background-color: var(--success-accent);
+  color: var(--success-text);
 }
 
 .secondary-btn:hover {
   background-color: #f3e0a5;
 }
 
-/* Témoignage */
+/* 💬 Témoignage ou phrase finale */
 .social-proof {
   font-style: italic;
-  color: var(--dark-color);
+  color: var(--success-dark);
   max-width: 700px;
   margin: 0 auto;
 }
@@ -189,28 +186,10 @@
 .testimonial-author {
   font-weight: bold;
   margin-top: 0.5rem;
+  color: var(--success-primary);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .main-title {
-    font-size: 2.5rem;
-  }
-
-  .impact-card {
-    width: 100%;
-    max-width: 90%;
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .happy-animal {
-    width: 150px;
-  }
-}
-
+/* ✅ Coche / succès */
 .checkmark-circle {
   position: relative;
   width: 120px;
@@ -249,5 +228,52 @@
   100% {
     transform: translateX(-50%) scale(1);
     opacity: 1;
+  }
+}
+
+/* 📱 Media queries responsives */
+@media screen and (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .happy-animal {
+    width: 150px;
+  }
+
+  .btn {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .main-title {
+    font-size: 2.2rem;
+  }
+
+  .happy-animal {
+    width: 160px;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .main-title {
+    font-size: 2.6rem;
+  }
+
+  .happy-animal {
+    width: 180px;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .main-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .main-title {
+    font-size: 3rem;
   }
 }
