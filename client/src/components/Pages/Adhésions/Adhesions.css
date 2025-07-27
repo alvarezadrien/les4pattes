@@ -446,6 +446,10 @@ hr {
     padding: 1.5rem;
     border-radius: 15px;
   }
+
+  .success-content-adhesions {
+    width: 70vw;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -595,6 +599,10 @@ hr {
     padding: 1.8rem;
     border-radius: 16px;
   }
+
+  .success-content-adhesions {
+    width: 80vw;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -714,6 +722,10 @@ hr {
     padding: 2rem;
     border-radius: 18px;
   }
+
+  .success-content-adhesions {
+    width: 85vw;
+  }
 }
 
 @media screen and (min-width: 1025px) {
@@ -737,6 +749,10 @@ hr {
   .ul_adhesions {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .success-content-adhesions {
+    width: 85vw;
   }
 }
 
@@ -839,6 +855,7 @@ hr {
 
 .success-content-adhesions img {
   width: 80px;
+  margin-bottom: 1rem;
   animation: bounceIn 0.6s ease;
 }
 
