@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 const Stripe = require('stripe');
 
-// 🔍 Vérifie si la clé est bien définie
+// ✅ Vérifie que la clé Stripe est bien définie
 if (!process.env.STRIPE_SECRET_KEY) {
-    console.error('❌ STRIPE_SECRET_KEY est manquant dans les variables d’environnement.');
+    console.error('❌ STRIPE_SECRET_KEY est manquante dans les variables d’environnement.');
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -23,22 +23,24 @@ router.post('/create-checkout-session', async (req, res) => {
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
-            line_items: [{
-                price_data: {
-                    currency: 'eur',
-                    product_data: {
-                        name: 'Adhésion - Les 4 Pattes',
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'eur',
+                        product_data: {
+                            name: 'Adhésion - Les 4 Pattes',
+                        },
+                        unit_amount: Math.round(amount * 100), // Stripe attend des centimes
                     },
-                    unit_amount: Math.round(amount * 100), // 👈 Stripe attend un montant en centimes (entier)
+                    quantity: 1,
                 },
-                quantity: 1,
-            }],
+            ],
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/success`,
             cancel_url: `${process.env.CLIENT_URL}/adhesions`,
         });
 
-        console.log('✅ Session Stripe créée :', session.id);
+        console.log('✅ Session Stripe créée avec succès :', session.id);
         res.json({ url: session.url });
     } catch (err) {
         console.error('❌ Erreur lors de la création de la session Stripe :', err.message || err);

@@ -11,16 +11,9 @@ const commentRoutes = require('./routes/commentRoutes');
 const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const passwordRoutes = require('./routes/passwordRoutes');
-const donationRoutes = require('./routes/donationRoutes'); // ✅ Ajout de la route Stripe
+const donationRoutes = require('./routes/donationRoutes'); // ✅ Route Stripe
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
-// ✅ Connexion MongoDB
-const mongoURI =
-    process.env.NODE_ENV === 'production'
-        ? process.env.MONGO_URI
-        : process.env.LOCAL_MONGO_URI;
 
 // ✅ Middlewares globaux
 app.use(cors());
@@ -29,16 +22,16 @@ app.use(express.json());
 // ✅ Sert les images uploadées (Chiens et Chats)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// ✅ Sert les images publiques (par ex. avatars, pattes, default.jpg)
+// ✅ Sert les images publiques (avatars, logo, pattes, etc.)
 app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 
-// ✅ Log les requêtes aux images uploadées (debug)
+// ✅ Log debug des images uploadées
 app.use('/uploads', (req, res, next) => {
     console.log('🖼️ Image demandée :', req.originalUrl);
     next();
 });
 
-// ✅ Routes
+// ✅ Enregistrement des routes API
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
@@ -47,13 +40,17 @@ app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/api/password', passwordRoutes);
 app.use('/api/donation', donationRoutes); // ✅ Route Stripe ajoutée
 
-// ✅ Connexion et lancement serveur
+// ✅ Connexion MongoDB
 mongoose
-    .connect(mongoURI)
+    .connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => {
         console.log('✅ Connexion à MongoDB réussie');
-        app.listen(PORT, () => {
-            console.log(`🚀 Serveur lancé sur le port ${PORT}`);
+        // ✅ Démarrer le serveur UNIQUEMENT après connexion réussie
+        app.listen(process.env.PORT, () => {
+            console.log(`🚀 Serveur lancé sur le port ${process.env.PORT}`);
         });
     })
     .catch((err) => {
