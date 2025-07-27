@@ -37,8 +37,8 @@ router.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${process.env.FRONTEND_URL}/success`,
-            cancel_url: `${process.env.FRONTEND_URL}/adhesions`,
+            success_url: `${process.env.FRONTEND_URL}/paiementsucces`,
+            cancel_url: `${process.env.FRONTEND_URL}/Adhésions`,
         });
 
         console.log('✅ Session Stripe créée avec succès :', session.url);
