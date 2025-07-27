@@ -112,11 +112,11 @@ function PaiementSucces() {
         </div>
 
         <div className="actions">
-          <a href="/" className="btn primary-btn" id="exploreBtn">
+          <a href="/" className="button_paiement btn_paiement1" id="exploreBtn">
             <i className="fas fa-arrow-alt-circle-right"></i> Découvrir notre
             refuge
           </a>
-          <a href="/" className="btn secondary-btn" id="shareBtn">
+          <a href="/" className="button_paiement btn_paiement2" id="shareBtn">
             <i className="fas fa-share-alt"></i> Partager cette bonne action
           </a>
         </div>
