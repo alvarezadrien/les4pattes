@@ -1,0 +1,232 @@
+/* Couleurs principales */
+:root {
+  --primary-color: #778d45;
+  --secondary-color: #fffaf0;
+  --accent-color: #f4eaca;
+  --highlight-color: #ffd700;
+  --dark-color: #444;
+  --text-color: #333;
+  --white: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Fond animé doux */
+.background-animation {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at top left,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+  z-index: -1;
+  animation: pulseBackground 10s ease-in-out infinite;
+}
+
+/* Animation douce du fond */
+@keyframes pulseBackground {
+  0%,
+  100% {
+    background-position: left top;
+  }
+  50% {
+    background-position: right bottom;
+  }
+}
+
+/* Conteneur principal */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Header */
+.header {
+  margin-bottom: 3rem;
+}
+
+.checkmark-circle {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.main-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--dark-color);
+}
+
+/* Impact section */
+.impact-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.impact-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 300px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon-large {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+/* Animal image + cœurs */
+.animal-visual {
+  position: relative;
+  margin: 3rem 0;
+}
+
+.happy-animal {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: opacity 1s ease-in-out;
+}
+
+.hearts-particles {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.heart-particle {
+  font-size: 2rem;
+  margin: 0 0.2rem;
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-15px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Message */
+.message-box {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.call-to-action-text {
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.btn {
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.primary-btn:hover {
+  background-color: #5f7535;
+}
+
+.secondary-btn {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+.secondary-btn:hover {
+  background-color: #f3e0a5;
+}
+
+/* Témoignage */
+.social-proof {
+  font-style: italic;
+  color: var(--dark-color);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .impact-card {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .happy-animal {
+    width: 150px;
+  }
+}
