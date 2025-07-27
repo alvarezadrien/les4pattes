@@ -17,7 +17,7 @@ function PaiementSucces() {
     if (exploreBtn) {
       exploreBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        alert("Merci d'explorer davantage notre refuge !");
+        window.location.href = "/";
       });
     }
 
@@ -26,7 +26,7 @@ function PaiementSucces() {
         e.preventDefault();
         const shareText =
           "Je viens de faire un don qui change des vies dans un refuge animalier ! Chaque geste compte. #SauvezDesVies #ProtectionAnimale";
-        const shareUrl = window.location.href;
+        const shareUrl = window.location.origin + "/";
 
         if (navigator.share) {
           navigator
@@ -61,7 +61,12 @@ function PaiementSucces() {
       <div className="container">
         <div className="header">
           <div className="checkmark-circle">
-            <i className="fas fa-check"></i>
+            <img
+              src="/img/don.png"
+              alt="Icône chien cartoon stylisé"
+              className="illustration-overlap"
+            />
+            <i className="fas fa-check check-icon"></i>
           </div>
           <h1 className="main-title">Merci, merci, merci !</h1>
           <p className="subtitle">
@@ -93,20 +98,6 @@ function PaiementSucces() {
               Vous financez des consultations vétérinaires vitales et des
               médicaments pour les plus fragiles.
             </p>
-          </div>
-        </div>
-
-        <div className="animal-visual">
-          <img
-            src="https://via.placeholder.com/200/FFD700/FFFFFF?text=Animal+Sauv%C3%A9"
-            alt="Un animal heureux grâce à votre don"
-            className="happy-animal"
-            id="happyAnimal"
-          />
-          <div className="hearts-particles">
-            <span className="heart-particle">❤️</span>
-            <span className="heart-particle">🐾</span>
-            <span className="heart-particle">✨</span>
           </div>
         </div>
 
