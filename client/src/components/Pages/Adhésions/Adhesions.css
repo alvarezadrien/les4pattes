@@ -750,10 +750,6 @@ hr {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
-
-  .success-content-adhesions {
-    width: 85vw;
-  }
 }
 
 /* 🔽 Ce bloc ajoute les styles spécifiques pour le paiement Stripe */
