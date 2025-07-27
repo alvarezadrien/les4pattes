@@ -38,7 +38,7 @@ router.post('/create-checkout-session', async (req, res) => {
             ],
             mode: 'payment',
             success_url: `${process.env.FRONTEND_URL}/paiementsucces`, // Redirection après paiement réussi
-            cancel_url: `${process.env.FRONTEND_URL}/adhésions`,       // Redirection boutton retour en arrière
+            cancel_url: `${process.env.FRONTEND_URL}/adhesions`,       // Redirection boutton retour en arrière
         });
 
         console.log('✅ Session Stripe créée avec succès :', session.url);
