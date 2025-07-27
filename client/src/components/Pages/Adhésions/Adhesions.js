@@ -1,10 +1,29 @@
-import React from 'react'
-import './Adhesions.css'
+import React, { useState } from 'react';
+import './Adhesions.css';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51RpREJ3NQxhj3yh6nevK0w2MZI077QIXnIeStlhW1yeU8Ns6sov58DU8eiK3NdFFOuze1N4utonjfGsJRi5eKUzc00IslsIW8S');
 
 const Adhesions = () => {
+    const [customAmount, setCustomAmount] = useState('');
+
+    const handlePayment = async (amount) => {
+        const stripe = await stripePromise;
+
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/donation/create-checkout-session`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount }),
+        });
+
+        const data = await response.json();
+        if (data.url) {
+            window.location.href = data.url;
+        }
+    };
+
     return (
         <div className='page_adhesions'>
-
             <div className='container_img_adhesions'>
                 <div className='div_img_adhesions1'>
                     <img src="/img/photo_cat_accueil2.jpg" alt="Chat principal" width={1000} height={400} />
@@ -14,36 +33,58 @@ const Adhesions = () => {
                 </div>
                 <div className='div_para_adhesions1'>
                     <h1 className='h1_adhesions'>Adhésions</h1>
-
                     <p className='para_adhesions1'>
-                        Tout ce que nous accomplissons,
-                        nous le devons à votre générosité.
-                        Pour renforcer notre impact, envisagez
-                        de devenir membre !
+                        Tout ce que nous accomplissons, nous le devons à votre générosité.
+                        Pour renforcer notre impact, envisagez de devenir membre !
                     </p>
                 </div>
             </div>
+
             <h2 className='h2_adhesions'>Explorez nos différentes options de soutien</h2>
 
             <div className='ul_container_adhesions'>
                 <ul className='ul_adhesions'>
-                    <li>La cotisation en tant que membres adhérent : **15€**</li>
-                    <li>La cotisation en tant que membre sympathisant : **25€**</li>
-                    <li>La cotisation en tant que membre protecteur : **60€**</li>
-                    <li>La cotisation en tant que membre à vie : **250€** (à ne payer qu'une seule fois)</li>
+                    <li>La cotisation en tant que membre adhérent : <strong>15€</strong></li>
+                    <li>La cotisation en tant que membre sympathisant : <strong>25€</strong></li>
+                    <li>La cotisation en tant que membre protecteur : <strong>60€</strong></li>
+                    <li>La cotisation en tant que membre à vie : <strong>250€</strong> (à ne payer qu'une seule fois)</li>
                 </ul>
             </div>
 
-            {/* LE CHAT EST MAINTENANT À GAUCHE DU TEXTE DANS CE BLOC */}
             <div className='container_paiement'>
                 <img src="/img/contact-cat.png" alt="Icône de chat" className="cat_image_paiement" />
-                <div className='payment_details_wrapper'> {/* Nouveau wrapper pour le texte */}
-                    <h5 className='h5_adhesions'>Voici notre numéro de compte pour le paiement</h5>
-                    <span className='span_bank'>BE 79 1140 2004 0000 3102 8079 8178</span>
+                <div className='payment_details_wrapper'>
+                    <h5 className='h5_adhesions'>Soutenez-nous en ligne</h5>
+
+                    <div className='stripe_donation_container'>
+                        <div className="preset_buttons">
+                            {[15, 25, 60, 250].map((amount) => (
+                                <button key={amount} onClick={() => handlePayment(amount)}>
+                                    Adhérer pour {amount}€
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="custom_donation">
+                            <input
+                                type="number"
+                                min="1"
+                                value={customAmount}
+                                placeholder="Montant libre (€)"
+                                onChange={(e) => setCustomAmount(e.target.value)}
+                            />
+                            <button
+                                disabled={!customAmount || customAmount < 1}
+                                onClick={() => handlePayment(Number(customAmount))}
+                            >
+                                Faire un don
+                            </button>
+                        </div>
+                    </div>
 
                     <ul className='ul_bank'>
                         <li>Vous pouvez payer anonymement</li>
-                        <li>Vous pouvez payer avec votre numéro d'adhérent en communication</li>
+                        <li>Ou avec votre numéro d'adhérent en communication</li>
                     </ul>
                 </div>
             </div>
@@ -54,28 +95,18 @@ const Adhesions = () => {
                 <div className='div_para_adhesions2'>
                     <p className='para_adhesions2'>
                         En devenant membre de notre association, vous entrez dans une communauté
-                        engagée pour la cause animale. Mais quels sont les avantages que vous obtenez
-                        en adhérant à notre cause ?
-                        En plus de soutenir nos actions en faveur du bien-être animal,
-                        votre adhésion vous donne accès à une gamme d'avantages exclusifs.
-                        En tant que membre, vous recevrez une carte de membre, symbole de votre engagement envers notre mission !
+                        engagée pour la cause animale. En plus de soutenir nos actions, vous recevrez une carte de membre !
                     </p>
                 </div>
-
                 <div className='div_para_adhesions3'>
                     <p className='para_adhesions3'>
-
-                        Mais ce n'est pas tout ! En tant que membre,
-                        vous aurez également accès à notre magazine, une source
-                        d'informations précieuse sur les dernières avancées dans nos domaines
-                        d'action. Notre revue vous tiendra informé des progrès réalisés, des défis
-                        à relever et des initiatives qui façonnent un avenir meilleur pour les animaux.
+                        Vous aurez également accès à notre magazine, une source d'informations précieuse
+                        sur nos actions et nos avancées.
                     </p>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Adhesions
+export default Adhesions;

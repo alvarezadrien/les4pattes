@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Filtre.css'; // Assurez-vous que ce fichier CSS existe
+import './Filtre.css';
 
 const Filtre = ({
     sexe, setSexe,
@@ -7,18 +7,17 @@ const Filtre = ({
     dureeRefuge, setDureeRefuge,
     comportement, setComportement,
     entente, setEntente,
-    disableTaille = false // Prop pour désactiver le filtre taille si nécessaire
+    disableTaille = false
 }) => {
-    const [showPopup, setShowPopup] = useState(false); // État pour contrôler la visibilité de la popup
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleResetFilters = () => {
-        // Réinitialise tous les états des filtres à leurs valeurs initiales (chaîne vide)
         setSexe('');
         setTaille('');
         setDureeRefuge('');
         setComportement('');
         setEntente('');
-        setShowPopup(false); // Ferme la popup après la réinitialisation
+        setShowPopup(false);
     };
 
     return (
@@ -30,6 +29,9 @@ const Filtre = ({
             {showPopup && (
                 <div className="filtre-popup-overlay">
                     <div className="filtre-popup-content">
+                        <button className="popup-close-button" onClick={() => setShowPopup(false)}>
+                            &times;
+                        </button>
                         <h2>Filtres</h2>
                         <ul className="ul_filtre_popup">
                             <li>
@@ -44,7 +46,6 @@ const Filtre = ({
                                     <option value="grand">Grande</option>
                                 </select>
                             </li>
-
                             <li>
                                 <select
                                     value={sexe}
@@ -55,7 +56,6 @@ const Filtre = ({
                                     <option value="Femelle">Femelle</option>
                                 </select>
                             </li>
-
                             <li>
                                 <select
                                     value={entente}
@@ -68,7 +68,6 @@ const Filtre = ({
                                     <option value="familles">Idéal pour les familles</option>
                                 </select>
                             </li>
-
                             <li>
                                 <select
                                     value={dureeRefuge}
@@ -81,7 +80,6 @@ const Filtre = ({
                                     <option value="+6mois">Plus de 6 mois</option>
                                 </select>
                             </li>
-
                             <li>
                                 <select
                                     value={comportement}
@@ -102,9 +100,6 @@ const Filtre = ({
                         <div className="popup-actions">
                             <button className="reset-filters-button" onClick={handleResetFilters}>
                                 Réinitialiser la recherche
-                            </button>
-                            <button className="close-popup-button" onClick={() => setShowPopup(false)}>
-                                Fermer
                             </button>
                         </div>
                     </div>

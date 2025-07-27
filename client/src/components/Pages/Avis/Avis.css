@@ -314,10 +314,9 @@
   position: relative;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
   animation: popIn 0.5s cubic-bezier(0.23, 1, 0.32, 1.2);
-  color: #333;
   text-align: left;
   font-family: "Nunito", sans-serif;
-  border: 3px solid #8bc34a;
+  border: 3px solid var(--primary-color);
   transform-origin: center;
 }
 
@@ -325,7 +324,7 @@
   font-size: 2em;
   margin-bottom: 25px;
   font-weight: 800;
-  border-bottom: 3px solid #cfeeda;
+  border-bottom: 3px solid #bc5759;
   padding-bottom: 15px;
   text-align: center;
   letter-spacing: 0.5px;
@@ -583,4 +582,39 @@
   .happy-story-card {
     padding: 30px;
   }
+}
+
+.close-popup-button-avis {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background-color: #ff6b6b;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.close-popup-button-avis svg {
+  stroke: white;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease;
+}
+
+.close-popup-button-avis:hover {
+  background-color: #e34a4a;
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.close-popup-button-avis:active {
+  transform: scale(0.95);
 }

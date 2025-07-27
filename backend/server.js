@@ -11,6 +11,7 @@ const commentRoutes = require('./routes/commentRoutes');
 const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const passwordRoutes = require('./routes/passwordRoutes');
+const donationRoutes = require('./routes/donationRoutes'); // ✅ Ajout de la route Stripe
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -44,6 +45,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/api/password', passwordRoutes);
+app.use('/api/donation', donationRoutes); // ✅ Route Stripe ajoutée
 
 // ✅ Connexion et lancement serveur
 mongoose

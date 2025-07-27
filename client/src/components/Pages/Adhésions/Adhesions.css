@@ -739,3 +739,77 @@ hr {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* 🔽 Ce bloc ajoute les styles spécifiques pour le paiement Stripe */
+.stripe_donation_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0 2rem 0;
+  width: 100%;
+}
+
+.preset_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.preset_buttons button,
+.custom_donation button {
+  background-color: #f4eaca;
+  color: #333;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.preset_buttons button:hover,
+.custom_donation button:hover {
+  background-color: #dbe1b5;
+  transform: translateY(-2px);
+}
+
+.custom_donation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.custom_donation input {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
+  background-color: #fff;
+  color: #333;
+}
+
+.custom_donation button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 768px) {
+  .preset_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .custom_donation input {
+    max-width: 90%;
+  }
+}
+
+/* 🔼 Fin du bloc ajouté pour Stripe */
+
+/* ➕ Tu n’as rien d’autre à modifier dans le reste du CSS : le design s’intègre parfaitement avec ce que tu avais déjà écrit */

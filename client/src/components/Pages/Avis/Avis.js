@@ -111,11 +111,11 @@ const Avis = () => {
 
                 {selectedReviewText && (
                     <div className="full-review-popup-overlay" onClick={closeFullReviewPopup}>
-                        <div className="full-review-popup-content" onClick={e => e.stopPropagation()}>
-                            <button className="close-popup-button" onClick={closeFullReviewPopup}>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                        <div className="full-review-popup-content" onClick={(e) => e.stopPropagation()}>
+                            <button className="close-popup-button-avis" onClick={closeFullReviewPopup}>
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
                                 </svg>
                             </button>
                             <h3 className="popup-title">Témoignage complet</h3>
@@ -144,7 +144,9 @@ const Avis = () => {
                                     ) : (
                                         <div className="adopter-avatar-placeholder-refuge">
                                             {comment.username ? comment.username.charAt(0).toUpperCase() : '?'}
-                                            {comment.username && comment.username.split(' ')[1] ? comment.username.split(' ')[1].charAt(0).toUpperCase() : ''}
+                                            {comment.username && comment.username.split(' ')[1]
+                                                ? comment.username.split(' ')[1].charAt(0).toUpperCase()
+                                                : ''}
                                         </div>
                                     )}
                                     <div className="adopter-info-refuge">
@@ -169,15 +171,12 @@ const Avis = () => {
                 </div>
 
                 {comments.length > 6 && (
-                    <button
-                        className="toggle-more-comments-button"
-                        onClick={() => setShowAllComments(prev => !prev)}
-                    >
+                    <button className="toggle-more-comments-button" onClick={() => setShowAllComments(prev => !prev)}>
                         {showAllComments ? 'Voir moins' : 'Voir plus'}
                         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="16"></line>
-                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="16" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
                         </svg>
                     </button>
                 )}
@@ -185,9 +184,9 @@ const Avis = () => {
                 <button className="share-story-button-refuge" onClick={() => setShowCommentFormPopup(true)}>
                     Partagez votre histoire !
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="16" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
                     </svg>
                 </button>
             </div>

@@ -44,7 +44,7 @@ const Equipe = () => {
 
         <div className="div_box2">
           <div className="image_box">
-            <img src="/img/veto_equipe.webp" alt="" />
+            <img src="/img/soigneurs_image.jpg" alt="" />
           </div>
           <div className="text_box">
             <p>
