@@ -1,3 +1,4 @@
+// routes/donationRoutes.js
 const express = require('express');
 const router = express.Router();
 const Stripe = require('stripe');
@@ -8,15 +9,23 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2023-10-16', // Optionnel, mais recommandé
+    apiVersion: '2023-10-16',
 });
 
 router.post('/create-checkout-session', async (req, res) => {
-    const { amount } = req.body;
+    let { amount } = req.body;
 
-    console.log('✅ Montant reçu côté serveur :', amount);
+    // 🔁 Remplace virgule par point si besoin
+    if (typeof amount === 'string') {
+        amount = amount.replace(',', '.');
+    }
 
-    if (!amount || isNaN(amount) || amount < 1) {
+    // 🔢 Convertit en float
+    amount = parseFloat(amount);
+
+    console.log('✅ Montant converti :', amount);
+
+    if (!amount || isNaN(amount) || amount < 0.01) {
         console.error('❌ Montant invalide reçu :', amount);
         return res.status(400).json({ error: 'Montant invalide' });
     }

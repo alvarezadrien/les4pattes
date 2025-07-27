@@ -13,13 +13,23 @@ const Adhesions = () => {
     const handlePayment = async (amount) => {
         const stripe = await stripePromise;
 
+        // 🔁 Convertir virgule → point
+        const parsedAmount = parseFloat(
+            typeof amount === 'string' ? amount.replace(',', '.') : amount
+        );
+
+        if (!parsedAmount || parsedAmount < 0.01) {
+            alert('Veuillez entrer un montant valide (minimum 0,01€)');
+            return;
+        }
+
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_API_URL}/api/donation/create-checkout-session`,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ amount }),
+                    body: JSON.stringify({ amount: parsedAmount }),
                 }
             );
 
@@ -42,20 +52,10 @@ const Adhesions = () => {
         <div className="page_adhesions">
             <div className="container_img_adhesions">
                 <div className="div_img_adhesions1">
-                    <img
-                        src="/img/photo_cat_accueil2.jpg"
-                        alt="Chat principal"
-                        width={1000}
-                        height={400}
-                    />
+                    <img src="/img/photo_cat_accueil2.jpg" alt="Chat principal" width={1000} height={400} />
                 </div>
                 <div className="div_img_adhesions2">
-                    <img
-                        src="/img/photo_cat_accueil1.jpg"
-                        alt="Petit chat"
-                        width={340}
-                        height={340}
-                    />
+                    <img src="/img/photo_cat_accueil1.jpg" alt="Petit chat" width={340} height={340} />
                 </div>
                 <div className="div_para_adhesions1">
                     <h1 className="h1_adhesions">Adhésions</h1>
@@ -70,28 +70,15 @@ const Adhesions = () => {
 
             <div className="ul_container_adhesions">
                 <ul className="ul_adhesions">
-                    <li>
-                        La cotisation en tant que membre adhérent : <strong>15€</strong>
-                    </li>
-                    <li>
-                        La cotisation en tant que membre sympathisant : <strong>25€</strong>
-                    </li>
-                    <li>
-                        La cotisation en tant que membre protecteur : <strong>60€</strong>
-                    </li>
-                    <li>
-                        La cotisation en tant que membre à vie : <strong>250€</strong> (à ne
-                        payer qu'une seule fois)
-                    </li>
+                    <li>La cotisation en tant que membre adhérent : <strong>15€</strong></li>
+                    <li>La cotisation en tant que membre sympathisant : <strong>25€</strong></li>
+                    <li>La cotisation en tant que membre protecteur : <strong>60€</strong></li>
+                    <li>La cotisation en tant que membre à vie : <strong>250€</strong></li>
                 </ul>
             </div>
 
             <div className="container_paiement">
-                <img
-                    src="/img/contact-cat.png"
-                    alt="Icône de chat"
-                    className="cat_image_paiement"
-                />
+                <img src="/img/contact-cat.png" alt="Icône de chat" className="cat_image_paiement" />
                 <div className="payment_details_wrapper">
                     <h5 className="h5_adhesions">Soutenez-nous en ligne</h5>
 
@@ -106,15 +93,14 @@ const Adhesions = () => {
 
                         <div className="custom_donation">
                             <input
-                                type="number"
-                                min="1"
+                                type="text"
                                 value={customAmount}
                                 placeholder="Montant libre (€)"
                                 onChange={(e) => setCustomAmount(e.target.value)}
                             />
                             <button
-                                disabled={!customAmount || customAmount < 1}
-                                onClick={() => handlePayment(Number(customAmount))}
+                                disabled={!customAmount}
+                                onClick={() => handlePayment(customAmount)}
                             >
                                 Faire un don
                             </button>
@@ -133,15 +119,14 @@ const Adhesions = () => {
             <div className="div_para_adhesions">
                 <div className="div_para_adhesions2">
                     <p className="para_adhesions2">
-                        En devenant membre de notre association, vous entrez dans une
-                        communauté engagée pour la cause animale. En plus de soutenir nos
-                        actions, vous recevrez une carte de membre !
+                        En devenant membre de notre association, vous entrez dans une communauté engagée
+                        pour la cause animale. En plus de soutenir nos actions, vous recevrez une carte de membre !
                     </p>
                 </div>
                 <div className="div_para_adhesions3">
                     <p className="para_adhesions3">
-                        Vous aurez également accès à notre magazine, une source
-                        d'informations précieuse sur nos actions et nos avancées.
+                        Vous aurez également accès à notre magazine, une source d'informations précieuse
+                        sur nos actions et nos avancées.
                     </p>
                 </div>
             </div>
