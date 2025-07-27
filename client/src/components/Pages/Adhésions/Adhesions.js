@@ -6,19 +6,27 @@ const stripePromise = loadStripe('pk_test_51RpREJ3NQxhj3yh6nevK0w2MZI077QIXnIeSt
 
 const Adhesions = () => {
     const [customAmount, setCustomAmount] = useState('');
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
     const handlePayment = async (amount) => {
         const stripe = await stripePromise;
 
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/donation/create-checkout-session`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount }),
-        });
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/donation/create-checkout-session`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount }),
+            });
 
-        const data = await response.json();
-        if (data.url) {
-            window.location.href = data.url;
+            const data = await response.json();
+            if (data.url) {
+                setShowSuccessPopup(true);
+                setTimeout(() => {
+                    window.location.href = data.url;
+                }, 2000); // Affiche le popup pendant 2 secondes avant de rediriger
+            }
+        } catch (error) {
+            console.error('Erreur lors du paiement :', error);
         }
     };
 
@@ -105,6 +113,16 @@ const Adhesions = () => {
                     </p>
                 </div>
             </div>
+
+            {showSuccessPopup && (
+                <div className="success-popup">
+                    <div className="success-content">
+                        <img src="/img/green-paw.png" alt="Succès" />
+                        <h2>Merci pour votre soutien ❤️</h2>
+                        <p>Redirection en cours vers le paiement sécurisé...</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
