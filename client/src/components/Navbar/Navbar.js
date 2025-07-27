@@ -117,7 +117,7 @@ function Navbar() {
 
         {/* Icône Don */}
         <li className="navbar_item icon_navbar">
-          <Link className="navbar_link" to="/Adhésions">
+          <Link className="navbar_link" to="/Adhesions">
             <img
               src="/img/coeur_dons_modif3.png"
               alt="C'est l'icon pour faire un don en forme de coeur"

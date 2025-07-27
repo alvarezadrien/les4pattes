@@ -104,7 +104,7 @@ const App = () => {
             <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
             <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
             <Route path="/Sensibilisation" element={<Sensibilisation />} />
-            <Route path="/Adhésions" element={<Adhesions />} />
+            <Route path="/Adhesions" element={<Adhesions />} />
             <Route path="/gestion_adoption" element={<GestionAdoption />} />
             <Route path="/AdoptionChiens" element={<AdoptionChiens />} />
             <Route path="/AdoptionChats" element={<AdoptionChats />} />

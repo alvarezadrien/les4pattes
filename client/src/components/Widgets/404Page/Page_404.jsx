@@ -38,7 +38,7 @@ const Page404 = () => {
           )}
         </div>
 
-        <a href="/Adhésions" className="btn btn-tertiary">
+        <a href="/Adhesions" className="btn btn-tertiary">
           🎁 Faire un don
         </a>
       </div>
