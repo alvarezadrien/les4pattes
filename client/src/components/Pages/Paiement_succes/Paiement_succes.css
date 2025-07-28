@@ -292,6 +292,7 @@
 .button_paiement {
   color: white;
   box-shadow: 0 4px 8px rgba(106, 27, 154, 0.3);
+  width: 14rem;
 }
 
 .btn_paiement1 {
