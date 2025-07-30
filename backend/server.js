@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
+const fse = require('fs-extra'); // ✅ pour copier les images au démarrage
 
 // ✅ Imports des routes
 const animalRoutes = require('./routes/animalRoutes');
@@ -36,6 +38,30 @@ app.use('/uploads', (req, res, next) => {
     console.log('🖼️ Image demandée :', req.originalUrl);
     next();
 });
+
+// ✅ Restauration d'images fixes si absentes (Render efface /uploads à chaque redémarrage)
+function restoreImages() {
+    const filesToRestore = [
+        {
+            from: path.join(__dirname, 'uploads_backup', 'Chats', '1753911283103-zero_image.png'),
+            to: path.join(__dirname, 'uploads', 'Chats', '1753911283103-zero_image.png'),
+        },
+        // Tu peux en ajouter ici d’autres si besoin
+    ];
+
+    filesToRestore.forEach(({ from, to }) => {
+        if (!fs.existsSync(to)) {
+            try {
+                fse.ensureDirSync(path.dirname(to));
+                fse.copyFileSync(from, to);
+                console.log(`✅ Image restaurée : ${to}`);
+            } catch (err) {
+                console.error(`❌ Erreur restauration ${to} :`, err.message);
+            }
+        }
+    });
+}
+restoreImages();
 
 // ✅ Routes
 app.use('/api/animaux', animalRoutes);
