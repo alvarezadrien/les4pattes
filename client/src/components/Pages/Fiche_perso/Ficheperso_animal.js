@@ -25,7 +25,9 @@ const Ficheperso_animal = () => {
 
         if (data.images && data.images.length > 0) {
           data.images.forEach((imgPath) => {
-            if (imgPath) images.push(`${baseUrl}/${imgPath.replace(/^\/+/, "")}`);
+            if (imgPath) {
+              images.push(`${baseUrl}/${imgPath.replace(/^\/+/, "")}`);
+            }
           });
         } else {
           if (data.image) images.push(`${baseUrl}/${data.image.replace(/^\/+/, "")}`);

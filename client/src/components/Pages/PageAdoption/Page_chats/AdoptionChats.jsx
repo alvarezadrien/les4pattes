@@ -67,15 +67,19 @@ function AdoptionChats() {
   };
 
   const getAnimalImage = (dog) => {
-    const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
-    let imgPath = "";
+    let imagePath = "";
 
-    if (dog.images?.length > 0) imgPath = dog.images[0];
-    else if (dog.image) imgPath = dog.image;
-    else if (dog.image2) imgPath = dog.image2;
-    else if (dog.image3) imgPath = dog.image3;
+    if (dog.images?.length > 0) imagePath = dog.images[0];
+    else if (dog.image) imagePath = dog.image;
+    else if (dog.image2) imagePath = dog.image2;
+    else if (dog.image3) imagePath = dog.image3;
 
-    return imgPath ? `${base}/${imgPath.replace(/^\/+/, "")}` : null;
+    return imagePath
+      ? `${process.env.REACT_APP_API_URL.replace(
+          /\/+$/,
+          ""
+        )}/${imagePath.replace(/^\/+/, "")}`
+      : null;
   };
 
   return (
