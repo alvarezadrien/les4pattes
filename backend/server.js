@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
+const fse = require('fs-extra');
 
 // ✅ Imports des routes
 const animalRoutes = require('./routes/animalRoutes');
@@ -30,6 +32,26 @@ app.use('/uploads', (req, res, next) => {
     console.log('🖼️ Image demandée :', req.originalUrl);
     next();
 });
+
+// ✅ Recrée les images d'exemple au démarrage (si elles ont été supprimées)
+function restoreExampleImages() {
+    const exampleFiles = [
+        { from: path.join(__dirname, 'uploads_backup', 'Chats', '1753911283103-zero_image.png'), to: path.join(__dirname, 'uploads', 'Chats', '1753911283103-zero_image.png') },
+        // Ajoute d'autres fichiers ici si besoin
+    ];
+
+    exampleFiles.forEach(({ from, to }) => {
+        if (!fs.existsSync(to)) {
+            try {
+                fse.copySync(from, to);
+                console.log(`✅ Image restaurée : ${to}`);
+            } catch (err) {
+                console.error(`❌ Impossible de restaurer ${from}`, err.message);
+            }
+        }
+    });
+}
+restoreExampleImages();
 
 // ✅ Enregistrement des routes API
 app.use('/api/animaux', animalRoutes);
