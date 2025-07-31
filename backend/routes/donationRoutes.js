@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Stripe = require('stripe');
 
-// ✅ Vérifie que la clé Stripe est bien définie
 if (!process.env.STRIPE_SECRET_KEY) {
     console.error('❌ STRIPE_SECRET_KEY est manquante dans les variables d’environnement.');
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2023-10-16', // Optionnel, mais recommandé
+    apiVersion: '2023-10-16',
 });
 
 router.post('/create-checkout-session', async (req, res) => {
@@ -37,8 +36,8 @@ router.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${process.env.FRONTEND_URL}/paiementsucces`, // ✅ redirection après paiement réussi
-            cancel_url: `${process.env.FRONTEND_URL}/adhesions`,       // ✅ redirection si retour en arrière
+            success_url: `${process.env.FRONTEND_URL}/paiementsucces`,
+            cancel_url: `${process.env.FRONTEND_URL}/adhesions`,
         });
 
         console.log('✅ Session Stripe créée avec succès :', session.url);
