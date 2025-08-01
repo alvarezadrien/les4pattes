@@ -209,8 +209,9 @@ const HomePage = () => {
       </div>
 
       <Avis />
-
-      <Faq />
+      <div id="faq">
+        <Faq />
+      </div>
     </div>
   );
 };

@@ -30,6 +30,31 @@ const faqData = [
     answer:
       "Absolument ! Nous acceptons les croquettes, jouets, couvertures, et tout autre matériel utile. Merci pour votre générosité.",
   },
+  {
+    question: "Puis-je adopter si je vis en appartement ?",
+    answer:
+      "Oui, bien sûr ! Certains animaux s’adaptent très bien à la vie en appartement. Nous vous aiderons à trouver un compagnon compatible avec votre environnement.",
+  },
+  {
+    question: "Combien de temps prend une adoption ?",
+    answer:
+      "Le processus peut prendre entre quelques jours et deux semaines, selon votre disponibilité et les besoins de l’animal. Nous privilégions une adoption réfléchie et adaptée.",
+  },
+  {
+    question: "Comment savoir si un animal est encore disponible ?",
+    answer:
+      "Chaque profil d’animal est mis à jour en temps réel. S’il est indiqué comme “adopté” ou “en cours d’adoption”, il n’est plus disponible. N’hésitez pas à nous contacter pour confirmation.",
+  },
+  {
+    question: "Quels sont les critères pour adopter un animal ?",
+    answer:
+      "Nous recherchons des foyers aimants et responsables. Il est important de pouvoir offrir un environnement stable, de l’attention et des soins appropriés à l’animal.",
+  },
+  {
+    question: "Proposez-vous des conseils après l’adoption ?",
+    answer:
+      "Oui, nous restons disponibles après l’adoption pour répondre à vos questions et vous conseiller sur l’alimentation, l’éducation, ou l’intégration de votre nouvel animal.",
+  },
 ];
 
 const FaqSection = () => {
