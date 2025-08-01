@@ -1,0 +1,76 @@
+/* .calendrier-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  background-color: #f4eaca;
+  border: 3px solid #778d45;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.calendrier-container h2 {
+  color: #778d45;
+  margin-bottom: 1.5rem;
+}
+
+.form-creneau label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.datepicker {
+  padding: 0.6rem;
+  border: 2px solid #778d45;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.creneaux-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.creneau-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #778d45;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.creneau-btn:hover {
+  background-color: #e2efc3;
+}
+
+.creneau-btn.selected {
+  background-color: #778d45;
+  color: white;
+}
+
+.no-creneaux {
+  color: #888;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.submit-btn {
+  margin-top: 2rem;
+  padding: 0.8rem 2rem;
+  background-color: #778d45;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #5e7134;
+} */
