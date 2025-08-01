@@ -49,6 +49,7 @@ function Navbar() {
       propositions: [
         { text: "Notre équipe", link: "/Notre équipe" },
         { text: "Nos partenaires", link: "/Nos partenaires" },
+        { text: "Devenir bénévole", link: "/FormulaireBenevolat" },
       ],
     },
     { title: "Contact", link: "/Contact" },

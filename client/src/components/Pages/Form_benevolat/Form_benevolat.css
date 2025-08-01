@@ -1,0 +1,170 @@
+/* Style du conteneur principal */
+.benevolat-section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  color: #333;
+}
+
+/* Titre du formulaire */
+.form-title {
+  text-align: center;
+  color: var(
+    --primary-color,
+    #4a90e2
+  ); /* Utilise la variable, avec une valeur par défaut */
+  font-size: 2.5em;
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--primary-color, #4a90e2);
+  padding-bottom: 10px;
+}
+
+/* Disposition des champs de formulaire */
+.benevolat-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #555;
+}
+
+/* Style des entrées de texte, sélections et zones de texte */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color, #4a90e2);
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  outline: none;
+}
+
+.form-group textarea {
+  resize: none; /* Désactive le redimensionnement */
+}
+
+/* Style des checkboxes */
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center; /* Aligne les éléments verticalement */
+}
+
+.checkboxes label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+  /* Assure que le label est à la même hauteur que le checkbox */
+  line-height: 20px;
+  min-height: 20px;
+}
+
+.checkboxes input[type="checkbox"] {
+  margin-right: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  flex-shrink: 0; /* Empêche la case à cocher de se réduire */
+}
+
+.checkboxes input[type="checkbox"]:checked {
+  background-color: var(--primary-color, #4a90e2);
+  border-color: var(--primary-color, #4a90e2);
+}
+
+.checkboxes input[type="checkbox"]:checked::after {
+  content: "\2713"; /* Symbole de coche */
+  font-size: 14px;
+  color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox-confirm {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+}
+
+/* Style du bouton d'envoi */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: var(--primary-color, #4a90e2);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  background-color: #3b7ad6;
+  transform: translateY(-2px);
+}
+
+/* Message de succès */
+.success-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 15px;
+  background-color: #d4edda;
+  color: #28a745;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* Design adaptatif (responsive) */
+@media (max-width: 768px) {
+  .benevolat-section {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  .form-title {
+    font-size: 2em;
+  }
+
+  .benevolat-form {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}

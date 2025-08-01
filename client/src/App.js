@@ -30,7 +30,8 @@ import Adhesions from './components/Pages/Adhésions/Adhesions';
 import AdoptionChiens from './components/Pages/PageAdoption/Page_chiens/AdoptionChiens';
 import AdoptionChats from './components/Pages/PageAdoption/Page_chats/AdoptionChats';
 import ResetPassword from './components/Pages/Profil/Oublie/ResetPassword';
-import PaiementSucces from './components/Pages/Paiement_succes/Paiement_succes'; // ✅ Composant ajouté
+import PaiementSucces from './components/Pages/Paiement_succes/Paiement_succes';
+import FormulaireBenevolat from './components/Pages/Form_benevolat/Form_benevolat';
 
 import BackButton from './components/Widgets/Back_button/Back_button';
 import Animalitem from './components/Widgets/Animal_item/Animalitem';
@@ -109,7 +110,8 @@ const App = () => {
             <Route path="/gestion_adoption" element={<GestionAdoption />} />
             <Route path="/AdoptionChiens" element={<AdoptionChiens />} />
             <Route path="/AdoptionChats" element={<AdoptionChats />} />
-            <Route path="/PaiementSucces" element={<PaiementSucces />} /> {/* ✅ Route ajoutée */}
+            <Route path="/PaiementSucces" element={<PaiementSucces />} />
+            <Route path="/FormulaireBenevolat" element={<FormulaireBenevolat />} />
 
             <Route path="/Mon compte" element={
               <PrivateRoute>
