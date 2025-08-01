@@ -6,20 +6,15 @@
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", "Roboto", sans-serif;
-  color: #333;
+  margin-top: 6rem;
 }
 
 /* Titre du formulaire */
 .form-title {
   text-align: center;
-  color: var(
-    --primary-color,
-    #4a90e2
-  ); /* Utilise la variable, avec une valeur par défaut */
+  color: var(--primary-color);
   font-size: 2.5em;
   margin-bottom: 25px;
-  border-bottom: 2px solid var(--primary-color, #4a90e2);
   padding-bottom: 10px;
 }
 
@@ -60,13 +55,13 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: var(--primary-color, #4a90e2);
+  border-color: var(--primary-color);
   box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
   outline: none;
 }
 
 .form-group textarea {
-  resize: none; /* Désactive le redimensionnement */
+  resize: none;
 }
 
 /* Style des checkboxes */
@@ -74,7 +69,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  align-items: center; /* Aligne les éléments verticalement */
+  align-items: center;
 }
 
 .checkboxes label {
@@ -82,7 +77,6 @@
   align-items: center;
   cursor: pointer;
   font-weight: normal;
-  /* Assure que le label est à la même hauteur que le checkbox */
   line-height: 20px;
   min-height: 20px;
 }
@@ -97,7 +91,7 @@
   border-radius: 4px;
   position: relative;
   transition: all 0.2s ease-in-out;
-  flex-shrink: 0; /* Empêche la case à cocher de se réduire */
+  flex-shrink: 0;
 }
 
 .checkboxes input[type="checkbox"]:checked {
@@ -106,7 +100,7 @@
 }
 
 .checkboxes input[type="checkbox"]:checked::after {
-  content: "\2713"; /* Symbole de coche */
+  content: "\2713";
   font-size: 14px;
   color: #ffffff;
   position: absolute;
@@ -132,7 +126,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 20px;
+  margin-top: 8rem;
 }
 
 .submit-btn:hover {
@@ -152,10 +146,14 @@
   margin-top: 20px;
 }
 
+/* -------------------------------------------------- */
 /* Design adaptatif (responsive) */
-@media (max-width: 768px) {
+/* -------------------------------------------------- */
+
+/* Pour les écrans jusqu'à 480px (téléphones) */
+@media (max-width: 480px) {
   .benevolat-section {
-    margin: 20px;
+    margin: 15px;
     padding: 15px;
   }
 
@@ -166,5 +164,62 @@
   .benevolat-form {
     grid-template-columns: 1fr;
     gap: 15px;
+  }
+
+  .submit-btn {
+    margin-top: 4rem;
+  }
+}
+
+/* Pour les écrans de 481px à 768px (tablettes) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .benevolat-section {
+    margin: 20px auto;
+    padding: 25px;
+  }
+
+  .form-title {
+    font-size: 2.2em;
+  }
+
+  .benevolat-form {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .submit-btn {
+    margin-top: 6rem;
+  }
+}
+
+/* Pour les écrans de 769px à 1024px (petits ordinateurs) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .benevolat-section {
+    margin: 30px auto;
+    padding: 30px;
+  }
+
+  .form-title {
+    font-size: 2.5em;
+  }
+
+  .benevolat-form {
+    gap: 25px;
+  }
+}
+
+/* Pour les écrans de 1025px à 1280px (ordinateurs standard) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .benevolat-section {
+    max-width: 1000px;
+    margin: 40px auto;
+  }
+}
+
+/* Pour les écrans de 1281px à 1440px (grands écrans) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .benevolat-section {
+    max-width: 1100px;
+    margin: 50px auto;
   }
 }
