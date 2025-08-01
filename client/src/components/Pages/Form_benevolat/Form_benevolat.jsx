@@ -12,10 +12,10 @@ const FormulaireBenevolat = () => {
 
     emailjs
       .sendForm(
-        "YOUR_SERVICE_ID", // Remplace avec ton ID EmailJS
-        "YOUR_TEMPLATE_ID", // Remplace avec ton Template ID
+        "service_9twidl9", // Remplace avec ton ID EmailJS
+        "template_54it84l", // Remplace avec ton Template ID
         form.current,
-        "YOUR_PUBLIC_KEY" // Remplace avec ta Public Key
+        "u38vBbMZCmg2Jtwor" // Remplace avec ta Public Key
       )
       .then(
         () => {
