@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Animalitem from "../../Widgets/Animal_item/Animalitem";
 import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
-import Avis from "../Avis/Avis";
 import "./HomePage.css";
+
+// import de Widgets
+import Avis from "../Avis/Avis";
+import Faq from "../../Widgets/FAQ/Faq";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -206,6 +209,8 @@ const HomePage = () => {
       </div>
 
       <Avis />
+
+      <Faq />
     </div>
   );
 };
