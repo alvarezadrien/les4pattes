@@ -52,6 +52,7 @@ function Navbar() {
       ],
     },
     { title: "Contact", link: "/Contact" },
+    { title: "FAQ", link: "#faq" },
   ];
 
   // Détermine le bon avatar à afficher
