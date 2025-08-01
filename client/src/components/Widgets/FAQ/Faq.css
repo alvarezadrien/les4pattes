@@ -27,7 +27,7 @@
 
 .faq-column {
   flex: 1;
-  min-width: 320px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -82,11 +82,10 @@
 
   .faq-columns {
     flex-direction: column;
-    gap: 1.5rem;
   }
 
   .faq-column {
-    width: 40vw;
+    width: 90vw;
   }
 
   .faq-question-text {
