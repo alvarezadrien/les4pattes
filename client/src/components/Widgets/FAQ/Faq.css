@@ -16,9 +16,18 @@
   letter-spacing: 1px;
 }
 
-.faq-container {
-  max-width: 800px;
+.faq-columns {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.faq-column {
+  flex: 1;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -63,6 +72,17 @@
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+  .faq-columns {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .faq-column {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .faq-title {
     font-size: 1.8rem;

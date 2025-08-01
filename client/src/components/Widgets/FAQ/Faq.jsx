@@ -58,25 +58,53 @@ const faqData = [
 ];
 
 const FaqSection = () => {
+  // Séparer les questions en deux colonnes
+  const midpoint = Math.ceil(faqData.length / 2);
+  const leftColumn = faqData.slice(0, midpoint);
+  const rightColumn = faqData.slice(midpoint);
+
   return (
     <section className="faq-section" id="faq">
       <h2 className="faq-title">Foire Aux Questions</h2>
-      <div className="faq-container">
-        {faqData.map((item, index) => (
-          <Accordion key={index} className="faq-accordion">
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon style={{ color: "#778d45" }} />}
-              className="faq-question"
-            >
-              <Typography className="faq-question-text">
-                {item.question}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails className="faq-answer">
-              <Typography className="faq-answer-text">{item.answer}</Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+      <div className="faq-columns">
+        <div className="faq-column">
+          {leftColumn.map((item, index) => (
+            <Accordion key={index} className="faq-accordion">
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon style={{ color: "#778d45" }} />}
+                className="faq-question"
+              >
+                <Typography className="faq-question-text">
+                  {item.question}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails className="faq-answer">
+                <Typography className="faq-answer-text">
+                  {item.answer}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </div>
+        <div className="faq-column">
+          {rightColumn.map((item, index) => (
+            <Accordion key={index + midpoint} className="faq-accordion">
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon style={{ color: "#778d45" }} />}
+                className="faq-question"
+              >
+                <Typography className="faq-question-text">
+                  {item.question}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails className="faq-answer">
+                <Typography className="faq-answer-text">
+                  {item.answer}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </div>
       </div>
     </section>
   );
