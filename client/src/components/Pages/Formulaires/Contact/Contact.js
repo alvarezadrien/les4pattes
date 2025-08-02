@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Contact.css";
 import emailjs from "emailjs-com";
 import Box from "@mui/material/Box";
@@ -21,14 +21,6 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 
-const fakeCreneaux = {
-  "2025-08-02": ["10h00", "11h00", "14h00"],
-  "2025-08-03": ["09h00", "15h00"],
-  "2025-08-04": ["10h00", "13h00", "16h00"],
-  "2025-09-10": ["10h00", "11h00"],
-  "2025-09-15": ["14h00", "16h00"],
-};
-
 const Contact = () => {
   const [popupEnvoieVisible, setPopupEnvoieVisible] = useState(false);
   const [popupEnvoieClass, setPopupEnvoieClass] = useState("");
@@ -45,22 +37,38 @@ const Contact = () => {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedCreneau, setSelectedCreneau] = useState("");
+  const [creneauxDisponibles, setCreneauxDisponibles] = useState({});
+  const [creneauxPourLeJour, setCreneauxPourLeJour] = useState([]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const getCreneauxForDate = () => {
-    if (!selectedDate) return [];
-    const key = format(selectedDate, "yyyy-MM-dd");
-    return fakeCreneaux[key] || [];
-  };
+  // Appel API pour charger les créneaux disponibles pour tout le mois affiché
+  useEffect(() => {
+    const fetchAllDisponibilites = async () => {
+      const daysInMonth = eachDayOfInterval({
+        start: startOfMonth(currentMonth),
+        end: endOfMonth(currentMonth),
+      });
 
-  const isDayAvailable = (date) => {
-    const key = format(date, "yyyy-MM-dd");
-    return !!fakeCreneaux[key];
-  };
+      const result = {};
+      await Promise.all(
+        daysInMonth.map(async (day) => {
+          const key = format(day, "yyyy-MM-dd");
+          const res = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/reservations/disponibles/${key}`
+          );
+          const data = await res.json();
+          result[key] = data; // tableau de créneaux disponibles
+        })
+      );
+      setCreneauxDisponibles(result);
+    };
+
+    fetchAllDisponibilites();
+  }, [currentMonth]);
 
   const renderDays = () => {
     const monthStart = startOfMonth(currentMonth);
@@ -78,20 +86,22 @@ const Contact = () => {
     }
 
     days.forEach((day) => {
-      const isAvailable = isDayAvailable(day);
+      const key = format(day, "yyyy-MM-dd");
+      const isAvailable = creneauxDisponibles[key]?.length > 0;
       const isSelected = selectedDate && isSameDay(selectedDate, day);
       const isCurrentMonth = isSameMonth(day, currentMonth);
       const isPast = day < new Date().setHours(0, 0, 0, 0);
 
       calendarDays.push(
         <button
-          key={format(day, "yyyy-MM-dd")}
+          key={key}
           className={`calendar-day ${isAvailable && isCurrentMonth && !isPast ? "available" : "unavailable"
             } ${isSelected ? "selected" : ""} ${isToday(day) ? "today" : ""}`}
           onClick={() => {
             if (isAvailable && isCurrentMonth && !isPast) {
               setSelectedDate(day);
               setSelectedCreneau("");
+              setCreneauxPourLeJour(creneauxDisponibles[key]);
             }
           }}
           disabled={!isAvailable || !isCurrentMonth || isPast}
@@ -121,15 +131,12 @@ const Contact = () => {
 
     const { name, email, phone, message, reason } = formData;
 
-    if (!name || !email || !phone || !message) {
-      alert("Veuillez remplir tous les champs obligatoires.");
+    if (!name || !email || !phone || !message || !selectedDate || !selectedCreneau) {
+      alert("Veuillez remplir tous les champs et choisir un créneau.");
       return;
     }
 
-    const date = selectedDate
-      ? format(selectedDate, "dd/MM/yyyy", { locale: fr })
-      : "";
-    const creneau = selectedCreneau || "";
+    const date = format(selectedDate, "dd/MM/yyyy", { locale: fr });
 
     emailjs
       .send(
@@ -142,33 +149,47 @@ const Contact = () => {
           message,
           reason,
           date,
-          creneau,
+          creneau: selectedCreneau,
         },
         "GprZAo7Xbj4DQXKdY"
       )
-      .then(
-        () => {
-          setPopupEnvoieClass("popupenvoie-success");
-          setPopupEnvoieVisible(true);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            message: "",
-            reason: "",
-          });
-          setSelectedDate(null);
-          setSelectedCreneau("");
-        },
-        () => {
-          setPopupEnvoieClass("popupenvoie-erreur");
-          setPopupEnvoieVisible(true);
-        }
-      );
+      .then(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/reservations`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            message,
+            reason,
+            date: format(selectedDate, "yyyy-MM-dd"),
+            creneau: selectedCreneau,
+          }),
+        });
+
+        setPopupEnvoieClass("popupenvoie-success");
+        setPopupEnvoieVisible(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          reason: "",
+        });
+        setSelectedDate(null);
+        setSelectedCreneau("");
+        setCreneauxPourLeJour([]);
+      })
+      .catch(() => {
+        setPopupEnvoieClass("popupenvoie-erreur");
+        setPopupEnvoieVisible(true);
+      });
   };
 
   return (
     <div className="container_page_contact">
+      {/* Popup succès/erreur */}
       {popupEnvoieVisible && (
         <div className={`popupenvoie ${popupEnvoieClass}`}>
           <div className="popupenvoie__content">
@@ -217,48 +238,13 @@ const Contact = () => {
                 display: "flex",
                 margin: "0 auto 1rem auto",
               },
-              "& .MuiInputLabel-root": {
-                color: "black",
-                "&.Mui-focused": {
-                  color: "#778d45",
-                },
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "black",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#778d45",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#778d45",
-                },
-              },
             }}
             noValidate
             autoComplete="off"
           >
-            <TextField
-              name="name"
-              label="Nom complet"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              name="email"
-              label="Adresse email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              name="phone"
-              label="Téléphone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
+            <TextField name="name" label="Nom complet" value={formData.name} onChange={handleChange} required />
+            <TextField name="email" label="Adresse email" value={formData.email} onChange={handleChange} required />
+            <TextField name="phone" label="Téléphone" value={formData.phone} onChange={handleChange} required />
 
             <div className="calendar-input-container">
               <TextField
@@ -274,29 +260,17 @@ const Contact = () => {
               />
               {isCalendarOpen && (
                 <div className="calendar-popup">
-                  <button
-                    type="button"
-                    onClick={() => setIsCalendarOpen(false)}
-                    className="close-calendar-btn"
-                  >
+                  <button type="button" onClick={() => setIsCalendarOpen(false)} className="close-calendar-btn">
                     <CloseIcon />
                   </button>
                   <div className="calendar-header">
-                    <button
-                      type="button"
-                      onClick={prevMonth}
-                      className="calendar-nav-btn"
-                    >
+                    <button type="button" onClick={prevMonth} className="calendar-nav-btn">
                       <ArrowBackIosIcon fontSize="small" />
                     </button>
                     <span className="calendar-title">
                       {format(currentMonth, "MMMM yyyy", { locale: fr })}
                     </span>
-                    <button
-                      type="button"
-                      onClick={nextMonth}
-                      className="calendar-nav-btn"
-                    >
+                    <button type="button" onClick={nextMonth} className="calendar-nav-btn">
                       <ArrowForwardIosIcon fontSize="small" />
                     </button>
                   </div>
@@ -309,17 +283,20 @@ const Contact = () => {
               <div className="creneaux-wrapper">
                 <label>Créneaux disponibles :</label>
                 <div className="creneaux-list">
-                  {getCreneauxForDate().map((creneau) => (
-                    <button
-                      key={creneau}
-                      type="button"
-                      className={`creneau-btn ${selectedCreneau === creneau ? "selected" : ""
-                        }`}
-                      onClick={() => setSelectedCreneau(creneau)}
-                    >
-                      {creneau}
-                    </button>
-                  ))}
+                  {creneauxPourLeJour.length > 0 ? (
+                    creneauxPourLeJour.map((creneau) => (
+                      <button
+                        key={creneau}
+                        type="button"
+                        className={`creneau-btn ${selectedCreneau === creneau ? "selected" : ""}`}
+                        onClick={() => setSelectedCreneau(creneau)}
+                      >
+                        {creneau}
+                      </button>
+                    ))
+                  ) : (
+                    <p className="no-creneaux">Aucun créneau disponible ce jour-là.</p>
+                  )}
                 </div>
               </div>
             )}

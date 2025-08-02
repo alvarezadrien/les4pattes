@@ -10,7 +10,9 @@ const commentRoutes = require('./routes/commentRoutes');
 const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const passwordRoutes = require('./routes/passwordRoutes');
-const donationRoutes = require('./routes/donationRoutes'); // ✅ Ajouté ici
+const donationRoutes = require('./routes/donationRoutes');
+const reservationRoutes = require("./routes/reservationRoutes");
+const creneauRoutes = require("./routes/creneauRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -37,7 +39,9 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/api/password', passwordRoutes);
-app.use('/api/donation', donationRoutes); // ✅ Route Stripe ajoutée ici
+app.use('/api/donation', donationRoutes);
+app.use("/api/reservations", reservationRoutes);
+app.use("/api/creneaux", creneauRoutes);
 
 mongoose
     .connect(mongoURI)
