@@ -46,7 +46,6 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Charge tous les créneaux disponibles du mois via l’API
   useEffect(() => {
     const fetchAllDisponibilites = async () => {
       const daysInMonth = eachDayOfInterval({
@@ -58,9 +57,15 @@ const Contact = () => {
       await Promise.all(
         daysInMonth.map(async (day) => {
           const key = format(day, "yyyy-MM-dd");
-          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/creneaux-dispo/${key}`);
-          const data = await res.json();
-          result[key] = data; // liste des créneaux disponibles
+          try {
+            const res = await fetch(
+              `${process.env.REACT_APP_API_URL}/api/reservations/disponibles/${key}`
+            );
+            const data = await res.json();
+            result[key] = data; // tableau de créneaux disponibles
+          } catch (err) {
+            console.error("Erreur lors du chargement des créneaux :", err);
+          }
         })
       );
       setCreneauxDisponibles(result);
@@ -79,7 +84,9 @@ const Contact = () => {
 
     const firstDayIndex = format(monthStart, "i", { locale: fr }) - 1;
     for (let i = 0; i < firstDayIndex; i++) {
-      calendarDays.push(<div key={`empty-${i}`} className="calendar-day-empty"></div>);
+      calendarDays.push(
+        <div key={`empty-${i}`} className="calendar-day-empty"></div>
+      );
     }
 
     days.forEach((day) => {
@@ -92,8 +99,8 @@ const Contact = () => {
       calendarDays.push(
         <button
           key={key}
-          className={`calendar-day ${isAvailable && isCurrentMonth && !isPast ? "available" : "unavailable"} ${isSelected ? "selected" : ""
-            } ${isToday(day) ? "today" : ""}`}
+          className={`calendar-day ${isAvailable && isCurrentMonth && !isPast ? "available" : "unavailable"
+            } ${isSelected ? "selected" : ""} ${isToday(day) ? "today" : ""}`}
           onClick={() => {
             if (isAvailable && isCurrentMonth && !isPast) {
               setSelectedDate(day);
@@ -135,7 +142,6 @@ const Contact = () => {
 
     const date = format(selectedDate, "dd/MM/yyyy", { locale: fr });
 
-    // ✅ Envoi par EmailJS
     emailjs
       .send(
         "service_5q958pf",
@@ -152,7 +158,6 @@ const Contact = () => {
         "GprZAo7Xbj4DQXKdY"
       )
       .then(() => {
-        // ✅ Enregistrement DB
         fetch(`${process.env.REACT_APP_API_URL}/api/reservations`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -169,7 +174,13 @@ const Contact = () => {
 
         setPopupEnvoieClass("popupenvoie-success");
         setPopupEnvoieVisible(true);
-        setFormData({ name: "", email: "", phone: "", message: "", reason: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          reason: "",
+        });
         setSelectedDate(null);
         setSelectedCreneau("");
         setCreneauxPourLeJour([]);
@@ -185,7 +196,11 @@ const Contact = () => {
       {popupEnvoieVisible && (
         <div className={`popupenvoie ${popupEnvoieClass}`}>
           <div className="popupenvoie__content">
-            <img src="/img/fleur_pop.png" alt="Image florale" className="popupenvoie__image" />
+            <img
+              src="/img/fleur_pop.png"
+              alt="Image florale"
+              className="popupenvoie__image"
+            />
             <h2 className="popupenvoie__title">MERCI</h2>
             <p className="popupenvoie__description">
               {popupEnvoieClass === "popupenvoie-success"
@@ -193,7 +208,10 @@ const Contact = () => {
                 : "Erreur lors de l'envoi du message. Veuillez réessayer."}
             </p>
             <div className="popupenvoie__buttons">
-              <button onClick={() => (window.location.href = "/")} className="popupenvoie__button retour">
+              <button
+                onClick={() => (window.location.href = "/")}
+                className="popupenvoie__button retour"
+              >
                 Retour au menu
               </button>
             </div>
@@ -201,11 +219,32 @@ const Contact = () => {
         </div>
       )}
 
+      <div className="img_contact">
+        <img
+          src={process.env.PUBLIC_URL + "/img/chien contact.jpeg"}
+          alt="Chien contact"
+        />
+      </div>
+
       <div className="div_container_contact">
         <div className="container_form">
           <h1 className="h1_contact">Contactez-nous</h1>
 
-          <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              "& .MuiTextField-root": {
+                m: 1,
+                width: "100%",
+                maxWidth: "500px",
+                display: "flex",
+                margin: "0 auto 1rem auto",
+              },
+            }}
+            noValidate
+            autoComplete="off"
+          >
             <TextField name="name" label="Nom complet" value={formData.name} onChange={handleChange} required />
             <TextField name="email" label="Adresse email" value={formData.email} onChange={handleChange} required />
             <TextField name="phone" label="Téléphone" value={formData.phone} onChange={handleChange} required />
@@ -213,7 +252,9 @@ const Contact = () => {
             <div className="calendar-input-container">
               <TextField
                 label="Date de rendez-vous"
-                value={selectedDate ? format(selectedDate, "dd/MM/yyyy", { locale: fr }) : ""}
+                value={
+                  selectedDate ? format(selectedDate, "dd/MM/yyyy", { locale: fr }) : ""
+                }
                 onMouseDown={(e) => {
                   e.preventDefault();
                   setIsCalendarOpen(!isCalendarOpen);
