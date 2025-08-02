@@ -24,7 +24,6 @@
   pointer-events: none;
 }
 
-/* Animation rebond à gauche */
 .quiz-left {
   left: 20px;
   bottom: 20px;
@@ -81,11 +80,17 @@
   position: absolute;
   top: 15px;
   right: 20px;
-  background: transparent;
+  background: red;
+  border-radius: 25px;
   border: none;
   font-size: 1.4rem;
   cursor: pointer;
-  color: #333;
+  color: white;
+}
+
+.quiz-close:hover {
+  background: rgb(204, 6, 6);
+  transition: all 0.3s ease;
 }
 
 .quiz-options {
@@ -127,7 +132,7 @@
   font-weight: 500;
   white-space: pre-wrap;
   text-align: left;
-  background: #f9f9f9;
+  background: var(--secondary-color);
   padding: 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
