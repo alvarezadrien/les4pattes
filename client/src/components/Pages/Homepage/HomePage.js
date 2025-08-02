@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Animalitem from "../../Widgets/Animal_item/Animalitem";
 import Carte_carrousel from "../../Widgets/Carrousel/Carte_carrousel";
+import Quiz from "../../Widgets/Quiz/Quiz.jsx";
 import "./HomePage.css";
 
 // import de Widgets
@@ -211,6 +212,8 @@ const HomePage = () => {
       <Avis />
 
       <Faq />
+
+      <Quiz />
     </div>
   );
 };
