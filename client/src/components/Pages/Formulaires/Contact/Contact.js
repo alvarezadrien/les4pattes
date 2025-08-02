@@ -9,7 +9,6 @@ import {
   format,
   addMonths,
   subMonths,
-  getDaysInMonth,
   startOfMonth,
   endOfMonth,
   eachDayOfInterval,
@@ -21,10 +20,6 @@ import { fr } from "date-fns/locale";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 
 const fakeCreneaux = {
   "2025-08-02": ["10h00", "11h00", "14h00"],
@@ -54,50 +49,6 @@ const Contact = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const { name, email, phone, message, reason } = formData;
-    const date = selectedDate
-      ? format(selectedDate, "dd/MM/yyyy", { locale: fr })
-      : "";
-
-    emailjs
-      .send(
-        "service_268vdcp",
-        "service_268vdcp",
-        {
-          name,
-          email,
-          phone,
-          message,
-          date,
-          creneau: selectedCreneau,
-          reason,
-        },
-        "GprZAo7Xbj4DQXKdY"
-      )
-      .then(
-        () => {
-          setPopupEnvoieClass("popupenvoie-success");
-          setPopupEnvoieVisible(true);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            message: "",
-            reason: "",
-          });
-          setSelectedDate(null);
-          setSelectedCreneau("");
-        },
-        () => {
-          setPopupEnvoieClass("popupenvoie-erreur");
-          setPopupEnvoieVisible(true);
-        }
-      );
   };
 
   const getCreneauxForDate = () => {
@@ -135,9 +86,7 @@ const Contact = () => {
       calendarDays.push(
         <button
           key={format(day, "yyyy-MM-dd")}
-          className={`calendar-day ${isAvailable && isCurrentMonth && !isPast
-            ? "available"
-            : "unavailable"
+          className={`calendar-day ${isAvailable && isCurrentMonth && !isPast ? "available" : "unavailable"
             } ${isSelected ? "selected" : ""} ${isToday(day) ? "today" : ""}`}
           onClick={() => {
             if (isAvailable && isCurrentMonth && !isPast) {
@@ -164,12 +113,58 @@ const Contact = () => {
     );
   };
 
-  const nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-  };
+  const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
+  const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
 
-  const prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const { name, email, phone, message, reason } = formData;
+
+    if (!name || !email || !phone || !message) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+
+    const date = selectedDate
+      ? format(selectedDate, "dd/MM/yyyy", { locale: fr })
+      : "";
+    const creneau = selectedCreneau || "";
+
+    emailjs
+      .send(
+        "service_5q958pf",
+        "template_0wcw1wp",
+        {
+          name,
+          email,
+          phone,
+          message,
+          reason,
+          date,
+          creneau,
+        },
+        "GprZAo7Xbj4DQXKdY"
+      )
+      .then(
+        () => {
+          setPopupEnvoieClass("popupenvoie-success");
+          setPopupEnvoieVisible(true);
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+            reason: "",
+          });
+          setSelectedDate(null);
+          setSelectedCreneau("");
+        },
+        () => {
+          setPopupEnvoieClass("popupenvoie-erreur");
+          setPopupEnvoieVisible(true);
+        }
+      );
   };
 
   return (
@@ -185,7 +180,7 @@ const Contact = () => {
             <h2 className="popupenvoie__title">MERCI</h2>
             <p className="popupenvoie__description">
               {popupEnvoieClass === "popupenvoie-success"
-                ? "Nous avons bien reçu votre demande avec la date et le créneau choisis."
+                ? "Nous avons bien reçu votre demande."
                 : "Erreur lors de l'envoi du message. Veuillez réessayer."}
             </p>
             <div className="popupenvoie__buttons">
@@ -239,11 +234,6 @@ const Contact = () => {
                   borderColor: "#778d45",
                 },
               },
-              "& .MuiFormControl-root": {
-                width: "100%",
-                maxWidth: "500px",
-                margin: "0 auto 1rem auto",
-              },
             }}
             noValidate
             autoComplete="off"
@@ -253,45 +243,41 @@ const Contact = () => {
               label="Nom complet"
               value={formData.name}
               onChange={handleChange}
-              variant="outlined"
+              required
             />
-
             <TextField
               name="email"
               label="Adresse email"
-              type="email"
               value={formData.email}
               onChange={handleChange}
-              variant="outlined"
+              required
             />
-
             <TextField
               name="phone"
               label="Téléphone"
-              type="tel"
               value={formData.phone}
               onChange={handleChange}
-              variant="outlined"
+              required
             />
 
             <div className="calendar-input-container">
               <TextField
                 label="Date de rendez-vous"
-                variant="outlined"
                 value={
-                  selectedDate
-                    ? format(selectedDate, "dd/MM/yyyy", { locale: fr })
-                    : ""
+                  selectedDate ? format(selectedDate, "dd/MM/yyyy", { locale: fr }) : ""
                 }
-                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  setIsCalendarOpen(!isCalendarOpen);
+                }}
                 InputProps={{ readOnly: true }}
               />
               {isCalendarOpen && (
                 <div className="calendar-popup">
                   <button
                     type="button"
-                    className="close-calendar-btn"
                     onClick={() => setIsCalendarOpen(false)}
+                    className="close-calendar-btn"
                   >
                     <CloseIcon />
                   </button>
@@ -314,9 +300,7 @@ const Contact = () => {
                       <ArrowForwardIosIcon fontSize="small" />
                     </button>
                   </div>
-                  <div className="calendar-days-container">
-                    {renderDays()}
-                  </div>
+                  <div className="calendar-days-container">{renderDays()}</div>
                 </div>
               )}
             </div>
@@ -347,21 +331,19 @@ const Contact = () => {
               rows={4}
               value={formData.message}
               onChange={handleChange}
-              variant="outlined"
+              required
             />
 
             <Button
               type="submit"
+              className="button_envoyer"
               variant="contained"
               endIcon={<SendIcon />}
               sx={{
                 mt: 2,
                 mb: 2,
                 backgroundColor: "#778d45",
-                "&:hover": {
-                  backgroundColor: "#5a6b35",
-                },
-                display: "flex",
+                "&:hover": { backgroundColor: "#5a6b35" },
                 margin: "1.5rem auto",
                 width: "200px",
               }}

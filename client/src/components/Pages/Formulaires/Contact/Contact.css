@@ -112,10 +112,8 @@ textarea {
 }
 
 .button_envoyer {
-  display: block;
-  margin: 0 auto;
-  padding: 0.8rem 2rem;
-  color: #778d45;
+  display: flex !important;
+  color: red;
   border: 2px solid #778d45;
   border-radius: 4px;
   font-size: 1.5rem;
