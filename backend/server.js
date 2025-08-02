@@ -13,6 +13,7 @@ const passwordRoutes = require('./routes/passwordRoutes');
 const donationRoutes = require('./routes/donationRoutes');
 const reservationRoutes = require("./routes/reservationRoutes");
 const creneauRoutes = require("./routes/creneauRoutes");
+const creneauDispoRoutes = require("./routes/creneauDispoRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -42,6 +43,7 @@ app.use('/api/password', passwordRoutes);
 app.use('/api/donation', donationRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/creneaux", creneauRoutes);
+app.use("/api/creneaux-dispo", creneauDispoRoutes);
 
 mongoose
     .connect(mongoURI)
