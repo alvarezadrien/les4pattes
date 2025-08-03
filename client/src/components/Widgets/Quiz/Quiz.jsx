@@ -4,7 +4,7 @@ import "./Quiz.css";
 import { LinearProgress, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const quizIcon = "/img/quiz.png"; // image dans /public/img/
+const quizIcon = "/img/quiz.png";
 
 const questions = [
   {
@@ -54,6 +54,7 @@ const Quiz = () => {
   const [current, setCurrent] = useState(0);
   const [result, setResult] = useState(null);
   const [matchingAnimals, setMatchingAnimals] = useState([]);
+  const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
 
   const toggleModal = () => {
@@ -62,6 +63,7 @@ const Quiz = () => {
     setCurrent(0);
     setResult(null);
     setMatchingAnimals([]);
+    setShowAll(false);
   };
 
   const handleAnswer = (option) => {
@@ -191,27 +193,31 @@ const Quiz = () => {
                   <>
                     <h3>🐶🐱 Animaux qui pourraient vous correspondre :</h3>
                     <div className="quiz-matching-list">
-                      {matchingAnimals.map((animal) => (
-                        <div
-                          key={animal._id}
-                          className="quiz-animal-card"
-                          onClick={() =>
-                            navigate(
-                              `/ficheperso/${animal.espece.toLowerCase()}/${
-                                animal._id
-                              }`
-                            )
-                          }
-                        >
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/uploads/${animal.images?.[0]}`}
-                            alt={animal.nom}
-                          />
-                          <p>{animal.nom}</p>
-                          <small>{animal.race}</small>
+                      {(showAll
+                        ? matchingAnimals
+                        : matchingAnimals.slice(0, 6)
+                      ).map((dog) => (
+                        <div key={dog._id} className="quiz-animal-card">
+                          <p className="quiz-animal-name">{dog.nom}</p>
+                          <button
+                            className="quiz-animal-button"
+                            onClick={() =>
+                              navigate(`/Ficheperso_animal/${dog._id}`)
+                            }
+                          >
+                            Voir son profil
+                          </button>
                         </div>
                       ))}
                     </div>
+                    {matchingAnimals.length > 6 && (
+                      <button
+                        className="quiz-btn"
+                        onClick={() => setShowAll((prev) => !prev)}
+                      >
+                        {showAll ? "Voir moins" : "Voir plus"}
+                      </button>
+                    )}
                   </>
                 )}
 
