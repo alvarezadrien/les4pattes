@@ -1,5 +1,5 @@
 // src/components/Widgets/Quiz.jsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Quiz.css";
 import { LinearProgress, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -130,18 +130,20 @@ const Quiz = () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
       const data = await res.json();
 
-      const filtered = data.filter(
-        (animal) =>
-          !animal.adopte &&
-          (races.includes(animal.race) ||
-            (animal.comportement &&
-              comportement
-                .toLowerCase()
-                .split(", ")
-                .some((mot) =>
-                  animal.comportement.toLowerCase().includes(mot)
-                )))
-      );
+      const comportementMots = comportement.toLowerCase().split(", ");
+
+      const filtered = data.filter((animal) => {
+        if (animal.adopte) return false;
+
+        const raceMatch = races.includes(animal.race);
+        const comportementMatch =
+          animal.comportement &&
+          animal.comportement.some((c) =>
+            comportementMots.includes(c.toLowerCase())
+          );
+
+        return raceMatch || comportementMatch;
+      });
 
       setMatchingAnimals(filtered);
     } catch (error) {
