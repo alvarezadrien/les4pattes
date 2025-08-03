@@ -4,6 +4,7 @@ import "../Page_chiens/AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
 import Loading from "../../../Widgets/Loading/Loading";
+import Quiz from "../../../Widgets/Quiz/Quiz.jsx";
 
 function AdoptionChats() {
   const navigate = useNavigate();
@@ -159,6 +160,7 @@ function AdoptionChats() {
           </>
         )}
       </main>
+      <Quiz />
     </div>
   );
 }

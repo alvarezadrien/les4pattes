@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./Quiz.css";
 import { LinearProgress, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const quizIcon = "/img/quiz.png"; // image dans /public/img/
 
@@ -52,12 +53,15 @@ const Quiz = () => {
   const [answers, setAnswers] = useState(Array(questions.length).fill(""));
   const [current, setCurrent] = useState(0);
   const [result, setResult] = useState(null);
+  const [matchingAnimals, setMatchingAnimals] = useState([]);
+  const navigate = useNavigate();
 
   const toggleModal = () => {
     setIsOpen((prev) => !prev);
     setAnswers(Array(questions.length).fill(""));
     setCurrent(0);
     setResult(null);
+    setMatchingAnimals([]);
   };
 
   const handleAnswer = (option) => {
@@ -72,7 +76,7 @@ const Quiz = () => {
     }
   };
 
-  const generateResult = (answers) => {
+  const generateResult = async (answers) => {
     let type = "";
     let comportement = "";
     let races = [];
@@ -121,6 +125,28 @@ const Quiz = () => {
         ", "
       )}.`
     );
+
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
+      const data = await res.json();
+
+      const filtered = data.filter(
+        (animal) =>
+          !animal.adopte &&
+          (races.includes(animal.race) ||
+            (animal.comportement &&
+              comportement
+                .toLowerCase()
+                .split(", ")
+                .some((mot) =>
+                  animal.comportement.toLowerCase().includes(mot)
+                )))
+      );
+
+      setMatchingAnimals(filtered);
+    } catch (error) {
+      console.error("Erreur lors du chargement des animaux :", error);
+    }
   };
 
   return (
@@ -158,6 +184,35 @@ const Quiz = () => {
               <>
                 <h2>Résultat du quiz 🐾</h2>
                 <pre className="quiz-result">{result}</pre>
+
+                {matchingAnimals.length > 0 && (
+                  <>
+                    <h3>🐶🐱 Animaux qui pourraient vous correspondre :</h3>
+                    <div className="quiz-matching-list">
+                      {matchingAnimals.map((animal) => (
+                        <div
+                          key={animal._id}
+                          className="quiz-animal-card"
+                          onClick={() =>
+                            navigate(
+                              `/ficheperso/${animal.espece.toLowerCase()}/${
+                                animal._id
+                              }`
+                            )
+                          }
+                        >
+                          <img
+                            src={`${process.env.REACT_APP_API_URL}/uploads/${animal.images?.[0]}`}
+                            alt={animal.nom}
+                          />
+                          <p>{animal.nom}</p>
+                          <small>{animal.race}</small>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
                 <button className="quiz-btn" onClick={toggleModal}>
                   Recommencer
                 </button>
