@@ -36,7 +36,7 @@ const Panier = () => {
       const data = await response.json();
 
       if (data.url) {
-        window.location.href = data.url; // redirection Stripe
+        window.location.href = data.url;
       } else {
         alert("Erreur lors de la redirection vers Stripe.");
       }
@@ -108,3 +108,4 @@ const Panier = () => {
 };
 
 export default Panier;
+  

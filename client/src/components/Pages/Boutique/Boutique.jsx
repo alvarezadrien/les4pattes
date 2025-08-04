@@ -6,6 +6,7 @@ import { useCart } from "../../../context/CartContext"; // ✅ import du context
 
 const Boutique = () => {
   const [produits, setProduits] = useState([]);
+  const [loading, setLoading] = useState(true); // ✅ état de chargement
   const navigate = useNavigate();
   const { ajouterAuPanier } = useCart(); // ✅ fonction correcte depuis le contexte
 
@@ -19,6 +20,8 @@ const Boutique = () => {
         setProduits(data);
       } catch (error) {
         console.error("Erreur lors du chargement des produits :", error);
+      } finally {
+        setLoading(false); // ✅ désactive le loading
       }
     };
 
@@ -29,6 +32,10 @@ const Boutique = () => {
     e.stopPropagation(); // ✅ empêche le clic de naviguer
     ajouterAuPanier(produit); // ✅ ajoute au panier avec la bonne fonction
   };
+
+  if (loading) {
+    return <div className="boutique-loading">Chargement des produits...</div>; // ✅ affichage du loader
+  }
 
   return (
     <div className="boutique-container">

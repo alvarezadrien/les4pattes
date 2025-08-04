@@ -1,3 +1,4 @@
+// src/components/Pages/Produit.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
@@ -30,11 +31,12 @@ const Produit = () => {
     fetchProduit();
   }, [id]);
 
-  if (loading) return <div className="erreur-produit">Chargement...</div>;
+  if (loading)
+    return <div className="erreur-produit">Chargement du produit...</div>;
   if (!produit)
     return <div className="erreur-produit">Produit introuvable.</div>;
 
-  const imagePath = `/${produit.image}`; // ✅ correction ici
+  const imagePath = `/${produit.image}`; // ✅ chemin image public
 
   return (
     <div className="produit-page">
