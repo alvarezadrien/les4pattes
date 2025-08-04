@@ -6,7 +6,7 @@ import "./Produit.css";
 const Produit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { ajouterAuPanier } = useCart(); // ✅ Correction ici
+  const { ajouterAuPanier } = useCart();
 
   const [produit, setProduit] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,13 +34,15 @@ const Produit = () => {
   if (!produit)
     return <div className="erreur-produit">Produit introuvable.</div>;
 
+  const imagePath = `/${produit.image}`; // ✅ correction ici
+
   return (
     <div className="produit-page">
       <button onClick={() => navigate(-1)} className="btn-retour">
         ← Retour
       </button>
       <div className="produit-detail">
-        <img src={produit.image} alt={produit.nom} className="produit-image" />
+        <img src={imagePath} alt={produit.nom} className="produit-image" />
         <div className="produit-info">
           <h1>{produit.nom}</h1>
           <p className="produit-description">{produit.description}</p>
@@ -52,11 +54,18 @@ const Produit = () => {
           </p>
           <p>
             <strong>Disponibilité :</strong>{" "}
-            <span className="stock">{produit.stock}</span>
+            <span className="stock">
+              {produit.stock > 10
+                ? "En stock"
+                : produit.stock > 0
+                ? "Peu de stock"
+                : "Rupture de stock"}
+            </span>
           </p>
           <button
             className="btn-achat"
             onClick={() => ajouterAuPanier(produit)}
+            disabled={produit.stock === 0}
           >
             Ajouter au panier
           </button>
