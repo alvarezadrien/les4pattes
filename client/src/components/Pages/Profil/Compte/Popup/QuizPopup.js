@@ -7,6 +7,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 const QuizPopup = ({ user, onClose }) => {
     const [animals, setAnimals] = useState([]);
     const [showAll, setShowAll] = useState(false);
+    const [showResults, setShowResults] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +21,6 @@ const QuizPopup = ({ user, onClose }) => {
 
                 const filtered = data.filter(animal => {
                     if (animal.adopte) return false;
-
                     const raceMatch = races.includes(animal.race);
                     const comportementMatch = animal.comportement?.some(c =>
                         comportements.some(k => c.toLowerCase().includes(k.trim()))
@@ -48,9 +48,17 @@ const QuizPopup = ({ user, onClose }) => {
                 <div className="popup-body">
                     <p className="quiz-result-text">{user.quizResult}</p>
 
-                    {animals.length > 0 && (
+                    {animals.length > 0 && !showResults && (
+                        <div className="quiz-show-button-container">
+                            <button className="quiz-show-button" onClick={() => setShowResults(true)}>
+                                Voir les animaux correspondants
+                            </button>
+                        </div>
+                    )}
+
+                    {showResults && animals.length > 0 && (
                         <>
-                            <h4 className="quiz-match-title">🐶🐱 Animaux correspondant à votre profil :</h4>
+                            <h4 className="quiz-match-title">🐾 Animaux adaptés à votre profil :</h4>
                             <div className="quiz-matching-list">
                                 {(showAll ? animals : animals.slice(0, 6)).map((a) => (
                                     <div key={a._id} className="quiz-animal-card">
@@ -65,10 +73,7 @@ const QuizPopup = ({ user, onClose }) => {
                                 ))}
                             </div>
                             {animals.length > 6 && (
-                                <button
-                                    className="quiz-btn"
-                                    onClick={() => setShowAll(prev => !prev)}
-                                >
+                                <button className="quiz-btn-toggle" onClick={() => setShowAll((prev) => !prev)}>
                                     {showAll ? "Voir moins" : "Voir plus"}
                                 </button>
                             )}
