@@ -13,8 +13,7 @@ import PasswordFormPopup from './Popup/PasswordFormPopup';
 import CommentFormPopup from './Popup/CommentFormPopup';
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
 import UserCommentsListPopup from './Popup/UserCommentsListPopup';
-import Quiz from '../../Widgets/Quiz';
-
+import Quiz from '../../../Widgets/Quiz/Quiz.jsx';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const avatarOptions = [

@@ -1,3 +1,4 @@
+// src/controllers/authController.js
 const User = require('../models/User');
 
 exports.signup = async (req, res) => {
@@ -7,7 +8,6 @@ exports.signup = async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'Cet email est déjà utilisé.' });
 
-        // avatar par défaut ajouté
         const newUser = new User({
             nom,
             prenom,
@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
             telephone,
             email,
             password,
-            avatar: '/img/avatar.png' // <- avatar par défaut
+            avatar: '/img/avatar.png'
         });
 
         await newUser.save();
@@ -37,7 +37,6 @@ exports.login = async (req, res) => {
         const isMatch = await user.comparePassword(password);
         if (!isMatch) return res.status(400).json({ message: 'Mot de passe incorrect.' });
 
-        // renvoyer toutes les données utiles du user
         res.status(200).json({
             message: 'Connexion réussie.',
             user: {
@@ -48,10 +47,36 @@ exports.login = async (req, res) => {
                 dateNaissance: user.dateNaissance,
                 adresse: user.adresse,
                 telephone: user.telephone,
-                avatar: user.avatar
+                avatar: user.avatar,
+                quizResult: user.quizResult || ""
             }
         });
     } catch (err) {
         res.status(500).json({ message: 'Erreur lors de la connexion', error: err.message });
+    }
+};
+
+// ✅ Nouvelle route : mise à jour du résultat du quiz
+exports.updateQuizResult = async (req, res) => {
+    try {
+        const userId = req.user.id; // récupéré depuis le middleware d'authentification
+        const { quizResult } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { quizResult },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+        }
+
+        res.status(200).json({
+            message: 'Résultat du quiz mis à jour.',
+            quizResult: updatedUser.quizResult
+        });
+    } catch (err) {
+        res.status(500).json({ message: 'Erreur lors de la mise à jour du résultat', error: err.message });
     }
 };

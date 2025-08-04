@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }) => {
             const response = await api.post('/api/auth/login', { email, password });
             const { token: receivedToken, user: userData } = response.data;
 
-            // 🔐 ID en string
             if (userData._id && typeof userData._id !== 'string') {
                 userData._id = userData._id.toString();
             }
@@ -97,6 +96,27 @@ export const AuthProvider = ({ children }) => {
         }));
     };
 
+    // ✅ Enregistrer le résultat du quiz
+    const saveQuizResult = async (result) => {
+        if (!token) return;
+        try {
+            const response = await api.put('/api/auth/quiz-result', { result }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            // Met à jour l’état local si succès
+            setUser(prev => ({
+                ...prev,
+                quizResult: response.data.quizResult
+            }));
+
+        } catch (err) {
+            console.error("Erreur lors de l'enregistrement du résultat du quiz :", err);
+        }
+    };
+
     const authContextValue = {
         user,
         token,
@@ -106,6 +126,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         updateAvatar,
         updateUserData,
+        saveQuizResult,
         isAdmin: user?.role === 'admin'
     };
 
