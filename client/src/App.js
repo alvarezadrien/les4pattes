@@ -3,6 +3,8 @@ import './index.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext'; // ✅ IMPORT
+
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoutes';
 
@@ -88,53 +90,55 @@ const App = () => {
 
   return (
     <Router>
-      <AuthProvider>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/HomePage" element={<HomePage />} />
-            <Route path="/Apropos" element={<Apropos />} />
-            <Route path="/Nos partenaires" element={<Partenaires />} />
-            <Route path="/Ficheperso_animal/:id" element={<Ficheperso_animal />} />
-            <Route path="/Animalitem" element={<Animalitem />} />
-            <Route path="/Notre équipe" element={<Equipe />} />
-            <Route path="/Contact" element={<Contact />} />
-            <Route path="/Connexion" element={<Connexion />} />
-            <Route path="/MotpasseOublie" element={<MotpasseOublie />} />
-            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
-            <Route path="/Inscription" element={<Inscription />} />
-            <Route path="/Formulaire d'adoption" element={<Adoption />} />
-            <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
-            <Route path="/Ce qu'il faut savoir" element={<Savoir />} />
-            <Route path="/Témoin de cruauté" element={<Cruaute />} />
-            <Route path="/Carte" element={<Carte_carrousel />} />
-            <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
-            <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
-            <Route path="/Sensibilisation" element={<Sensibilisation />} />
-            <Route path="/Adhesions" element={<Adhesions />} />
-            <Route path="/gestion_adoption" element={<GestionAdoption />} />
-            <Route path="/AdoptionChiens" element={<AdoptionChiens />} />
-            <Route path="/AdoptionChats" element={<AdoptionChats />} />
-            <Route path="/PaiementSucces" element={<PaiementSucces />} />
-            <Route path="/FormulaireBenevolat" element={<FormulaireBenevolat />} />
-            <Route path="/Boutique" element={<Boutique />} />
-            <Route path="/Panier" element={<Panier />} />
-            <Route path="/Produit/:id" element={<Produit />} />
-            <Route path="/Mon compte" element={
-              <PrivateRoute>
-                <Mon_compte />
-              </PrivateRoute>
-            } />
-            <Route path="/Back_office" element={
-              <AdminRoute>
-                <Back_office />
-              </AdminRoute>
-            } />
-            <Route path="*" element={<Page404 />} />
-          </Routes>
-          <Scroll_button />
-        </Layout>
-      </AuthProvider>
+      <CartProvider> {/* ✅ CONTEXT PANIER */}
+        <AuthProvider>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/HomePage" element={<HomePage />} />
+              <Route path="/Apropos" element={<Apropos />} />
+              <Route path="/Nos partenaires" element={<Partenaires />} />
+              <Route path="/Ficheperso_animal/:id" element={<Ficheperso_animal />} />
+              <Route path="/Animalitem" element={<Animalitem />} />
+              <Route path="/Notre équipe" element={<Equipe />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/Connexion" element={<Connexion />} />
+              <Route path="/MotpasseOublie" element={<MotpasseOublie />} />
+              <Route path="/ResetPassword/:token" element={<ResetPassword />} />
+              <Route path="/Inscription" element={<Inscription />} />
+              <Route path="/Formulaire d'adoption" element={<Adoption />} />
+              <Route path="/Conditions d'adoption" element={<Conditions_adoption />} />
+              <Route path="/Ce qu'il faut savoir" element={<Savoir />} />
+              <Route path="/Témoin de cruauté" element={<Cruaute />} />
+              <Route path="/Carte" element={<Carte_carrousel />} />
+              <Route path="/Nos compagnons adoptés" element={<Compagnons_adopter />} />
+              <Route path="/L'accueil des animaux" element={<Accueil_animaux />} />
+              <Route path="/Sensibilisation" element={<Sensibilisation />} />
+              <Route path="/Adhesions" element={<Adhesions />} />
+              <Route path="/gestion_adoption" element={<GestionAdoption />} />
+              <Route path="/AdoptionChiens" element={<AdoptionChiens />} />
+              <Route path="/AdoptionChats" element={<AdoptionChats />} />
+              <Route path="/PaiementSucces" element={<PaiementSucces />} />
+              <Route path="/FormulaireBenevolat" element={<FormulaireBenevolat />} />
+              <Route path="/Boutique" element={<Boutique />} />
+              <Route path="/Panier" element={<Panier />} />
+              <Route path="/Produit/:id" element={<Produit />} />
+              <Route path="/Mon compte" element={
+                <PrivateRoute>
+                  <Mon_compte />
+                </PrivateRoute>
+              } />
+              <Route path="/Back_office" element={
+                <AdminRoute>
+                  <Back_office />
+                </AdminRoute>
+              } />
+              <Route path="*" element={<Page404 />} />
+            </Routes>
+            <Scroll_button />
+          </Layout>
+        </AuthProvider>
+      </CartProvider>
     </Router>
   );
 };

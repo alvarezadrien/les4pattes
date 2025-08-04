@@ -1,62 +1,38 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { CartContext } from "../../../context/CartContext";
 import "./Produit.css";
-
-const produits = [
-  {
-    id: "1",
-    nom: "Croquettes Premium Chat - Poulet & Riz",
-    espece: "chat",
-    description:
-      "Croquettes complètes pour chats adultes, riches en protéines et digestes.",
-    prix: "19,99€",
-    poids: "2,5 kg",
-    image: "/img/img_boutique/croquettes_chat_pouletriz.png",
-    stock: "En stock",
-  },
-  {
-    id: "2",
-    nom: "Croquettes Naturelles Chat - Saumon",
-    espece: "chat",
-    description:
-      "Aliment complet pour chats adultes, sans céréales, au bon goût de saumon.",
-    prix: "22,50€",
-    poids: "2 kg",
-    image: "/img/img_boutique/croquettes_chat_saumon.png",
-    stock: "En stock",
-  },
-  {
-    id: "3",
-    nom: "Croquettes Chien Énergie+ - Bœuf",
-    espece: "chien",
-    description:
-      "Formule riche pour chiens actifs. Saveur bœuf, digestion facile.",
-    prix: "24,90€",
-    poids: "2,5 kg",
-    image: "/img/img_boutique/croquettes_chien_boeufriz.png",
-    stock: "Peu de stock",
-  },
-  {
-    id: "4",
-    nom: "Croquettes Hypoallergéniques Chien - Poulet & Riz",
-    espece: "chien",
-    description: "Sans gluten. Idéal pour les chiens sensibles.",
-    prix: "26,30€",
-    poids: "2,5 kg",
-    image: "/img/img_boutique/croquettes_chien_pouletriz.png",
-    stock: "En stock",
-  },
-];
 
 const Produit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext);
 
-  const produit = produits.find((p) => p.id === id);
+  const [produit, setProduit] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!produit) {
+  useEffect(() => {
+    const fetchProduit = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/produits`
+        );
+        const data = await res.json();
+        const item = data.find((p) => p._id === id);
+        setProduit(item);
+      } catch (error) {
+        console.error("Erreur lors du chargement du produit :", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduit();
+  }, [id]);
+
+  if (loading) return <div className="erreur-produit">Chargement...</div>;
+  if (!produit)
     return <div className="erreur-produit">Produit introuvable.</div>;
-  }
 
   return (
     <div className="produit-page">
@@ -78,7 +54,9 @@ const Produit = () => {
             <strong>Disponibilité :</strong>{" "}
             <span className="stock">{produit.stock}</span>
           </p>
-          <button className="btn-achat">Ajouter au panier</button>
+          <button className="btn-achat" onClick={() => addToCart(produit)}>
+            Ajouter au panier
+          </button>
         </div>
       </div>
     </div>

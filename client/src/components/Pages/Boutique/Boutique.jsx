@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Boutique.css";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../../context/CartContext"; // ✅ import du contexte panier
 
 const Boutique = () => {
   const [produits, setProduits] = useState([]);
   const navigate = useNavigate();
+  const { addToCart } = useCart(); // ✅ fonction pour ajouter au panier
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -21,6 +23,11 @@ const Boutique = () => {
 
     fetchProduits();
   }, []);
+
+  const handleAddToCart = (produit, e) => {
+    e.stopPropagation(); // ✅ empêche le clic de naviguer
+    addToCart(produit); // ✅ ajoute au panier
+  };
 
   return (
     <div className="boutique-container">
@@ -43,7 +50,12 @@ const Boutique = () => {
             <h2 className="nom-produit">{produit.nom}</h2>
             <p className="description-produit">{produit.description}</p>
             <p className="prix-produit">{produit.prix}</p>
-            <button className="btn-ajouter">Ajouter au panier</button>
+            <button
+              className="btn-ajouter"
+              onClick={(e) => handleAddToCart(produit, e)}
+            >
+              Ajouter au panier
+            </button>
           </div>
         ))}
       </div>
