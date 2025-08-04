@@ -12,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 router.post('/panier/create-checkout-session', async (req, res) => {
-    const { items } = req.body;
+    const { items, adresse, email } = req.body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
         return res.status(400).json({ error: 'Aucun article reçu.' });
@@ -33,12 +33,23 @@ router.post('/panier/create-checkout-session', async (req, res) => {
             quantity: item.quantite,
         }));
 
+        const metadata = adresse
+            ? {
+                rue: adresse.rue || '',
+                ville: adresse.ville || '',
+                codePostal: adresse.codePostal || '',
+                pays: adresse.pays || '',
+            }
+            : {};
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items,
             mode: 'payment',
             success_url: `${process.env.FRONTEND_URL}/paiementsucces`,
             cancel_url: `${process.env.FRONTEND_URL}/panier`,
+            customer_email: email,
+            metadata,
         });
 
         res.status(200).json({ url: session.url });

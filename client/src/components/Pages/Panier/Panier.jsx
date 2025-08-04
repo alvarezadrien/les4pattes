@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../../../context/CartContext";
+import { useAuth } from "../../../context/AuthContext";
 import "./Panier.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
@@ -13,6 +14,15 @@ const Panier = () => {
     decrementerQuantite,
   } = useCart();
 
+  const { user } = useAuth();
+
+  const [adresseForm, setAdresseForm] = useState({
+    rue: "",
+    ville: "",
+    codePostal: "",
+    pays: "",
+  });
+
   const calculTotal = () => {
     return panier
       .reduce((total, item) => {
@@ -23,13 +33,29 @@ const Panier = () => {
   };
 
   const handleStripeCheckout = async () => {
+    const adresse = user?.adresse || adresseForm;
+
+    if (
+      !adresse.rue ||
+      !adresse.ville ||
+      !adresse.codePostal ||
+      !adresse.pays
+    ) {
+      alert("Veuillez remplir une adresse complète pour la livraison.");
+      return;
+    }
+
     try {
       const response = await fetch(
         `${API_URL}/api/panier/create-checkout-session`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: panier }),
+          body: JSON.stringify({
+            items: panier,
+            adresse,
+            email: user?.email || "", // Peut rester vide
+          }),
         }
       );
 
@@ -49,6 +75,54 @@ const Panier = () => {
   return (
     <div className="panier-container">
       <h1>Mon panier</h1>
+
+      {user?.adresse ? (
+        <div className="adresse-livraison">
+          <h3>Adresse de livraison</h3>
+          <p>
+            {user.adresse.rue}, {user.adresse.ville}
+          </p>
+          <p>
+            {user.adresse.codePostal}, {user.adresse.pays}
+          </p>
+        </div>
+      ) : (
+        <div className="adresse-livraison">
+          <h3>Adresse de livraison</h3>
+          <input
+            type="text"
+            placeholder="Rue"
+            value={adresseForm.rue}
+            onChange={(e) =>
+              setAdresseForm({ ...adresseForm, rue: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Ville"
+            value={adresseForm.ville}
+            onChange={(e) =>
+              setAdresseForm({ ...adresseForm, ville: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Code postal"
+            value={adresseForm.codePostal}
+            onChange={(e) =>
+              setAdresseForm({ ...adresseForm, codePostal: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Pays"
+            value={adresseForm.pays}
+            onChange={(e) =>
+              setAdresseForm({ ...adresseForm, pays: e.target.value })
+            }
+          />
+        </div>
+      )}
 
       {panier.length === 0 ? (
         <p className="panier-vide">Votre panier est vide.</p>
@@ -108,4 +182,3 @@ const Panier = () => {
 };
 
 export default Panier;
-  
