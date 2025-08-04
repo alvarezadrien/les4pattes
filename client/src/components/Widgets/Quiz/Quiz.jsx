@@ -224,10 +224,6 @@ const Quiz = () => {
                     )}
                   </>
                 )}
-
-                <button className="quiz-btn" onClick={toggleModal}>
-                  Recommencer
-                </button>
               </>
             )}
           </div>

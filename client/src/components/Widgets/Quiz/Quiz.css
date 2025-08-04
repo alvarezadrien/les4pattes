@@ -143,10 +143,10 @@
   font-weight: 500;
   white-space: pre-wrap;
   text-align: left;
-  background: #f9f9f9;
+  background: var(--secondary-color);
   padding: 1rem;
   border-radius: 10px;
-  border-left: 4px solid #778d45;
+  border-left: 6px solid #778d45;
   margin-bottom: 1rem;
 }
 
