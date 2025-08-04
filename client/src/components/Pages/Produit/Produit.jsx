@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import "./Produit.css";
@@ -6,7 +6,7 @@ import "./Produit.css";
 const Produit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useContext(useCart);
+  const { ajouterAuPanier } = useCart(); // ✅ Correction ici
 
   const [produit, setProduit] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -54,7 +54,10 @@ const Produit = () => {
             <strong>Disponibilité :</strong>{" "}
             <span className="stock">{produit.stock}</span>
           </p>
-          <button className="btn-achat" onClick={() => addToCart(produit)}>
+          <button
+            className="btn-achat"
+            onClick={() => ajouterAuPanier(produit)}
+          >
             Ajouter au panier
           </button>
         </div>
