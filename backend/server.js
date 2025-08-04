@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 
+// Import des routes
 const animalRoutes = require('./routes/animalRoutes');
 const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
@@ -11,10 +12,10 @@ const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const passwordRoutes = require('./routes/passwordRoutes');
 const donationRoutes = require('./routes/donationRoutes');
-const reservationRoutes = require("./routes/reservationRoutes");
-const creneauRoutes = require("./routes/creneauRoutes");
-const creneauDispoRoutes = require("./routes/creneauDispoRoutes");
-const produitRoutes = require('./routes/produitRoutes'); // ✅ AJOUTÉ
+const reservationRoutes = require('./routes/reservationRoutes');
+const creneauRoutes = require('./routes/creneauRoutes');
+const creneauDispoRoutes = require('./routes/creneauDispoRoutes');
+const produitRoutes = require('./routes/produitRoutes'); // ✅ Produits
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,19 +25,21 @@ const mongoURI =
         ? process.env.MONGO_URI
         : process.env.LOCAL_MONGO_URI;
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Accès aux images
+// Gestion des fichiers statiques
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 
+// Log des accès image
 app.use('/uploads', (req, res, next) => {
     console.log('🖼️ Image demandée :', req.originalUrl);
     next();
 });
 
-// Routes principales
+// Routes API
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
@@ -47,9 +50,9 @@ app.use('/api/donation', donationRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/creneaux', creneauRoutes);
 app.use('/api/creneaux-dispo', creneauDispoRoutes);
-app.use('/api/produits', produitRoutes); // ✅ Route pour la boutique
+app.use('/api/produits', produitRoutes); // ✅ Route produits
 
-// Connexion MongoDB
+// Connexion à MongoDB
 mongoose
     .connect(mongoURI, {
         useNewUrlParser: true,
