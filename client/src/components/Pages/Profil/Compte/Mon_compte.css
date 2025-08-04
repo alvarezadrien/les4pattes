@@ -1637,7 +1637,7 @@
 }
 
 .quiz-popup .quiz-result-text {
-  background-color: #f4f4f4;
+  background-color: var(--secondary-color);
   padding: 1rem;
   border-radius: 12px;
   font-size: 1rem;
@@ -1647,7 +1647,7 @@
   overflow-y: auto;
   white-space: pre-line;
   margin-bottom: 1rem;
-  border-left: 4px solid #778d45;
+  border-left: 6px solid #778d45;
 }
 
 /* Bouton "Voir les animaux correspondants" */
