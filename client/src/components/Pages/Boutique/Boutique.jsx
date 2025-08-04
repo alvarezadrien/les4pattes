@@ -1,3 +1,4 @@
+// src/components/Pages/Boutique.jsx
 import React, { useEffect, useState } from "react";
 import "./Boutique.css";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ import { useCart } from "../../../context/CartContext"; // ✅ import du context
 const Boutique = () => {
   const [produits, setProduits] = useState([]);
   const navigate = useNavigate();
-  const { addToCart } = useCart(); // ✅ fonction pour ajouter au panier
+  const { ajouterAuPanier } = useCart(); // ✅ fonction correcte depuis le contexte
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -26,7 +27,7 @@ const Boutique = () => {
 
   const handleAddToCart = (produit, e) => {
     e.stopPropagation(); // ✅ empêche le clic de naviguer
-    addToCart(produit); // ✅ ajoute au panier
+    ajouterAuPanier(produit); // ✅ ajoute au panier avec la bonne fonction
   };
 
   return (
@@ -43,7 +44,7 @@ const Boutique = () => {
             onClick={() => navigate(`/Produit/${produit._id}`)}
           >
             <img
-              src={produit.image}
+              src={`/${produit.image}`} // ✅ les images depuis public/img/img_boutique
               alt={produit.nom}
               className="image-produit"
             />

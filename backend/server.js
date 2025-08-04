@@ -12,10 +12,11 @@ const adoptionRoutes = require('./routes/adoptionRoutes');
 const adoptionRequestRoutes = require('./routes/adoption_requestRoutes');
 const passwordRoutes = require('./routes/passwordRoutes');
 const donationRoutes = require('./routes/donationRoutes');
+const stripePanierRoutes = require('./routes/stripePanierRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const creneauRoutes = require('./routes/creneauRoutes');
 const creneauDispoRoutes = require('./routes/creneauDispoRoutes');
-const produitRoutes = require('./routes/produitRoutes'); // ✅ Produits
+const produitRoutes = require('./routes/produitRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,6 +48,7 @@ app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/api/password', passwordRoutes);
 app.use('/api/donation', donationRoutes);
+app.use('/api', stripePanierRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/creneaux', creneauRoutes);
 app.use('/api/creneaux-dispo', creneauDispoRoutes);

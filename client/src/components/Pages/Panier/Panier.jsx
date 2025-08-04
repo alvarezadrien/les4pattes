@@ -1,49 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import { useCart } from "../../../context/CartContext";
 import "./Panier.css";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const Panier = () => {
-  const [panier, setPanier] = useState([
-    {
-      id: 1,
-      nom: "Croquettes Premium Chat - Poulet & Riz",
-      prix: "19,99€",
-      quantite: 2,
-      image: "/img/img_boutique/croquettes_chat_pouletriz.png",
-    },
-    {
-      id: 3,
-      nom: "Croquettes Chien Énergie+ - Bœuf",
-      prix: "24,90€",
-      quantite: 1,
-      image: "/img/img_boutique/croquettes_chien_boeufriz.png",
-    },
-  ]);
-
-  const retirerDuPanier = (id) => {
-    setPanier((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const viderPanier = () => {
-    setPanier([]);
-  };
-
-  const incrementerQuantite = (id) => {
-    setPanier((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantite: item.quantite + 1 } : item
-      )
-    );
-  };
-
-  const decrementerQuantite = (id) => {
-    setPanier((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantite > 1
-          ? { ...item, quantite: item.quantite - 1 }
-          : item
-      )
-    );
-  };
+  const {
+    panier,
+    retirerDuPanier,
+    viderPanier,
+    incrementerQuantite,
+    decrementerQuantite,
+  } = useCart();
 
   const calculTotal = () => {
     return panier
@@ -52,6 +20,30 @@ const Panier = () => {
         return total + prix * item.quantite;
       }, 0)
       .toFixed(2);
+  };
+
+  const handleStripeCheckout = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/panier/create-checkout-session`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: panier }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url; // redirection Stripe
+      } else {
+        alert("Erreur lors de la redirection vers Stripe.");
+      }
+    } catch (error) {
+      console.error("Erreur Stripe :", error);
+      alert("Erreur lors de la validation du paiement.");
+    }
   };
 
   return (
@@ -64,15 +56,15 @@ const Panier = () => {
         <>
           <ul className="liste-panier">
             {panier.map((item) => (
-              <li key={item.id} className="item-panier">
-                <img src={item.image} alt={item.nom} />
+              <li key={item._id} className="item-panier">
+                <img src={`/${item.image}`} alt={item.nom} />
                 <div className="details-article">
                   <h3>{item.nom}</h3>
                   <p>{item.prix}</p>
                   <div className="quantite-controls">
                     <button
                       className="btn-moins"
-                      onClick={() => decrementerQuantite(item.id)}
+                      onClick={() => decrementerQuantite(item._id)}
                       disabled={item.quantite === 1}
                     >
                       −
@@ -80,14 +72,14 @@ const Panier = () => {
                     <span className="quantite">{item.quantite}</span>
                     <button
                       className="btn-plus"
-                      onClick={() => incrementerQuantite(item.id)}
+                      onClick={() => incrementerQuantite(item._id)}
                     >
                       +
                     </button>
                   </div>
                 </div>
                 <button
-                  onClick={() => retirerDuPanier(item.id)}
+                  onClick={() => retirerDuPanier(item._id)}
                   className="btn-retirer"
                 >
                   Retirer
@@ -104,7 +96,9 @@ const Panier = () => {
               <button onClick={viderPanier} className="btn-vider">
                 Vider le panier
               </button>
-              <button className="btn-valider">Valider ma commande</button>
+              <button className="btn-valider" onClick={handleStripeCheckout}>
+                Valider ma commande
+              </button>
             </div>
           </div>
         </>
