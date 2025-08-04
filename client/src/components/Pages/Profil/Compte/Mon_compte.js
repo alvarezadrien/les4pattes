@@ -1,19 +1,17 @@
-// ✅ Mon_compte.jsx avec bulle flottante quiz + tous les imports complets
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
-
 import "./Mon_compte.css";
 
-// ✅ Popups
+// Popups
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
 import CommentFormPopup from './Popup/CommentFormPopup';
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
 import UserCommentsListPopup from './Popup/UserCommentsListPopup';
-import Quiz from '../../../Widgets/Quiz/Quiz.jsx';
+import QuizPopup from './Popup/QuizPopup'; // ✅ IMPORT DU POPUP QUIZ
+
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const avatarOptions = [
@@ -73,6 +71,7 @@ const Mon_compte = () => {
   const [showMagazinePopup, setShowMagazinePopup] = useState(false);
   const [showUserCommentsListPopup, setShowUserCommentsListPopup] = useState(false);
   const [showReadMorePopup, setShowReadMorePopup] = useState(false);
+  const [showQuizPopup, setShowQuizPopup] = useState(false); // ✅ NOUVEAU STATE
   const [currentReadMoreComment, setCurrentReadMoreComment] = useState("");
 
   const [userComments, setUserComments] = useState([]);
@@ -90,7 +89,6 @@ const Mon_compte = () => {
       if (!res.ok) throw new Error(data.msg || 'Erreur');
       setUserComments(data || []);
     } catch (err) {
-      console.error(err);
       setError(err.message || "Erreur lors du chargement des commentaires.");
     } finally {
       setLoadingComments(false);
@@ -115,7 +113,6 @@ const Mon_compte = () => {
       setShowPopupSuccess(true);
       setTimeout(() => setShowPopupSuccess(false), 3000);
     } catch (err) {
-      console.error(err);
       setError(err.message);
     }
   };
@@ -133,13 +130,13 @@ const Mon_compte = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.msg || 'Erreur modification');
+
       setUserComments(prev => prev.map(comment =>
         comment._id === commentId ? { ...comment, commentText: newText, rating: newRating } : comment
       ));
       setShowPopupSuccess(true);
       setTimeout(() => setShowPopupSuccess(false), 3000);
     } catch (err) {
-      console.error(err);
       setError(err.message);
     }
   };
@@ -174,7 +171,6 @@ const Mon_compte = () => {
 
   return (
     <div className="mon-compte-container">
-      <Quiz />
       <div className="compte-background">
         <div className="compte-left">
           <div className="user-info">
@@ -191,6 +187,12 @@ const Mon_compte = () => {
           <div className="intro-texte">
             Bienvenue sur votre espace personnel dédié à la gestion de votre compte.
           </div>
+
+          {user.quizResult && (
+            <button className="quiz-result-button" onClick={() => setShowQuizPopup(true)}>
+              Voir mon résultat du quiz
+            </button>
+          )}
         </div>
 
         <div className="compte-right">
@@ -284,6 +286,7 @@ const Mon_compte = () => {
           onClose={() => setShowReadMorePopup(false)}
         />
       )}
+      {showQuizPopup && <QuizPopup user={user} onClose={() => setShowQuizPopup(false)} />} {/* ✅ QUIZ POPUP */}
     </div>
   );
 };
