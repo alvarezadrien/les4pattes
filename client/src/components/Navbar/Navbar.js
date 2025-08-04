@@ -35,6 +35,7 @@ function Navbar() {
         { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" },
         { text: "Nos chats", link: "/Adoptionchats" },
         { text: "Nos chiens", link: "/Adoptionchiens" },
+        { text: "Boutique", link: "/Boutique" },
       ],
     },
     {
@@ -122,6 +123,17 @@ function Navbar() {
             <img
               src="/img/coeur_dons_modif3.png"
               alt="C'est l'icon pour faire un don en forme de coeur"
+              width={45}
+            />
+          </Link>
+        </li>
+
+        {/* Icône Panier */}
+        <li className="navbar_item icon_navbar">
+          <Link className="navbar_link" to="/Panier">
+            <img
+              src="/img/icon_panier.svg"
+              alt="Icon panier"
               width={45}
             />
           </Link>

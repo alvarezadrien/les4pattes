@@ -14,6 +14,7 @@ const donationRoutes = require('./routes/donationRoutes');
 const reservationRoutes = require("./routes/reservationRoutes");
 const creneauRoutes = require("./routes/creneauRoutes");
 const creneauDispoRoutes = require("./routes/creneauDispoRoutes");
+const produitRoutes = require('./routes/produitRoutes'); // ✅ AJOUTÉ
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ const mongoURI =
 app.use(cors());
 app.use(express.json());
 
+// Accès aux images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 
@@ -34,6 +36,7 @@ app.use('/uploads', (req, res, next) => {
     next();
 });
 
+// Routes principales
 app.use('/api/animaux', animalRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comments', commentRoutes);
@@ -41,12 +44,17 @@ app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/adoptionRequests', adoptionRequestRoutes);
 app.use('/api/password', passwordRoutes);
 app.use('/api/donation', donationRoutes);
-app.use("/api/reservations", reservationRoutes);
-app.use("/api/creneaux", creneauRoutes);
-app.use("/api/creneaux-dispo", creneauDispoRoutes);
+app.use('/api/reservations', reservationRoutes);
+app.use('/api/creneaux', creneauRoutes);
+app.use('/api/creneaux-dispo', creneauDispoRoutes);
+app.use('/api/produits', produitRoutes); // ✅ Route pour la boutique
 
+// Connexion MongoDB
 mongoose
-    .connect(mongoURI)
+    .connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => {
         console.log('✅ Connexion à MongoDB réussie');
         app.listen(PORT, () => {

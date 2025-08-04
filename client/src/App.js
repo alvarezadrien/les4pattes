@@ -33,6 +33,10 @@ import ResetPassword from './components/Pages/Profil/Oublie/ResetPassword';
 import PaiementSucces from './components/Pages/Paiement_succes/Paiement_succes';
 import FormulaireBenevolat from './components/Pages/Form_benevolat/Form_benevolat';
 
+import Boutique from './components/Pages/Boutique/Boutique';
+import Produit from './components/Pages/Produit/Produit';
+import Panier from './components/Pages/Panier/Panier';
+
 import BackButton from './components/Widgets/Back_button/Back_button';
 import Animalitem from './components/Widgets/Animal_item/Animalitem';
 import PopupMenu from './components/Widgets/Popup_menu/PopupMenu';
@@ -113,19 +117,19 @@ const App = () => {
             <Route path="/AdoptionChats" element={<AdoptionChats />} />
             <Route path="/PaiementSucces" element={<PaiementSucces />} />
             <Route path="/FormulaireBenevolat" element={<FormulaireBenevolat />} />
-
+            <Route path="/Boutique" element={<Boutique />} />
+            <Route path="/Panier" element={<Panier />} />
+            <Route path="/Produit/:id" element={<Produit />} />
             <Route path="/Mon compte" element={
               <PrivateRoute>
                 <Mon_compte />
               </PrivateRoute>
             } />
-
             <Route path="/Back_office" element={
               <AdminRoute>
                 <Back_office />
               </AdminRoute>
             } />
-
             <Route path="*" element={<Page404 />} />
           </Routes>
           <Scroll_button />
