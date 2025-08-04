@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { CartContext } from "../../../context/CartContext";
+import { useCart } from "../../../context/CartContext";
 import "./Produit.css";
 
 const Produit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(useCart);
 
   const [produit, setProduit] = useState(null);
   const [loading, setLoading] = useState(true);
