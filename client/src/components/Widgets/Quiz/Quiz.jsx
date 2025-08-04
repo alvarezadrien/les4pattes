@@ -1,8 +1,9 @@
 // src/components/Widgets/Quiz.jsx
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Quiz.css";
 import { LinearProgress, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const quizIcon = "/img/quiz.png";
 
@@ -56,6 +57,7 @@ const Quiz = () => {
   const [matchingAnimals, setMatchingAnimals] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
+  const { token } = useContext(AuthContext); // ✅ Récupère le token
 
   const toggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -120,18 +122,34 @@ const Quiz = () => {
       races = ["Bouledogue Français", "Sphynx", "Bichon", "Chat Européen"];
     }
 
-    setResult(
-      `✨ Vous êtes fait pour ${
-        type === "chat ou chien" ? "un chat ou un chien" : "un " + type
-      }.\n\nComportement recommandé : ${comportement}.\n\nQuelques races adaptées : ${races.join(
-        ", "
-      )}.`
-    );
+    const resultText = `✨ Vous êtes fait pour ${
+      type === "chat ou chien" ? "un chat ou un chien" : "un " + type
+    }.\n\nComportement recommandé : ${comportement}.\n\nQuelques races adaptées : ${races.join(
+      ", "
+    )}.`;
 
+    setResult(resultText);
+
+    // ✅ Envoie vers la base de données si connecté
+    if (token) {
+      try {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/auth/quiz-result`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ result: resultText }),
+        });
+      } catch (error) {
+        console.error("Erreur lors de l'enregistrement du résultat :", error);
+      }
+    }
+
+    // ✅ Cherche les animaux correspondants
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/animaux`);
       const data = await res.json();
-
       const comportementMots = comportement.toLowerCase().split(", ");
 
       const filtered = data.filter((animal) => {

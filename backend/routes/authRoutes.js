@@ -224,19 +224,17 @@ router.put('/profile/avatar-url', auth, async (req, res) => {
     }
 });
 
-
-
-// Récupérer tous les utilisateurs (admin uniquement)
+// ✅ Récupérer tous les utilisateurs (admin uniquement)
 router.get('/users', auth, isAdmin, async (req, res) => {
     try {
-        const users = await User.find().select('-password'); // Exclure le mot de passe
+        const users = await User.find().select('-password');
         res.json(users);
     } catch (err) {
         res.status(500).json({ msg: 'Erreur lors de la récupération des utilisateurs.' });
     }
 });
 
-// Supprimer un utilisateur (admin uniquement)
+// ✅ Supprimer un utilisateur (admin uniquement)
 router.delete('/users/:id', auth, isAdmin, async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -246,6 +244,21 @@ router.delete('/users/:id', auth, isAdmin, async (req, res) => {
         res.json({ msg: 'Utilisateur supprimé avec succès.' });
     } catch (err) {
         res.status(500).json({ msg: 'Erreur serveur lors de la suppression.' });
+    }
+});
+
+// ✅ Enregistrer le résultat du quiz
+router.put('/quiz-result', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: "Utilisateur non trouvé." });
+
+        user.quizResult = req.body.result;
+        await user.save();
+
+        res.json({ msg: "Résultat du quiz enregistré avec succès.", quizResult: user.quizResult });
+    } catch (err) {
+        res.status(500).json({ msg: "Erreur serveur lors de l'enregistrement du résultat du quiz." });
     }
 });
 

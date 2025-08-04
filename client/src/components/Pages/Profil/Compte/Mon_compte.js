@@ -1,16 +1,19 @@
+// ✅ Mon_compte.jsx avec bulle flottante quiz + tous les imports complets
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
 
 import "./Mon_compte.css";
 
-// Popups
+// ✅ Popups
 import DataFormPopup from './Popup/DataFormPopup';
 import AddressFormPopup from './Popup/AdressFormPopup';
 import PasswordFormPopup from './Popup/PasswordFormPopup';
 import CommentFormPopup from './Popup/CommentFormPopup';
 import DemandeAdoptionPopup from './Popup/DemandeAdoptionPopup';
 import UserCommentsListPopup from './Popup/UserCommentsListPopup';
+import Quiz from '../../Widgets/Quiz';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -29,7 +32,7 @@ const avatarOptions = [
   "/img/Avatar/avatar_chien6.png",
 ];
 
-const SuccessPopup = ({ message, onClose }) => (
+const SuccessPopup = ({ message }) => (
   <div className="success-popup">
     <div className="success-popup-content">
       <span>{message}</span>
@@ -131,7 +134,6 @@ const Mon_compte = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.msg || 'Erreur modification');
-
       setUserComments(prev => prev.map(comment =>
         comment._id === commentId ? { ...comment, commentText: newText, rating: newRating } : comment
       ));
@@ -173,6 +175,7 @@ const Mon_compte = () => {
 
   return (
     <div className="mon-compte-container">
+      <Quiz />
       <div className="compte-background">
         <div className="compte-left">
           <div className="user-info">
