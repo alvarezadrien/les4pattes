@@ -1,0 +1,25 @@
+.languette-boutique {
+  position: fixed;
+  top: 40%;
+  right: -10px; /* Petite partie visible à droite de l'écran */
+  z-index: 1000;
+  background-color: #778d45;
+  color: white;
+  padding: 12px 14px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.languette-boutique:hover {
+  transform: translateX(-10px);
+  background-color: #5f7336;
+}
+
+.languette-boutique svg {
+  pointer-events: none;
+}

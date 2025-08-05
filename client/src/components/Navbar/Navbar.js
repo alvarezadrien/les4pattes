@@ -35,7 +35,6 @@ function Navbar() {
         { text: "Ce qu'il faut savoir", link: "/Ce qu'il faut savoir" },
         { text: "Nos chats", link: "/Adoptionchats" },
         { text: "Nos chiens", link: "/Adoptionchiens" },
-        { text: "Boutique", link: "/Boutique" },
       ],
     },
     {

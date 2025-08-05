@@ -3,7 +3,7 @@ import './index.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext'; // ✅ IMPORT
+import { CartProvider } from './context/CartContext';
 
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoutes';
@@ -52,6 +52,7 @@ import GestionAdoption from './components/Pages/Gestion_adoption/Gestion_adoptio
 import Loading from './components/Widgets/Loading/Loading';
 import Faq from './components/Widgets/FAQ/Faq';
 import CalendrierCreneaux from './components/Widgets/Calendrier_creneaux/Creneaux';
+import LanguetteBoutique from './components/Widgets/Languette/LanguetteBoutique.jsx';
 import Page404 from './components/Widgets/404Page/Page_404';
 
 const Layout = ({ children }) => {
@@ -64,6 +65,7 @@ const Layout = ({ children }) => {
       {noNavbarFooter && <BackButton />}
       {children}
       {!noNavbarFooter && <Footer />}
+      <LanguetteBoutique />
     </>
   );
 };
@@ -90,7 +92,7 @@ const App = () => {
 
   return (
     <Router>
-      <CartProvider> {/* ✅ CONTEXT PANIER */}
+      <CartProvider>
         <AuthProvider>
           <Layout>
             <Routes>
