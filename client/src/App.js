@@ -53,6 +53,7 @@ import Loading from './components/Widgets/Loading/Loading';
 import Faq from './components/Widgets/FAQ/Faq';
 import CalendrierCreneaux from './components/Widgets/Calendrier_creneaux/Creneaux';
 import LanguetteBoutique from './components/Widgets/Languette/LanguetteBoutique.jsx';
+import LanguettePanier from './components/Widgets/Languette/LanguettePanier.jsx';
 import Page404 from './components/Widgets/404Page/Page_404';
 
 const Layout = ({ children }) => {
@@ -66,6 +67,7 @@ const Layout = ({ children }) => {
       {children}
       {!noNavbarFooter && <Footer />}
       <LanguetteBoutique />
+      <LanguettePanier />
     </>
   );
 };

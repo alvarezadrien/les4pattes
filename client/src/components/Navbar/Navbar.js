@@ -127,17 +127,6 @@ function Navbar() {
           </Link>
         </li>
 
-        {/* Icône Panier */}
-        <li className="navbar_item icon_navbar">
-          <Link className="navbar_link" to="/Panier">
-            <img
-              src="/img/icon_panier.svg"
-              alt="Icon panier"
-              width={45}
-            />
-          </Link>
-        </li>
-
         {/* Icône Profil (ou avatar) */}
         <li className="navbar_item icon_navbar icon_profil">
           <Link

@@ -1,0 +1,25 @@
+.languette-panier {
+  position: fixed;
+  top: 50%;
+  right: -10px;
+  z-index: 1000;
+  background-color: #c9654d;
+  color: white;
+  padding: 12px 14px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.languette-panier:hover {
+  transform: translateX(-10px);
+  background-color: #a94936;
+}
+
+.languette-panier svg {
+  pointer-events: none;
+}
