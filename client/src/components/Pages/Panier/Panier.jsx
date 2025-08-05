@@ -15,13 +15,7 @@ const Panier = () => {
   } = useCart();
 
   const { user } = useAuth();
-
-  const [adresseForm, setAdresseForm] = useState({
-    rue: "",
-    ville: "",
-    codePostal: "",
-    pays: "",
-  });
+  const [adresseVisible, setAdresseVisible] = useState(false);
 
   const calculTotal = () => {
     return panier
@@ -33,15 +27,8 @@ const Panier = () => {
   };
 
   const handleStripeCheckout = async () => {
-    const adresse = user?.adresse || adresseForm;
-
-    if (
-      !adresse.rue ||
-      !adresse.ville ||
-      !adresse.codePostal ||
-      !adresse.pays
-    ) {
-      alert("Veuillez remplir une adresse complète pour la livraison.");
+    if (!user || !user.adresse) {
+      alert("Veuillez vous connecter et enregistrer une adresse de livraison.");
       return;
     }
 
@@ -53,8 +40,9 @@ const Panier = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             items: panier,
-            adresse,
-            email: user?.email || "", // Peut rester vide
+            adresse: user.adresse, // <-- Envoi de l’adresse
+            userId: user._id,
+            email: user.email,
           }),
         }
       );
@@ -76,7 +64,7 @@ const Panier = () => {
     <div className="panier-container">
       <h1>Mon panier</h1>
 
-      {user?.adresse ? (
+      {user && user.adresse && (
         <div className="adresse-livraison">
           <h3>Adresse de livraison</h3>
           <p>
@@ -85,42 +73,12 @@ const Panier = () => {
           <p>
             {user.adresse.codePostal}, {user.adresse.pays}
           </p>
-        </div>
-      ) : (
-        <div className="adresse-livraison">
-          <h3>Adresse de livraison</h3>
-          <input
-            type="text"
-            placeholder="Rue"
-            value={adresseForm.rue}
-            onChange={(e) =>
-              setAdresseForm({ ...adresseForm, rue: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Ville"
-            value={adresseForm.ville}
-            onChange={(e) =>
-              setAdresseForm({ ...adresseForm, ville: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Code postal"
-            value={adresseForm.codePostal}
-            onChange={(e) =>
-              setAdresseForm({ ...adresseForm, codePostal: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Pays"
-            value={adresseForm.pays}
-            onChange={(e) =>
-              setAdresseForm({ ...adresseForm, pays: e.target.value })
-            }
-          />
+          <button
+            className="btn-modifier-adresse"
+            onClick={() => setAdresseVisible(true)}
+          >
+            Modifier l’adresse
+          </button>
         </div>
       )}
 
