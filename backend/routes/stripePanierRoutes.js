@@ -1,4 +1,3 @@
-// backend/routes/stripePanierRoutes.js
 const express = require('express');
 const router = express.Router();
 const Stripe = require('stripe');
@@ -33,7 +32,7 @@ router.post('/panier/create-checkout-session', async (req, res) => {
             quantity: item.quantite,
         }));
 
-        const metadata = adresse
+        const metadata = typeof adresse === "object" && adresse !== null
             ? {
                 rue: adresse.rue || '',
                 ville: adresse.ville || '',
