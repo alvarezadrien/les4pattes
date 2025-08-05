@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './Back_office.css'; // Assurez-vous que ce fichier CSS est correct et à jour
+import api from "../../services/api"; // L'import pour la section produits
+import './Back_office.css';
 
 // Import de material ui (MUI)
 import {
@@ -28,6 +29,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import StoreIcon from '@mui/icons-material/Store'; // Icône pour les produits
 
 // --- URL de base de votre API Backend ---
 const API_BASE_URL = 'https://les4pattes-backend.onrender.com/api';
@@ -113,30 +115,30 @@ const SimpleModal = ({ children, onClose, title }) => {
 // --- Composant principal du BackOffice ---
 const BackOffice = () => {
   // État pour gérer la visibilité de la section active
-  const [activeView, setActiveView] = useState('animals'); // 'animals', 'users', 'comments'
+  const [activeView, setActiveView] = useState('animals'); // 'animals', 'users', 'comments', 'produits'
 
   // États de gestion des animaux
   const [animals, setAnimals] = useState([]);
   const [newAnimal, setNewAnimal] = useState({
-    nom: '', // Correspond à 'nom' dans le modèle
-    espece: '', // Correspond à 'espece' dans le modèle
-    race: '', // Correspond à 'race' dans le modèle
-    age: '', // Correspond à 'age' dans le modèle
-    sexe: '', // Correspond à 'sexe' dans le modèle
-    taille: '', // Correspond à 'taille' dans le modèle
-    description: '', // Correspond à 'description' dans le modèle (generalDescription)
-    descriptionAdoption: '', // Correspond à 'descriptionAdoption' dans le modèle
-    dateArrivee: '', // Correspond à 'dateArrivee' dans le modèle
+    nom: '',
+    espece: '',
+    race: '',
+    age: '',
+    sexe: '',
+    taille: '',
+    description: '',
+    descriptionAdoption: '',
+    dateArrivee: '',
     isRescue: false,
-    comportement: [], // Correspond à 'comportement' dans le modèle
-    ententeAvec: [], // Correspond à 'ententeAvec' dans le modèle
-    images: [] // Stocke les objets Fichier ou URLs pour l'aperçu
+    comportement: [],
+    ententeAvec: [],
+    images: []
   });
-  const [editingAnimal, setEditingAnimal] = useState(null); // Stocke l'animal en cours d'édition
+  const [editingAnimal, setEditingAnimal] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [imagePreviews, setImagePreviews] = useState([]); // Stocke les URL.createObjectURL pour les nouveaux fichiers ou les URL existantes
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [isAnimalFormModalOpen, setIsAnimalFormModalOpen] = useState(false);
-  const [animalDetailModal, setAnimalDetailModal] = useState(null); // Pour afficher les détails de l'animal
+  const [animalDetailModal, setAnimalDetailModal] = useState(null);
 
   // États de gestion des utilisateurs
   const [users, setUsers] = useState([]);
@@ -144,7 +146,19 @@ const BackOffice = () => {
 
   // États de gestion des commentaires
   const [comments, setComments] = useState([]);
-  const [commentDetailModal, setCommentDetailModal] = useState(null); // Pour afficher les détails du commentaire
+  const [commentDetailModal, setCommentDetailModal] = useState(null);
+
+  // NOUVEAU: États de gestion des produits
+  const [produits, setProduits] = useState([]);
+  const [newProduit, setNewProduit] = useState({
+    nom: "",
+    description: "",
+    prix: "",
+    image: "",
+    espece: "",
+    stock: 0,
+    poids: "",
+  });
 
   // États globaux de l'interface utilisateur
   const [loading, setLoading] = useState(false);
@@ -154,36 +168,35 @@ const BackOffice = () => {
     title: '',
     message: '',
     onConfirm: null,
-    data: null // Pour passer l'ID/objet de l'élément au gestionnaire de confirmation
+    data: null
   });
 
   // Fonction générique pour afficher les messages de feedback
   const showFeedback = useCallback((type, message) => {
     setFeedbackMessage({ type, message });
-    setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000); // Le message disparaît après 3 secondes
+    setTimeout(() => setFeedbackMessage({ type: '', message: '' }), 3000);
   }, []);
 
   // Fonction pour obtenir les headers (revue : inclut le token de localStorage)
   const getAuthHeaders = useCallback(() => {
-    const token = localStorage.getItem('token'); // Récupérer le token du localStorage
+    const token = localStorage.getItem('token');
     if (token) {
       return {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Ajouter le header d'autorisation
+        'Authorization': `Bearer ${token}`
       };
     }
-    // Si pas de token, retourner seulement Content-Type, le backend devrait gérer l'erreur 401
     return {
       'Content-Type': 'application/json',
     };
-  }, []); // Aucune dépendance car localStorage est global
+  }, []);
 
   // Fonction générique pour récupérer les données de l'API
   const fetchData = useCallback(async (endpoint, setter, errorMessage) => {
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-        headers: getAuthHeaders() // Utilisez les headers (maintenant avec le token si disponible)
+        headers: getAuthHeaders()
       });
 
       if (!response.ok) {
@@ -191,11 +204,8 @@ const BackOffice = () => {
         console.error(`Erreur de réponse du serveur pour ${endpoint}:`, errorText);
         try {
           const errorData = JSON.parse(errorText);
-          // Si le message d'erreur indique un problème de token, cela peut être géré ici
           if (response.status === 401 || response.status === 403) {
             showFeedback('error', 'Accès non autorisé par le serveur. Assurez-vous d\'être connecté avec les droits requis.');
-            // Ici, vous voudriez peut-être rediriger l'utilisateur vers la page de connexion
-            // Par exemple: history.push('/login');
           }
           throw new Error(errorData.message || errorMessage);
         } catch (jsonError) {
@@ -210,15 +220,30 @@ const BackOffice = () => {
     } finally {
       setLoading(false);
     }
-  }, [showFeedback, getAuthHeaders]); // getAuthHeaders est une dépendance car elle est utilisée à l'intérieur
+  }, [showFeedback, getAuthHeaders]);
+
+  // NOUVEAU: Fonction pour récupérer les produits
+  const fetchProduits = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await api.get("/api/produits"); // Utilise l'instance axios 'api'
+      setProduits(res.data);
+    } catch (err) {
+      console.error("Erreur lors de la récupération des produits :", err);
+      showFeedback('error', 'Erreur lors de la récupération des produits.');
+    } finally {
+      setLoading(false);
+    }
+  }, [showFeedback]);
+
 
   // Effet pour récupérer les données initiales au montage du composant
   useEffect(() => {
-    // Ces appels nécessiteront toujours les droits appropriés côté serveur
     fetchData('animaux', setAnimals, 'Échec du chargement des animaux.');
     fetchData('auth/users', setUsers, 'Échec du chargement des utilisateurs.');
     fetchData('comments', setComments, 'Échec du chargement des commentaires.');
-  }, [fetchData]);
+    fetchProduits();
+  }, [fetchData, fetchProduits]);
 
   // --- Gestionnaire de la modale de confirmation ---
   const openConfirmationModal = (title, message, onConfirmCallback, data) => {
@@ -256,7 +281,7 @@ const BackOffice = () => {
   const handleCheckboxChange = (e, field) => {
     const { value, checked } = e.target;
     setNewAnimal(prev => {
-      const currentList = prev[field] || []; // S'assurer que c'est un tableau
+      const currentList = prev[field] || [];
       if (checked) {
         return { ...prev, [field]: [...currentList, value] };
       } else {
@@ -267,11 +292,7 @@ const BackOffice = () => {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-
-    // On filtre pour ne pas dépasser 3 images
     const filesToAdd = files.slice(0, 3 - newAnimal.images.length);
-
-    // Création des aperçus (URLs locales)
     const previews = filesToAdd.map(file => URL.createObjectURL(file));
 
     if (newAnimal.images.length + filesToAdd.length > 3) {
@@ -285,8 +306,6 @@ const BackOffice = () => {
 
     setImagePreviews(prev => [...prev, ...previews]);
   };
-
-
 
   const removeImagePreview = (indexToRemove) => {
     const urlToRevoke = imagePreviews[indexToRemove];
@@ -329,7 +348,6 @@ const BackOffice = () => {
       formData.append('ententeAvec', JSON.stringify(newAnimal.ententeAvec || []));
       formData.append('dossier', newAnimal.espece?.toLowerCase() === 'chat' ? 'Chats' : 'Chiens');
 
-      // ✅ Ajout des images image1 / image2 / image3
       if (!isEditing || newAnimal.images.length > 0) {
         if (newAnimal.images[0]) formData.append('image1', newAnimal.images[0]);
         if (newAnimal.images[1]) formData.append('image2', newAnimal.images[1]);
@@ -400,14 +418,13 @@ const BackOffice = () => {
       taille: animal.taille || '',
       description: animal.description || '',
       descriptionAdoption: animal.descriptionAdoption || '',
-      // Formater la date en 'YYYY-MM-DD' pour l'input type="date"
       dateArrivee: animal.dateArrivee ? new Date(animal.dateArrivee).toISOString().split('T')[0] : '',
       isRescue: animal.isRescue || false,
-      comportement: [...(animal.comportement || [])], // Copie profonde pour les cases à cocher
-      ententeAvec: [...(animal.ententeAvec || [])], // Copie profonde
-      images: [...(animal.images || [])] // Afficher les images existantes (URL), les nouvelles seront ajoutées par l'input
+      comportement: [...(animal.comportement || [])],
+      ententeAvec: [...(animal.ententeAvec || [])],
+      images: [...(animal.images || [])]
     });
-    setImagePreviews([...(animal.images || [])]); // Afficher les images existantes (URL)
+    setImagePreviews([...(animal.images || [])]);
     setIsAnimalFormModalOpen(true);
   };
 
@@ -442,7 +459,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/animaux/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
+        headers: getAuthHeaders(),
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -469,7 +486,6 @@ const BackOffice = () => {
   };
 
   const handleChangeAnimalStatus = async (id, currentAdopteStatus) => {
-    // Inverser le statut 'adopte'
     const newAdopteStatus = !currentAdopteStatus;
     const statusText = newAdopteStatus ? 'Adopté' : 'Disponible';
 
@@ -487,8 +503,8 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/animaux/${id}/status`, {
         method: 'PATCH',
-        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
-        body: JSON.stringify({ adopte: newAdopteStatus }) // Envoyer le booléen 'adopte'
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ adopte: newAdopteStatus })
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -535,7 +551,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/users/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
+        headers: getAuthHeaders(),
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -577,7 +593,7 @@ const BackOffice = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/comments/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(), // Incluez les headers (maintenant avec le token si disponible)
+        headers: getAuthHeaders(),
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -606,6 +622,93 @@ const BackOffice = () => {
   const handleViewCommentDetails = (comment) => {
     setCommentDetailModal(comment);
   };
+
+  // NOUVEAU: Fonctions de gestion des produits
+  const handleProduitInputChange = (e, field, produitId = null) => {
+    const value = e.target.value;
+    if (produitId) {
+      setProduits((prev) =>
+        prev.map((p) =>
+          p._id === produitId ? { ...p, [field]: value } : p
+        )
+      );
+    } else {
+      setNewProduit({ ...newProduit, [field]: value });
+    }
+  };
+
+  const handleAddProduit = async () => {
+    setLoading(true);
+    try {
+      await api.post("/api/produits", newProduit, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      showFeedback('success', 'Produit ajouté avec succès.');
+      setNewProduit({
+        nom: "",
+        description: "",
+        prix: "",
+        image: "",
+        espece: "",
+        stock: 0,
+        poids: "",
+      });
+      fetchProduits();
+    } catch (err) {
+      console.error("Erreur ajout :", err);
+      showFeedback('error', 'Erreur lors de l\'ajout du produit.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateProduit = async (produit) => {
+    setLoading(true);
+    try {
+      await api.put(`/api/produits/${produit._id}`, produit, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      showFeedback('success', 'Produit mis à jour avec succès.');
+      fetchProduits();
+    } catch (err) {
+      console.error("Erreur lors de la mise à jour :", err);
+      showFeedback('error', 'Erreur lors de la mise à jour.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const confirmDeleteProduit = (produitId) => {
+    openConfirmationModal(
+      'Supprimer ce produit ?',
+      'Êtes-vous certain de vouloir supprimer ce produit définitivement ?',
+      executeDeleteProduit,
+      produitId
+    );
+  };
+
+  const executeDeleteProduit = async (id) => {
+    setLoading(true);
+    try {
+      await api.delete(`/api/produits/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      showFeedback('success', 'Produit supprimé.');
+      fetchProduits();
+    } catch (err) {
+      console.error("Erreur suppression :", err);
+      showFeedback('error', 'Erreur lors de la suppression.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   // Animaux filtrés pour l'affichage (recherche côté client)
   const filteredAnimals = animals.filter(animal =>
@@ -666,6 +769,12 @@ const BackOffice = () => {
           >
             <ChatBubbleIcon /> Commentaires ({comments.length})
           </button>
+          <button
+            className={`nav-btn ${activeView === 'produits' ? 'active' : ''}`}
+            onClick={() => setActiveView('produits')}
+          >
+            <StoreIcon /> Produits ({produits.length})
+          </button>
         </nav>
       </div>
 
@@ -712,9 +821,9 @@ const BackOffice = () => {
                       filteredAnimals.map(animal => (
                         <tr key={animal._id}>
                           <td>{animal._id.substring(0, 6)}...</td>
-                          <td>{animal.nom}</td> {/* Utilise 'nom' */}
-                          <td>{animal.espece}</td> {/* Utilise 'espece' */}
-                          <td>{animal.race}</td> {/* Utilise 'race' */}
+                          <td>{animal.nom}</td>
+                          <td>{animal.espece}</td>
+                          <td>{animal.race}</td>
                           <td>{animal.age} ans</td>
                           <td>
                             <Chip
@@ -777,7 +886,7 @@ const BackOffice = () => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Nom Complet</th> {/* Changé pour "Nom Complet" */}
+                      <th>Nom Complet</th>
                       <th>Email</th>
                       <th>Rôle</th>
                       <th>Date d'inscription</th>
@@ -789,7 +898,7 @@ const BackOffice = () => {
                       filteredUsers.map(user => (
                         <tr key={user._id}>
                           <td>{user._id.substring(0, 6)}...</td>
-                          <td>{(user.nom || '') + ' ' + (user.prenom || '')}</td> {/* Concatène nom et prenom */}
+                          <td>{(user.nom || '') + ' ' + (user.prenom || '')}</td>
                           <td>{user.email}</td>
                           <td>
                             <Chip
@@ -831,9 +940,9 @@ const BackOffice = () => {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Auteur</th> {/* Affiche username */}
-                      <th>Contenu</th> {/* Affiche commentText */}
-                      <th>Date</th> {/* Affiche createdAt */}
+                      <th>Auteur</th>
+                      <th>Contenu</th>
+                      <th>Date</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -842,9 +951,9 @@ const BackOffice = () => {
                       comments.map(comment => (
                         <tr key={comment._id}>
                           <td>{comment._id.substring(0, 6)}...</td>
-                          <td>{comment.username}</td> {/* Utilise 'username' */}
-                          <td className="comment-content-cell" title={comment.commentText}>{comment.commentText}</td> {/* Utilise 'commentText' */}
-                          <td>{new Date(comment.createdAt).toLocaleDateString()}</td> {/* Utilise 'createdAt' */}
+                          <td>{comment.username}</td>
+                          <td className="comment-content-cell" title={comment.commentText}>{comment.commentText}</td>
+                          <td>{new Date(comment.createdAt).toLocaleDateString()}</td>
                           <td className="actions-cell">
                             <IconButton className="btn-icon btn-view" onClick={() => handleViewCommentDetails(comment)} title="Voir le commentaire complet">
                               <VisibilityIcon />
@@ -860,6 +969,179 @@ const BackOffice = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* NOUVEAU: Section Produits */}
+        {activeView === 'produits' && (
+          <div className="grid-card grid-card-produits">
+            <div className="card-header">
+              <h3>Gestion des Produits</h3>
+            </div>
+            <div className="card-content">
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Paper elevation={2} sx={{ p: 3, borderRadius: '12px', mb: 4 }}>
+                    <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', color: '#3f51b5' }}>
+                      Ajouter un produit
+                    </Typography>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <TextField
+                          fullWidth
+                          label="Nom"
+                          value={newProduit.nom}
+                          onChange={(e) => handleProduitInputChange(e, "nom")}
+                          required
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <TextField
+                          fullWidth
+                          label="Prix"
+                          type="number"
+                          value={newProduit.prix}
+                          onChange={(e) => handleProduitInputChange(e, "prix")}
+                          required
+                          inputProps={{ step: "0.01" }}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <TextField
+                          fullWidth
+                          label="Image (chemin)"
+                          value={newProduit.image}
+                          onChange={(e) => handleProduitInputChange(e, "image")}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <TextField
+                          fullWidth
+                          label="Espèce (chat/chien)"
+                          value={newProduit.espece}
+                          onChange={(e) => handleProduitInputChange(e, "espece")}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <TextField
+                          fullWidth
+                          label="Stock"
+                          type="number"
+                          value={newProduit.stock}
+                          onChange={(e) => handleProduitInputChange(e, "stock")}
+                          inputProps={{ min: 0 }}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <TextField
+                          fullWidth
+                          label="Poids"
+                          value={newProduit.poids}
+                          onChange={(e) => handleProduitInputChange(e, "poids")}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          label="Description"
+                          multiline
+                          rows={3}
+                          value={newProduit.description}
+                          onChange={(e) => handleProduitInputChange(e, "description")}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={handleAddProduit}
+                          startIcon={<AddIcon />}
+                          disabled={loading}
+                        >
+                          Ajouter le produit
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                  <Paper elevation={2} sx={{ p: 3, borderRadius: '12px' }}>
+                    <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', color: '#3f51b5' }}>
+                      Liste des produits
+                    </Typography>
+                    <div className="table-responsive">
+                      <table className="data-table produits-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {produits.length > 0 ? (
+                            produits.map(produit => (
+                              <tr key={produit._id}>
+                                <td>
+                                  <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    value={produit.nom}
+                                    onChange={(e) => handleProduitInputChange(e, "nom", produit._id)}
+                                  />
+                                </td>
+                                <td>
+                                  <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    type="number"
+                                    value={produit.prix}
+                                    onChange={(e) => handleProduitInputChange(e, "prix", produit._id)}
+                                  />
+                                </td>
+                                <td>
+                                  <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    type="number"
+                                    value={produit.stock}
+                                    onChange={(e) => handleProduitInputChange(e, "stock", produit._id)}
+                                  />
+                                </td>
+                                <td className="actions-cell">
+                                  <IconButton
+                                    className="btn-icon btn-edit"
+                                    onClick={() => handleUpdateProduit(produit)}
+                                    title="Modifier le produit"
+                                  >
+                                    <EditIcon />
+                                  </IconButton>
+                                  <IconButton
+                                    className="btn-icon btn-delete"
+                                    onClick={() => confirmDeleteProduit(produit._id)}
+                                    title="Supprimer le produit"
+                                  >
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan="4" className="no-data">Aucun produit trouvé.</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </Paper>
+                </Grid>
+              </Grid>
             </div>
           </div>
         )}
@@ -1055,7 +1337,7 @@ const BackOffice = () => {
                   Images (max 3)
                 </Typography>
                 <input
-                  name="images" // ✅ nécessaire pour multer
+                  name="images"
                   accept="image/*"
                   style={{ display: 'none' }}
                   id="animal-image-upload"
@@ -1161,10 +1443,8 @@ const BackOffice = () => {
             <div className="detail-images">
               {animalDetailModal.images && animalDetailModal.images.length > 0 ? (
                 animalDetailModal.images.map((img, index) => {
-                  // Vérifie si c’est une URL externe ou un chemin relatif
                   const isAbsoluteUrl = img.startsWith('http') || img.startsWith('blob:');
                   const imageSrc = isAbsoluteUrl ? img : `${API_BASE_URL}/${img}`;
-
                   return (
                     <img
                       key={index}
@@ -1181,7 +1461,6 @@ const BackOffice = () => {
                 <p>Aucune image disponible.</p>
               )}
             </div>
-
             <div className="detail-info-grid">
               <div className="detail-item"><strong>ID:</strong> {animalDetailModal._id}</div>
               <div className="detail-item"><strong>Nom:</strong> {animalDetailModal.nom}</div>
@@ -1203,22 +1482,18 @@ const BackOffice = () => {
                 />
               </div>
             </div>
-
             <div className="detail-section full-width">
               <strong>Description générale:</strong>
               <p>{animalDetailModal.description}</p>
             </div>
-
             <div className="detail-section full-width">
               <strong>Description d'adoption:</strong>
               <p>{animalDetailModal.descriptionAdoption}</p>
             </div>
-
             <div className="detail-section">
               <strong>Comportements:</strong>
               <p>{animalDetailModal.comportement?.length > 0 ? animalDetailModal.comportement.join(', ') : 'Aucun'}</p>
             </div>
-
             <div className="detail-section">
               <strong>Ententes avec:</strong>
               <p>{animalDetailModal.ententeAvec?.length > 0 ? animalDetailModal.ententeAvec.join(', ') : 'Aucune'}</p>
@@ -1227,17 +1502,16 @@ const BackOffice = () => {
         </SimpleModal>
       )}
 
-
       {/* Modale des détails du commentaire */}
       {commentDetailModal && (
         <SimpleModal onClose={() => setCommentDetailModal(null)} title={`Détails du commentaire de ${commentDetailModal.username}`}>
           <div className="comment-details-modal-content">
-            <p><strong>Auteur:</strong> {commentDetailModal.username}</p> {/* Utilise 'username' */}
-            <p><strong>Date:</strong> {new Date(commentDetailModal.createdAt).toLocaleDateString()}</p> {/* Utilise 'createdAt' */}
-            <p><strong>Note:</strong> {commentDetailModal.rating} / 5</p> {/* Affiche le rating */}
+            <p><strong>Auteur:</strong> {commentDetailModal.username}</p>
+            <p><strong>Date:</strong> {new Date(commentDetailModal.createdAt).toLocaleDateString()}</p>
+            <p><strong>Note:</strong> {commentDetailModal.rating} / 5</p>
             <div className="comment-full-content-section">
               <strong>Contenu:</strong>
-              <p>{commentDetailModal.commentText}</p> {/* Utilise 'commentText' */}
+              <p>{commentDetailModal.commentText}</p>
             </div>
           </div>
         </SimpleModal>

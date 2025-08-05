@@ -582,6 +582,25 @@
   }
 }
 
+/* --- NOUVEAUX STYLES POUR LA SECTION PRODUITS --- */
+
+/* La classe de carte générique .grid-card est déjà bien stylisée. */
+/* Je n'ai pas besoin d'ajouter de styles spécifiques à .grid-card-produits */
+
+/* Styles pour la table des produits */
+.data-table.produits-table td .MuiTextField-root {
+  /* Ajustement de la taille des champs de texte dans la table */
+  margin: 0; /* Supprime la marge par défaut */
+}
+
+/*
+  Les autres styles pour les formulaires de produits (TextField, Button, Paper)
+  sont déjà gérés par les classes génériques Material-UI
+  et les styles de base que vous avez fournis.
+*/
+
+/* --- FIN DES NOUVEAUX STYLES --- */
+
 /* Design Responsive */
 @media (max-width: 1024px) {
   .back-office-container {
