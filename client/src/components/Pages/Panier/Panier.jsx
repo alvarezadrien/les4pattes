@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCart } from "../../../context/CartContext";
 import { useAuth } from "../../../context/AuthContext";
+import AddressFormPopup from "../Popup/AdressFormPopup"; // Vérifie ce chemin
 import "./Panier.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
@@ -40,7 +41,7 @@ const Panier = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             items: panier,
-            adresse: user.adresse, // <-- Envoi de l’adresse
+            adresse: user.adresse,
             userId: user._id,
             email: user.email,
           }),
@@ -80,6 +81,14 @@ const Panier = () => {
             Modifier l’adresse
           </button>
         </div>
+      )}
+
+      {adresseVisible && user && (
+        <AddressFormPopup
+          user={user}
+          onClose={() => setAdresseVisible(false)}
+          onUpdateSuccess={() => setAdresseVisible(false)}
+        />
       )}
 
       {panier.length === 0 ? (
