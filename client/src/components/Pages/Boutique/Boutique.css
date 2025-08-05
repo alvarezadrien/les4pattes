@@ -86,8 +86,50 @@
   background-color: #5e7033;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
+/* Responsive - max 480px */
+@media screen and (max-width: 480px) {
+  .boutique-titre {
+    font-size: 1.7rem;
+  }
+
+  .boutique-slogan {
+    font-size: 1rem;
+  }
+
+  .produits-grille {
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .carte-produit {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .image-produit {
+    height: 220px;
+  }
+
+  .nom-produit {
+    font-size: 1.1rem;
+  }
+
+  .description-produit {
+    font-size: 0.9rem;
+  }
+
+  .prix-produit {
+    font-size: 1rem;
+  }
+
+  .btn-ajouter {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Responsive - 481px à 768px */
+@media screen and (min-width: 481px) and (max-width: 768px) {
   .produits-grille {
     flex-direction: column;
     align-items: center;
@@ -95,5 +137,38 @@
 
   .carte-produit {
     width: 90%;
+  }
+
+  .image-produit {
+    height: 250px;
+  }
+
+  .nom-produit {
+    font-size: 1.2rem;
+  }
+}
+
+/* Responsive - 769px à 1024px */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .carte-produit {
+    width: 45%;
+  }
+
+  .image-produit {
+    height: 280px;
+  }
+}
+
+/* Responsive - 1025px à 1280px */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .carte-produit {
+    width: 30%;
+  }
+}
+
+/* Responsive - 1281px à 1440px */
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .carte-produit {
+    width: 25%;
   }
 }
