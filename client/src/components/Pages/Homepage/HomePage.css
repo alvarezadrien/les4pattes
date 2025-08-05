@@ -14,7 +14,7 @@
   color: #ffffff; /* Remplacé var(--tertiary-color) */
   margin-top: -20rem;
   font-size: 4rem;
-  margin-left: 20rem;
+  margin-left: -20rem !important; /* Ajusté pour centrer le titre */
   padding-top: 4rem;
 }
 
