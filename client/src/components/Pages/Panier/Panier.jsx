@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useCart } from "../../../context/CartContext";
 import { useAuth } from "../../../context/AuthContext";
-import AddressFormPopup from "../Popup/AdressFormPopup"; // Vérifie ce chemin
+import AddressFormPopup from "../Profil/Compte/Popup/AdressFormPopup"; // Vérifie ce chemin
 import "./Panier.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
