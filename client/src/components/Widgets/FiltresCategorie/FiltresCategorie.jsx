@@ -11,6 +11,7 @@ const categories = [
   "friandises",
   "goodies",
   "vêtements",
+  "gamelles"
 ];
 
 const FiltresCategorie = ({ selectedCategorie, onChange }) => {
