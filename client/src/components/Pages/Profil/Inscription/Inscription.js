@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Inscription.css';
 import Loading from '../../../Widgets/Loading/Loading.jsx';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -14,6 +15,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Inscription = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         nom: "",
         prenom: "",
@@ -35,9 +38,11 @@ const Inscription = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         if (["rue", "ville", "codePostal", "pays"].includes(name)) {
             setFormData(prev => ({
                 ...prev,
@@ -71,6 +76,19 @@ const Inscription = () => {
         e.preventDefault();
         setErrorMessage("");
         setSuccessMessage("");
+
+        // Vérification format email
+        if (!emailRegex.test(formData.email)) {
+            setErrorMessage("Veuillez entrer une adresse e-mail valide.");
+            return;
+        }
+
+        // Vérification téléphone
+        if (!phoneRegex.test(formData.telephone)) {
+            setErrorMessage("Veuillez entrer un numéro de téléphone valide à 10 chiffres.");
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -88,18 +106,17 @@ const Inscription = () => {
                     nom: "",
                     prenom: "",
                     dateNaissance: "",
-                    adresse: {
-                        rue: "",
-                        ville: "",
-                        codePostal: "",
-                        pays: ""
-                    },
+                    adresse: { rue: "", ville: "", codePostal: "", pays: "" },
                     telephone: "",
                     email: "",
                     password: "",
                 });
+
+                setTimeout(() => {
+                    navigate("/connexion");
+                }, 1500);
             } else {
-                setErrorMessage(result.message || "Erreur lors de l'inscription");
+                setErrorMessage(result.message || "Erreur lors de l'inscription.");
             }
         } catch (error) {
             setErrorMessage("Erreur lors de l'inscription, veuillez réessayer.");
@@ -173,7 +190,7 @@ const Inscription = () => {
 
                             <TextField required type="tel" name="telephone" value={formData.telephone}
                                 onChange={handleChange} onFocus={() => handleFocus("telephone")} onBlur={() => handleBlur("telephone")}
-                                pattern="^[0-9]{10}$" placeholder="Numéro de téléphone 10 chiffres"
+                                placeholder="Numéro de téléphone à 10 chiffres"
                                 label="Téléphone" variant='outlined' />
 
                             <TextField required type="email" name="email" value={formData.email}
