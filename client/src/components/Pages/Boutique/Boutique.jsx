@@ -1,14 +1,17 @@
-// src/components/Pages/Boutique.jsx
 import React, { useEffect, useState } from "react";
 import "./Boutique.css";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../../context/CartContext"; // ✅ import du contexte panier
+import { useCart } from "../../../context/CartContext";
+import Pagination from "../../Widgets/Pagination/Pagination";
 
 const Boutique = () => {
   const [produits, setProduits] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ état de chargement
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const produitsParPage = 24;
+
   const navigate = useNavigate();
-  const { ajouterAuPanier } = useCart(); // ✅ fonction correcte depuis le contexte
+  const { ajouterAuPanier, panier } = useCart(); // ✅ ajout du panier
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -21,7 +24,7 @@ const Boutique = () => {
       } catch (error) {
         console.error("Erreur lors du chargement des produits :", error);
       } finally {
-        setLoading(false); // ✅ désactive le loading
+        setLoading(false);
       }
     };
 
@@ -29,12 +32,32 @@ const Boutique = () => {
   }, []);
 
   const handleAddToCart = (produit, e) => {
-    e.stopPropagation(); // ✅ empêche le clic de naviguer
-    ajouterAuPanier(produit); // ✅ ajoute au panier avec la bonne fonction
+    e.stopPropagation();
+    ajouterAuPanier(produit);
+  };
+
+  const getQuantiteDansPanier = (id) => {
+    const item = panier.find((p) => p._id === id);
+    return item ? item.quantite : 0;
+  };
+
+  const indexOfLastProduit = currentPage * produitsParPage;
+  const indexOfFirstProduit = indexOfLastProduit - produitsParPage;
+  const currentProduits = produits.slice(
+    indexOfFirstProduit,
+    indexOfLastProduit
+  );
+  const totalPages = Math.ceil(produits.length / produitsParPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   if (loading) {
-    return <div className="boutique-loading">Chargement des produits...</div>; // ✅ affichage du loader
+    return <div className="boutique-loading">Chargement des produits...</div>;
   }
 
   return (
@@ -43,30 +66,49 @@ const Boutique = () => {
       <p className="boutique-slogan">
         Faites plaisir à vos compagnons tout en soutenant notre refuge !
       </p>
+
       <div className="produits-grille">
-        {produits.map((produit) => (
-          <div
-            key={produit._id}
-            className="carte-produit"
-            onClick={() => navigate(`/Produit/${produit._id}`)}
-          >
-            <img
-              src={`/${produit.image}`} // ✅ les images depuis public/img/img_boutique
-              alt={produit.nom}
-              className="image-produit"
-            />
-            <h2 className="nom-produit">{produit.nom}</h2>
-            <p className="description-produit">{produit.description}</p>
-            <p className="prix-produit">{produit.prix}</p>
-            <button
-              className="btn-ajouter"
-              onClick={(e) => handleAddToCart(produit, e)}
+        {currentProduits.map((produit) => {
+          const quantite = getQuantiteDansPanier(produit._id);
+
+          return (
+            <div
+              key={produit._id}
+              className="carte-produit"
+              onClick={() => navigate(`/Produit/${produit._id}`)}
             >
-              Ajouter au panier
-            </button>
-          </div>
-        ))}
+              <img
+                src={`/${produit.image}`}
+                alt={produit.nom}
+                className="image-produit"
+              />
+              <h2 className="nom-produit">{produit.nom}</h2>
+              <p className="description-produit">{produit.description}</p>
+              <p className="prix-produit">{produit.prix}</p>
+              <button
+                className="btn-ajouter"
+                onClick={(e) => handleAddToCart(produit, e)}
+              >
+                Ajouter au panier
+              </button>
+
+              {quantite > 0 && (
+                <div className="quantite-panier">
+                  🛒 {quantite} ajouté{quantite > 1 ? "s" : ""}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

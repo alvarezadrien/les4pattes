@@ -172,3 +172,10 @@
     width: 25%;
   }
 }
+
+.quantite-panier {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #5a623b;
+  font-weight: bold;
+}
