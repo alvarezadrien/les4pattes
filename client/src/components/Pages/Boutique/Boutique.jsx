@@ -9,7 +9,7 @@ const Boutique = () => {
   const [produits, setProduits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategorie, setSelectedCategorie] = useState(""); // ✅ état filtre
+  const [selectedCategorie, setSelectedCategorie] = useState("");
   const produitsParPage = 24;
 
   const navigate = useNavigate();
@@ -43,11 +43,12 @@ const Boutique = () => {
     return item ? item.quantite : 0;
   };
 
-  const categoriesDisponibles = [...new Set(produits.map((p) => p.categorie))];
-
-  // ✅ produits filtrés par catégorie
+  // ✅ filtrage des produits par catégorie multiple (array)
   const produitsFiltres = selectedCategorie
-    ? produits.filter((p) => p.categorie === selectedCategorie)
+    ? produits.filter(
+        (p) =>
+          Array.isArray(p.categorie) && p.categorie.includes(selectedCategorie)
+      )
     : produits;
 
   const indexOfLastProduit = currentPage * produitsParPage;
@@ -76,11 +77,12 @@ const Boutique = () => {
         Faites plaisir à vos compagnons tout en soutenant notre refuge !
       </p>
 
-      {/* ✅ Filtres catégories */}
       <FiltresCategorie
-        categories={categoriesDisponibles}
         selectedCategorie={selectedCategorie}
-        onChange={setSelectedCategorie}
+        onChange={(cat) => {
+          setSelectedCategorie(cat);
+          setCurrentPage(1);
+        }}
       />
 
       <div className="produits-grille">
