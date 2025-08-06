@@ -515,8 +515,8 @@
   }
 
   .h1_titre {
-    margin-left: 0;
-    font-size: 2rem; /* Smaller font size for mobile */
+    margin-left: 0 !important;
+    font-size: 2rem;
     text-align: center;
     margin-top: 0;
     padding-top: 0;
@@ -735,7 +735,7 @@
   }
 
   .h1_titre {
-    margin-left: 0;
+    margin-left: 0 !important;
     font-size: 3rem; /* Adjusted font size */
     text-align: center;
   }
@@ -770,10 +770,11 @@
   }
 
   .button_propos {
-    margin: 3rem auto 0 auto; /* Center button and adjust top margin */
+    margin: 3rem auto 0 auto;
     width: 10rem;
     height: 2.8rem;
     font-size: 1.4rem;
+    margin-left: 8rem;
   }
 
   .container_choix {
@@ -996,13 +997,13 @@
   }
 
   .h1_titre {
-    margin-left: 8rem;
+    margin-left: -25rem !important;
     font-size: 4rem;
   }
 
   #content {
     font-size: 2.5rem;
-    margin-left: 8rem;
+    margin-left: 5rem;
     max-width: 550px;
   }
 
