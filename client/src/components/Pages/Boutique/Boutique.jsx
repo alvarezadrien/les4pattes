@@ -3,15 +3,17 @@ import "./Boutique.css";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import Pagination from "../../Widgets/Pagination/Pagination";
+import FiltresCategorie from "../../Widgets/FiltresCategorie/FiltresCategorie";
 
 const Boutique = () => {
   const [produits, setProduits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategorie, setSelectedCategorie] = useState(""); // ✅ état filtre
   const produitsParPage = 24;
 
   const navigate = useNavigate();
-  const { ajouterAuPanier, panier } = useCart(); // ✅ ajout du panier
+  const { ajouterAuPanier, panier } = useCart();
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -41,13 +43,20 @@ const Boutique = () => {
     return item ? item.quantite : 0;
   };
 
+  const categoriesDisponibles = [...new Set(produits.map((p) => p.categorie))];
+
+  // ✅ produits filtrés par catégorie
+  const produitsFiltres = selectedCategorie
+    ? produits.filter((p) => p.categorie === selectedCategorie)
+    : produits;
+
   const indexOfLastProduit = currentPage * produitsParPage;
   const indexOfFirstProduit = indexOfLastProduit - produitsParPage;
-  const currentProduits = produits.slice(
+  const currentProduits = produitsFiltres.slice(
     indexOfFirstProduit,
     indexOfLastProduit
   );
-  const totalPages = Math.ceil(produits.length / produitsParPage);
+  const totalPages = Math.ceil(produitsFiltres.length / produitsParPage);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -66,6 +75,13 @@ const Boutique = () => {
       <p className="boutique-slogan">
         Faites plaisir à vos compagnons tout en soutenant notre refuge !
       </p>
+
+      {/* ✅ Filtres catégories */}
+      <FiltresCategorie
+        categories={categoriesDisponibles}
+        selectedCategorie={selectedCategorie}
+        onChange={setSelectedCategorie}
+      />
 
       <div className="produits-grille">
         {currentProduits.map((produit) => {

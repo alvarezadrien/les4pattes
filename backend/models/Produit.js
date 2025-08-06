@@ -6,8 +6,23 @@ const produitSchema = new mongoose.Schema({
     prix: String,
     image: String,
     espece: String,
-    stock: { type: Number, default: 0 }, // Ajout du stock
-    poids: String, // Ajout du poids
+    categorie: {
+        type: String,
+        enum: [
+            "chien",
+            "chat",
+            "humain",
+            "jouet",
+            "croquettes",
+            "accessoires",
+            "friandises",
+            "goodies",
+            "vêtements"
+        ],
+        required: true
+    },
+    stock: { type: Number, default: 0 },
+    poids: String
 });
 
 module.exports = mongoose.model("Produit", produitSchema);
