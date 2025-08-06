@@ -62,16 +62,15 @@ const Cruaute = () => {
         <div className="div_cruaute2">
           <p>
             Si vous êtes témoin d’une situation de cruauté ou de négligence,
-            contactez notre numéro d’urgence au **0492 95 32 33** en cas
-            de situation grave, ou la police au **101**. Pour les animaux
-            autres que des chiens et chats, contactez-nous afin que nous puissions
-            leur venir en aide dans les meilleures conditions.
+            contactez notre numéro d’urgence au 0492 95 32 33, en cas de situation grave,
+            ou la police au 101. Pour les animaux autres que des chiens et chats, contactez-nous
+            afin que nous puissions leur venir en aide dans les meilleures conditions.
           </p>
         </div>
         <div className="div_cruaute3">
           <p>
-            N’hésitez pas à prendre des notes ou des photos de la situation afin
-            d’aider nos équipes à mieux comprendre et intervenir rapidement.
+            N’hésitez pas à prendre des notes ou des photos de la situation,
+            afin d’aider nos équipes à mieux comprendre et intervenir rapidement.
           </p>
         </div>
       </div>
@@ -83,10 +82,9 @@ const Cruaute = () => {
         <div className="paragraphe_cruaute4">
           <h2>Petites actions, grands impacts</h2>
           <p>
-            La cruauté envers les animaux est une réalité que nous ne pouvons
-            ignorer. Mais chacun de nous peut contribuer à changer les choses,
-            même à petite échelle. Voici quelques façons d'agir pour défendre
-            ceux qui ne peuvent pas parler pour eux-mêmes.
+            La cruauté envers les animaux est une réalité que nous ne pouvons ignorer.
+            Mais chacun de nous peut contribuer à changer les choses, même à petite échelle.
+            Voici quelques façons d’agir pour défendre ceux qui ne peuvent pas parler pour eux-mêmes.
           </p>
         </div>
         <div className="image_cruaute4">

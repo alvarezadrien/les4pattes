@@ -11,10 +11,10 @@ const Savoir = () => {
           </div>
           <div>
             <p>
-              Adopter un animal est une belle démarche, mais elle demande
-              réflexion et préparation. Voici tout ce que vous devez savoir pour
-              vous assurer que votre adoption se passe dans les meilleures
-              conditions
+              Adopter un animal est une belle démarche,
+              mais elle demande réflexion et préparation.
+              Voici tout ce que vous devez savoir pour vous assurer
+              que votre adoption se passe dans les meilleures conditions.
             </p>
           </div>
           <div className="button_savoir00">
@@ -36,10 +36,11 @@ const Savoir = () => {
         <div className="grid_item_savoir1">
           <h3>Votre lieu de vie</h3>
           <p>
-            Si vous êtes dans un appartement, assurez-vous que l'espace est
-            adapté aux besoins du futur anima. Par exemple, les chats s'adaptent
-            plus simplement à une vie en appartement tandis que les chiens, en
-            fonction de leur taille et de l'énergie qu'ils dépensent, ils
+            Si vous êtes dans un appartement,
+            assurez-vous que l'espace est adapté aux besoins
+            du futur animal. Par exemple, les chats s'adaptent plus
+            facilement à une vie en appartement, tandis que les chiens,
+            en fonction de leur taille et de l'énergie qu'ils dépensent,
             peuvent nécessiter un plus grand espace et des sorties fréquentes.
           </p>
         </div>
@@ -49,9 +50,9 @@ const Savoir = () => {
         <div className="grid_item_savoir2">
           <h3>Un engagement à long terme</h3>
           <p>
-            Adopter un animal c'est un grand engagement pour plusieurs années.
-            Le futur adopter sera un membres de vôtre famille, avec ses besoins
-            en affection régulière, des soins quand il le faut.
+            Adopter un animal, c’est un grand engagement pour plusieurs années.
+            Le futur adopté sera un membre de votre famille, avec ses besoins en
+            affection régulière et des soins quand il le faut.
           </p>
         </div>
         <div className="grid_item_savoir">
