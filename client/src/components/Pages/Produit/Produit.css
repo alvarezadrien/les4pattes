@@ -153,3 +153,28 @@
     max-width: 880px;
   }
 }
+
+.compteur-panier {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.compteur-panier button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #778d45;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.compteur-panier button:hover {
+  background-color: #5f7336;
+}
+
+.compteur-panier p {
+  margin: 0;
+}

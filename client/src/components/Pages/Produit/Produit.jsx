@@ -1,4 +1,3 @@
-// src/components/Pages/Produit.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
@@ -7,7 +6,7 @@ import "./Produit.css";
 const Produit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { ajouterAuPanier } = useCart();
+  const { ajouterAuPanier, retirerDuPanier, panier } = useCart();
 
   const [produit, setProduit] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,20 +35,25 @@ const Produit = () => {
   if (!produit)
     return <div className="erreur-produit">Produit introuvable.</div>;
 
-  const imagePath = `/${produit.image}`; // ✅ chemin image public
+  const imagePath = `/${produit.image}`;
+
+  // ✅ quantité déjà dans le panier
+  const itemDansPanier = panier.find((item) => item._id === produit._id);
+  const quantite = itemDansPanier ? itemDansPanier.quantite : 0;
 
   return (
     <div className="produit-page">
       <button onClick={() => navigate(-1)} className="btn-retour">
         ← Retour
       </button>
+
       <div className="produit-detail">
         <img src={imagePath} alt={produit.nom} className="produit-image" />
         <div className="produit-info">
           <h1>{produit.nom}</h1>
           <p className="produit-description">{produit.description}</p>
           <p>
-            <strong>Poids :</strong> {produit.poids}
+            <strong>Poids :</strong> {produit.poids || "N/A"}
           </p>
           <p>
             <strong>Prix :</strong> {produit.prix}
@@ -64,13 +68,35 @@ const Produit = () => {
                 : "Rupture de stock"}
             </span>
           </p>
-          <button
-            className="btn-achat"
-            onClick={() => ajouterAuPanier(produit)}
-            disabled={produit.stock === 0}
-          >
-            Ajouter au panier
-          </button>
+
+          {quantite > 0 && (
+            <div className="compteur-panier">
+              <p>Déjà ajouté : {quantite}</p>
+              <button
+                onClick={() => retirerDuPanier(produit)}
+                className="btn-retirer"
+              >
+                −
+              </button>
+              <button
+                onClick={() => ajouterAuPanier(produit)}
+                className="btn-ajouter"
+                disabled={quantite >= produit.stock}
+              >
+                +
+              </button>
+            </div>
+          )}
+
+          {quantite === 0 && (
+            <button
+              className="btn-achat"
+              onClick={() => ajouterAuPanier(produit)}
+              disabled={produit.stock === 0}
+            >
+              Ajouter au panier
+            </button>
+          )}
         </div>
       </div>
     </div>
