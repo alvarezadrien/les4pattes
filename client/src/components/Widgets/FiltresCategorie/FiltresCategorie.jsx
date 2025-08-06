@@ -15,6 +15,9 @@ const categories = [
   "panniers",
   "colliers",
   "laisses",
+  "cages",
+  "litières",
+  "patés",
 ];
 
 const FiltresCategorie = ({ selectedCategorie, onChange }) => {
