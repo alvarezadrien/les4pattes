@@ -14,9 +14,9 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: "les4pattes",           // Dossier principal dans ton compte Cloudinary
+        folder: "les4pattes",                  // Dossier principal dans ton compte Cloudinary
         allowed_formats: ["jpg", "jpeg", "png", "webp"], // Formats autorisés
-        resource_type: "image",         // Type de ressource
+        resource_type: "image",                // Type de ressource
     },
 });
 
@@ -24,4 +24,3 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 module.exports = { cloudinary, upload };
-    

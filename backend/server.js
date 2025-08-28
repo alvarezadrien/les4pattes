@@ -30,15 +30,11 @@ const mongoURI =
 app.use(cors());
 app.use(express.json());
 
-// Gestion des fichiers statiques
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
+// ✅ Middleware pour servir des images locales si besoin (optionnel)
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Log des accès image
-app.use('/uploads', (req, res, next) => {
-    console.log('🖼️ Image demandée :', req.originalUrl);
-    next();
-});
+// Serveur des images publiques (ex: frontend)
+app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
 
 // Routes API
 app.use('/api/animaux', animalRoutes);
@@ -52,7 +48,13 @@ app.use('/api', stripePanierRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/creneaux', creneauRoutes);
 app.use('/api/creneaux-dispo', creneauDispoRoutes);
-app.use('/api/produits', produitRoutes); // ✅ Route produits
+app.use('/api/produits', produitRoutes);
+
+// Middleware global pour erreurs
+app.use((err, req, res, next) => {
+    console.error('❌ Middleware erreur:', err);
+    res.status(500).json({ message: 'Erreur serveur', error: err.message });
+});
 
 // Connexion à MongoDB
 mongoose
