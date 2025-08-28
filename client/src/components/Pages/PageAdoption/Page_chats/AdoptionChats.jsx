@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Page_chiens/AdoptionChiens.css"; // tu peux créer un CSS spécifique si besoin
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
 import Loading from "../../../Widgets/Loading/Loading";
 import Quiz from "../../../Widgets/Quiz/Quiz.jsx";
+import "./AdoptionChiens.css"; // On garde le même CSS, il est réutilisable
 
 function AdoptionChats() {
   const navigate = useNavigate();
   const [cats, setCats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const animalsPerPage = 12;
+  const catsPerPage = 12;
 
   const [sexeFilter, setSexeFilter] = useState("");
   const [tailleFilter, setTailleFilter] = useState("");
@@ -55,10 +55,10 @@ function AdoptionChats() {
     ententeFilter,
   ]);
 
-  const indexOfLastAnimal = currentPage * animalsPerPage;
-  const indexOfFirstAnimal = indexOfLastAnimal - animalsPerPage;
-  const currentCats = cats.slice(indexOfFirstAnimal, indexOfLastAnimal);
-  const totalPages = Math.ceil(cats.length / animalsPerPage);
+  const indexOfLastCat = currentPage * catsPerPage;
+  const indexOfFirstCat = indexOfLastCat - catsPerPage;
+  const currentCats = cats.slice(indexOfFirstCat, indexOfLastCat);
+  const totalPages = Math.ceil(cats.length / catsPerPage);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -68,7 +68,6 @@ function AdoptionChats() {
   };
 
   const getAnimalImage = (cat) => {
-    const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
     let imgPath = "";
 
     if (cat.images?.length > 0) imgPath = cat.images[0];
@@ -76,7 +75,14 @@ function AdoptionChats() {
     else if (cat.image2) imgPath = cat.image2;
     else if (cat.image3) imgPath = cat.image3;
 
-    return imgPath ? `${base}/${imgPath.replace(/^\/+/, "")}` : null;
+    if (!imgPath) return null;
+
+    // Si c’est déjà une URL complète (Cloudinary)
+    if (imgPath.startsWith("http")) return imgPath;
+
+    // Sinon, c’est un chemin local → on préfixe avec l’API
+    const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
+    return `${base}/${imgPath.replace(/^\/+/, "")}`;
   };
 
   return (
@@ -88,7 +94,7 @@ function AdoptionChats() {
           </h1>
           <p>Découvrez nos adorables chats prêts à trouver un foyer aimant.</p>
           <a
-            href="#adoption-dog-cards-section"
+            href="#adoption-cat-cards-section"
             className="adoption-btn-discover"
           >
             Découvrir les chats
@@ -115,7 +121,7 @@ function AdoptionChats() {
         ) : (
           <>
             <section
-              id="adoption-dog-cards-section"
+              id="adoption-cat-cards-section"
               className="adoption-dog-grid"
             >
               {currentCats.map((cat) => {

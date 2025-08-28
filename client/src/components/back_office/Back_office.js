@@ -292,35 +292,42 @@ const BackOffice = () => {
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files).slice(0, 3 - newAnimal.images.length);
-    const previews = files.map(file => URL.createObjectURL(file));
+    if (files.length === 0) return;
 
+    const previews = files.map(file => URL.createObjectURL(file));
     const uploadedUrls = [];
 
     for (let file of files) {
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', 'votre_upload_preset'); // ton preset Cloudinary
+      formData.append("file", file);
+      formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
 
       try {
-        const res = await fetch('https://api.cloudinary.com/v1_1/votre_cloud_name/image/upload', {
-          method: 'POST',
-          body: formData
-        });
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!res.ok) throw new Error("Erreur lors de l'upload Cloudinary");
+
         const data = await res.json();
-        uploadedUrls.push(data.secure_url); // URL Cloudinary
+        uploadedUrls.push(data.secure_url); // URL finale Cloudinary
       } catch (err) {
-        console.error('Erreur Cloudinary:', err);
-        showFeedback('error', 'Erreur lors de l\'upload d\'une image.');
+        console.error("Erreur Cloudinary:", err);
+        showFeedback("error", "Erreur lors de l'upload d'une image.");
       }
     }
 
+    // Mise à jour du state
     setNewAnimal(prev => ({
       ...prev,
-      images: [...prev.images, ...uploadedUrls]
+      images: [...prev.images, ...uploadedUrls],
     }));
     setImagePreviews(prev => [...prev, ...previews]);
   };
-
 
   const removeImagePreview = (indexToRemove) => {
     const urlToRevoke = imagePreviews[indexToRemove];
