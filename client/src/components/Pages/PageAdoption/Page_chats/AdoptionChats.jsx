@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Page_chiens/AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
 import Loading from "../../../Widgets/Loading/Loading";
 import Quiz from "../../../Widgets/Quiz/Quiz.jsx";
-import "../Page_chiens/AdoptionChiens.css";
 
 function AdoptionChats() {
   const navigate = useNavigate();
-  const [cats, setCats] = useState([]);
+  const [dogs, setDogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const catsPerPage = 12;
+  const dogsPerPage = 12;
 
   const [sexeFilter, setSexeFilter] = useState("");
   const [tailleFilter, setTailleFilter] = useState("");
@@ -20,7 +20,7 @@ function AdoptionChats() {
   const [ententeFilter, setEntenteFilter] = useState("");
 
   useEffect(() => {
-    const fetchCats = async () => {
+    const fetchDogs = async () => {
       setLoading(true);
       try {
         const params = new URLSearchParams();
@@ -37,7 +37,7 @@ function AdoptionChats() {
         const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
         const res = await fetch(`${baseUrl}/api/animaux?${params.toString()}`);
         const data = await res.json();
-        setCats(data);
+        setDogs(data);
         setCurrentPage(1);
       } catch (error) {
         console.error("Erreur :", error);
@@ -46,7 +46,7 @@ function AdoptionChats() {
       }
     };
 
-    fetchCats();
+    fetchDogs();
   }, [
     sexeFilter,
     tailleFilter,
@@ -55,10 +55,10 @@ function AdoptionChats() {
     ententeFilter,
   ]);
 
-  const indexOfLastCat = currentPage * catsPerPage;
-  const indexOfFirstCat = indexOfLastCat - catsPerPage;
-  const currentCats = cats.slice(indexOfFirstCat, indexOfLastCat);
-  const totalPages = Math.ceil(cats.length / catsPerPage);
+  const indexOfLastDog = currentPage * dogsPerPage;
+  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
+  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
+  const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -67,22 +67,16 @@ function AdoptionChats() {
     }
   };
 
-  const getAnimalImage = (cat) => {
+  const getAnimalImage = (dog) => {
+    const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
     let imgPath = "";
 
-    if (cat.images?.length > 0) imgPath = cat.images[0];
-    else if (cat.image) imgPath = cat.image;
-    else if (cat.image2) imgPath = cat.image2;
-    else if (cat.image3) imgPath = cat.image3;
+    if (dog.images?.length > 0) imgPath = dog.images[0];
+    else if (dog.image) imgPath = dog.image;
+    else if (dog.image2) imgPath = dog.image2;
+    else if (dog.image3) imgPath = dog.image3;
 
-    if (!imgPath) return null;
-
-    // Si c’est déjà une URL complète (Cloudinary)
-    if (imgPath.startsWith("http")) return imgPath;
-
-    // Sinon, c’est un chemin local → on préfixe avec l’API
-    const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
-    return `${base}/${imgPath.replace(/^\/+/, "")}`;
+    return imgPath ? `${base}/${imgPath.replace(/^\/+/, "")}` : null;
   };
 
   return (
@@ -94,7 +88,7 @@ function AdoptionChats() {
           </h1>
           <p>Découvrez nos adorables chats prêts à trouver un foyer aimant.</p>
           <a
-            href="#adoption-cat-cards-section"
+            href="#adoption-dog-cards-section"
             className="adoption-btn-discover"
           >
             Découvrir les chats
@@ -121,31 +115,31 @@ function AdoptionChats() {
         ) : (
           <>
             <section
-              id="adoption-cat-cards-section"
+              id="adoption-dog-cards-section"
               className="adoption-dog-grid"
             >
-              {currentCats.map((cat) => {
-                const imageUrl = getAnimalImage(cat);
+              {currentDogs.map((dog) => {
+                const imageUrl = getAnimalImage(dog);
                 if (!imageUrl) return null;
 
                 return (
                   <div
-                    key={cat._id}
+                    key={dog._id}
                     className="adoption-card"
                     style={{ backgroundImage: `url(${imageUrl})` }}
                   >
-                    <div className="adoption-card-name">{cat.nom}</div>
-                    {cat.isRescue && (
+                    <div className="adoption-card-name">{dog.nom}</div>
+                    {dog.isRescue && (
                       <div className="rescue-tag">Sauvetage</div>
                     )}
                     <div className="adoption-card-content">
-                      <h2>{cat.nom}</h2>
-                      <p>Âge : {cat.age} ans</p>
-                      <p>Sexe : {cat.sexe}</p>
-                      <p>Race : {cat.race || "Non spécifiée"}</p>
+                      <h2>{dog.nom}</h2>
+                      <p>Âge : {dog.age} ans</p>
+                      <p>Sexe : {dog.sexe}</p>
+                      <p>Race : {dog.race || "Non spécifiée"}</p>
                       <button
                         onClick={() =>
-                          navigate(`/Ficheperso_animal/${cat._id}`)
+                          navigate(`/Ficheperso_animal/${dog._id}`)
                         }
                       >
                         Voir

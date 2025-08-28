@@ -1,10 +1,10 @@
-// routes/animalRoutes.js
 const express = require('express');
 const router = express.Router();
 const Animal = require('../models/Animals');
+const path = require('path');
 const upload = require('../middleware/uploads');
 
-// ✅ POST /api/animaux – Ajouter un animal avec images Cloudinary
+// ✅ POST /api/animaux – Ajouter un animal avec images
 router.post(
     '/',
     upload.fields([
@@ -29,11 +29,13 @@ router.post(
                 isRescue
             } = req.body;
 
-            // Récupération des URLs Cloudinary
+            const dossier = espece?.toLowerCase() === 'chat' ? 'Chats' : 'Chiens';
+            const basePath = path.join('uploads', dossier);
+
             const images = [];
-            if (req.files.image1) images.push(req.files.image1[0].path);
-            if (req.files.image2) images.push(req.files.image2[0].path);
-            if (req.files.image3) images.push(req.files.image3[0].path);
+            if (req.files.image1) images.push(path.join(basePath, req.files.image1[0].filename));
+            if (req.files.image2) images.push(path.join(basePath, req.files.image2[0].filename));
+            if (req.files.image3) images.push(path.join(basePath, req.files.image3[0].filename));
 
             const newAnimal = new Animal({
                 nom,

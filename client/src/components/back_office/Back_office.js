@@ -14,6 +14,7 @@ import {
 // --- Importation des Icônes Material-UI ---
 import PetsIcon from '@mui/icons-material/Pets';
 import GroupIcon from '@mui/icons-material/Group';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -29,7 +30,6 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import StoreIcon from '@mui/icons-material/Store'; // Icône pour les produits
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble'; // Ajout de l'icône pour les commentaires
 
 // --- URL de base de votre API Backend ---
 const API_BASE_URL = 'https://les4pattes-backend.onrender.com/api';
@@ -290,45 +290,22 @@ const BackOffice = () => {
     });
   };
 
-  const handleImageUpload = async (e) => {
-    const files = Array.from(e.target.files).slice(0, 3 - newAnimal.images.length);
-    if (files.length === 0) return;
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    const filesToAdd = files.slice(0, 3 - newAnimal.images.length);
+    const previews = filesToAdd.map(file => URL.createObjectURL(file));
 
-    const previews = files.map(file => URL.createObjectURL(file));
-    const uploadedUrls = [];
-
-    for (let file of files) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "ml_default");
-
-      try {
-        const res = await fetch(
-          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        if (!res.ok) throw new Error("Erreur lors de l'upload Cloudinary");
-
-        const data = await res.json();
-        uploadedUrls.push(data.secure_url);
-      } catch (err) {
-        console.error("Erreur Cloudinary:", err);
-        showFeedback("error", "Erreur lors de l'upload d'une image.");
-      }
+    if (newAnimal.images.length + filesToAdd.length > 3) {
+      showFeedback('error', 'Vous pouvez télécharger un maximum de 3 images.');
     }
 
     setNewAnimal(prev => ({
       ...prev,
-      images: [...prev.images, ...uploadedUrls],
+      images: [...prev.images, ...filesToAdd]
     }));
+
     setImagePreviews(prev => [...prev, ...previews]);
   };
-
-
 
   const removeImagePreview = (indexToRemove) => {
     const urlToRevoke = imagePreviews[indexToRemove];

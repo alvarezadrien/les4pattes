@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./AdoptionChiens.css";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
 import Loading from "../../../Widgets/Loading/Loading";
 import Quiz from "../../../Widgets/Quiz/Quiz.jsx";
-import "./AdoptionChiens.css";
 
 function AdoptionChiens() {
   const navigate = useNavigate();
