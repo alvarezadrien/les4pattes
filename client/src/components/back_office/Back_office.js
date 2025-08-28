@@ -290,22 +290,37 @@ const BackOffice = () => {
     });
   };
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const filesToAdd = files.slice(0, 3 - newAnimal.images.length);
-    const previews = filesToAdd.map(file => URL.createObjectURL(file));
+  const handleImageUpload = async (e) => {
+    const files = Array.from(e.target.files).slice(0, 3 - newAnimal.images.length);
+    const previews = files.map(file => URL.createObjectURL(file));
 
-    if (newAnimal.images.length + filesToAdd.length > 3) {
-      showFeedback('error', 'Vous pouvez télécharger un maximum de 3 images.');
+    const uploadedUrls = [];
+
+    for (let file of files) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'votre_upload_preset'); // ton preset Cloudinary
+
+      try {
+        const res = await fetch('https://api.cloudinary.com/v1_1/votre_cloud_name/image/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        uploadedUrls.push(data.secure_url); // URL Cloudinary
+      } catch (err) {
+        console.error('Erreur Cloudinary:', err);
+        showFeedback('error', 'Erreur lors de l\'upload d\'une image.');
+      }
     }
 
     setNewAnimal(prev => ({
       ...prev,
-      images: [...prev.images, ...filesToAdd]
+      images: [...prev.images, ...uploadedUrls]
     }));
-
     setImagePreviews(prev => [...prev, ...previews]);
   };
+
 
   const removeImagePreview = (indexToRemove) => {
     const urlToRevoke = imagePreviews[indexToRemove];

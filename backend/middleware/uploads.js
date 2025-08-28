@@ -1,21 +1,8 @@
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+// middleware/upload.js
+const { upload } = require("../config/cloudinary");
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const espece = req.body.espece?.toLowerCase();
-        const folder = espece === 'chien' ? 'uploads/Chiens' : 'uploads/Chats';
-
-        fs.mkdirSync(folder, { recursive: true }); // Crée le dossier si pas encore existant
-        cb(null, folder);
-    },
-    filename: (req, file, cb) => {
-        const uniqueName = `${Date.now()}-${file.originalname}`;
-        cb(null, uniqueName);
-    },
-});
-
-const upload = multer({ storage });
+// Middleware prêt à être utilisé dans tes routes
+// Pour un seul fichier : upload.single("image")
+// Pour plusieurs fichiers : upload.array("images", 10)
 
 module.exports = upload;

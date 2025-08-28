@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Page_chiens/AdoptionChiens.css";
+import "../Page_chiens/AdoptionChiens.css"; // tu peux créer un CSS spécifique si besoin
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
 import Loading from "../../../Widgets/Loading/Loading";
@@ -8,10 +8,10 @@ import Quiz from "../../../Widgets/Quiz/Quiz.jsx";
 
 function AdoptionChats() {
   const navigate = useNavigate();
-  const [dogs, setDogs] = useState([]);
+  const [cats, setCats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const dogsPerPage = 12;
+  const animalsPerPage = 12;
 
   const [sexeFilter, setSexeFilter] = useState("");
   const [tailleFilter, setTailleFilter] = useState("");
@@ -20,7 +20,7 @@ function AdoptionChats() {
   const [ententeFilter, setEntenteFilter] = useState("");
 
   useEffect(() => {
-    const fetchDogs = async () => {
+    const fetchCats = async () => {
       setLoading(true);
       try {
         const params = new URLSearchParams();
@@ -37,7 +37,7 @@ function AdoptionChats() {
         const baseUrl = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
         const res = await fetch(`${baseUrl}/api/animaux?${params.toString()}`);
         const data = await res.json();
-        setDogs(data);
+        setCats(data);
         setCurrentPage(1);
       } catch (error) {
         console.error("Erreur :", error);
@@ -46,7 +46,7 @@ function AdoptionChats() {
       }
     };
 
-    fetchDogs();
+    fetchCats();
   }, [
     sexeFilter,
     tailleFilter,
@@ -55,10 +55,10 @@ function AdoptionChats() {
     ententeFilter,
   ]);
 
-  const indexOfLastDog = currentPage * dogsPerPage;
-  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
-  const totalPages = Math.ceil(dogs.length / dogsPerPage);
+  const indexOfLastAnimal = currentPage * animalsPerPage;
+  const indexOfFirstAnimal = indexOfLastAnimal - animalsPerPage;
+  const currentCats = cats.slice(indexOfFirstAnimal, indexOfLastAnimal);
+  const totalPages = Math.ceil(cats.length / animalsPerPage);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -67,14 +67,14 @@ function AdoptionChats() {
     }
   };
 
-  const getAnimalImage = (dog) => {
+  const getAnimalImage = (cat) => {
     const base = process.env.REACT_APP_API_URL.replace(/\/+$/, "");
     let imgPath = "";
 
-    if (dog.images?.length > 0) imgPath = dog.images[0];
-    else if (dog.image) imgPath = dog.image;
-    else if (dog.image2) imgPath = dog.image2;
-    else if (dog.image3) imgPath = dog.image3;
+    if (cat.images?.length > 0) imgPath = cat.images[0];
+    else if (cat.image) imgPath = cat.image;
+    else if (cat.image2) imgPath = cat.image2;
+    else if (cat.image3) imgPath = cat.image3;
 
     return imgPath ? `${base}/${imgPath.replace(/^\/+/, "")}` : null;
   };
@@ -118,28 +118,28 @@ function AdoptionChats() {
               id="adoption-dog-cards-section"
               className="adoption-dog-grid"
             >
-              {currentDogs.map((dog) => {
-                const imageUrl = getAnimalImage(dog);
+              {currentCats.map((cat) => {
+                const imageUrl = getAnimalImage(cat);
                 if (!imageUrl) return null;
 
                 return (
                   <div
-                    key={dog._id}
+                    key={cat._id}
                     className="adoption-card"
                     style={{ backgroundImage: `url(${imageUrl})` }}
                   >
-                    <div className="adoption-card-name">{dog.nom}</div>
-                    {dog.isRescue && (
+                    <div className="adoption-card-name">{cat.nom}</div>
+                    {cat.isRescue && (
                       <div className="rescue-tag">Sauvetage</div>
                     )}
                     <div className="adoption-card-content">
-                      <h2>{dog.nom}</h2>
-                      <p>Âge : {dog.age} ans</p>
-                      <p>Sexe : {dog.sexe}</p>
-                      <p>Race : {dog.race || "Non spécifiée"}</p>
+                      <h2>{cat.nom}</h2>
+                      <p>Âge : {cat.age} ans</p>
+                      <p>Sexe : {cat.sexe}</p>
+                      <p>Race : {cat.race || "Non spécifiée"}</p>
                       <button
                         onClick={() =>
-                          navigate(`/Ficheperso_animal/${dog._id}`)
+                          navigate(`/Ficheperso_animal/${cat._id}`)
                         }
                       >
                         Voir
