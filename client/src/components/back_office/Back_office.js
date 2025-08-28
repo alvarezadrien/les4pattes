@@ -300,7 +300,7 @@ const BackOffice = () => {
     for (let file of files) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "ml_default"); // ton preset Cloudinary
+      formData.append("upload_preset", "ml_default");
 
       try {
         const res = await fetch(
@@ -314,20 +314,21 @@ const BackOffice = () => {
         if (!res.ok) throw new Error("Erreur lors de l'upload Cloudinary");
 
         const data = await res.json();
-        uploadedUrls.push(data.secure_url); // URL finale Cloudinary
+        uploadedUrls.push(data.secure_url);
       } catch (err) {
         console.error("Erreur Cloudinary:", err);
         showFeedback("error", "Erreur lors de l'upload d'une image.");
       }
     }
 
-    // ✅ Ici à la fin de la fonction, et PAS en dehors
+    // ✅ Ces lignes doivent être **à l'intérieur** de la fonction
     setNewAnimal(prev => ({
       ...prev,
       images: [...prev.images, ...uploadedUrls],
     }));
     setImagePreviews(prev => [...prev, ...previews]);
   };
+
 
 
 
