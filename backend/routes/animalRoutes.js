@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Animal = require('../models/Animals');
-const upload = require('../middleware/upload'); // middleware Cloudinary
+const upload = require('../middleware/uploads');
 
 // ✅ POST /api/animaux – Ajouter un animal avec images Cloudinary
 router.post(
