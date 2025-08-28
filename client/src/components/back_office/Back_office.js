@@ -321,12 +321,14 @@ const BackOffice = () => {
       }
     }
 
-    // ✅ Mise à jour du state avec les nouvelles images
+    // ✅ Ici à la fin de la fonction, et PAS en dehors
     setNewAnimal(prev => ({
       ...prev,
       images: [...prev.images, ...uploadedUrls],
     }));
+    setImagePreviews(prev => [...prev, ...previews]);
   };
+
 
 
   // Mise à jour du state
