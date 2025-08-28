@@ -4,7 +4,7 @@ import Pagination from "../../../Widgets/Pagination/Pagination";
 import Filtres from "../../../Widgets/Filtres/Filtre";
 import Loading from "../../../Widgets/Loading/Loading";
 import Quiz from "../../../Widgets/Quiz/Quiz.jsx";
-import "./AdoptionChiens.css"; // On garde le même CSS, il est réutilisable
+import "../Page_chiens/AdoptionChiens.css";
 
 function AdoptionChats() {
   const navigate = useNavigate();
