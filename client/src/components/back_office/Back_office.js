@@ -14,7 +14,6 @@ import {
 // --- Importation des Icônes Material-UI ---
 import PetsIcon from '@mui/icons-material/Pets';
 import GroupIcon from '@mui/icons-material/Group';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
