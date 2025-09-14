@@ -32,7 +32,8 @@
   width: 280px;
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  position: relative;
 }
 
 .carte-produit:hover {
@@ -44,13 +45,6 @@
   height: 300px;
   object-fit: cover;
   border-radius: 10px;
-}
-
-.image-produit img {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-  object-fit: cover;
-  object-position: center;
 }
 
 .nom-produit {
@@ -84,6 +78,32 @@
 
 .btn-ajouter:hover {
   background-color: #5e7033;
+}
+
+/* ✅ état rupture */
+.carte-produit.rupture {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.badge-rupture {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #c0392b;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.quantite-panier {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #5a623b;
+  font-weight: bold;
 }
 
 /* Responsive - max 480px */
@@ -171,11 +191,4 @@
   .carte-produit {
     width: 25%;
   }
-}
-
-.quantite-panier {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #5a623b;
-  font-weight: bold;
 }

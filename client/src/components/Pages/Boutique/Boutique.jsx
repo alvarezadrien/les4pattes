@@ -43,7 +43,7 @@ const Boutique = () => {
     return item ? item.quantite : 0;
   };
 
-  // ✅ filtrage des produits par catégorie multiple (array)
+  // ✅ filtrage par catégorie
   const produitsFiltres = selectedCategorie
     ? produits.filter(
         (p) =>
@@ -88,29 +88,34 @@ const Boutique = () => {
       <div className="produits-grille">
         {currentProduits.map((produit) => {
           const quantite = getQuantiteDansPanier(produit._id);
+          const rupture = produit.stock === 0;
 
           return (
             <div
               key={produit._id}
-              className="carte-produit"
-              onClick={() => navigate(`/Produit/${produit._id}`)}
+              className={`carte-produit ${rupture ? "rupture" : ""}`}
+              onClick={() => !rupture && navigate(`/Produit/${produit._id}`)}
             >
               <img
                 src={`/${produit.image}`}
                 alt={produit.nom}
                 className="image-produit"
               />
+              {rupture && <div className="badge-rupture">Rupture de stock</div>}
               <h2 className="nom-produit">{produit.nom}</h2>
               <p className="description-produit">{produit.description}</p>
-              <p className="prix-produit">{produit.prix}</p>
-              <button
-                className="btn-ajouter"
-                onClick={(e) => handleAddToCart(produit, e)}
-              >
-                Ajouter au panier
-              </button>
+              <p className="prix-produit">{produit.prix} €</p>
 
-              {quantite > 0 && (
+              {!rupture && (
+                <button
+                  className="btn-ajouter"
+                  onClick={(e) => handleAddToCart(produit, e)}
+                >
+                  Ajouter au panier
+                </button>
+              )}
+
+              {quantite > 0 && !rupture && (
                 <div className="quantite-panier">
                   🛒 {quantite} ajouté{quantite > 1 ? "s" : ""}
                 </div>

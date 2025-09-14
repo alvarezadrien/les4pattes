@@ -26,9 +26,6 @@ api.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             console.warn('Erreur 401 : accès non autorisé');
-            // Optionnel : déconnecter ou rediriger
-            // localStorage.removeItem('token');
-            // window.location.href = '/connexion';
         }
         return Promise.reject(error);
     }
