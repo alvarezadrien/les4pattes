@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
     }
 };
 
-// ✅ Nouvelle route : mise à jour du résultat du quiz
+// Nouvelle route : mise à jour du résultat du quiz
 exports.updateQuizResult = async (req, res) => {
     try {
         const userId = req.user.id; // récupéré depuis le middleware d'authentification

@@ -30,6 +30,7 @@
   padding: 1rem 2rem;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 280px;
+  z-index: 1;
 }
 
 .fermer-filtre {
